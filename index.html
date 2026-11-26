@@ -2576,6 +2576,7 @@ function togglePid(pid){ openPid = (openPid === pid) ? null : pid; renderPpl(); 
 
 function renderBudget(){
   var t = totals();
+  var lt = localTotals();
   var usePct = t.total / state.budget * 100;
   var left = state.budget - t.total;
 
