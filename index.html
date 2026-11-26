@@ -330,6 +330,23 @@
   .bhero .big small{font-size:13px;font-weight:650;color:var(--dim);margin-left:3px}
   .bhero .bsub{font-size:10.5px;color:var(--dim);margin-top:3px}
   .bhero .bsub b{font-weight:700;color:var(--ink)}
+  /* 현지 지출(환전·트래블월렛) 블록 */
+  .bhero .lbox{margin-top:9px;border:1px solid #BFD8D4;background:linear-gradient(150deg,#EAF6F4 0%,#F4FBFA 100%);border-radius:13px;padding:9px 11px}
+  .bhero .lhead{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .bhero .lhead b{font-size:10.5px;font-weight:750;color:#1F5E55;letter-spacing:-.01em}
+  .bhero .lhead .ltag{font-size:8.5px;font-weight:650;color:#3D7F75;background:#fff;border:1px solid #BFD8D4;border-radius:999px;padding:1px 6px}
+  .bhero .lmain{display:flex;align-items:baseline;gap:6px;margin-top:3px;flex-wrap:wrap}
+  .bhero .lmain .lyen{font-size:19px;font-weight:800;color:#14504A;letter-spacing:-.03em;font-family:"IBM Plex Mono",monospace}
+  .bhero .lmain .lkrw{font-size:11px;font-weight:700;color:#2F7C71}
+  .bhero .lmine{font-size:10px;color:#3D7F75;margin-top:3px}
+  .bhero .lmine b{font-weight:750;color:#14504A;font-family:"IBM Plex Mono",monospace}
+  .bhero .lnote{font-size:8.5px;color:#6E9C94;margin-top:3px}
+  .pcard .ploc{font-style:normal;color:#2F7C71;font-weight:750;font-family:"IBM Plex Mono",monospace}
+  .btrow.loc span{color:#2F7C71;font-weight:650}
+  .btrow.loc b{color:#14504A}
+  .crow2 .sub2 .ppchip{display:inline-block;font-size:8px;font-weight:700;color:#2F7C71;background:#E8F5F2;border:1px solid #BFD8D4;border-radius:5px;padding:0 4px;margin-right:2px;vertical-align:1px}
+  .pcheck{display:flex;align-items:center;gap:7px;margin:2px 0 4px;font-size:11.5px;color:var(--dim);font-weight:600}
+  .pcheck input{width:15px;height:15px;accent-color:#2F7C71}
   .crow2 .amt .mine{display:block;font-size:9px;color:var(--dim);font-weight:600;font-family:inherit}
   .crow2 .amt .mine.out{color:#BCB2A3;font-weight:500}
   .fblock{margin-bottom:8px}
@@ -993,6 +1010,7 @@
         <div class="whoRow" id="cWho"></div>
       </div>
       <div class="frow"><label>메모</label><input class="inp" id="cMemo" placeholder="선택 입력"></div>
+      <label class="pcheck"><input type="checkbox" id="cPrepaid"><span>사전결제 완료 — 현지 지출에서 빼기</span></label>
       <div class="sact">
         <button id="cCancel">취소</button>
         <button class="pri" id="cSave">저장</button>
@@ -1263,22 +1281,23 @@ var CATS = {
 };
 
 var DEFAULT_COSTS = [
-  { id:'c1', name:'숙소 · Hotel Links Namba', amt:47976, cur:'JPY', split:4, cat:'stay', memo:'4실 2박 · 예약 1801920651', ic:'🏨' },
-  { id:'c2', name:'렌터카 · 도요타 프리우스 (Travel CAR RENT)', amt:75859, cur:'KRW', split:4, cat:'transport', memo:'강혜랑 님 예약 · 사전결제 완료 · 4인 분담', ic:'🚗' },
-  { id:'c3', name:'코인파킹 (2일)', amt:2800, cur:'JPY', split:4, cat:'transport', memo:'24h 최대 ¥1,400', ic:'🅿️' },
-  { id:'c4', name:'주유 · 고속도로 (예상)', amt:5000, cur:'JPY', split:4, cat:'transport', memo:'오사카·교토 왕복', ic:'⛽' },
-  { id:'c5', name:'산토리 교토 맥주공장 투어 (4명)', amt:4000, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,000 × 4명 · 카드 사전결제 완료', ic:'🍺' },
-  { id:'c6', name:'하루카스 300 (4명)', amt:7200, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,800', ic:'🌃' },
-  { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인)', amt:139005, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥46,335 (펜 ¥45,000 + 착불 ¥1,335)', ic:'💉' },
-  { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은)', amt:25335, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 + 착불 ¥1,335', ic:'💉' },
-  { id:'f1', name:'1일차 저녁 · 스시 토후지', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세', ic:'🍣', v9:true },
-  { id:'f2', name:'1일차 2차 · 히토메보레', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 枡造り 3종 ¥1,089·카이센즈시 ¥638, 자릿세 ¥418 별도', ic:'🍶', v9:true },
-  { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜', v9:true },
-  { id:'f4', name:'2일차 저녁 · 와규 규동 마에다', amt:13600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,400 × 4 · A5 흑모와규 규동 150g 기준(100g ¥2,400)', ic:'🥩', v9:true },
-  { id:'f5', name:'2일차 2차 · 대중술장 만마', amt:10000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,500 × 4 · 오뎅 5종 ¥748·쿠시카츠 5본 ¥748·생맥주 ¥329', ic:'🍢', v9:true },
-  { id:'f6', name:'3일차 조식·간식 (예상)', amt:3600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥900 × 4 · 편의점 오니기리 ¥170~220·샌드위치·커피 + 공항 커피', ic:'🥐', v9:true },
-  { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶' },
-  { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 13:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️' },
+  { id:'c1', name:'숙소 · Hotel Links Namba', amt:47976, cur:'JPY', split:4, cat:'stay', memo:'4실 2박 · 예약 1801920651 · 카드 결제 완료', ic:'🏨', prepaid:true },
+  { id:'c2', name:'렌터카 · 도요타 프리우스 (Travel CAR RENT)', amt:75859, cur:'KRW', split:4, cat:'transport', memo:'강혜랑 님 예약 · 사전결제 완료 · 4인 분담', ic:'🚗', prepaid:true },
+  { id:'c3', name:'코인파킹 (2일)', amt:2800, cur:'JPY', split:4, cat:'transport', memo:'24h 최대 ¥1,400 · 현지 결제', ic:'🅿️' },
+  { id:'c4', name:'주유 · 고속도로 (예상)', amt:5000, cur:'JPY', split:4, cat:'transport', memo:'오사카·교토 왕복 · 현지 결제', ic:'⛽' },
+  { id:'c5', name:'산토리 교토 맥주공장 투어 (4명)', amt:4000, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,000 × 4명 · 카드 사전결제 완료', ic:'🍺', prepaid:true },
+  { id:'c6', name:'하루카스 300 (4명)', amt:7200, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,800 · 현지 결제', ic:'🌃' },
+  { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인) 약값', amt:135000, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥45,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
+  { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은) 약값', amt:24000, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
+  { id:'c7s', name:'마운자로 착불 배송비 (4명)', amt:5340, cur:'JPY', split:4, cat:'medical', memo:'1인 ¥1,335 × 4박스 · 수령 시 현지 결제(착불)', ic:'📦' },
+  { id:'f1', name:'1일차 저녁 · 스시 토후지', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세', ic:'🍣' },
+  { id:'f2', name:'1일차 2차 · 히토메보레', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 枡造り 3종 ¥1,089·카이센즈시 ¥638, 자릿세 ¥418 별도', ic:'🍶' },
+  { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜' },
+  { id:'f4', name:'2일차 저녁 · 와규 규동 마에다', amt:13600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,400 × 4 · A5 흑모와규 규동 150g 기준(100g ¥2,400)', ic:'🥩' },
+  { id:'f5', name:'2일차 2차 · 대중술장 만마', amt:10000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,500 × 4 · 오뎅 5종 ¥748·쿠시카츠 5본 ¥748·생맥주 ¥329', ic:'🍢' },
+  { id:'f6', name:'3일차 조식·간식 (예상)', amt:3600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥900 × 4 · 편의점 오니기리 ¥170~220·샌드위치·커피 + 공항 커피', ic:'🥐' },
+  { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶', prepaid:true },
+  { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 13:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️', prepaid:true },
 ];
 
 /* ---------------- state ---------------- */
@@ -1427,7 +1446,7 @@ function fxBoot(){
   else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
   fxFetch(false);
 }
-var COST_VER = 9; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
+var COST_VER = 10; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v10: 선결제/현지 지출 구분, 마운자로 약값·착불 배송비 분리) */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -1479,7 +1498,9 @@ function load(){
         if(ex){
           ex.name = d.name; ex.amt = d.amt; ex.cur = d.cur; ex.split = d.split;
           ex.who = d.who ? d.who.slice() : null;
-          ex.memo = d.memo; ex.ic = d.ic; ex.cat = d.cat;
+          ex.memo = d.memo; ex.ic = d.ic; ex.cat = d.cat; ex.prepaid = !!d.prepaid;
+        } else if(d.id === 'c7s' && out.costs.some(function(c){ return c.id === 'c7' || c.id === 'c7b'; })){
+          out.costs.push(Object.assign({}, d)); /* v10: 마운자로 약값과 분리한 착불 배송비(현지 결제) */
         } else if(d.id === 'c7b' && out.costs.some(function(c){ return c.id === 'c7'; })){
           out.costs.push(Object.assign({}, d)); /* 기존 마운자로 항목이 남아 있을 때만 새 2.5mg 항목을 추가 */
         } else if(d.id === 'c9' && !out.costs.some(function(c){ return c.id === 'c9'; })){
@@ -2412,6 +2433,35 @@ function myTotals(pid){
   });
   return { jpy:jpy, krw:krw, total: jpy * state.rate / 100 + krw };
 }
+/* --- 현지 지출(환전·트래블월렛 필요액) — 사전결제(prepaid) 항목은 뺀다 --- */
+function isPrepaid(c){ return !!c.prepaid; }
+function localTotals(){
+  var jpy = 0, krw = 0;
+  state.costs.forEach(function(c){
+    if(isPrepaid(c)) return;
+    if(c.cur === 'JPY') jpy += c.amt; else krw += c.amt;
+  });
+  return { jpy:jpy, krw:krw, total: jpy * state.rate / 100 + krw };
+}
+function myLocal(pid){
+  var jpy = 0, krw = 0;
+  state.costs.forEach(function(c){
+    if(isPrepaid(c)) return;
+    var f = shareFrac(c, pid);
+    if(!f) return;
+    if(c.cur === 'JPY') jpy += c.amt * f; else krw += c.amt * f;
+  });
+  return { jpy:jpy, krw:krw, total: jpy * state.rate / 100 + krw };
+}
+function localBoxHTML(){
+  var lt = localTotals(), ml = myLocal(state.profile);
+  return '<div class="lbox" id="localBox">' +
+    '<div class="lhead"><b>🇯🇵 현지 지출 (환전·트래블월렛 필요)</b><span class="ltag">사전결제 제외</span></div>' +
+    '<div class="lmain"><span class="lyen" id="localYen">¥' + num(Math.round(lt.jpy)) + '</span><span class="lkrw" id="localKrw">' + won(lt.total) + '</span></div>' +
+    '<div class="lmine" id="localMine">' + esc(member(state.profile).name) + ' 몫 <b>¥' + num(Math.round(ml.jpy)) + '</b> · <b>' + won(ml.total) + '</b></div>' +
+    '<div class="lnote">사전결제·12/3 온라인 결제 제외 · 현지 결제 기준 (위스키·면세 쇼핑 별도)</div>' +
+  '</div>';
+}
 function whoLabel(c){
   if(c.who && c.who.length && c.who.length < MEMBERS.length){
     return c.who.length + '인 분담 · ' + c.who.map(function(id){ var m = member(id); return m ? m.initial : ''; }).join('·');
@@ -2499,13 +2549,14 @@ function renderPpl(){
   var el = $('#ppl'); if(!el) return;
   el.innerHTML = MEMBERS.map(function(m){
     var pb = perBudget(m.id), mine = myTotals(m.id).total;
+    var loc = myLocal(m.id);
     var use = pb ? (mine / pb * 100) : 0;
     var left = pb - mine;
     var open = (openPid === m.id);
     return '<div class="pcard' + (open ? ' open' : '') + '" style="--mc:' + m.color + '">' +
       '<div class="phead2" data-pbopen="' + m.id + '" role="button" tabindex="0" aria-expanded="' + (open ? 'true' : 'false') + '">' +
         '<span class="pav" style="background:' + m.color + '">' + m.initial + '</span>' +
-        '<span class="pnm"><b>' + esc(m.name) + '</b><span>배분 예산 ' + num(pb) + '원' + (m.role ? ' · ' + esc(m.role) : '') + '</span></span>' +
+        '<span class="pnm"><b>' + esc(m.name) + '</b><span>배분 예산 ' + num(pb) + '원' + (m.role ? ' · ' + esc(m.role) : '') + ' · <i class="ploc">현지 ¥' + num(Math.round(loc.jpy)) + '</i></span></span>' +
         '<span class="pamt"><b>' + num(mine) + '</b><span>' + (left >= 0 ? '남음 ' + num(left) : '초과 ' + num(-left)) + '원 · ' +
           '<i class="pct' + (use > 100 ? ' over' : '') + '">' + use.toFixed(0) + '%</i></span></span>' +
         '<span class="pchev">▾</span>' +
@@ -2534,6 +2585,7 @@ function renderBudget(){
       fxLineHTML() +
       '<div class="big">' + num(t.total) + '<small>원</small></div>' +
       '<div class="bsub">1인 평균 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw) + '</div>' +
+      localBoxHTML() +
       '<div class="bgauge">' +
         '<div class="grow"><span class="gin">예산 <input id="budgetIn" type="number" step="10000" min="0" value="' + state.budget + '"> 원</span>' +
         '<span>' + usePct.toFixed(1) + '% 사용 · ' + (left >= 0 ? num(left) + '원 남음' : num(-left) + '원 초과') + '</span></div>' +
@@ -2545,6 +2597,7 @@ function renderBudget(){
     '<div class="btable">' +
       '<div class="btrow"><span>전체 예산</span><b id="tbBudget">' + num(state.budget) + '원</b></div>' +
       '<div class="btrow"><span>예상 지출 총액</span><b id="tbTotal">' + num(t.total) + '원</b></div>' +
+      '<div class="btrow loc"><span>└ 현지 지출 (환전·트래블월렛)</span><b id="tbLocal">' + num(lt.total) + '원</b></div>' +
       '<div class="btrow hi' + (left < 0 ? ' over' : '') + '"><span id="tbLeftLab">' + (left >= 0 ? '남은 예산' : '초과 금액') + '</span><b id="tbLeft">' + num(Math.abs(left)) + '원</b></div>' +
       '<div class="btrow soft"><span>1인 배분 예산 (전체 ÷ 4)</span><b id="tbPer">' + num(Math.round(state.budget / MEMBERS.length)) + '원</b></div>' +
       '<div class="btrow soft"><span>1인 평균 예상 부담</span><b id="tbAvg">' + num(t.per) + '원</b></div>' +
@@ -2564,7 +2617,7 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 히토메보레 ¥11,200 · 이치란 ¥6,400 · 마에다 ¥13,600 · 만마 ¥10,000 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥62,800</b>(1인 ¥15,700, 예전 일괄 ¥72,000에서 −¥9,200). 2일차 점심은 10시 이치란 아점이 함께 덮고, 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>원화 환산은 앱을 열 때 받은 그날의 기준환율을 씁니다 — 위 배지의 숫자를 고치면 직접 입력, <b>↻</b>로 다시 받거나 <b>자동</b>을 누르면 자동 반영으로 돌아가요.</p>';
+    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 히토메보레 ¥11,200 · 이치란 ¥6,400 · 마에다 ¥13,600 · 만마 ¥10,000 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥62,800</b>(1인 ¥15,700, 예전 일괄 ¥72,000에서 −¥9,200). 2일차 점심은 10시 이치란 아점이 함께 덮고, 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>원화 환산은 앱을 열 때 받은 그날의 기준환율을 씁니다 — 위 배지의 숫자를 고치면 직접 입력, <b>↻</b>로 다시 받거나 <b>자동</b>을 누르면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
 
   renderPpl();
 
@@ -2614,6 +2667,10 @@ function paintBudget(){
   var t = totals();
   var usePct = t.total / state.budget * 100;
   var left = state.budget - t.total;
+  var lt = localTotals(), ml = myLocal(state.profile);
+  var ly = $('#localYen'); if(ly) ly.textContent = '¥' + num(Math.round(lt.jpy));
+  var lk = $('#localKrw'); if(lk) lk.textContent = won(lt.total);
+  var lm = $('#localMine'); if(lm) lm.innerHTML = esc(member(state.profile).name) + ' 몫 <b>¥' + num(Math.round(ml.jpy)) + '</b> · <b>' + won(ml.total) + '</b>';
   var big = $('.bhero .big');
   if(big) big.innerHTML = num(t.total) + '<small>원</small>';
   var bs = $('.bhero .bsub');
@@ -2624,6 +2681,7 @@ function paintBudget(){
   if(bar){ bar.style.width = Math.min(100, usePct).toFixed(1) + '%'; bar.className = usePct > 100 ? 'over' : ''; }
   var tbB = $('#tbBudget'); if(tbB) tbB.textContent = num(state.budget) + '원';
   var tbT = $('#tbTotal'); if(tbT) tbT.textContent = num(t.total) + '원';
+  var tbLc = $('#tbLocal'); if(tbLc) tbLc.textContent = num(lt.total) + '원';
   var tbL = $('#tbLeft'); if(tbL) tbL.textContent = num(Math.abs(left)) + '원';
   var tbLL = $('#tbLeftLab'); if(tbLL) tbLL.textContent = left >= 0 ? '남은 예산' : '초과 금액';
   var leftRow = $('#tbLeft') && $('#tbLeft').closest('.btrow');
@@ -2656,7 +2714,7 @@ function costRow(c){
   return '<div class="crow2" data-edit="' + c.id + '">' +
     '<div class="ic">' + (c.ic || cat.ic) + '</div>' +
     '<div style="min-width:0;flex:1"><div class="nm">' + esc(c.name) + '</div>' +
-    '<div class="sub2">' + orig + ' · ' + cat.n + ' · ' + whoLabel(c) + (c.memo?' · '+esc(c.memo):'') + '</div></div>' +
+    '<div class="sub2">' + (c.prepaid ? '<span class="ppchip">선결제</span>' : '') + orig + ' · ' + cat.n + ' · ' + whoLabel(c) + (c.memo?' · '+esc(c.memo):'') + '</div></div>' +
     '<div class="amt"><b>' + num(k) + '원</b><span class="mine' + (sh > 0 ? '' : ' out') + '">내 몫 ' + num(sh) + '원</span></div>' +
     '<button class="del" data-del="' + c.id + '" aria-label="삭제">×</button></div>';
 }
@@ -2673,6 +2731,7 @@ function openSheet(id){
     return '<label style="--mc:' + m.color + '"><input type="checkbox" value="' + m.id + '"' + (who.indexOf(m.id) >= 0 ? ' checked' : '') + '><span>' + esc(m.name) + '</span></label>';
   }).join('');
   $('#cMemo').value = c ? (c.memo || '') : '';
+  $('#cPrepaid').checked = !!(c && c.prepaid);
   $('#sheet').classList.add('on');
 }
 function closeSheet(){ $('#sheet').classList.remove('on'); editingId = null; }
@@ -2685,14 +2744,14 @@ $('#cSave').addEventListener('click', function(){
   if(!(amt >= 0)){ toast('금액을 입력해 주세요'); return; }
   var cur = $('#cCur').value,
       who = $$('#cWho input').filter(function(i){ return i.checked; }).map(function(i){ return i.value; }),
-      memo = $('#cMemo').value.trim(), cat = $('#cCat').value;
+      memo = $('#cMemo').value.trim(), cat = $('#cCat').value, prepaid = $('#cPrepaid').checked;
   if(!who.length){ toast('분담할 사람을 한 명 이상 골라주세요'); return; }
   var split = who.length, whoArr = (split >= MEMBERS.length) ? null : who;
   if(editingId){
     var c = state.costs.filter(function(x){ return x.id === editingId; })[0];
-    if(c){ c.name=name; c.amt=amt; c.cur=cur; c.split=split; c.who=whoArr; c.memo=memo; c.cat=cat; }
+    if(c){ c.name=name; c.amt=amt; c.cur=cur; c.split=split; c.who=whoArr; c.memo=memo; c.cat=cat; c.prepaid=prepaid; }
   } else {
-    state.costs.push({ id:'c'+Date.now(), name:name, amt:amt, cur:cur, split:split, who:whoArr, memo:memo, cat:cat, ic:CATS[cat].ic });
+    state.costs.push({ id:'c'+Date.now(), name:name, amt:amt, cur:cur, split:split, who:whoArr, memo:memo, cat:cat, ic:CATS[cat].ic, prepaid:prepaid });
   }
   save(); closeSheet(); renderBudget(); toast('저장했어요');
 });
