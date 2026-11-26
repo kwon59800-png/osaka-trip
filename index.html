@@ -430,10 +430,89 @@
   .mmemo{width:100%;margin-top:10px;border:1px solid var(--line2);background:#FCF8F0;border-radius:11px;padding:10px;font-family:inherit;font-size:12px;line-height:1.55;min-height:64px;resize:vertical;color:var(--ink)}
   .mmemo:focus{outline:none;border-color:var(--coral);background:#fff}
 
+  /* ================= QR WALLET ================= */
+  .qr-wrap{display:flex;align-items:center;gap:7px}
+  .qr-wrap .profiles{flex:1;min-width:0}
+  .qrbtn{
+    flex:0 0 auto;display:flex;align-items:center;gap:5px;border-radius:999px;
+    border:1px solid var(--line2);background:rgba(255,253,249,.94);color:var(--ink);
+    font-size:11px;font-weight:750;letter-spacing:-.02em;padding:5px 11px 5px 9px;box-shadow:var(--sh);
+  }
+  .qrbtn .qic{font-size:13px;line-height:1}
+  .qrbtn.has{background:#FBEBE7;border-color:#F3D7D0;color:#A65A50}
+  .pf .qdot{width:5px;height:5px;border-radius:50%;background:var(--matcha);flex:none;margin-left:-1px;box-shadow:0 0 0 2px #fff}
+
+  .qrsheet{position:fixed;inset:0;z-index:86;display:none;background:rgba(35,31,32,.42);backdrop-filter:blur(3px)}
+  .qrsheet.on{display:flex;align-items:flex-end;justify-content:center;animation:fade .18s ease}
+  .qrbox{
+    width:100%;max-width:470px;background:var(--paper);border-radius:22px 22px 0 0;border-top:1px solid var(--line);
+    padding:8px 16px calc(16px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto;
+    box-shadow:0 -20px 50px rgba(35,31,32,.18);animation:up .24s cubic-bezier(.2,.8,.3,1);
+  }
+  @media(min-width:640px){.qrsheet.on{align-items:center}.qrbox{border-radius:22px;border:1px solid var(--line);max-height:88vh}}
+  .qrhd{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+  .qrhd .av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff;flex:none}
+  .qrhd .t{flex:1;min-width:0}
+  .qrhd .sday{font-size:9.5px;color:var(--dim2);font-weight:700;letter-spacing:.04em}
+  .qrhd h3{margin:1px 0 0;font-size:16px;letter-spacing:-.03em;line-height:1.25}
+  .qrhd .x{border:1px solid var(--line);background:var(--card2);width:28px;height:28px;border-radius:50%;font-size:13px;color:var(--dim);flex:none;line-height:1}
+
+  .qslot{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:10px 11px;margin-top:9px;box-shadow:var(--sh)}
+  .qslot .qh{display:flex;align-items:center;gap:8px}
+  .qslot .qi{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:var(--card2);border:1px solid var(--line);flex:none}
+  .qslot .qtt{flex:1;min-width:0}
+  .qslot .qtt b{display:block;font-size:12.5px;letter-spacing:-.02em;line-height:1.25}
+  .qslot .qtt span{display:block;font-size:9.5px;color:var(--dim2);margin-top:2px;font-family:"IBM Plex Mono",monospace}
+  .qpill{flex:none;font-size:9px;font-weight:800;padding:3px 7px;border-radius:999px;border:1px solid var(--line2);background:var(--card2);color:var(--dim2);letter-spacing:-.01em;white-space:nowrap}
+  .qpill.has{color:#2F6647;background:#EAF2E9;border-color:#CFE2D2}
+  .qempty{display:block;width:100%;margin-top:9px;border:1.5px dashed var(--line2);background:#FCF8F0;border-radius:12px;padding:15px 10px;text-align:center;color:var(--dim)}
+  .qempty b{display:block;font-size:12.5px;color:var(--ink);letter-spacing:-.02em}
+  .qempty span{display:block;font-size:10px;color:var(--dim2);margin-top:3px;line-height:1.45}
+  .qthumb{display:flex;gap:10px;align-items:center;margin-top:9px}
+  .qthumb .im{flex:none;width:86px;height:86px;border-radius:11px;border:1px solid var(--line2);background:#fff;object-fit:contain;padding:3px;cursor:zoom-in}
+  .qside{flex:1;min-width:0}
+  .qmeta{font-size:9.5px;color:var(--dim2);font-family:"IBM Plex Mono",monospace;line-height:1.5}
+  .qacts{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+  .qacts button{border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:9px;padding:7px 9px;font-size:11px;font-weight:650;letter-spacing:-.02em}
+  .qacts button.pri{background:var(--coral);border-color:var(--coral);color:#fff}
+  .qacts button.del{color:#A6534B;border-color:#EFD6D1;background:#FDF4F2}
+  .qseg{display:flex;gap:3px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px;margin-top:9px}
+  .qseg button{flex:1;border:0;background:none;font-size:10.5px;font-weight:700;color:var(--dim);padding:5px 3px;border-radius:999px;letter-spacing:-.02em;white-space:nowrap}
+  .qseg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+  .qnote{font-size:10px;color:var(--dim2);line-height:1.55;margin:11px 2px 0}
+  .qnote b{color:var(--dim);font-weight:650}
+
+  .qview{position:fixed;inset:0;z-index:96;display:none;background:#0D0C0B;flex-direction:column}
+  .qview.on{display:flex;animation:fade .15s ease}
+  .qvbar{flex:none;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;color:#F3EDE5}
+  .qvbar .t{flex:1;min-width:0}
+  .qvbar .t b{display:block;font-size:13px;letter-spacing:-.02em}
+  .qvbar .t span{display:block;font-size:9.5px;color:#9C9285;margin-top:1px}
+  .qvbar .x{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-size:14px;line-height:1}
+  .qvstage{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;padding:6px 12px}
+  .qvpaper{background:#fff;padding:12px;border-radius:10px;display:block;line-height:0;box-shadow:0 10px 40px rgba(0,0,0,.5);margin:auto}
+  .qvpaper img{display:block;height:auto}
+  .qview.boost .qvpaper img{filter:brightness(1.42) contrast(1.12) saturate(.92)}
+  .qvhint{flex:none;text-align:center;font-size:9.5px;color:#8C857B;padding:0 16px 5px;line-height:1.5}
+  .qvtools{flex:none;display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px calc(env(safe-area-inset-bottom) + 12px);flex-wrap:wrap}
+  .qvtools button{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#F3EDE5;border-radius:999px;padding:7px 12px;font-size:11.5px;font-weight:650;letter-spacing:-.02em}
+  .qvtools button.on{background:#F3EDE5;color:#231F20;border-color:#F3EDE5}
+
+  /* prep-tab QR card */
+  .qcard{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:10px 11px;box-shadow:var(--sh)}
+  .qrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid var(--line);background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left}
+  .qrow:first-child{border-top:0;padding-top:2px}
+  .qrow .qi{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:var(--card2);border:1px solid var(--line);flex:none}
+  .qrow .qtt{flex:1;min-width:0}
+  .qrow .qtt b{display:block;font-size:12.5px;letter-spacing:-.02em;line-height:1.25}
+  .qrow .qtt span{display:block;font-size:9.5px;color:var(--dim2);margin-top:2px}
+  .qrow .go2{font-size:10px;color:var(--dim2);font-weight:700;flex:none}
+
   /* ================= DESKTOP ================= */
   @media (max-width:430px){
     .pf .role{display:none}
     .pf{padding:4px 9px 4px 4px;font-size:11px}
+    .qrbtn{font-size:10.5px;padding:5px 9px 5px 8px;gap:4px}
     .hero-art:after{background:linear-gradient(180deg,rgba(250,246,239,.9) 0%,rgba(250,246,239,.62) 46%,rgba(250,246,239,.18) 100%)}
   }
   @media (max-width:959px){
@@ -620,7 +699,10 @@
     </div>
     <div class="dday"><b id="dnum">D-12</b><span id="dsub">출국까지</span></div>
     <div class="hero-bottom">
-      <div class="profiles" id="profiles"></div>
+      <div class="qr-wrap">
+        <div class="profiles" id="profiles"></div>
+        <button class="qrbtn" id="qrOpen" aria-label="내 QR 월렛 열기"><span class="qic">📲</span>내 QR</button>
+      </div>
     </div>
   </header>
 
@@ -708,6 +790,27 @@
         <button id="spCopy">📋 주소 복사</button>
         <button id="spShow">📍 지도에서 보기</button>
       </div>
+    </div>
+  </div>
+
+  <!-- QR wallet sheet -->
+  <div class="qrsheet" id="qrSheet">
+    <div class="qrbox" id="qrBox"></div>
+  </div>
+
+  <!-- fullscreen QR viewer -->
+  <div class="qview boost" id="qrView">
+    <div class="qvbar">
+      <div class="t"><b id="qvTitle">QR</b><span id="qvSub">밝기를 최대로 올려 스캐너에 비춰 주세요</span></div>
+      <button class="x" id="qvClose" aria-label="닫기">✕</button>
+    </div>
+    <div class="qvstage" id="qvStage"><div class="qvpaper"><img id="qvImg" alt="QR 코드"></div></div>
+    <div class="qvhint">화면이 꺼지지 않도록 잠금 상태를 유지해요 · 폰 밝기는 직접 최대로 올려 주세요</div>
+    <div class="qvtools">
+      <button id="qvOut" aria-label="작게">−</button>
+      <button id="qvIn" aria-label="크게">＋</button>
+      <button id="qvBoost" class="on">밝기 강조 ON</button>
+      <button id="qvReset">화면 맞춤</button>
     </div>
   </div>
 
@@ -1070,10 +1173,13 @@ function isWide(){ return window.matchMedia('(min-width:960px)').matches; }
 /* ---------------- hero ---------------- */
 function renderProfiles(){
   $('#profiles').innerHTML = MEMBERS.map(function(m){
+    var dot = qrHasAny(m.id) ? '<span class="qdot" aria-label="QR 저장됨"></span>' : '';
     return '<button class="pf ' + (m.id===state.profile?'on':'') + '" data-pf="' + m.id + '" style="--mc:' + m.color + '">' +
-      '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' + m.name +
+      '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' + m.name + dot +
       '<span class="role">' + m.role + '</span></button>';
   }).join('');
+  var qb = $('#qrOpen');
+  if(qb) qb.classList.toggle('has', qrHasAny(state.profile));
 }
 function renderDday(){
   var start = new Date('2026-12-08T16:30:00+09:00');
@@ -1096,6 +1202,221 @@ function renderDday(){
     dsub.textContent = '다녀왔어요';
     dnum.style.color = 'var(--dim2)';
   }
+}
+
+/* ============================================================
+   QR 월렛 — 프로필별 개인 QR (이 기기 localStorage 전용)
+   키 규칙: osaka_qr_{profileId}_{slot}  (slot: vjw | flight_bx617 | flight_bx608)
+   ============================================================ */
+var QR_FLIGHT_KEY = 'osaka_qr_flight';
+var qrFlight = (function(){
+  try{ var v = localStorage.getItem(QR_FLIGHT_KEY); if(v === 'bx617' || v === 'bx608') return v; }catch(e){}
+  return new Date() < new Date('2026-12-09T12:00:00+09:00') ? 'bx617' : 'bx608';
+})();
+var qrOpenSlot = null, qrZoom = 1, qrBaseW = 0, qrLock = null, qrTarget = null;
+
+function qrKey(pid, slot){ return 'osaka_qr_' + pid + '_' + slot; }
+function qrGet(pid, slot){ try{ return localStorage.getItem(qrKey(pid, slot)) || ''; }catch(e){ return ''; } }
+function qrDel(pid, slot){ try{ localStorage.removeItem(qrKey(pid, slot)); return true; }catch(e){ return false; } }
+function qrHasAny(pid){ return !!(qrGet(pid,'vjw') || qrGet(pid,'flight_bx617') || qrGet(pid,'flight_bx608')); }
+function qrKB(url){ return Math.max(1, Math.round((url.length - url.indexOf(',') - 1) * 3 / 4 / 1024)); }
+function qrSlotKey(){ return 'flight_' + qrFlight; }
+function qrFlightName(){ return qrFlight === 'bx617' ? 'BX617 · 김해→간사이 12/8' : 'BX608 · 간사이→김해 12/10'; }
+function qrSlotLabel(slot){
+  if(slot === 'vjw') return '입국심사·세관 QR';
+  return '탑승권 QR · ' + (slot.indexOf('bx608') >= 0 ? 'BX608' : 'BX617');
+}
+
+function qrSlotHtml(pid, slot, ic, title, sub, extra){
+  var data = qrGet(pid, slot);
+  var body;
+  if(data){
+    body = '<div class="qthumb">' +
+      '<img class="im" src="' + data + '" alt="' + esc(title) + '" data-qract="view" data-slot="' + slot + '">' +
+      '<div class="qside">' +
+        '<div class="qmeta">저장됨 · 약 ' + qrKB(data) + 'KB<br>이 기기에만 보관</div>' +
+        '<div class="qacts">' +
+          '<button class="pri" data-qract="view" data-slot="' + slot + '">🔍 크게</button>' +
+          '<button data-qract="pick" data-slot="' + slot + '">교체</button>' +
+          '<button class="del" data-qract="del" data-slot="' + slot + '">삭제</button>' +
+        '</div>' +
+      '</div></div>';
+  } else {
+    body = '<button class="qempty" data-qract="pick" data-slot="' + slot + '">' +
+      '<b>＋ QR 이미지 올리기</b><span>스크린샷·사진 선택 · 최대 900px로 자동 축소</span></button>';
+  }
+  return '<div class="qslot" id="qslot-' + slot + '">' +
+    '<div class="qh"><span class="qi">' + ic + '</span>' +
+      '<div class="qtt"><b>' + title + '</b><span>' + sub + '</span></div>' +
+      '<span class="qpill ' + (data?'has':'') + '">' + (data?'저장됐':'비었음') + '</span>' +
+    '</div>' + (extra || '') + body + '</div>';
+}
+
+function renderQR(){
+  var pid = state.profile, m = member(pid) || MEMBERS[0];
+  var total = (qrGet(pid,'vjw')?1:0) + (qrGet(pid,'flight_bx617')?1:0) + (qrGet(pid,'flight_bx608')?1:0);
+  var seg = '<div class="qseg">' +
+    '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8</button>' +
+    '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10</button>' +
+  '</div>';
+  $('#qrBox').innerHTML = '' +
+    '<div class="grab"></div>' +
+    '<div class="qrhd">' +
+      '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' +
+      '<div class="t"><div class="sday">QR 월렛 · 이 기기에만 저장</div><h3>' + esc(m.name) + ' 님의 QR</h3></div>' +
+      '<button class="x" data-qract="close" aria-label="닫기">✕</button>' +
+    '</div>' +
+    qrSlotHtml(pid, 'vjw', '🛂', '일본 입국심사·세관', 'VISIT JAPAN WEB · 입국·세관', '') +
+    qrSlotHtml(pid, qrSlotKey(), '✈️', '항공 모바일 탑승권', qrFlightName(), seg) +
+    '<p class="qnote"><b>공개되지 않아요.</b> QR 이미지는 이 브라우저(localStorage)에만 저장됩니다. 같은 링크를 연 다른 사람 폰에는 보이지 않고 공개 GitHub 페이지에도 올라가지 않아요 — <b>' + esc(m.name) + '</b> 님이 이 기기에서 올린 QR만 나옵니다. (저장 ' + total + '개)</p>' +
+    '<div class="sact"><button class="pri" data-qract="close">닫기</button></div>';
+}
+
+function openQR(slot){
+  qrOpenSlot = slot || null;
+  renderQR();
+  $('#qrSheet').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  if(slot){
+    setTimeout(function(){
+      var el = document.getElementById('qslot-' + slot);
+      if(el && el.scrollIntoView) el.scrollIntoView({ block:'center' });
+    }, 60);
+  }
+}
+function closeQR(){
+  $('#qrSheet').classList.remove('on');
+  if(!$('#qrView').classList.contains('on')) document.body.style.overflow = '';
+}
+
+function qrPickFile(pid, slot){
+  qrTarget = { pid: pid, slot: slot };
+  var inp = document.getElementById('qrFile');
+  if(!inp){
+    inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*'; inp.id = 'qrFile';
+    inp.style.position = 'fixed'; inp.style.left = '-9999px'; inp.style.top = '0'; inp.style.opacity = '0';
+    document.body.appendChild(inp);
+    inp.addEventListener('change', qrOnFile);
+  }
+  inp.value = '';
+  inp.click();
+}
+function qrOnFile(e){
+  var f = (e.target.files && e.target.files[0]) || null;
+  if(!f || !qrTarget) return;
+  var tgt = { pid: qrTarget.pid, slot: qrTarget.slot };
+  if(!/^image\//.test(f.type || '')){ toast('이미지 파일만 올릴 수 있어요'); return; }
+  if(f.size > 25 * 1024 * 1024){ toast('25MB 이하 이미지를 올려 주세요'); return; }
+  var rd = new FileReader();
+  rd.onload = function(ev){
+    var im = new Image();
+    im.onload = function(){ qrSave(tgt, im); };
+    im.onerror = function(){ toast('이미지를 열지 못했어요'); };
+    im.src = ev.target.result;
+  };
+  rd.onerror = function(){ toast('파일을 읽지 못했어요'); };
+  rd.readAsDataURL(f);
+}
+
+/* 캔버스로 900px 이하 축소 + 흰 배경 합성(투명 PNG 대비) 후 저장 */
+function qrCanvas(im, max, type, q){
+  var w = im.naturalWidth || im.width, h = im.naturalHeight || im.height;
+  var sc = Math.min(1, max / Math.max(w, h));
+  var cw = Math.max(1, Math.round(w * sc)), ch = Math.max(1, Math.round(h * sc));
+  var c = document.createElement('canvas'); c.width = cw; c.height = ch;
+  var ctx = c.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cw, ch);
+  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(im, 0, 0, cw, ch);
+  return { url: c.toDataURL(type, q), w: cw, h: ch };
+}
+function qrSave(tgt, im){
+  var cands = [
+    { max:900, type:'image/png' },
+    { max:900, type:'image/jpeg', q:0.92 },
+    { max:780, type:'image/jpeg', q:0.86 },
+    { max:640, type:'image/jpeg', q:0.8 }
+  ];
+  var LIMIT = 430; /* KB — 한 장 목표 용량 */
+  var chosen = null, last = null;
+  for(var i = 0; i < cands.length; i++){
+    var c = cands[i], out = qrCanvas(im, c.max, c.type, c.q);
+    last = out;
+    if(qrKB(out.url) <= LIMIT){ chosen = out; break; }
+  }
+  if(!chosen) chosen = last;
+  var ok = false;
+  try{ localStorage.setItem(qrKey(tgt.pid, tgt.slot), chosen.url); ok = true; }
+  catch(err){
+    var small = qrCanvas(im, 600, 'image/jpeg', 0.7);
+    try{ localStorage.setItem(qrKey(tgt.pid, tgt.slot), small.url); chosen = small; ok = true; }
+    catch(err2){ ok = false; }
+  }
+  if(!ok){ toast('저장 공백이 부족해요 — 다른 QR을 지우거나 브라우저 데이터를 정리해 주세요'); return; }
+  renderQR(); renderProfiles();
+  if($('#tab-prep').classList.contains('on')) renderPrep();
+  toast(qrSlotLabel(tgt.slot) + ' 저장됨 · ' + chosen.w + '×' + chosen.h + ' · ' + qrKB(chosen.url) + 'KB');
+}
+function qrDelete(slot){
+  var pid = state.profile;
+  if(!qrGet(pid, slot)) return;
+  if(!confirm(member(pid).name + ' 님의 ' + qrSlotLabel(slot) + ' 이미지를 이 기기에서 지울까요?\n(다시 올리면 복구됩니다)')) return;
+  qrDel(pid, slot);
+  renderQR(); renderProfiles();
+  if($('#tab-prep').classList.contains('on')) renderPrep();
+  toast('삭제했어요');
+}
+
+/* ---------------- 전체화면 보기 (밝기·크기 강조) ---------------- */
+function qrWake(on){
+  try{
+    if(on){
+      if(navigator.wakeLock && navigator.wakeLock.request && !qrLock){
+        navigator.wakeLock.request('screen').then(function(l){
+          qrLock = l;
+          l.addEventListener('release', function(){ qrLock = null; });
+        }).catch(function(){});
+      }
+    } else if(qrLock){ try{ qrLock.release(); }catch(e){} qrLock = null; }
+  }catch(e){}
+}
+function qrFit(){
+  var im = $('#qvImg'), st = $('#qvStage');
+  if(!im.naturalWidth || !st) return;
+  var aw = Math.max(140, st.clientWidth - 44), ah = Math.max(140, st.clientHeight - 30);
+  var s = Math.min(aw / im.naturalWidth, ah / im.naturalHeight);
+  qrBaseW = Math.max(140, Math.round(im.naturalWidth * s));
+  qrApplyZoom();
+}
+function qrApplyZoom(){
+  var im = $('#qvImg');
+  if(!qrBaseW) return;
+  im.style.width = Math.round(qrBaseW * qrZoom) + 'px';
+  im.style.maxWidth = 'none'; im.style.maxHeight = 'none';
+}
+function openQRView(slot){
+  var data = qrGet(state.profile, slot);
+  if(!data){ toast('먼저 QR 이미지를 올려 주세요'); return; }
+  var im = $('#qvImg');
+  qrZoom = 1; qrBaseW = 0;
+  im.style.width = 'auto';
+  im.onload = function(){ qrFit(); };
+  im.src = data;
+  $('#qvTitle').textContent = (member(state.profile) || {}).name + ' · ' + qrSlotLabel(slot);
+  $('#qvSub').textContent = '이 화면을 그대로 스캐너에 비춰 주세요';
+  $('#qrView').classList.add('on');
+  $('#qrView').classList.add('boost');
+  $('#qvBoost').classList.add('on'); $('#qvBoost').textContent = '밝기 강조 ON';
+  document.body.style.overflow = 'hidden';
+  qrWake(true);
+  if(im.complete && im.naturalWidth) qrFit();
+  setTimeout(qrFit, 120);
+}
+function closeQRView(){
+  $('#qrView').classList.remove('on');
+  if(!$('#qrSheet').classList.contains('on')) document.body.style.overflow = '';
+  qrWake(false);
 }
 
 /* ---------------- overview ---------------- */
@@ -1622,6 +1943,22 @@ $('#cSave').addEventListener('click', function(){
 });
 
 /* ---------------- prep ---------------- */
+function qrPrepRows(){
+  var pid = state.profile;
+  var rows = [
+    { slot:'vjw', ic:'🛂', t:'입국심사·세관 QR', s:'Visit Japan Web' },
+    { slot:qrSlotKey(), ic:'✈️', t:'항공 탑승권 QR', s:qrFlightName() }
+  ];
+  return rows.map(function(r){
+    var has = !!qrGet(pid, r.slot);
+    return '<button class="qrow" data-qract="' + (has ? 'view' : 'open') + '" data-slot="' + r.slot + '">' +
+      '<span class="qi">' + r.ic + '</span>' +
+      '<span class="qtt"><b>' + r.t + '</b><span>' + r.s + '</span></span>' +
+      '<span class="qpill ' + (has ? 'has' : '') + '">' + (has ? '보기' : '미등록') + '</span>' +
+    '</button>';
+  }).join('') +
+  '<div class="qacts" style="margin-top:8px"><button class="pri" data-qract="open">📲 내 QR 열기 · 올리기</button></div>';
+}
 function renderPrep(){
   var m = me();
   var done = CHECKLIST.filter(function(c){ return m.checks[c.id]; }).length;
@@ -1635,6 +1972,10 @@ function renderPrep(){
       '<div class="acts" style="display:flex;gap:6px;margin-top:9px"><button class="btn" data-copy="1400831131687418">📋 예약번호 복사</button>' +
       '<a class="btn" target="_blank" rel="noopener" href="https://www.trip.com/">트립닷컴 열기</a></div>' +
     '</div>' +
+
+    '<div class="sec" style="margin-top:18px"><h2>📲 내 QR 월렛</h2><span>' + esc(mm.name) + ' · 이 기기 저장</span></div>' +
+    '<div class="qcard">' + qrPrepRows() + '</div>' +
+    '<p class="footnote" style="margin-top:8px">입국심사·탑승권 QR을 미리 올려 두면 공항에서 두 번 탭으로 꺼내요. 저장은 <b>' + esc(mm.name) + '</b> 님 기기에만 되고 다른 사람 폰·공개 페이지에는 보이지 않습니다.</p>' +
 
     '<div class="sec"><h2>🗓️ 사전 준비 타임라인</h2><span>11/26 기준</span></div>' +
     '<div class="steps">' + PREP_STEPS.map(function(s){
@@ -1712,13 +2053,36 @@ function go(tab){
 }
 
 document.addEventListener('click', function(e){
+  /* ---- QR 월렛 ---- */
+  var qa = e.target.closest('[data-qract]');
+  if(qa){
+    var act = qa.getAttribute('data-qract');
+    var qs = qa.getAttribute('data-slot') || qrSlotKey();
+    if(act === 'close'){ closeQR(); return; }
+    if(act === 'open'){ openQR(qa.getAttribute('data-slot')); return; }
+    if(act === 'pick'){ qrPickFile(state.profile, qs); return; }
+    if(act === 'del'){ qrDelete(qs); return; }
+    if(act === 'view'){ openQRView(qs); return; }
+    if(act === 'flight'){
+      qrFlight = qa.getAttribute('data-f');
+      try{ localStorage.setItem(QR_FLIGHT_KEY, qrFlight); }catch(err){}
+      renderQR();
+      if($('#tab-prep').classList.contains('on')) renderPrep();
+      return;
+    }
+  }
+  if(e.target.closest('#qrOpen')){ openQR(); return; }
+
   var cp = e.target.closest('[data-copy]');
   if(cp){ copyText(cp.getAttribute('data-copy')); return; }
 
   var pf = e.target.closest('[data-pf]');
   if(pf){
-    state.profile = pf.getAttribute('data-pf'); save();
-    renderProfiles(); toast(member(state.profile).name + ' 프로필로 전환');
+    var pid2 = pf.getAttribute('data-pf');
+    if(pid2 === state.profile){ openQR(); return; } /* 이미 선택된 프로필을 한 번 더 누르면 내 QR */
+    state.profile = pid2; save();
+    renderProfiles();
+    toast(member(state.profile).name + ' 프로필 · 한 번 더 누르면 내 QR');
     if($('#tab-food').classList.contains('on')) renderCalc();
     if($('#tab-prep').classList.contains('on')) renderPrep();
     if($('#tab-budget').classList.contains('on')) renderBudget();
@@ -1802,6 +2166,28 @@ window.addEventListener('resize', function(){
       if($('#tab-map').classList.contains('on')) drawMap('tab');
     }
   }, 220);
+});
+
+/* ---------------- QR wallet listeners ---------------- */
+$('#qrSheet').addEventListener('click', function(e){ if(e.target === this) closeQR(); });
+$('#qvClose').addEventListener('click', closeQRView);
+$('#qvIn').addEventListener('click', function(){ qrZoom = Math.min(3, Math.round((qrZoom + 0.25) * 100) / 100); qrApplyZoom(); });
+$('#qvOut').addEventListener('click', function(){ qrZoom = Math.max(1, Math.round((qrZoom - 0.25) * 100) / 100); qrApplyZoom(); });
+$('#qvReset').addEventListener('click', function(){ qrZoom = 1; qrFit(); });
+$('#qvBoost').addEventListener('click', function(){
+  var on = !$('#qrView').classList.contains('boost');
+  $('#qrView').classList.toggle('boost', on);
+  this.classList.toggle('on', on);
+  this.textContent = on ? '밝기 강조 ON' : '밝기 강조 OFF';
+});
+$('#qrView').addEventListener('click', function(e){ if(e.target === this || e.target.id === 'qvStage') closeQRView(); });
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  if($('#qrView').classList.contains('on')) closeQRView();
+  else if($('#qrSheet').classList.contains('on')) closeQR();
+});
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden && $('#qrView').classList.contains('on')) qrWake(true);
 });
 
 /* ---------------- boot ---------------- */
