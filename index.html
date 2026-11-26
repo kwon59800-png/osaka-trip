@@ -524,6 +524,8 @@
   .sact .btn,.sact button{flex:1;justify-content:center;padding:10px 8px;font-size:12px;border-radius:11px}
   .sact button{border:1px solid var(--line2);background:var(--card);color:var(--ink);font-weight:650}
   .sact button.pri{background:var(--coral);border-color:var(--coral);color:#fff}
+  .sact a.lnk{flex:1 1 100%;justify-content:center;padding:10px 8px;font-size:12px;border-radius:11px;color:#A96A1B;background:#FBF0DE;border-color:#EBD9BC;font-weight:700}
+  .btn.lnk{color:#A96A1B;background:#FBF0DE;border-color:#EBD9BC}
   .mmemo{width:100%;margin-top:10px;border:1px solid var(--line2);background:#FCF8F0;border-radius:11px;padding:10px;font-family:inherit;font-size:12px;line-height:1.55;min-height:64px;resize:vertical;color:var(--ink)}
   .mmemo:focus{outline:none;border-color:var(--coral);background:#fff}
 
@@ -953,6 +955,7 @@
         <span class="cap"><span id="spPhotoCap"></span><em>사진 크게 보기</em></span>
       </button>
       <div class="sact">
+        <a class="btn lnk" id="spLink" target="_blank" rel="noopener">🔗 후기·예약</a>
         <button class="pri" id="spMap">🗺️ 길찾기</button>
         <button id="spCopy">📋 주소 복사</button>
         <button id="spShow">📍 지도에서 보기</button>
@@ -1086,15 +1089,17 @@ var SPOTS = [
     menu:[['大将 5관 오마카세','¥1,209'],['혼마구로 아카미 2관','¥548'],['중토로 1관 / 대토로 1관','¥659 / ¥769'],['흰살·조개 2관','¥438~493'],['모둠 사시미 3종','¥879']],
     pp:'1인 약 ¥4,500 · 술 1~2잔 포함',
     alt:'대안: 스시×텐푸라 아키라',
+    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27141205/' },
     q:'裏なんば 鮨 東藤 大阪', lat:34.66647, lng:135.50499, food:true,
     leg:{ ic:'🚶', t:'도보 15분', m:15 } },
-  { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'히토메보레 난바 (肉ト魚 大衆酒場 ひとめぼれ 裏難波店)',
-    sub:'★4.6 · ~24:00', jp:'大阪市中央区千日前2-7-12 1F',
-    note:'해산물·사시미 위주로 가볍게 한 잔. 대안: 유세이 우라난바(★4.2 · ~03:00).',
-    menu:[['枡조리 사시미 3종','¥1,089'],['카이센 코보레즈시','¥638'],['네기시오 탄구시','¥748'],['와규 란탄','¥858'],['생맥주 / 하이볼·레몬사워','¥328 / ¥219']],
-    pp:'1인 약 ¥2,800 · 자릿세 ¥418 별도',
-    q:'大衆酒場 ひとめぼれ 裏難波店', lat:34.66595, lng:135.5035, food:true,
-    leg:{ ic:'🚶', t:'도보 3분', m:3 } },
+  { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'미나미노 주추핫쿠 (みなみの十忠八九)',
+    sub:'★3.48 (484) · 타베로그 핫레스토랑 2026 · 17:00–01:00 · 난바역 도보 1분', jp:'大阪府大阪市中央区難波4-2-6 トシヒサビル 1F・2F',
+    note:'회·사케 중심 대중술장. 난바역에서 1분이라 숙소 복귀가 짧아요. 회 모둠은 2인분부터라 4인이면 2인분 주문. 대안: 유세이 우라난바(★4.2 · ~03:00).',
+    menu:[['魚屋の名物刺身盛り (1인분·2인분~)','¥1,098'],['해산물 육회 (海鮮ユッケ皿)','¥1,098'],['오뎅 모둠 (おでん盛り合わせ)','¥968'],['마구로 호호니쿠 산쇼 테리야키','¥968'],['생연어 레어플라이','¥988'],['생맥주 · 하이볼 · 사케','¥400~600대']],
+    pp:'1인 약 ¥3,200 · 4인 ¥12,800',
+    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27134848/' },
+    q:'みなみの十忠八九 難波 大阪', lat:34.6662579, lng:135.4998855, food:true,
+    leg:{ ic:'🚶', t:'도보 6분', m:6 } },
 
   /* ---------------- DAY 2 · 12/9 (수) ---------------- */
   { id:'d2-1', day:2, t:'10:00', kind:'food', tag:'아점', title:'이치란 도톤보리 별관 (一蘭 道頓堀店別館)',
@@ -1134,6 +1139,7 @@ var SPOTS = [
     menu:[['말차 라떼','¥560'],['커피','¥450~510'],['산도 파페','¥1,300'],['야키모치','현장 가격']],
     pp:'1인 약 ¥900 · 음료 + 간식(예상)',
     alt:'대안: ABOUT US COFFEE (스페셜티 · 수 09:00–17:00)',
+    link:{ t:'食べログ', u:'https://tabelog.com/kyoto/A2601/A260601/26019250/' },
     q:'伏見稲荷 参道茶屋 京都', lat:34.96796, lng:135.77136, food:true,
     leg:{ ic:'🚶', t:'도보 4분', m:4 } },
   { id:'d2-4d', day:2, t:'17:15', kind:'move', tag:'이동', title:'후시미 이나리 → 난바 복귀',
@@ -1143,25 +1149,31 @@ var SPOTS = [
     leg:{ ic:'🚗', t:'차로 약 55분', m:55 } },
   { id:'d2-5', day:2, t:'18:15', kind:'shop', tag:'쇼핑', title:'난바 복귀 · 도톤보리 · 닛폰바시 쇼핑',
     sub:'도톤보리 · 닛폰바시 리쿼샵 투어', jp:'大阪市中央区道頓堀1丁目',
-    note:'울트라마켓(19:30 마감) → 저녁 식사 → 빅카메라 난바(22:00) → 에디온 난바(21:00) 순. 울트라마켓은 도착 직후 먼저 들르세요.',
+    note:'울트라마켓(19:30 마감)을 도착 직후 먼저 → 19:00 저녁(긴, 난바HIPS 10F) → 20:30 지하철로 덴노지(하루카스 300). 빅카메라 난바(22:00)는 하루카스 뒤 2차 전에 들러도 되고, 에디온 난바(21:00 마감)는 저녁 전에 먼저 보세요.',
     q:'道頓堀 大阪', lat:34.6680, lng:135.5015 },
-  { id:'d2-6', day:2, t:'19:00', kind:'food', tag:'저녁', title:'와규 규동 마에다 (和牛専門 牛めし 前田優)',
-    sub:'★4.9 · 11:30–16:00 / 17:00–22:30 · 예약 불가', jp:'大阪市中央区千日前2-2-5 1F',
-    note:'A5 흑모와규 규동. 기름진 사시미 부위보다 아카미 위주로. 대안: 匠のお重 和牛 韋駄天(IDATEN, ★4.7 · 難波1-8-20 2F).',
-    menu:[['A5 흑모와규 규동 100g','¥2,400'],['같은 것 150g / 200g','¥3,400 / ¥4,400'],['치즈 규동','¥2,600'],['레어·합모리 규동','¥2,400~'],['생맥주(병) / 콜라','¥750 / ¥400']],
-    pp:'1인 약 ¥3,400 · 150g 기준',
-    q:'和牛専門 牛めし 前田優 大阪', lat:34.6672, lng:135.5030, food:true,
+  { id:'d2-6', day:2, t:'19:00', kind:'food', tag:'저녁', title:'고시츠 와규 야키니쿠 긴 난바점 (個室 和牛焼肉 吟 難波店)',
+    sub:'★3.41 (341) · 야키니쿠 WEST 백명점 2022 · 전석 개별실·전석 금연 · 17:00–23:00 (L.O. 22:00)',
+    jp:'大阪府大阪市中央区難波1-8-16 なんばHIPS 10F',
+    note:'난바역 15-B 출구 직결 빌딩 10층, 개별실 25실이라 4인도 조용해요. A5 흑모와규·고베규를 단품으로 골라 먹으면 1인 ¥5,500 선. 다음 날 07:20 출발이라 술은 가볍게.',
+    menu:[['A5 흑모와규 카르비','¥748~'],['고베규 카르비','¥1,628'],['특상 규탄(牛タン)','¥1,980'],['와규 유케(육회)','¥1,078'],['코스 요금 (전채~디저트)','¥6,000~']],
+    pp:'1인 약 ¥5,500 · 단품 기준 (4인 ¥22,000)',
+    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27060998/' },
+    q:'個室 和牛焼肉 吟 難波店 大阪', lat:34.6675993, lng:135.5006679, food:true,
     leg:{ ic:'🚶', t:'도보 8분', m:8 } },
-  { id:'d2-7', day:2, t:'20:00', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
-    sub:'09:00–22:00 · 1인 ¥1,800 (4명 ¥7,200)', jp:'大阪市阿倍野区阿倍野筋1-1-43',
-    note:'일몰 16:47 이후 야경이 절정. 21시 전 입장 권장(22:00 마감). 난바에서 차 10~15분.', q:'あべのハルカス ハルカス300', lat:34.6458, lng:135.5140,
-    leg:{ ic:'🚗', t:'차로 약 15분', m:15 } },
-  { id:'d2-8', day:2, t:'21:15', kind:'food', tag:'2차', title:'대중술장 만마 (大衆酒場 まんま 裏難波店)',
-    sub:'★4.6 · 15:00–24:00', jp:'大阪市中央区千日前2-5-5 1F',
-    note:'대안: 스미비야키토리 야이야(★4.9 · ~24:00). 다음 날 07:20 출발이라 과음 금지.',
-    menu:[['오뎅 5종 모둠','¥748'],['도부즈케 쿠시카츠 5본','¥748'],['후나모리(사시미 배)','¥1,628'],['토로타쿠 유케마키','¥1,078'],['생맥주·하이볼·레몬사워','¥329']],
-    pp:'1인 약 ¥2,500 · 2차 기준', q:'大衆酒場 まんま 裏難波店', lat:34.6668, lng:135.5042, food:true,
-    leg:{ ic:'🚗', t:'차로 약 12분', m:12 } },
+  { id:'d2-7', day:2, t:'20:45', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
+    sub:'09:00–22:00 · 마지막 입장 21:30 · 1인 ¥1,800 (4명 ¥7,200) · 미도스지선 난바→덴노지 3정거장', jp:'大阪市阿倍野区阿倍野筋1-1-43',
+    note:'64층 300m 전망대. 마지막 입장이 21:30이라 20:45에 올라가면 40분은 여유. 렌터카는 숙소 주차장에 두고 미도스지선으로 움직이세요 — 덴노지역에서 도보 3분. 22:00 마감.',
+    q:'あべのハルカス ハルカス300', lat:34.6458, lng:135.5140,
+    leg:{ ic:'🚇', t:'지하철 3정거장 + 도보', m:18 } },
+  { id:'d2-8', day:2, t:'22:00', kind:'food', tag:'2차', title:'오뎅&소바 이자카야 진베에 난바점 (おでんとお蕎麦居酒屋 じんべえ 難波店)',
+    sub:'★3.47 · 17:00–23:30 (L.O. 23:00) · 난바역·닛폰바시 도보 5분',
+    jp:'大阪府大阪市中央区難波千日前1-8',
+    note:'자사 중도매 직송 회와 오사카 다시 오뎅, 마무리 소바. 1층은 오뎅 솥 카운터, 2층은 오자시키·테이블. 23:00 라스트오더라 22:50까지 주문을 마치세요. 자릿세(오토시) ¥330 별도.',
+    menu:[['명물 오뎅 모둠','¥1,309'],['회 5종 모둠','¥1,419'],['하나마키 소바 (마무리)','¥539'],['하이볼','¥429'],['자릿세 (오토시)','¥330']],
+    pp:'1인 약 ¥2,800 · 4인 ¥11,200',
+    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27105974/' },
+    q:'おでんとお蕎麦居酒屋 じんべえ 難波店', lat:34.6647871, lng:135.5054405, food:true,
+    leg:{ ic:'🚇', t:'지하철 + 도보 약 15분', m:15 } },
 
   /* ---------------- DAY 3 · 12/10 (목) ---------------- */
   { id:'d3-1', day:3, t:'07:20', kind:'move', tag:'출발', title:'체크아웃 · 공항으로 출발',
@@ -1291,10 +1303,10 @@ var DEFAULT_COSTS = [
   { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은) 약값', amt:24000, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
   { id:'c7s', name:'마운자로 착불 배송비 (4명)', amt:5340, cur:'JPY', split:4, cat:'medical', memo:'1인 ¥1,335 × 4박스 · 수령 시 현지 결제(착불)', ic:'📦' },
   { id:'f1', name:'1일차 저녁 · 스시 토후지', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세', ic:'🍣' },
-  { id:'f2', name:'1일차 2차 · 히토메보레', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 枡造り 3종 ¥1,089·카이센즈시 ¥638, 자릿세 ¥418 별도', ic:'🍶' },
+  { id:'f2', name:'1일차 2차 · 미나미노 주추핫쿠', amt:12800, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,200 × 4 · 회 모둠 1인 ¥1,098(2인분~)·해산물 육회 ¥1,098·오뎅 모둠 ¥968·술 2잔', ic:'🍶' },
   { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜' },
-  { id:'f4', name:'2일차 저녁 · 와규 규동 마에다', amt:13600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,400 × 4 · A5 흑모와규 규동 150g 기준(100g ¥2,400)', ic:'🥩' },
-  { id:'f5', name:'2일차 2차 · 대중술장 만마', amt:10000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,500 × 4 · 오뎅 5종 ¥748·쿠시카츠 5본 ¥748·생맥주 ¥329', ic:'🍢' },
+  { id:'f4', name:'2일차 저녁 · 와규 야키니쿠 긴', amt:22000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥5,500 × 4 · A5 흑모와규 카르비 ¥748~·특상 규탄 ¥1,980·와규 유케 ¥1,078 단품 기준', ic:'🥩' },
+  { id:'f5', name:'2일차 2차 · 진베에 난바', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 오뎅 모둠 ¥1,309·회 5종 ¥1,419·하나마키 소바 ¥539·하이볼 ¥429, 자릿세 ¥330 별도', ic:'🍢' },
   { id:'f6', name:'3일차 조식·간식 (예상)', amt:3600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥900 × 4 · 편의점 오니기리 ¥170~220·샌드위치·커피 + 공항 커피', ic:'🥐' },
   { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶', prepaid:true },
   { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 13:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️', prepaid:true },
@@ -1446,7 +1458,7 @@ function fxBoot(){
   else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
   fxFetch(false);
 }
-var COST_VER = 10; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v10: 선결제/현지 지출 구분, 마운자로 약값·착불 배송비 분리) */
+var COST_VER = 11; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v11: 타베로그 검증 맛집 반영 — f2 미나미노 주추핫쿠 ¥12,800·f4 와규 야키니쿠 긴 ¥22,000·f5 진베에 난바 ¥11,200, 식비 4인 ¥62,800 → ¥74,000) */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -2008,6 +2020,7 @@ function itemHTML(s){
       spotPhotoHTML(s) +
       '<div class="acts">' +
         (s.q ? '<a class="btn" target="_blank" rel="noopener" href="' + gmap(s.q) + '">🗺️ 길찾기</a>' : '') +
+        (s.link ? '<a class="btn lnk" target="_blank" rel="noopener" href="' + s.link.u + '" title="' + esc(s.link.t) + '에서 후기·예약 보기">🔗 후기·예약</a>' : '') +
         (s.jp ? '<button class="btn" data-copy="' + esc(s.jp) + '">📋 주소</button>' : '') +
         '<button class="btn ghost" data-open="' + s.id + '">상세</button>' +
       '</div>' +
@@ -2297,6 +2310,9 @@ function openSpot(id){
   $('#spMap').onclick = function(){ window.open(gmap(s.q || s.title), '_blank', 'noopener'); };
   $('#spCopy').onclick = function(){ if(s.jp) copyText(s.jp); };
   $('#spShow').onclick = function(){ closeSpot(); setTimeout(function(){ focusSpot(s.id, true); }, 120); };
+  var lk = $('#spLink');
+  if(s.link){ lk.href = s.link.u; lk.title = s.link.t + '에서 후기·예약 보기'; lk.style.display = ''; }
+  else { lk.removeAttribute('href'); lk.style.display = 'none'; }
   $('#spotSheet').classList.add('on');
 }
 function closeSpot(){ $('#spotSheet').classList.remove('on'); }
@@ -2315,7 +2331,8 @@ function renderFood(){
   var list = SPOTS.filter(function(s){ return s.food; });
   $('#foodlist').innerHTML = list.map(function(s){
     var d = s.day===1?'12/8':s.day===2?'12/9':'12/10';
-    var star = s.sub && s.sub.indexOf('★') >= 0 ? s.sub.slice(s.sub.indexOf('★'), s.sub.indexOf('★')+4) : '';
+    var sm2 = s.sub ? /★\s*([\d.]+)/.exec(s.sub) : null;
+    var star = sm2 ? '★' + sm2[1] : '';
     var meta = (s.sub || '').replace(/★[^·]*·?\s*/,'').replace(/\s*·\s*$/,'').trim();
     return '<div class="fcard">' +
       '<div class="fhead"><div style="flex:1;min-width:0"><div class="fname">' + esc(s.title) + '</div>' +
@@ -2326,6 +2343,7 @@ function renderFood(){
       (s.alt ? '<div class="altline">' + esc(s.alt) + '</div>' : '') +
       '<div class="acts" style="display:flex;gap:5px;margin-top:8px">' +
         '<a class="btn" target="_blank" rel="noopener" href="' + gmap(s.q) + '">🗺️ 길찾기</a>' +
+        (s.link ? '<a class="btn lnk" target="_blank" rel="noopener" href="' + s.link.u + '" title="' + esc(s.link.t) + '에서 후기·예약 보기">🔗 후기·예약</a>' : '') +
         '<button class="btn" data-copy="' + esc(s.jp) + '">📋 주소 복사</button>' +
       '</div></div>';
   }).join('');
@@ -2618,7 +2636,7 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 히토메보레 ¥11,200 · 이치란 ¥6,400 · 마에다 ¥13,600 · 만마 ¥10,000 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥62,800</b>(1인 ¥15,700, 예전 일괄 ¥72,000에서 −¥9,200). 2일차 점심은 10시 이치란 아점이 함께 덮고, 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>원화 환산은 앱을 열 때 받은 그날의 기준환율을 씁니다 — 위 배지의 숫자를 고치면 직접 입력, <b>↻</b>로 다시 받거나 <b>자동</b>을 누르면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
+    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 미나미노 주추핫쿠 ¥12,800 · 이치란 ¥6,400 · 와규 야키니쿠 긴 ¥22,000 · 진베에 난바 ¥11,200 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥74,000</b>(1인 ¥18,500). 1일차 2차·2일차 저녁·2차를 타베로그 검증 맛집으로 바꾸면서 예전 ¥62,800보다 <b>+¥11,200</b> 늘었어요. 2일차 점심은 10시 이치란 아점이 함께 덮고, 2일차 카페(후시미 산도 차야 1인 ¥900)와 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>원화 환산은 앱을 열 때 받은 그날의 기준환율을 씁니다 — 위 배지의 숫자를 고치면 직접 입력, <b>↻</b>로 다시 받거나 <b>자동</b>을 누르면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
 
   renderPpl();
 
