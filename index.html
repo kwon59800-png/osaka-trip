@@ -200,7 +200,7 @@
   .showbox .sbnn{font-size:9px;color:#B23A31;margin-top:3px;line-height:1.4;font-weight:600}
   .showbox .sbrow{display:flex;gap:7px;font-size:10px;margin-top:4px;line-height:1.4}
   .showbox .sbrow span{flex:0 0 62px;color:#6D8CA6;font-weight:700;font-size:9.5px}
-  .showbox .sbrow b{color:#1D1915;font-weight:700;letter-spacing:-.01em}
+  .showbox .sbrow b{color:#1D1915;font-weight:700;letter-spacing:-.01em;word-break:keep-all;line-break:strict}
   .showbox .sbfoot{margin-top:7px;padding-top:5px;border-top:1px dashed #D9E2EE;font-size:9px;color:#6E665C;font-weight:600}
   .showbox .sbfoot.warnx{color:#B23A31}
   .showbox.big .sbno b{font-size:27px}
@@ -1147,10 +1147,11 @@ var SPOTS = [
     leg:{ ic:'🚗', t:'차로 약 45분', m:45 } },
   { id:'d1-9', day:1, t:'21:15', kind:'food', tag:'저녁', title:'우라난바 스시 토후지 (鮨酒場 スシトフジ 裏難波)',
     sub:'★4.8 (2,796) · 17:00–23:30 (L.O. 22:30) · 도보 15분/택시 5분', jp:'大阪市中央区千日前2-5-7 2F',
-    badge:'자리만 예약(단품)으로 변경 중 — 새 예약번호 발급 대기', badgeType:'warn',
-    /* 예약번호 재발급 완료되면 아래 show.no 에 번호를 넣고 resv/resvDl 과 badge 를 함께 채운다 */
-    show:{ no:'', dt:'12月8日（火）21:15', plan:'お席のみのご予約（単品注文）', seat:'禁煙' },
-    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공. 아카후지 코스 예약(SE9751507)은 자리만(단품)으로 변경·재발급 중이라 새 번호가 나오는 대로 이 카드에 반영합니다.',
+    badge:'자리만 예약 · [개실] 테이블 금연 · 4명', badgeType:'ok',
+    resv:'SE9752286',
+    /* 자리만(단품)으로 재예약 완료 — 기존 아카후지 코스 예약 SE9751507은 취소 */
+    show:{ no:'SE9752286', dt:'12月8日（火）21:15', plan:'お席のみのご予約（単品注文）', seat:'個室・禁煙' },
+    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공. 아카후지 코스 예약(SE9751507)은 취소하고 자리만(단품) SE9752286으로 다시 잡았어요 — 21:15 입장, 22:30 주문 마감이라 22:45 2차는 도보 5분 거리로 여유를 둡니다.',
     menu:[['大将 5관 오마카세','¥1,209'],['혼마구로 아카미 2관','¥548'],['중토로 1관 / 대토로 1관','¥659 / ¥769'],['흰살·조개 2관','¥438~493'],['모둠 사시미 3종','¥879']],
     pp:'1인 약 ¥4,500 · 단품 주문 + 음료 1잔',
     alt:'대안: 스시×텐푸라 아키라',
@@ -1317,7 +1318,7 @@ var WHISKY = [
 ];
 
 var PREP_STEPS = [
-  { d:'완료', t:'식당 예약 — 3곳 확정 · 토후지 재발급 중', s:'확정: 12/8 22:45 미나미노 주추핫쿠 · 12/9 19:00 와규 야키니쿠 긴 · 12/9 21:30 진베에 (핫페퍼, 현장 결제). 스시 토후지(12/8 21:15)는 아카후지 코스에서 자리만(단품)으로 변경·재발급 중 — 새 예약번호 나오면 🍽️ 식당 예약 카드에 반영.' },
+  { d:'완료', t:'식당 4곳 예약 완료 (핫페퍼)', s:'12/8(화) 21:15 스시 토후지 SE9752286(자리만·단품) · 22:45 미나미노 주추핫쿠 / 12/9(수) 19:00 와규 야키니쿠 긴 · 21:30 진베에 — 전부 현장 결제(지금 나간 돈 0원). 예약번호·직원 제시용 확인증은 아래 🍽️ 식당 예약 카드에.' },
   { d:'완료', t:'해외여행보험 가입 (4명)', s:'카카오페이손해보험 19,780원 · 12/8 16:00 ~ 12/10 13:00 · 4인 가입 · 신한카드 결제 완료' },
   { d:'지금', t:'렌터카 인수 위치·보험 확인', s:'Travel CAR RENT(트립닷컴) 예약 1400831131916716 — 12/8 18:30 인수로 변경 완료. 인수 카운터 위치·보험 조건은 강혜랑 님 측 확인 중.', now:true },
   { d:'완료', t:'UB클리닉 진료 예약 · 12/3 10:30', s:'공식 LINE(@578ierwy) 채팅 진료로 예약 완료(수령일 5~6일 전 규칙). 결제 링크도 LINE으로 받고, 진료 다음 날 발송. 4인 각자 본인 명의 · VISA/Mastercard 신용카드만(체크 불가).' },
@@ -1347,9 +1348,9 @@ var CHECKLIST = [
 
 /* 식당 예약 — 핫페퍼(Recruit) 즉시예약. 2026-11-26 19:20~19:25 접수, 토후지는 자리만으로 재발급 중 */
 var RESV = [
-  { ic:'🍣', t:'스시 토후지 우라난바', day:'12/8(화) 21:15', plan:'자리만 예약(단품) — 재발급 중', seat:'금연 · 4명',
-    no:'변경 중', noPend:true, tel:'06-6647-6230', dl:'', hp:'strJ003762774',
-    memo:'아카후지 코스(¥6,000) 예약 SE9751507을 자리만(단품)으로 변경·재발급 중. 새 예약번호가 나오면 이 카드와 일정 카드의 予約番号를 바꿔 주세요. 지금은 매장에서 예약자 이름(クォン ヒョクサン)으로 확인.' },
+  { ic:'🍣', t:'스시 토후지 우라난바', day:'12/8(화) 21:15', plan:'お席のみのご予約（単品注文）', seat:'[개실] 테이블 · 금연 · 4명',
+    no:'SE9752286', tel:'06-6647-6230', dl:'', hp:'strJ003762774',
+    memo:'아카후지 코스 예약(SE9751507)은 취소 완료 → 자리만(단품) SE9752286으로 재예약 완료. 매장 취소 규정은 당일 14시 이후 1인 ¥2,000(핫페퍼 고지)이에요.' },
   { ic:'🍶', t:'미나미노 주추핫쿠', day:'12/8(화) 22:45', plan:'お席のみのご予約 — 단품 주문', seat:'좌석 지정 없음 · 금연 · 4명',
     no:'SE9750375', tel:'06-6630-8940', dl:'12/8(화) 00:00', hp:'strJ003474338',
     memo:'23:00은 온라인 예약 불가(TEL 문의)라 22:45로 확정 — 22:45가 온라인 즉시예약 마지막 시간.' },
@@ -1369,10 +1370,10 @@ function resvCardHTML(r){
     '<div class="row"><span>좌석</span><span>' + esc(r.seat) + '</span></div>' +
     '<div class="row"><span>예약번호</span><span class="mono" style="font-weight:700;letter-spacing:.02em;' +
       (r.noPend ? 'font-family:inherit;color:#B23A31' : '') + '">' + esc(r.no) + '</span></div>' +
-    '<div class="row"><span>변경·취소</span><span>' + (r.dl ? esc(r.dl) + '까지' : '재발급 후 안내') + '</span></div>' +
+    '<div class="row"><span>변경·취소</span><span>' + (r.dl ? esc(r.dl) + '까지' : '매장 규정 · 당일 14시 이후 1인 ¥2,000') + '</span></div>' +
     (r.memo ? '<p class="rvmemo">' + esc(r.memo) + '</p>' : '') +
     '<div class="acts" style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap">' +
-      (r.noPend ? '' : '<button class="btn" data-copy="' + esc(r.no) + '">📋 예약번호 복사</button>') +
+      '<button class="btn" data-copy="' + esc(r.no) + '">📋 예약번호 복사</button>' +
       '<a class="btn" href="tel:' + esc(r.tel.replace(/[^0-9]/g, '')) + '">📞 ' + esc(r.tel) + '</a>' +
       '<a class="btn lnk" target="_blank" rel="noopener" href="https://www.hotpepper.jp/' + esc(r.hp) + '/">🔗 핫페퍼</a>' +
     '</div></div>';
@@ -1416,7 +1417,7 @@ var DEFAULT_COSTS = [
   { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인) 약값', amt:135000, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥45,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
   { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은) 약값', amt:24000, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
   { id:'c7s', name:'마운자로 착불 배송비 (4명)', amt:5340, cur:'JPY', split:4, cat:'medical', memo:'1인 ¥1,335 × 4박스 · 수령 시 현지 결제(착불)', ic:'📦' },
-  { id:'f1', name:'1일차 저녁 · 스시 토후지 (자리만·단품)', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 단품 주문(5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세) · 자리만 예약으로 변경 중', ic:'🍣' },
+  { id:'f1', name:'1일차 저녁 · 스시 토후지 (자리만·단품)', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 단품 주문(5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세) · 자리만(단품) 예약 SE9752286', ic:'🍣' },
   { id:'f2', name:'1일차 2차 · 미나미노 주추핫쿠', amt:12800, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,200 × 4 · 회 모둠 1인 ¥1,098(2인분~)·해산물 육회 ¥1,098·오뎅 모둠 ¥968·술 2잔', ic:'🍶' },
   { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜' },
   { id:'f4', name:'2일차 저녁 · 와규 야키니쿠 긴', amt:22000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥5,500 × 4 · A5 흑모와규 카르비 ¥748~·특상 규탄 ¥1,980·와규 유케 ¥1,078 단품 기준', ic:'🥩' },
@@ -1572,7 +1573,7 @@ function fxBoot(){
   else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
   fxFetch(false);
 }
-var COST_VER = 12; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v12: 스시 토후지를 자리만·단품으로 변경 — f1 ¥18,000 유지, 금액 변동 없이 라벨·메모만 갱신) */
+var COST_VER = 13; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v13: 스시 토후지 자리만 SE9752286 확정 — f1 ¥18,000 단품 기준 유지, 메모만 갱신) */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -2026,7 +2027,7 @@ function closeQRView(){
 /* ============================================================
    직원 제시용 예약 확인증 — 식당 입구에서 폰 화면을 그대로 보여주는 카드
    · 이름은 예약자 본인(カナ)으로 고정, 나머지는 SPOTS[i].show 에서 읽는다
-   · 스시 토후지는 자리만(단품)으로 재발급 중이라 번호가 아직 없다
+   · 예약번호가 아직 없는 예약(재발급 중)은 no:'' 로 두면 '変更中'으로 표시된다
    ============================================================ */
 var SHOW_NAME = 'クォン ヒョクサン';
 function showBoxHTML(s, big){
@@ -2041,7 +2042,7 @@ function showBoxHTML(s, big){
     '<div class="sbrow"><span>日時 · 人数</span><b>' + esc(sh.dt) + ' · 4名</b></div>' +
     '<div class="sbrow"><span>席 / プラン</span><b>' + esc(sh.seat) + ' · ' + esc(sh.plan) + '</b></div>' +
     (s.resvDl ? '<div class="sbfoot">변경·취소 ' + esc(s.resvDl) + '까지 · 핫페퍼 예약</div>'
-              : '<div class="sbfoot warnx">변경·취소 기한은 새 예약번호 발급 후 안내</div>') +
+              : (s.resv ? '<div class="sbfoot">핫페퍼 예약 · 취소 규정: 당일 14시 이후 1인 ¥2,000</div>' : '')) +
   '</div>';
 }
 function resvHTML(s){
@@ -2218,7 +2219,7 @@ var OV = [
   { id:'stay', label:'STAY', title:'Hotel Links Namba', meta:'1인 1실 × 4 · ¥47,976 · 12/7까지 무료취소', pill:'확정', ok:true, goto:'stay' },
   { id:'car',  label:'CAR', title:'Travel CAR RENT · 프리우스', meta:'12/8 18:30 인수 → 12/10 10:00 반납 · 75,859원', pill:'확정', ok:true, goto:'car' },
   { id:'tour', label:'TOUR', title:'산토리 교토 맥주공장', meta:'12/9 13:50–15:20 · 4명 ¥4,000 선결제 · 셔틀', pill:'확정', ok:true, goto:'tour' },
-  { id:'dine', ic:'🍽️', label:'DINING', title:'식당 4곳 · 직원 제시용 확인증', meta:'12/8 21:15 · 22:45 / 12/9 19:00 · 21:30 · 핫페퍼', pill:'3곳 확정', ok:true, goto:'dine' }
+  { id:'dine', ic:'🍽️', label:'DINING', title:'식당 4곳 · 직원 제시용 확인증', meta:'12/8 21:15 · 22:45 / 12/9 19:00 · 21:30 · 핫페퍼', pill:'4곳 확정', ok:true, goto:'dine' }
 ];
 function renderOV(){
   $('#ovcards').innerHTML = OV.map(function(o){
@@ -3144,7 +3145,7 @@ function renderPrep(){
 
     '<div class="sec"><h2>🍽️ 식당 예약 4건</h2><span>핫페퍼 · 현장 결제</span></div>' +
     '<div id="bk-dine">' +
-      '<div class="fcard" style="border-left:3px solid #3B7A57;margin-bottom:8px"><p class="fdesc" style="margin:0">3곳은 <b>즉시 확정</b>, 스시 토후지는 <b>자리만(단품)으로 변경·재발급 중</b>입니다. 결제는 전부 매장에서(지금 나간 돈 0원). 확인 메일은 hyuksankwon@gmail.com으로 받았고, 방문 후 핫페퍼 포인트 <b>800P</b> 적립 예정이에요.<br>식당 입구에서는 일정 카드·장소 상세의 <b>📱 직원 제시용 예약 확인증</b>을 그대로 보여주면 됩니다.</p></div>' +
+      '<div class="fcard" style="border-left:3px solid #3B7A57;margin-bottom:8px"><p class="fdesc" style="margin:0">4곳 모두 <b>즉시 확정</b>입니다(스시 토후지는 자리만·단품으로 재예약 완료). 결제는 전부 매장에서(지금 나간 돈 0원). 확인 메일은 hyuksankwon@gmail.com으로 받았고, 방문 후 핫페퍼 포인트 <b>800P</b> 적립 예정이에요.<br>식당 입구에서는 일정 카드·장소 상세의 <b>📱 직원 제시용 예약 확인증</b>을 그대로 보여주면 됩니다.</p></div>' +
       RESV.map(resvCardHTML).join('') +
     '</div>' +
 
