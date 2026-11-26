@@ -479,6 +479,7 @@
   .qseg{display:flex;gap:3px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px;margin-top:9px}
   .qseg button{flex:1;border:0;background:none;font-size:10.5px;font-weight:700;color:var(--dim);padding:5px 3px;border-radius:999px;letter-spacing:-.02em;white-space:nowrap}
   .qseg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh)}
+  .qseg button .qhas{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--matcha);margin-left:4px;vertical-align:middle}
   .qnote{font-size:10px;color:var(--dim2);line-height:1.55;margin:11px 2px 0}
   .qnote b{color:var(--dim);font-weight:650}
 
@@ -1254,8 +1255,8 @@ function renderQR(){
   var pid = state.profile, m = member(pid) || MEMBERS[0];
   var total = (qrGet(pid,'vjw')?1:0) + (qrGet(pid,'flight_bx617')?1:0) + (qrGet(pid,'flight_bx608')?1:0);
   var seg = '<div class="qseg">' +
-    '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8</button>' +
-    '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10</button>' +
+    '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8' + (qrGet(pid,'flight_bx617') ? '<i class="qhas"></i>' : '') + '</button>' +
+    '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10' + (qrGet(pid,'flight_bx608') ? '<i class="qhas"></i>' : '') + '</button>' +
   '</div>';
   $('#qrBox').innerHTML = '' +
     '<div class="grab"></div>' +
@@ -1949,9 +1950,14 @@ function qrPrepRows(){
   ];
   return rows.map(function(r){
     var has = !!qrGet(pid, r.slot);
+    var sub = r.s;
+    if(r.slot !== 'vjw' && !has){
+      var other = qrFlight === 'bx617' ? 'bx608' : 'bx617';
+      if(qrGet(pid, 'flight_' + other)) sub += ' · ' + other.toUpperCase() + '에 저장됨';
+    }
     return '<button class="qrow" data-qract="' + (has ? 'view' : 'open') + '" data-slot="' + r.slot + '">' +
       '<span class="qi">' + r.ic + '</span>' +
-      '<span class="qtt"><b>' + r.t + '</b><span>' + r.s + '</span></span>' +
+      '<span class="qtt"><b>' + r.t + '</b><span>' + sub + '</span></span>' +
       '<span class="qpill ' + (has ? 'has' : '') + '">' + (has ? '보기' : '미등록') + '</span>' +
     '</button>';
   }).join('') +
