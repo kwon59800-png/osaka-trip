@@ -484,16 +484,15 @@
 
   .qview{position:fixed;inset:0;z-index:96;display:none;background:#0D0C0B;flex-direction:column}
   .qview.on{display:flex;animation:fade .15s ease}
-  .qvbar{flex:none;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 10px) 14px 8px;color:#F3EDE5}
+  .qvbar{flex:none;display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 12px) 16px 10px;color:#F3EDE5}
   .qvbar .t{flex:1;min-width:0}
-  .qvbar .t b{display:block;font-size:13px;letter-spacing:-.02em}
-  .qvbar .t span{display:block;font-size:9.5px;color:#9C9285;margin-top:1px}
-  .qvbar .x{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-size:14px;line-height:1}
-  .qvstage{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;padding:6px 12px}
+  .qvbar .t b{display:block;font-size:13.5px;letter-spacing:-.02em}
+  .qvbar .t span{display:block;font-size:10px;color:#9C9285;margin-top:2px;line-height:1.35}
+  .qvbar .x{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-size:14px;line-height:1}
+  .qvstage{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;padding:4px 12px 6px}
   .qvpaper{background:#fff;padding:12px;border-radius:10px;display:block;line-height:0;box-shadow:0 10px 40px rgba(0,0,0,.5);margin:auto}
   .qvpaper img{display:block;height:auto}
   .qview.boost .qvpaper img{filter:brightness(1.42) contrast(1.12) saturate(.92)}
-  .qvhint{flex:none;text-align:center;font-size:9.5px;color:#8C857B;padding:0 16px 5px;line-height:1.5}
   .qvtools{flex:none;display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px calc(env(safe-area-inset-bottom) + 12px);flex-wrap:wrap}
   .qvtools button{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#F3EDE5;border-radius:999px;padding:7px 12px;font-size:11.5px;font-weight:650;letter-spacing:-.02em}
   .qvtools button.on{background:#F3EDE5;color:#231F20;border-color:#F3EDE5}
@@ -801,11 +800,10 @@
   <!-- fullscreen QR viewer -->
   <div class="qview boost" id="qrView">
     <div class="qvbar">
-      <div class="t"><b id="qvTitle">QR</b><span id="qvSub">밝기를 최대로 올려 스캐너에 비춰 주세요</span></div>
+      <div class="t"><b id="qvTitle">QR</b><span id="qvSub">이 화면을 그대로 스캐너에 비춰 주세요 · 화면 꺼짐 방지 중</span></div>
       <button class="x" id="qvClose" aria-label="닫기">✕</button>
     </div>
     <div class="qvstage" id="qvStage"><div class="qvpaper"><img id="qvImg" alt="QR 코드"></div></div>
-    <div class="qvhint">화면이 꺼지지 않도록 잠금 상태를 유지해요 · 폰 밝기는 직접 최대로 올려 주세요</div>
     <div class="qvtools">
       <button id="qvOut" aria-label="작게">−</button>
       <button id="qvIn" aria-label="크게">＋</button>
@@ -1384,7 +1382,7 @@ function qrWake(on){
 function qrFit(){
   var im = $('#qvImg'), st = $('#qvStage');
   if(!im.naturalWidth || !st) return;
-  var aw = Math.max(140, st.clientWidth - 44), ah = Math.max(140, st.clientHeight - 30);
+  var aw = Math.max(140, st.clientWidth - 40), ah = Math.max(140, st.clientHeight - 40);
   var s = Math.min(aw / im.naturalWidth, ah / im.naturalHeight);
   qrBaseW = Math.max(140, Math.round(im.naturalWidth * s));
   qrApplyZoom();
@@ -1404,7 +1402,7 @@ function openQRView(slot){
   im.onload = function(){ qrFit(); };
   im.src = data;
   $('#qvTitle').textContent = (member(state.profile) || {}).name + ' · ' + qrSlotLabel(slot);
-  $('#qvSub').textContent = '이 화면을 그대로 스캐너에 비춰 주세요';
+  $('#qvSub').textContent = '이 화면을 그대로 스캐너에 비춰 주세요 · 화면 꺼짐 방지 중';
   $('#qrView').classList.add('on');
   $('#qrView').classList.add('boost');
   $('#qvBoost').classList.add('on'); $('#qvBoost').textContent = '밝기 강조 ON';
