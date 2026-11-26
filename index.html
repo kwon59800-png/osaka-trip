@@ -169,6 +169,8 @@
   .ctop .time{font-size:10.5px;font-weight:700;color:var(--dim);font-family:"IBM Plex Mono",monospace;letter-spacing:-.02em}
   .ctop .chip{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:6px;white-space:nowrap;letter-spacing:-.01em}
   .ctop .more{margin-left:auto;font-size:10px;color:var(--dim2)}
+  .ctop .cuis{margin-left:auto;font-size:9.5px;font-weight:700;color:#8A6A2F;background:#F7EFE0;border:1px solid #EBDCC2;border-radius:999px;padding:2px 7px;white-space:nowrap;letter-spacing:-.01em}
+  .ctop .cuis + .more{margin-left:2px}
   .ttl{font-size:13.5px;font-weight:700;letter-spacing:-.025em;line-height:1.35}
   .sub{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.45}
   .note{font-size:11px;color:var(--dim2);margin:5px 0 0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -1090,6 +1092,7 @@ var SPOTS = [
     pp:'1인 약 ¥4,500 · 술 1~2잔 포함',
     alt:'대안: 스시×텐푸라 아키라',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27141205/' },
+    cuisine:'초밥',
     q:'裏なんば 鮨 東藤 大阪', lat:34.66647, lng:135.50499, food:true,
     leg:{ ic:'🚶', t:'도보 15분', m:15 } },
   { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'미나미노 주추핫쿠 (みなみの十忠八九)',
@@ -1098,6 +1101,7 @@ var SPOTS = [
     menu:[['魚屋の名物刺身盛り (1인분·2인분~)','¥1,098'],['해산물 육회 (海鮮ユッケ皿)','¥1,098'],['오뎅 모둠 (おでん盛り合わせ)','¥968'],['마구로 호호니쿠 산쇼 테리야키','¥968'],['생연어 레어플라이','¥988'],['생맥주 · 하이볼 · 사케','¥400~600대']],
     pp:'1인 약 ¥3,200 · 4인 ¥12,800',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27134848/' },
+    cuisine:'해산물·술집',
     q:'みなみの十忠八九 難波 大阪', lat:34.6662579, lng:135.4998855, food:true,
     leg:{ ic:'🚶', t:'도보 6분', m:6 } },
 
@@ -1107,7 +1111,7 @@ var SPOTS = [
     badge:'본관(宗右衛門町)은 영업 종료 — 이 주소는 별관', badgeType:'warn',
     note:'오전엔 줄이 짧아요. 면은 적게, 차슈 추가로 단백질 보충. 22시~06시는 심야요금 +¥100.',
     menu:[['천연 돈코츠 라멘','¥1,180'],['카에다마(면 추가)','¥210'],['반숙염란','¥160'],['추가 차슈 4매','¥290'],['밥 / 작은밥','¥300 / ¥250']],
-    pp:'1인 약 ¥1,550 · 라멘+카에다마+반숙란', q:'一蘭 道頓堀店別館', lat:34.6687, lng:135.5014, food:true },
+    pp:'1인 약 ¥1,550 · 라멘+카에다마+반숙란', cuisine:'라멘', q:'一蘭 道頓堀店別館', lat:34.6687, lng:135.5014, food:true },
   { id:'d2-2', day:2, t:'11:00', kind:'sight', tag:'관광', title:'오사카성 공원',
     sub:'09:00–18:00 · 공원 주차장 이용', jp:'大阪市中央区大阪城1-1',
     note:'천수각 입장은 시간이 걸리니 공원 산책 위주로 40~50분. 12:30 출발.', q:'大阪城公園', lat:34.6872, lng:135.5259,
@@ -1140,6 +1144,7 @@ var SPOTS = [
     pp:'1인 약 ¥900 · 음료 + 간식(예상)',
     alt:'대안: ABOUT US COFFEE (스페셜티 · 수 09:00–17:00)',
     link:{ t:'食べログ', u:'https://tabelog.com/kyoto/A2601/A260601/26019250/' },
+    cuisine:'말차·카페',
     q:'伏見稲荷 参道茶屋 京都', lat:34.96796, lng:135.77136, food:true,
     leg:{ ic:'🚶', t:'도보 4분', m:4 } },
   { id:'d2-4d', day:2, t:'17:15', kind:'move', tag:'이동', title:'후시미 이나리 → 난바 복귀',
@@ -1158,6 +1163,7 @@ var SPOTS = [
     menu:[['A5 흑모와규 카르비','¥748~'],['고베규 카르비','¥1,628'],['특상 규탄(牛タン)','¥1,980'],['와규 유케(육회)','¥1,078'],['코스 요금 (전채~디저트)','¥6,000~']],
     pp:'1인 약 ¥5,500 · 단품 기준 (4인 ¥22,000)',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27060998/' },
+    cuisine:'야키니쿠',
     q:'個室 和牛焼肉 吟 難波店 大阪', lat:34.6675993, lng:135.5006679, food:true,
     leg:{ ic:'🚶', t:'도보 8분', m:8 } },
   { id:'d2-7', day:2, t:'20:45', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
@@ -1172,6 +1178,7 @@ var SPOTS = [
     menu:[['명물 오뎅 모둠','¥1,309'],['회 5종 모둠','¥1,419'],['하나마키 소바 (마무리)','¥539'],['하이볼','¥429'],['자릿세 (오토시)','¥330']],
     pp:'1인 약 ¥2,800 · 4인 ¥11,200',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27105974/' },
+    cuisine:'오뎅·소바',
     q:'おでんとお蕎麦居酒屋 じんべえ 難波店', lat:34.6647871, lng:135.5054405, food:true,
     leg:{ ic:'🚇', t:'지하철 + 도보 약 15분', m:15 } },
 
@@ -1180,7 +1187,7 @@ var SPOTS = [
     sub:'공항 근처에서 가득 주유', jp:'大阪市浪速区稲荷1-9-27',
     note:'조식은 편의점 or 공항에서. 렌터카 반납 전 주유 영수증 보관.',
     menu:[['편의점 오니기리 2개','¥340~440'],['샌드위치 / 커피','¥330~500 / ¥140~160'],['공항 커피·빵','¥400~700']],
-    pp:'1인 약 ¥900', q:'Hotel Links Namba', lat:34.6603, lng:135.4919 },
+    pp:'1인 약 ¥900', cuisine:'조식·커피', q:'Hotel Links Namba', lat:34.6603, lng:135.4919 },
   { id:'d3-2', day:3, t:'08:30', kind:'car', tag:'반납', title:'간사이공항 렌터카 반납 (Travel CAR RENT)',
     sub:'반납 마감 12/10 10:00 · 08:30 반납 예정', jp:'大阪府泉佐野市泉州空港北1 エアロプラザ 1階',
     note:'반납 후 셔틀/도보로 1터미널 이동. 반납 전 주유 영수증 보관. 반납 위치는 인수처와 함께 강혜랑 님 측 확인 중.', q:'関西国際空港 エアロプラザ', lat:34.4325, lng:135.2415,
@@ -2011,7 +2018,9 @@ function itemHTML(s){
   return leg + '<div class="item">' +
     '<div class="rail"><button class="pin" data-pin="' + s.id + '" aria-label="지도에서 보기">' + s._n + '</button></div>' +
     '<div class="card2 ' + (s.badgeType==='warn'?'warn':'') + '" data-open="' + s.id + '">' +
-      '<div class="ctop"><span class="time">' + s.t + '</span><span class="chip ' + s.kind + '">' + esc(s.tag) + '</span><span class="more">›</span></div>' +
+      '<div class="ctop"><span class="time">' + s.t + '</span><span class="chip ' + s.kind + '">' + esc(s.tag) + '</span>' +
+        (s.cuisine ? '<span class="cuis">' + esc(s.cuisine) + '</span>' : '') +
+        '<span class="more">›</span></div>' +
       '<div class="ttl">' + esc(s.title) + '</div>' +
       (s.sub ? '<div class="sub">' + esc(s.sub) + '</div>' : '') +
       (s.badge ? '<div class="badge ' + (s.badgeType||'info') + '">' + (s.badgeType==='warn'?'⚠️ ':'ℹ️ ') + esc(s.badge) + '</div>' : '') +
