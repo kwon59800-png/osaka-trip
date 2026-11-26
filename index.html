@@ -177,6 +177,58 @@
   .badge{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:10px;font-weight:650;padding:3px 7px;border-radius:7px;line-height:1.35}
   .badge.warn{color:#B23A31;background:#FCEDEA;border:1px solid #F6D3CD}
   .badge.info{color:#2B4C7E;background:#EDF1F7;border:1px solid #D9E2EE}
+  .badge.ok{color:#2F6647;background:#EEF5EC;border:1px solid #CFE2D2}
+  .resv{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-top:6px;padding:4px 8px;border-radius:9px;
+    background:#F4FAF2;border:1px solid #D3E7CF;color:#2F6647;font-size:9.5px;font-weight:750;line-height:1.3}
+  .resv .rt{font-size:9px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+  .resv b{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:700;letter-spacing:.03em;color:#1F4D31}
+  .resv .dl{margin-left:auto;font-size:9px;font-weight:650;color:#6E665C;white-space:nowrap}
+  .rvmemo{font-size:10px;color:var(--dim2);line-height:1.5;margin:6px 0 0}
+
+  /* ===== 직원 제시용 예약 확인증 ===== */
+  .showbox{margin-top:9px;border:1.5px solid #2B4C7E;border-radius:13px;
+    background:linear-gradient(180deg,#FFFFFF,#F6FAFD);padding:9px 10px 8px;box-shadow:0 1px 0 rgba(43,76,126,.06)}
+  .showbox .sbhead{display:flex;align-items:baseline;justify-content:space-between;gap:6px;
+    border-bottom:1px dashed #D9E2EE;padding-bottom:5px}
+  .showbox .sbhead span{font-size:9.5px;font-weight:800;color:#2B4C7E;letter-spacing:-.01em}
+  .showbox .sbhead em{font-style:normal;font-size:8.5px;color:#93A3B5;letter-spacing:-.01em;white-space:nowrap}
+  .showbox .sbno{display:flex;align-items:baseline;gap:6px;margin-top:6px;flex-wrap:wrap}
+  .showbox .sbno .lb{font-size:9px;font-weight:750;color:#6D8CA6;letter-spacing:-.01em;white-space:nowrap}
+  .showbox .sbno b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;font-weight:700;
+    letter-spacing:.04em;color:#16324F;line-height:1.1;font-variant-numeric:tabular-nums}
+  .showbox .sbno b.pend{font-family:inherit;font-size:15px;letter-spacing:-.02em;color:#B23A31}
+  .showbox .sbnn{font-size:9px;color:#B23A31;margin-top:3px;line-height:1.4;font-weight:600}
+  .showbox .sbrow{display:flex;gap:7px;font-size:10px;margin-top:4px;line-height:1.4}
+  .showbox .sbrow span{flex:0 0 62px;color:#6D8CA6;font-weight:700;font-size:9.5px}
+  .showbox .sbrow b{color:#1D1915;font-weight:700;letter-spacing:-.01em}
+  .showbox .sbfoot{margin-top:7px;padding-top:5px;border-top:1px dashed #D9E2EE;font-size:9px;color:#6E665C;font-weight:600}
+  .showbox .sbfoot.warnx{color:#B23A31}
+  .showbox.big .sbno b{font-size:27px}
+  .showbox.big .sbrow{font-size:11.5px}
+  .showbox.big .sbrow span{font-size:10.5px}
+  .showbox.big .sbhead span{font-size:11px}
+
+  /* ================= WEATHER ================= */
+  .wx{background:linear-gradient(158deg,#F2F8FC 0%,#FFFFFF 72%);border:1px solid #D9E5EF;border-radius:16px;
+    padding:11px 12px;margin-bottom:13px;box-shadow:var(--sh)}
+  .wxhead{display:flex;align-items:center;gap:6px}
+  .wxhead b{font-size:11.5px;font-weight:800;letter-spacing:-.025em;color:#2B4C7E}
+  .wxhead .wxsrc{margin-left:auto;font-size:9px;font-weight:700;color:#6D8CA6;background:#EAF3FA;border:1px solid #D8E6F1;
+    border-radius:999px;padding:2px 7px;letter-spacing:-.01em;white-space:nowrap}
+  .wxhead .wxrf{border:1px solid #D8E6F1;background:#fff;color:#6D8CA6;border-radius:999px;width:22px;height:22px;
+    font-size:11px;line-height:1;display:grid;place-items:center;padding:0}
+  .wxrow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}
+  .wxcell{background:#fff;border:1px solid #E6EEF5;border-radius:12px;padding:7px 5px 8px;text-align:center}
+  .wxcell .d{font-size:9.5px;font-weight:800;color:#2B4C7E;letter-spacing:-.01em}
+  .wxcell .dd{font-size:8.5px;color:var(--dim2);margin-top:1px;letter-spacing:-.02em}
+  .wxcell .ic{font-size:19px;line-height:1.15;margin-top:3px}
+  .wxcell .tp{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;font-weight:700;color:#231F20;
+    letter-spacing:-.04em;margin-top:1px;font-variant-numeric:tabular-nums}
+  .wxcell .tp i{font-style:normal;font-weight:600;color:#9A9186}
+  .wxcell .pop{font-size:8.5px;font-weight:700;color:#3E7BA8;margin-top:2px;letter-spacing:-.01em}
+  .wxnote{margin-top:8px;font-size:9.5px;color:var(--dim2);line-height:1.55;letter-spacing:-.01em}
+  .wxnote b{color:#2B4C7E;font-weight:750}
+  .wxnight{margin-bottom:3px;font-size:10px;color:#4E6070}
   /* 추천 메뉴 · 실측 가격 (식당 카드 공통) */
   .mnbox{margin-top:7px;padding:7px 9px 6px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,#FEFCF7,#FAF4E9)}
   .mnhead{display:flex;align-items:baseline;gap:6px;font-size:9.5px;font-weight:700;letter-spacing:.01em;color:var(--dim2);margin-bottom:2px}
@@ -878,6 +930,13 @@
   <div class="shell">
     <main>
       <section class="tab on" id="tab-plan">
+        <div class="wx" id="wxCard">
+          <div class="wxhead"><b>🌤️ 여행지 날씨 · 12/8–10</b><span class="wxsrc" id="wxSrc">불러오는 중</span>
+            <button class="wxrf" id="wxRefresh" aria-label="날씨 새로고침">↻</button></div>
+          <div class="wxrow" id="wxRow"></div>
+          <div class="wxnote" id="wxNote">오사카 · 교토 · 간사이 예보를 받아오는 중…</div>
+        </div>
+
         <div class="sec" style="margin-top:2px"><h2>예약 요약</h2><span>탭하면 상세로</span></div>
         <div class="ov-scroll" id="ovcards"></div>
 
@@ -946,6 +1005,7 @@
       <div class="srow"><span class="k">주소</span><span class="v mono2" id="spJp">—</span></div>
       <div class="srow" id="spNoteRow"><span class="k">메모</span><span class="v" id="spNote">—</span></div>
       <div class="srow" id="spBadgeRow" style="display:none"><span class="k">확인</span><span class="v" id="spBadge">—</span></div>
+      <div id="spShowBox"></div>
       <div class="mnbox" id="spMenuBox" style="display:none;margin:8px 0 0">
         <div class="mnhead"><span>추천 메뉴 · 실측 가격</span></div>
         <div id="spMenuRows"></div>
@@ -1086,18 +1146,24 @@ var SPOTS = [
     q:'Hotel Links Namba 大阪市浪速区稲荷1-9-27', lat:34.6603, lng:135.4919,
     leg:{ ic:'🚗', t:'차로 약 45분', m:45 } },
   { id:'d1-9', day:1, t:'21:15', kind:'food', tag:'저녁', title:'우라난바 스시 토후지 (鮨酒場 スシトフジ 裏難波)',
-    sub:'★4.8 (2,796) · 17:00–23:30 · 도보 15분/택시 5분', jp:'大阪市中央区千日前2-5-7 2F',
-    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공.',
+    sub:'★4.8 (2,796) · 17:00–23:30 (L.O. 22:30) · 도보 15분/택시 5분', jp:'大阪市中央区千日前2-5-7 2F',
+    badge:'자리만 예약(단품)으로 변경 중 — 새 예약번호 발급 대기', badgeType:'warn',
+    /* 예약번호 재발급 완료되면 아래 show.no 에 번호를 넣고 resv/resvDl 과 badge 를 함께 채운다 */
+    show:{ no:'', dt:'12月8日（火）21:15', plan:'お席のみのご予約（単品注文）', seat:'禁煙' },
+    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공. 아카후지 코스 예약(SE9751507)은 자리만(단품)으로 변경·재발급 중이라 새 번호가 나오는 대로 이 카드에 반영합니다.',
     menu:[['大将 5관 오마카세','¥1,209'],['혼마구로 아카미 2관','¥548'],['중토로 1관 / 대토로 1관','¥659 / ¥769'],['흰살·조개 2관','¥438~493'],['모둠 사시미 3종','¥879']],
-    pp:'1인 약 ¥4,500 · 술 1~2잔 포함',
+    pp:'1인 약 ¥4,500 · 단품 주문 + 음료 1잔',
     alt:'대안: 스시×텐푸라 아키라',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27141205/' },
     cuisine:'초밥',
-    q:'裏なんば 鮨 東藤 大阪', lat:34.66647, lng:135.50499, food:true,
+    q:'鮨酒場スシトフジ うらなんば 裏難波店 大阪', lat:34.66647, lng:135.50499, food:true,
     leg:{ ic:'🚶', t:'도보 15분', m:15 } },
-  { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'미나미노 주추핫쿠 (みなみの十忠八九)',
+  { id:'d1-10', day:1, t:'22:45', kind:'food', tag:'2차', title:'미나미노 주추핫쿠 (みなみの十忠八九)',
     sub:'★3.48 (484) · 타베로그 핫레스토랑 2026 · 17:00–01:00 · 난바역 도보 1분', jp:'大阪府大阪市中央区難波4-2-6 トシヒサビル 1F・2F',
-    note:'회·사케 중심 대중술장. 난바역에서 1분이라 숙소 복귀가 짧아요. 회 모둠은 2인분부터라 4인이면 2인분 주문. 대안: 유세이 우라난바(★4.2 · ~03:00).',
+    badge:'자리만 예약 · 좌석 지정 없음 · 금연 · 4명', badgeType:'ok',
+    resv:'SE9750375', resvDl:'12/8(화) 00:00',
+    show:{ no:'SE9750375', dt:'12月8日（火）22:45', plan:'お席のみのご予約', seat:'禁煙（席指定なし）' },
+    note:'회·사케 중심 대중술장. 23:00은 온라인 예약이 막혀 있어 22:45로 확정했어요(온라인 즉시예약 마지막 시간). 난바역에서 1분이라 숙소 복귀가 짧아요. 회 모둠은 2인분부터라 4인이면 2인분 주문. 대안: 유세이 우라난바(★4.2 · ~03:00).',
     menu:[['魚屋の名物刺身盛り (1인분·2인분~)','¥1,098'],['해산물 육회 (海鮮ユッケ皿)','¥1,098'],['오뎅 모둠 (おでん盛り合わせ)','¥968'],['마구로 호호니쿠 산쇼 테리야키','¥968'],['생연어 레어플라이','¥988'],['생맥주 · 하이볼 · 사케','¥400~600대']],
     pp:'1인 약 ¥3,200 · 4인 ¥12,800',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27134848/' },
@@ -1159,22 +1225,29 @@ var SPOTS = [
   { id:'d2-6', day:2, t:'19:00', kind:'food', tag:'저녁', title:'고시츠 와규 야키니쿠 긴 난바점 (個室 和牛焼肉 吟 難波店)',
     sub:'★3.41 (341) · 야키니쿠 WEST 백명점 2022 · 전석 개별실·전석 금연 · 17:00–23:00 (L.O. 22:00)',
     jp:'大阪府大阪市中央区難波1-8-16 なんばHIPS 10F',
-    note:'난바역 15-B 출구 직결 빌딩 10층, 개별실 25실이라 4인도 조용해요. A5 흑모와규·고베규를 단품으로 골라 먹으면 1인 ¥5,500 선. 다음 날 07:20 출발이라 술은 가볍게.',
+    badge:'자리만(120분) · [개실] 테이블 금연 · 4명', badgeType:'ok',
+    resv:'SE9750168', resvDl:'12/9(수) 00:00',
+    show:{ no:'SE9750168', dt:'12月9日（水）19:00', plan:'お席のみのご予約（120分）', seat:'個室・禁煙' },
+    note:'난바역 15-B 출구 직결 빌딩 10층, 개별실 25실이라 4인도 조용해요. 자리만 예약이라 A5 흑모와규·고베규를 단품으로 골라 먹으면 1인 ¥5,500 선. 다음 날 07:20 출발이라 술은 가볍게.',
     menu:[['A5 흑모와규 카르비','¥748~'],['고베규 카르비','¥1,628'],['특상 규탄(牛タン)','¥1,980'],['와규 유케(육회)','¥1,078'],['코스 요금 (전채~디저트)','¥6,000~']],
     pp:'1인 약 ¥5,500 · 단품 기준 (4인 ¥22,000)',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27060998/' },
     cuisine:'야키니쿠',
     q:'個室 和牛焼肉 吟 難波店 大阪', lat:34.6675993, lng:135.5006679, food:true,
     leg:{ ic:'🚶', t:'도보 8분', m:8 } },
-  { id:'d2-7', day:2, t:'20:45', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
+  { id:'d2-7', day:2, t:'20:30', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
     sub:'09:00–22:00 · 마지막 입장 21:30 · 1인 ¥1,800 (4명 ¥7,200) · 미도스지선 난바→덴노지 3정거장', jp:'大阪市阿倍野区阿倍野筋1-1-43',
-    note:'64층 300m 전망대. 마지막 입장이 21:30이라 20:45에 올라가면 40분은 여유. 렌터카는 숙소 주차장에 두고 미도스지선으로 움직이세요 — 덴노지역에서 도보 3분. 22:00 마감.',
+    badge:'21:30 진베에 예약에 맞춰 20:30 입장 · 티켓은 당일 현장·모바일 구매', badgeType:'info',
+    note:'64층 300m 전망대. 20:30 입장이면 45분쯤 여유 — 21:15~21:20에 내려와 덴노지역에서 미도스지선 3정거장(6분)+도보 8분, 또는 택시 10분(약 ¥1,000~1,300)으로 21:30 진베에 도착. 렌터카는 숙소 주차장에 두고 지하철·택시로 움직이세요(전망대 자체 주차는 킨테쓰 백화점 대형주차).',
     q:'あべのハルカス ハルカス300', lat:34.6458, lng:135.5140,
     leg:{ ic:'🚇', t:'지하철 3정거장 + 도보', m:18 } },
-  { id:'d2-8', day:2, t:'22:00', kind:'food', tag:'2차', title:'오뎅&소바 이자카야 진베에 난바점 (おでんとお蕎麦居酒屋 じんべえ 難波店)',
+  { id:'d2-8', day:2, t:'21:30', kind:'food', tag:'2차', title:'오뎅&소바 이자카야 진베에 난바점 (おでんとお蕎麦居酒屋 じんべえ 難波店)',
     sub:'★3.47 · 17:00–23:30 (L.O. 23:00) · 난바역·닛폰바시 도보 5분',
     jp:'大阪府大阪市中央区難波千日前1-8',
-    note:'자사 중도매 직송 회와 오사카 다시 오뎅, 마무리 소바. 1층은 오뎅 솥 카운터, 2층은 오자시키·테이블. 23:00 라스트오더라 22:50까지 주문을 마치세요. 자릿세(오토시) ¥330 별도.',
+    badge:'【평일】자리만 예약 · 테이블 금연 · 4명', badgeType:'ok',
+    resv:'SE9751598', resvDl:'12/9(수) 00:00',
+    show:{ no:'SE9751598', dt:'12月9日（水）21:30', plan:'お席のみのご予約', seat:'テーブル・禁煙' },
+    note:'자사 중도매 직송 회와 오사카 다시 오뎅, 마무리 소바. 1층은 오뎅 솥 카운터, 2층은 오자시키·테이블. 21:30 입장이면 23:00 라스트오더까지 1시간 반 — 22:50까지 주문을 마치세요. 자릿세(오토시) ¥330 별도.',
     menu:[['명물 오뎅 모둠','¥1,309'],['회 5종 모둠','¥1,419'],['하나마키 소바 (마무리)','¥539'],['하이볼','¥429'],['자릿세 (오토시)','¥330']],
     pp:'1인 약 ¥2,800 · 4인 ¥11,200',
     link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27105974/' },
@@ -1244,6 +1317,7 @@ var WHISKY = [
 ];
 
 var PREP_STEPS = [
+  { d:'완료', t:'식당 예약 — 3곳 확정 · 토후지 재발급 중', s:'확정: 12/8 22:45 미나미노 주추핫쿠 · 12/9 19:00 와규 야키니쿠 긴 · 12/9 21:30 진베에 (핫페퍼, 현장 결제). 스시 토후지(12/8 21:15)는 아카후지 코스에서 자리만(단품)으로 변경·재발급 중 — 새 예약번호 나오면 🍽️ 식당 예약 카드에 반영.' },
   { d:'완료', t:'해외여행보험 가입 (4명)', s:'카카오페이손해보험 19,780원 · 12/8 16:00 ~ 12/10 13:00 · 4인 가입 · 신한카드 결제 완료' },
   { d:'지금', t:'렌터카 인수 위치·보험 확인', s:'Travel CAR RENT(트립닷컴) 예약 1400831131916716 — 12/8 18:30 인수로 변경 완료. 인수 카운터 위치·보험 조건은 강혜랑 님 측 확인 중.', now:true },
   { d:'완료', t:'UB클리닉 진료 예약 · 12/3 10:30', s:'공식 LINE(@578ierwy) 채팅 진료로 예약 완료(수령일 5~6일 전 규칙). 결제 링크도 LINE으로 받고, 진료 다음 날 발송. 4인 각자 본인 명의 · VISA/Mastercard 신용카드만(체크 불가).' },
@@ -1270,6 +1344,39 @@ var CHECKLIST = [
   { g:'짐', id:'med', l:'상비약 · 여분 마스크 · 우산', s:'12월 오사카 비 소식 대비' },
   { g:'귀국', id:'weight', l:'귀국 짐 무게 (위탁 15kg)', s:'BX608만 위탁 15kg 포함' }
 ];
+
+/* 식당 예약 — 핫페퍼(Recruit) 즉시예약. 2026-11-26 19:20~19:25 접수, 토후지는 자리만으로 재발급 중 */
+var RESV = [
+  { ic:'🍣', t:'스시 토후지 우라난바', day:'12/8(화) 21:15', plan:'자리만 예약(단품) — 재발급 중', seat:'금연 · 4명',
+    no:'변경 중', noPend:true, tel:'06-6647-6230', dl:'', hp:'strJ003762774',
+    memo:'아카후지 코스(¥6,000) 예약 SE9751507을 자리만(단품)으로 변경·재발급 중. 새 예약번호가 나오면 이 카드와 일정 카드의 予約番号를 바꿔 주세요. 지금은 매장에서 예약자 이름(クォン ヒョクサン)으로 확인.' },
+  { ic:'🍶', t:'미나미노 주추핫쿠', day:'12/8(화) 22:45', plan:'お席のみのご予約 — 단품 주문', seat:'좌석 지정 없음 · 금연 · 4명',
+    no:'SE9750375', tel:'06-6630-8940', dl:'12/8(화) 00:00', hp:'strJ003474338',
+    memo:'23:00은 온라인 예약 불가(TEL 문의)라 22:45로 확정 — 22:45가 온라인 즉시예약 마지막 시간.' },
+  { ic:'🥩', t:'고시츠 와규 야키니쿠 긴 난바', day:'12/9(수) 19:00', plan:'【12月】お席のみのご予約（120分）', seat:'[개실] 테이블 · 금연 · 4명',
+    no:'SE9750168', tel:'06-6214-1131', dl:'12/9(수) 00:00', hp:'strJ000981026',
+    memo:'난바 HIPS 10F · 단품 주문(A5 흑모와규·고베규). 다음 날 07:20 출발이라 술은 가볍게.' },
+  { ic:'🍢', t:'오뎅&소바 이자카야 진베에 난바', day:'12/9(수) 21:30', plan:'【평일】お席のみのご予約', seat:'테이블 · 금연 · 4명',
+    no:'SE9751598', tel:'06-6631-8010', dl:'12/9(수) 00:00', hp:'strJ003323817',
+    memo:'하루카스 20:30 입장 → 21:15~21:20 하산 → 지하철·택시 10~15분 → 21:30 도착. 23:00 라스트오더.' }
+];
+function resvCardHTML(r){
+  return '<div class="bk">' +
+    '<div class="bk1"><span style="font-size:14px">' + r.ic + '</span><b>' + esc(r.t) + '</b>' +
+      '<span class="tag2' + (r.noPend ? ' w' : '') + '">' + (r.noPend ? '변경 중' : '예약 완료') + '</span></div>' +
+    '<div class="row"><span>일시</span><span>' + esc(r.day) + ' · 4명</span></div>' +
+    '<div class="row"><span>플랜</span><span>' + esc(r.plan) + '</span></div>' +
+    '<div class="row"><span>좌석</span><span>' + esc(r.seat) + '</span></div>' +
+    '<div class="row"><span>예약번호</span><span class="mono" style="font-weight:700;letter-spacing:.02em;' +
+      (r.noPend ? 'font-family:inherit;color:#B23A31' : '') + '">' + esc(r.no) + '</span></div>' +
+    '<div class="row"><span>변경·취소</span><span>' + (r.dl ? esc(r.dl) + '까지' : '재발급 후 안내') + '</span></div>' +
+    (r.memo ? '<p class="rvmemo">' + esc(r.memo) + '</p>' : '') +
+    '<div class="acts" style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap">' +
+      (r.noPend ? '' : '<button class="btn" data-copy="' + esc(r.no) + '">📋 예약번호 복사</button>') +
+      '<a class="btn" href="tel:' + esc(r.tel.replace(/[^0-9]/g, '')) + '">📞 ' + esc(r.tel) + '</a>' +
+      '<a class="btn lnk" target="_blank" rel="noopener" href="https://www.hotpepper.jp/' + esc(r.hp) + '/">🔗 핫페퍼</a>' +
+    '</div></div>';
+}
 
 var BOOKINGS = [
   { id:'stay', ic:'🏨', t:'숙소 · Hotel Links Namba', tag:'예약 확정', tagw:false,
@@ -1309,7 +1416,7 @@ var DEFAULT_COSTS = [
   { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인) 약값', amt:135000, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥45,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
   { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은) 약값', amt:24000, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
   { id:'c7s', name:'마운자로 착불 배송비 (4명)', amt:5340, cur:'JPY', split:4, cat:'medical', memo:'1인 ¥1,335 × 4박스 · 수령 시 현지 결제(착불)', ic:'📦' },
-  { id:'f1', name:'1일차 저녁 · 스시 토후지', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세', ic:'🍣' },
+  { id:'f1', name:'1일차 저녁 · 스시 토후지 (자리만·단품)', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 단품 주문(5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세) · 자리만 예약으로 변경 중', ic:'🍣' },
   { id:'f2', name:'1일차 2차 · 미나미노 주추핫쿠', amt:12800, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,200 × 4 · 회 모둠 1인 ¥1,098(2인분~)·해산물 육회 ¥1,098·오뎅 모둠 ¥968·술 2잔', ic:'🍶' },
   { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜' },
   { id:'f4', name:'2일차 저녁 · 와규 야키니쿠 긴', amt:22000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥5,500 × 4 · A5 흑모와규 카르비 ¥748~·특상 규탄 ¥1,980·와규 유케 ¥1,078 단품 기준', ic:'🥩' },
@@ -1465,7 +1572,7 @@ function fxBoot(){
   else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
   fxFetch(false);
 }
-var COST_VER = 11; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v11: 타베로그 검증 맛집 반영 — f2 미나미노 주추핫쿠 ¥12,800·f4 와규 야키니쿠 긴 ¥22,000·f5 진베에 난바 ¥11,200, 식비 4인 ¥62,800 → ¥74,000) */
+var COST_VER = 12; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v12: 스시 토후지를 자리만·단품으로 변경 — f1 ¥18,000 유지, 금액 변동 없이 라벨·메모만 갱신) */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -1916,17 +2023,207 @@ function closeQRView(){
   qrWake(false);
 }
 
+/* ============================================================
+   직원 제시용 예약 확인증 — 식당 입구에서 폰 화면을 그대로 보여주는 카드
+   · 이름은 예약자 본인(カナ)으로 고정, 나머지는 SPOTS[i].show 에서 읽는다
+   · 스시 토후지는 자리만(단품)으로 재발급 중이라 번호가 아직 없다
+   ============================================================ */
+var SHOW_NAME = 'クォン ヒョクサン';
+function showBoxHTML(s, big){
+  if(!s.show) return '';
+  var sh = s.show;
+  return '<div class="showbox' + (big ? ' big' : '') + '">' +
+    '<div class="sbhead"><span>📱 직원 제시용 예약 확인증</span><em>スタッフへご提示ください</em></div>' +
+    '<div class="sbno"><span class="lb">予約番号</span><b' + (sh.no ? '' : ' class="pend"') + '>' +
+      (sh.no ? esc(sh.no) : '変更中') + '</b></div>' +
+    (sh.no ? '' : '<div class="sbnn">예약번호 재발급 중 — 매장에서 예약자 이름(クォン ヒョクサン)으로 확인</div>') +
+    '<div class="sbrow"><span>お名前</span><b>' + SHOW_NAME + '</b></div>' +
+    '<div class="sbrow"><span>日時 · 人数</span><b>' + esc(sh.dt) + ' · 4名</b></div>' +
+    '<div class="sbrow"><span>席 / プラン</span><b>' + esc(sh.seat) + ' · ' + esc(sh.plan) + '</b></div>' +
+    (s.resvDl ? '<div class="sbfoot">변경·취소 ' + esc(s.resvDl) + '까지 · 핫페퍼 예약</div>'
+              : '<div class="sbfoot warnx">변경·취소 기한은 새 예약번호 발급 후 안내</div>') +
+  '</div>';
+}
+function resvHTML(s){
+  if(!s.resv) return '';
+  return '<div class="resv"><span class="rt">🎫 예약 완료</span><b>' + esc(s.resv) + '</b>' +
+    (s.resvDl ? '<span class="dl">변경·취소 ' + esc(s.resvDl) + '까지</span>' : '') + '</div>';
+}
+
+/* ============================================================
+   여행지 날씨 — Open-Meteo 실시간 예보 (가입·키 불필요 · CORS 허용)
+   · 12/8 오사카 · 12/9 교토(낮)→오사카(밤 21시) · 12/10 간사이공항
+   · 3시간 캐시 → 통신 실패 시 저장값 → 12월 초 평년값 순으로 표시
+   ============================================================ */
+var WX_KEY = 'osakaTripApp.wx.v1';
+var WX_TTL = 3 * 3600 * 1000;
+var WX_DAYS = ['2026-12-08', '2026-12-09', '2026-12-10'];
+var WX_PLACES = [
+  { k:'osaka',  lat:34.6687, lon:135.5013 },
+  { k:'kyoto',  lat:35.0116, lon:135.7681 },
+  { k:'kansai', lat:34.4347, lon:135.2442 }
+];
+/* 12월 초 오사카·교토 평년값 — API·캐시가 모두 없을 때 */
+var WX_FALLBACK = { code:3, max:13, min:4 };
+var wxBusy = false;
+function wxIcon(c){
+  if(c === 0) return '☀️';
+  if(c === 1) return '🌤️';
+  if(c === 2) return '⛅';
+  if(c === 3) return '☁️';
+  if(c === 45 || c === 48) return '🌫️';
+  if(c >= 51 && c <= 57) return '🌦️';
+  if(c >= 61 && c <= 67) return '🌧️';
+  if(c >= 71 && c <= 77) return '🌨️';
+  if(c >= 80 && c <= 82) return '🌦️';
+  if(c >= 85 && c <= 86) return '🌨️';
+  if(c >= 95) return '⛈️';
+  return '🌥️';
+}
+function wxLabel(c){
+  if(c === 0) return '맑음';
+  if(c === 1) return '대체로 맑음';
+  if(c === 2) return '구름 조금';
+  if(c === 3) return '흐림';
+  if(c === 45 || c === 48) return '안개';
+  if(c >= 51 && c <= 57) return '이슬비';
+  if(c >= 61 && c <= 67) return '비';
+  if(c >= 71 && c <= 77) return '눈';
+  if(c >= 80 && c <= 82) return '소나기';
+  if(c >= 85 && c <= 86) return '소낙눈';
+  if(c >= 95) return '천둥번개';
+  return '흐림';
+}
+function wxRead(){
+  try{ var o = JSON.parse(localStorage.getItem(WX_KEY) || 'null'); return (o && o.data) ? o : null; }catch(e){ return null; }
+}
+function wxWrite(data){ try{ localStorage.setItem(WX_KEY, JSON.stringify({ ts: Date.now(), data: data })); }catch(e){} }
+function wxAgo(ts){
+  var d = new Date(ts || Date.now());
+  return (d.getMonth()+1) + '/' + d.getDate() + ' ' + ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+}
+/* API 응답 → { '2026-12-08': {code,max,min,pop,night:{code,t,pop}} } */
+function wxParse(d){
+  if(!d || !d.daily || !d.daily.time) return null;
+  var out = {}, any = false;
+  WX_DAYS.forEach(function(day){
+    var i = d.daily.time.indexOf(day);
+    var h = (d.hourly && d.hourly.time) ? d.hourly.time.indexOf(day + 'T21:00') : -1;
+    if(i < 0 && h < 0) return;
+    any = true;
+    out[day] = {
+      code: (i >= 0 && d.daily.weather_code) ? d.daily.weather_code[i] : null,
+      max:  (i >= 0 && d.daily.temperature_2m_max) ? Math.round(d.daily.temperature_2m_max[i]) : null,
+      min:  (i >= 0 && d.daily.temperature_2m_min) ? Math.round(d.daily.temperature_2m_min[i]) : null,
+      pop:  (i >= 0 && d.daily.precipitation_probability_max && d.daily.precipitation_probability_max[i] != null)
+              ? Math.round(d.daily.precipitation_probability_max[i]) : null,
+      night: (h >= 0) ? {
+        code: d.hourly.weather_code ? d.hourly.weather_code[h] : null,
+        t: Math.round(d.hourly.temperature_2m[h]),
+        pop: (d.hourly.precipitation_probability && d.hourly.precipitation_probability[h] != null)
+              ? Math.round(d.hourly.precipitation_probability[h]) : null
+      } : null
+    };
+  });
+  return any ? out : null;
+}
+function wxCell(day, place, dlabel, plabel, data, fb){
+  var v = (data && data[place] && data[place][day]) ? data[place][day] : null;
+  if(!v && fb) v = { code:WX_FALLBACK.code, max:WX_FALLBACK.max, min:WX_FALLBACK.min, pop:null };
+  var code = v ? v.code : null, mx = v ? v.max : null, mn = v ? v.min : null, pop = v ? v.pop : null;
+  var tp = (mx == null) ? '–' : (mx + '°<i>/' + mn + '°</i>');
+  return '<div class="wxcell">' +
+    '<div class="d">' + dlabel + '</div>' +
+    '<div class="dd">' + plabel + '</div>' +
+    '<div class="ic">' + (code == null ? '🌥️' : wxIcon(code)) + '</div>' +
+    '<div class="tp">' + tp + '</div>' +
+    '<div class="pop">' + (pop == null ? '강수 –' : '☂ ' + pop + '%') + '</div>' +
+  '</div>';
+}
+function wxPaint(data, mode, ts){
+  var row = $('#wxRow'); if(!row) return;
+  var src = $('#wxSrc'), note = $('#wxNote');
+  var fb = (mode === 'fallback');
+  row.innerHTML =
+    wxCell(WX_DAYS[0], 'osaka',  '12/8 화', '오사카', data, fb) +
+    wxCell(WX_DAYS[1], 'kyoto',  '12/9 수', '교토 낮', data, fb) +
+    wxCell(WX_DAYS[2], 'kansai', '12/10 목', '간사이공항', data, fb);
+  var n = (data && data.osaka && data.osaka[WX_DAYS[1]]) ? data.osaka[WX_DAYS[1]].night : null;
+  var night = n ? ('🌙 12/9 밤 오사카 <b>' + n.t + '°</b> · ' + wxLabel(n.code) +
+    (n.pop != null ? ' · 강수 ' + n.pop + '%' : '') + ' — 하루카스 → 진베에 이동 시간대') : '';
+  var pops = [], hasPop = false;
+  [['osaka',0],['kyoto',1],['kansai',2]].forEach(function(x){
+    var v = (data && data[x[0]] && data[x[0]][WX_DAYS[x[1]]]) ? data[x[0]][WX_DAYS[x[1]]] : null;
+    if(v && v.pop != null){ hasPop = true; pops.push(v.pop); }
+  });
+  if(n && n.pop != null){ hasPop = true; pops.push(n.pop); }
+  var txt;
+  if(mode === 'live') txt = '실시간 예보 · Open-Meteo · ' + wxAgo(ts) + ' 갱신';
+  else if(mode === 'cache') txt = '저장값 · ' + wxAgo(ts) + ' 기준 (연결되면 자동 갱신)';
+  else if(mode === 'pending') txt = '실시간 예보를 받는 중…';
+  else txt = '12월 초 평년값 — 오사카·교토 4~13°C, 쌀쌀함 (실시간 연결 실패)';
+  if(hasPop && Math.max.apply(null, pops) >= 50) txt += ' · ☂️ 강수확률 ' + Math.max.apply(null, pops) + '% — 우산 챙기세요';
+  if(src) src.textContent = (mode === 'live') ? '실시간' : (mode === 'cache') ? '저장값' : (mode === 'pending') ? '연결 중' : '평년값';
+  if(note) note.innerHTML = (night ? '<div class="wxnight">' + night + '</div>' : '') + '<span>' + txt + '</span>';
+}
+function wxFail(byUser){
+  var c = wxRead();
+  if(c && c.data){ wxPaint(c.data, 'cache', c.ts); if(byUser) toast('날씨를 못 받아 ' + wxAgo(c.ts) + ' 저장값을 보여 드려요'); }
+  else { wxPaint(null, 'fallback', null); if(byUser) toast('날씨를 못 받아 12월 초 평년값을 보여 드려요'); }
+}
+function wxFetch(byUser){
+  if(wxBusy) return;
+  wxBusy = true;
+  var pend = WX_PLACES.length, got = {};
+  WX_PLACES.forEach(function(pl){
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + pl.lat + '&longitude=' + pl.lon +
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
+      '&hourly=temperature_2m,precipitation_probability,weather_code' +
+      '&timezone=Asia%2FTokyo&start_date=' + WX_DAYS[0] + '&end_date=' + WX_DAYS[WX_DAYS.length-1];
+    var ctl = window.AbortController ? new AbortController() : null;
+    var tm = setTimeout(function(){ if(ctl){ try{ ctl.abort(); }catch(e){} } }, 9000);
+    fetch(url, { cache:'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(d){ clearTimeout(tm); var p = wxParse(d); if(!p) throw new Error('bad payload'); got[pl.k] = p; })
+      .catch(function(){ clearTimeout(tm); })
+      .then(function(){
+        if(--pend > 0) return;
+        wxBusy = false;
+        var ks = Object.keys(got);
+        if(!ks.length){ wxFail(byUser); return; }
+        var old = wxRead();
+        var merged = (old && old.data) ? old.data : {};
+        ks.forEach(function(k){ merged[k] = got[k]; });
+        wxWrite(merged);
+        wxPaint(merged, 'live', Date.now());
+        if(byUser) toast('여행지 날씨를 새로 받았어요');
+      });
+  });
+}
+function wxBoot(){
+  var c = wxRead();
+  if(c){
+    var fresh = (Date.now() - (c.ts || 0)) < WX_TTL;
+    wxPaint(c.data, fresh ? 'live' : 'cache', c.ts);
+    if(!fresh) wxFetch(false);
+    return;
+  }
+  wxPaint(null, 'pending', null);
+  wxFetch(false);
+}
+
 /* ---------------- overview ---------------- */
 var OV = [
   { id:'air',  label:'FLIGHT', title:'BX617 → BX608', meta:'12/8 16:30 김해 · 12/10 11:00 간사이', pill:'확정', ok:true, goto:'air' },
   { id:'stay', label:'STAY', title:'Hotel Links Namba', meta:'1인 1실 × 4 · ¥47,976 · 12/7까지 무료취소', pill:'확정', ok:true, goto:'stay' },
   { id:'car',  label:'CAR', title:'Travel CAR RENT · 프리우스', meta:'12/8 18:30 인수 → 12/10 10:00 반납 · 75,859원', pill:'확정', ok:true, goto:'car' },
-  { id:'tour', label:'TOUR', title:'산토리 교토 맥주공장', meta:'12/9 13:50–15:20 · 4명 ¥4,000 선결제 · 셔틀', pill:'확정', ok:true, goto:'tour' }
+  { id:'tour', label:'TOUR', title:'산토리 교토 맥주공장', meta:'12/9 13:50–15:20 · 4명 ¥4,000 선결제 · 셔틀', pill:'확정', ok:true, goto:'tour' },
+  { id:'dine', ic:'🍽️', label:'DINING', title:'식당 4곳 · 직원 제시용 확인증', meta:'12/8 21:15 · 22:45 / 12/9 19:00 · 21:30 · 핫페퍼', pill:'3곳 확정', ok:true, goto:'dine' }
 ];
 function renderOV(){
   $('#ovcards').innerHTML = OV.map(function(o){
     return '<button class="ov" data-goto="' + o.goto + '">' +
-      '<div class="ohtop"><span class="oic">' + (BOOKINGS.filter(function(b){return b.id===o.id;})[0]||{ic:'🎫'}).ic + '</span>' +
+      '<div class="ohtop"><span class="oic">' + (o.ic || (BOOKINGS.filter(function(b){return b.id===o.id;})[0]||{ic:'🎫'}).ic) + '</span>' +
       '<span class="olabel">' + o.label + '</span></div>' +
       '<div class="otitle">' + esc(o.title) + '</div>' +
       '<div class="ometa">' + esc(o.meta) + '</div>' +
@@ -2023,7 +2320,8 @@ function itemHTML(s){
         '<span class="more">›</span></div>' +
       '<div class="ttl">' + esc(s.title) + '</div>' +
       (s.sub ? '<div class="sub">' + esc(s.sub) + '</div>' : '') +
-      (s.badge ? '<div class="badge ' + (s.badgeType||'info') + '">' + (s.badgeType==='warn'?'⚠️ ':'ℹ️ ') + esc(s.badge) + '</div>' : '') +
+      (s.badge ? '<div class="badge ' + (s.badgeType||'info') + '">' + (s.badgeType==='warn'?'⚠️ ':s.badgeType==='ok'?'✓ ':'ℹ️ ') + esc(s.badge) + '</div>' : '') +
+      showBoxHTML(s) +
       (s.note ? '<p class="note">' + esc(s.note) + '</p>' : '') +
       menuHTML(s) +
       spotPhotoHTML(s) +
@@ -2305,6 +2603,7 @@ function openSpot(id){
   } else {
     $('#spBadgeRow').style.display = 'none';
   }
+  $('#spShowBox').innerHTML = showBoxHTML(s, true);
   var smb = $('#spMenuBox');
   if(s.menu && s.menu.length){
     $('#spMenuPp').textContent = s.pp || '';
@@ -2347,6 +2646,7 @@ function renderFood(){
       '<div class="fhead"><div style="flex:1;min-width:0"><div class="fname">' + esc(s.title) + '</div>' +
       '<div class="fmeta">' + d + ' ' + s.t + ' · ' + esc(meta) + '</div></div>' +
       (star ? '<span class="fstar">' + esc(star) + '</span>' : '') + '</div>' +
+      resvHTML(s) +
       '<p class="fdesc">' + esc(s.note||'') + '</p>' +
       menuHTML(s) +
       (s.alt ? '<div class="altline">' + esc(s.alt) + '</div>' : '') +
@@ -2842,6 +3142,12 @@ function renderPrep(){
         '<div class="box"><div class="st">' + esc(s.t) + '</div><div class="sd">' + esc(s.s) + '</div></div></div>';
     }).join('') + '</div>' +
 
+    '<div class="sec"><h2>🍽️ 식당 예약 4건</h2><span>핫페퍼 · 현장 결제</span></div>' +
+    '<div id="bk-dine">' +
+      '<div class="fcard" style="border-left:3px solid #3B7A57;margin-bottom:8px"><p class="fdesc" style="margin:0">3곳은 <b>즉시 확정</b>, 스시 토후지는 <b>자리만(단품)으로 변경·재발급 중</b>입니다. 결제는 전부 매장에서(지금 나간 돈 0원). 확인 메일은 hyuksankwon@gmail.com으로 받았고, 방문 후 핫페퍼 포인트 <b>800P</b> 적립 예정이에요.<br>식당 입구에서는 일정 카드·장소 상세의 <b>📱 직원 제시용 예약 확인증</b>을 그대로 보여주면 됩니다.</p></div>' +
+      RESV.map(resvCardHTML).join('') +
+    '</div>' +
+
     '<div class="sec"><h2>🎫 예약 · 바우처</h2><span>탭해서 복사</span></div>' +
     BOOKINGS.map(function(b){
       return '<div class="bk" id="bk-' + b.id + '">' +
@@ -3117,6 +3423,8 @@ renderMapList();
 renderFood();
 renderBudget();
 fxBoot();
+wxBoot();
+if($('#wxRefresh')) $('#wxRefresh').addEventListener('click', function(){ toast('날씨 받는 중…'); wxFetch(true); });
 renderPrep();
 document.body.classList.add('plan-mode');
 if(state.mini && !isWide()){ $('#mmToggle').classList.add('on'); $('#mmWrap').classList.add('on'); }
