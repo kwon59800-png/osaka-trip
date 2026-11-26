@@ -468,6 +468,14 @@
   .qempty{display:block;width:100%;margin-top:9px;border:1.5px dashed var(--line2);background:#FCF8F0;border-radius:12px;padding:15px 10px;text-align:center;color:var(--dim)}
   .qempty b{display:block;font-size:12.5px;color:var(--ink);letter-spacing:-.02em}
   .qempty span{display:block;font-size:10px;color:var(--dim2);margin-top:3px;line-height:1.45}
+  .qrevive{display:block;width:100%;margin-top:6px;border:0;background:none;color:var(--dim2);font-size:10px;font-weight:650;text-decoration:underline;text-underline-offset:2px;letter-spacing:-.02em}
+  .qlock{margin-top:9px;border:1px dashed #E5CDA6;background:#FFFBF2;border-radius:12px;padding:10px 11px}
+  .qlock .qlockt b{display:block;font-size:12px;color:#8A6A34;letter-spacing:-.02em}
+  .qlock .qlockt span{display:block;font-size:10px;color:var(--dim2);line-height:1.45;margin-top:3px}
+  .qlockrow{display:flex;gap:6px;margin-top:8px}
+  .qlockrow input{flex:1;min-width:0;border:1px solid var(--line2);background:#fff;border-radius:9px;padding:8px 10px;font-size:13px;font-family:"IBM Plex Mono",monospace;letter-spacing:.16em;color:var(--ink)}
+  .qlockrow button{flex:none;border:1px solid var(--coral);background:var(--coral);color:#fff;border-radius:9px;padding:8px 13px;font-size:11.5px;font-weight:700;letter-spacing:-.02em}
+  .qlockrow button:disabled{opacity:.6}
   .qthumb{display:flex;gap:10px;align-items:center;margin-top:9px}
   .qthumb .im{flex:none;width:86px;height:86px;border-radius:11px;border:1px solid var(--line2);background:#fff;object-fit:contain;padding:3px;cursor:zoom-in}
   .qside{flex:1;min-width:0}
@@ -1215,9 +1223,35 @@ var qrFlight = (function(){
 var qrOpenSlot = null, qrZoom = 1, qrBaseW = 0, qrLock = null, qrTarget = null;
 
 function qrKey(pid, slot){ return 'osaka_qr_' + pid + '_' + slot; }
+function qrGoneKey(pid, slot){ return 'osaka_qr_gone_' + pid + '_' + slot; }
 function qrGet(pid, slot){ try{ return localStorage.getItem(qrKey(pid, slot)) || ''; }catch(e){ return ''; } }
 function qrDel(pid, slot){ try{ localStorage.removeItem(qrKey(pid, slot)); return true; }catch(e){ return false; } }
-function qrHasAny(pid){ return !!(qrGet(pid,'vjw') || qrGet(pid,'flight_bx617') || qrGet(pid,'flight_bx608')); }
+function qrIsGone(pid, slot){ try{ return localStorage.getItem(qrGoneKey(pid, slot)) === '1'; }catch(e){ return false; } }
+function qrSetGone(pid, slot, on){
+  try{ if(on) localStorage.setItem(qrGoneKey(pid, slot), '1'); else localStorage.removeItem(qrGoneKey(pid, slot)); }catch(e){}
+}
+
+/* ------------------------------------------------------------
+   기본 내장 QR — 암호문만 앱에 들어 있다 (AES-GCM / PBKDF2)
+   공개 페이지 소스에는 base64 암호문만 남고, 여권번호·이름 같은
+   내용은 6자리 코드를 넣어야 이 기기에서만 풀린다.
+   키 없음 + 기본 있음  → '코드 입력' 카드
+   삭제 누름            → osaka_qr_gone_* 플래그로 기본도 숨김
+   ------------------------------------------------------------ */
+var QR_DEFAULT = {
+  hyerang: {
+    vjw: {
+      w: 650, h: 650,
+      salt: '1Kj+mke/sDcdnYaFkKHbtA==',
+      iv: 'X/6pzstOvyfUtsKq',
+      ct: '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'
+    }
+  }
+};
+function qrDef(pid, slot){ return (QR_DEFAULT[pid] || {})[slot] || null; }
+function qrLocked(pid, slot){ return !!qrDef(pid, slot) && !qrIsGone(pid, slot) && !qrGet(pid, slot); }
+function qrHas(pid, slot){ return !!(qrGet(pid, slot) || qrLocked(pid, slot)); }
+function qrHasAny(pid){ return qrHas(pid,'vjw') || qrHas(pid,'flight_bx617') || qrHas(pid,'flight_bx608'); }
 function qrKB(url){ return Math.max(1, Math.round((url.length - url.indexOf(',') - 1) * 3 / 4 / 1024)); }
 function qrSlotKey(){ return 'flight_' + qrFlight; }
 function qrFlightName(){ return qrFlight === 'bx617' ? 'BX617 · 김해→간사이 12/8' : 'BX608 · 간사이→김해 12/10'; }
@@ -1226,8 +1260,48 @@ function qrSlotLabel(slot){
   return '탑승권 QR · ' + (slot.indexOf('bx608') >= 0 ? 'BX608' : 'BX617');
 }
 
+/* ---------- 기본 내장 QR 풀기 (AES-GCM) ---------- */
+function qrB64(s){
+  var bin = atob(s), u = new Uint8Array(bin.length);
+  for(var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+  return u;
+}
+function qrUnlock(pid, slot, code, btn){
+  var d = qrDef(pid, slot); if(!d) return;
+  code = String(code || '').replace(/\D/g, '');
+  if(!code){ toast('코드를 입력해 주세요'); return; }
+  if(!(window.crypto && window.crypto.subtle && window.crypto.subtle.importKey)){
+    toast('https 링크에서 열어야 코드를 풀 수 있어요'); return;
+  }
+  if(btn){ btn.disabled = true; btn.textContent = '푸는 중'; }
+  var enc = new TextEncoder();
+  crypto.subtle.importKey('raw', enc.encode(code), { name:'PBKDF2' }, false, ['deriveKey'])
+    .then(function(base){
+      return crypto.subtle.deriveKey(
+        { name:'PBKDF2', salt: qrB64(d.salt), iterations: 250000, hash:'SHA-256' },
+        base, { name:'AES-GCM', length: 256 }, false, ['decrypt']);
+    })
+    .then(function(k){ return crypto.subtle.decrypt({ name:'AES-GCM', iv: qrB64(d.iv) }, k, qrB64(d.ct)); })
+    .then(function(buf){
+      var fr = new FileReader();
+      fr.onload = function(){
+        try{ localStorage.setItem(qrKey(pid, slot), String(fr.result)); }catch(e){}
+        renderQR(); renderProfiles();
+        if($('#tab-prep').classList.contains('on')) renderPrep();
+        toast(qrSlotLabel(slot) + ' 열었어요 · 이 기기에 저장됨');
+        openQRView(slot);
+      };
+      fr.readAsDataURL(new Blob([buf], { type:'image/png' }));
+    })
+    .catch(function(){
+      if(btn){ btn.disabled = false; btn.textContent = '열기'; }
+      toast('코드가 맞지 않아요');
+    });
+}
+
 function qrSlotHtml(pid, slot, ic, title, sub, extra){
   var data = qrGet(pid, slot);
+  var locked = !data && qrLocked(pid, slot);
   var body;
   if(data){
     body = '<div class="qthumb">' +
@@ -1240,23 +1314,33 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
           '<button class="del" data-qract="del" data-slot="' + slot + '">삭제</button>' +
         '</div>' +
       '</div></div>';
+  } else if(locked){
+    body = '<div class="qlock">' +
+      '<div class="qlockt"><b>🔒 기본 등록됨</b><span>' + esc((member(pid) || {}).name || '') + ' 님 QR이 미리 들어 있어요. 코드를 넣으면 이 기기에 저장되고 다음부터는 바로 열려요.</span></div>' +
+      '<div class="qlockrow">' +
+        '<input id="qrc-' + slot + '" type="tel" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6자리 코드" aria-label="보안 코드" onkeydown="if(event.key===\'Enter\'){this.nextElementSibling.click();}">' +
+        '<button data-qract="unlock" data-slot="' + slot + '">열기</button>' +
+      '</div>' +
+    '</div>';
   } else {
     body = '<button class="qempty" data-qract="pick" data-slot="' + slot + '">' +
-      '<b>＋ QR 이미지 올리기</b><span>스크린샷·사진 선택 · 최대 900px로 자동 축소</span></button>';
+      '<b>＋ QR 이미지 올리기</b><span>스크린샷·사진 선택 · 최대 900px로 자동 축소</span></button>' +
+      (qrDef(pid, slot) ? '<button class="qrevive" data-qract="revive" data-slot="' + slot + '">기본 QR 다시 켜기</button>' : '');
   }
+  var pill = data ? '저장됐' : (locked ? '기본' : '비었음');
   return '<div class="qslot" id="qslot-' + slot + '">' +
     '<div class="qh"><span class="qi">' + ic + '</span>' +
       '<div class="qtt"><b>' + title + '</b><span>' + sub + '</span></div>' +
-      '<span class="qpill ' + (data?'has':'') + '">' + (data?'저장됐':'비었음') + '</span>' +
+      '<span class="qpill ' + ((data || locked) ? 'has' : '') + '">' + pill + '</span>' +
     '</div>' + (extra || '') + body + '</div>';
 }
 
 function renderQR(){
   var pid = state.profile, m = member(pid) || MEMBERS[0];
-  var total = (qrGet(pid,'vjw')?1:0) + (qrGet(pid,'flight_bx617')?1:0) + (qrGet(pid,'flight_bx608')?1:0);
+  var total = (qrHas(pid,'vjw')?1:0) + (qrHas(pid,'flight_bx617')?1:0) + (qrHas(pid,'flight_bx608')?1:0);
   var seg = '<div class="qseg">' +
-    '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8' + (qrGet(pid,'flight_bx617') ? '<i class="qhas"></i>' : '') + '</button>' +
-    '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10' + (qrGet(pid,'flight_bx608') ? '<i class="qhas"></i>' : '') + '</button>' +
+    '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8' + (qrHas(pid,'flight_bx617') ? '<i class="qhas"></i>' : '') + '</button>' +
+    '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10' + (qrHas(pid,'flight_bx608') ? '<i class="qhas"></i>' : '') + '</button>' +
   '</div>';
   $('#qrBox').innerHTML = '' +
     '<div class="grab"></div>' +
@@ -1267,7 +1351,7 @@ function renderQR(){
     '</div>' +
     qrSlotHtml(pid, 'vjw', '🛂', '일본 입국심사·세관', 'VISIT JAPAN WEB · 입국·세관', '') +
     qrSlotHtml(pid, qrSlotKey(), '✈️', '항공 모바일 탑승권', qrFlightName(), seg) +
-    '<p class="qnote"><b>공개되지 않아요.</b> QR 이미지는 이 브라우저(localStorage)에만 저장됩니다. 같은 링크를 연 다른 사람 폰에는 보이지 않고 공개 GitHub 페이지에도 올라가지 않아요 — <b>' + esc(m.name) + '</b> 님이 이 기기에서 올린 QR만 나옵니다. (저장 ' + total + '개)</p>' +
+    '<p class="qnote"><b>공개되지 않아요.</b> QR 이미지는 이 브라우저(localStorage)에만 저장됩니다. 같은 링크를 연 다른 사람 폰에는 보이지 않아요. 기본 등록된 QR은 암호문으로만 앱에 들어 있어 공개 페이지에서는 읽히지 않습니다 — <b>' + esc(m.name) + '</b> 님이 이 기기에서 올린 QR만 나옵니다. (저장 ' + total + '개)</p>' +
     '<div class="sact"><button class="pri" data-qract="close">닫기</button></div>';
 }
 
@@ -1360,12 +1444,24 @@ function qrSave(tgt, im){
 }
 function qrDelete(slot){
   var pid = state.profile;
-  if(!qrGet(pid, slot)) return;
-  if(!confirm(member(pid).name + ' 님의 ' + qrSlotLabel(slot) + ' 이미지를 이 기기에서 지울까요?\n(다시 올리면 복구됩니다)')) return;
+  if(!qrHas(pid, slot)) return;
+  var hasLocal = !!qrGet(pid, slot);
+  var msg = hasLocal
+    ? member(pid).name + ' 님의 ' + qrSlotLabel(slot) + ' 이미지를 이 기기에서 지울까요?\n(다시 올리면 복구됩니다)'
+    : member(pid).name + ' 님의 기본 등록 ' + qrSlotLabel(slot) + '를 이 기기에서 끌까요?\n(아래 "기본 QR 다시 켜기"로 언제든 되돌릴 수 있어요)';
+  if(!confirm(msg)) return;
   qrDel(pid, slot);
+  if(qrDef(pid, slot)) qrSetGone(pid, slot, true);
   renderQR(); renderProfiles();
   if($('#tab-prep').classList.contains('on')) renderPrep();
   toast('삭제했어요');
+}
+function qrRevive(slot){
+  var pid = state.profile;
+  qrSetGone(pid, slot, false);
+  renderQR(); renderProfiles();
+  if($('#tab-prep').classList.contains('on')) renderPrep();
+  toast('기본 QR을 다시 켰어요 · 코드를 넣으면 열려요');
 }
 
 /* ---------------- 전체화면 보기 (밝기·크기 강조) ---------------- */
@@ -1397,7 +1493,14 @@ function qrApplyZoom(){
 }
 function openQRView(slot){
   var data = qrGet(state.profile, slot);
-  if(!data){ toast('먼저 QR 이미지를 올려 주세요'); return; }
+  if(!data){
+    if(qrLocked(state.profile, slot)){
+      openQR(slot);
+      setTimeout(function(){ var inp = document.getElementById('qrc-' + slot); if(inp) inp.focus(); }, 120);
+      toast('기본 등록된 QR이에요 — 코드를 넣어 주세요');
+    } else { toast('먼저 QR 이미지를 올려 주세요'); }
+    return;
+  }
   var im = $('#qvImg');
   qrZoom = 1; qrBaseW = 0;
   im.style.width = 'auto';
@@ -1950,16 +2053,18 @@ function qrPrepRows(){
     { slot:qrSlotKey(), ic:'✈️', t:'항공 탑승권 QR', s:qrFlightName() }
   ];
   return rows.map(function(r){
-    var has = !!qrGet(pid, r.slot);
+    var has = qrHas(pid, r.slot);
+    var lock = !qrGet(pid, r.slot) && qrLocked(pid, r.slot);
     var sub = r.s;
     if(r.slot !== 'vjw' && !has){
       var other = qrFlight === 'bx617' ? 'bx608' : 'bx617';
-      if(qrGet(pid, 'flight_' + other)) sub += ' · ' + other.toUpperCase() + '에 저장됨';
+      if(qrHas(pid, 'flight_' + other)) sub += ' · ' + other.toUpperCase() + '에 저장됨';
     }
-    return '<button class="qrow" data-qract="' + (has ? 'view' : 'open') + '" data-slot="' + r.slot + '">' +
+    if(lock) sub += ' · 기본 등록 · 코드 입력';
+    return '<button class="qrow" data-qract="' + (has ? (lock ? 'open' : 'view') : 'open') + '" data-slot="' + r.slot + '">' +
       '<span class="qi">' + r.ic + '</span>' +
       '<span class="qtt"><b>' + r.t + '</b><span>' + sub + '</span></span>' +
-      '<span class="qpill ' + (has ? 'has' : '') + '">' + (has ? '보기' : '미등록') + '</span>' +
+      '<span class="qpill ' + (has ? 'has' : '') + '">' + (lock ? '기본' : (has ? '보기' : '미등록')) + '</span>' +
     '</button>';
   }).join('') +
   '<div class="qacts" style="margin-top:8px"><button class="pri" data-qract="open">📲 내 QR 열기 · 올리기</button></div>';
@@ -2068,6 +2173,12 @@ document.addEventListener('click', function(e){
     if(act === 'pick'){ qrPickFile(state.profile, qs); return; }
     if(act === 'del'){ qrDelete(qs); return; }
     if(act === 'view'){ openQRView(qs); return; }
+    if(act === 'unlock'){
+      var box = qa.parentNode, inp = box ? box.querySelector('input') : null;
+      qrUnlock(state.profile, qs, inp ? inp.value : '', qa);
+      return;
+    }
+    if(act === 'revive'){ qrRevive(qs); return; }
     if(act === 'flight'){
       qrFlight = qa.getAttribute('data-f');
       try{ localStorage.setItem(QR_FLIGHT_KEY, qrFlight); }catch(err){}
