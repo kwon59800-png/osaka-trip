@@ -303,6 +303,27 @@
   .bhero .big small{font-size:13px;font-weight:650;color:var(--dim);margin-left:3px}
   .bhero .bsub{font-size:10.5px;color:var(--dim);margin-top:3px}
   .bhero .bsub b{font-weight:700;color:var(--ink)}
+  .myhero{margin-top:10px;border-radius:18px;padding:13px 14px 12px 17px;background:#fff;border:1px solid var(--line);box-shadow:var(--sh2);position:relative;overflow:hidden}
+  .myhero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--mc)}
+  .myhero .mhtop{display:flex;align-items:center;gap:7px}
+  .myhero .mhav{width:22px;height:22px;border-radius:999px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;flex:none}
+  .myhero .mhname{font-size:12px;font-weight:700}
+  .myhero .mhtag{margin-left:auto;font-size:9.5px;font-weight:700;color:#fff;background:var(--mc);border-radius:999px;padding:3px 9px;letter-spacing:.01em}
+  .myhero .mhbig{font-size:26px;font-weight:800;letter-spacing:-.04em;line-height:1.15;margin-top:6px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .myhero .mhbig small{font-size:12px;font-weight:650;color:var(--dim);margin-left:3px}
+  .myhero .mhsub{font-size:10.5px;color:var(--dim);margin-top:2px}
+  .myhero .mhnote{font-size:10px;color:var(--dim2);margin-top:6px;line-height:1.45}
+  .myhero .mhnote b{color:var(--dim);font-weight:700}
+  .crow2 .amt .mine{display:block;font-size:9px;color:var(--dim);font-weight:600;font-family:inherit}
+  .crow2 .amt .mine.out{color:#BCB2A3;font-weight:500}
+  .fblock{margin-bottom:8px}
+  .fblock>label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:5px}
+  .fblock>label em{font-style:normal;color:var(--dim2);font-weight:500}
+  .whoRow{display:flex;flex-wrap:wrap;gap:6px}
+  .whoRow label{position:relative;display:inline-flex;cursor:pointer}
+  .whoRow input{position:absolute;opacity:0;width:0;height:0}
+  .whoRow span{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;color:var(--dim);background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+  .whoRow input:checked + span{color:#fff;background:var(--mc);border-color:var(--mc)}
   .bgauge{margin-top:11px;padding-top:11px;border-top:1px dashed var(--line2)}
   .bgauge .grow{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;color:var(--dim2);margin-bottom:5px}
   .bgauge .grow .gin{display:flex;align-items:center;gap:4px}
@@ -706,8 +727,8 @@
           <option value="tour">투어·입장</option><option value="medical">마운자로</option><option value="etc">기타</option>
         </select>
       </div>
-      <div class="frow"><label>분담 인원</label>
-        <select class="inp" id="cSplit"><option value="4">4명 (÷4)</option><option value="3">3명</option><option value="2">2명</option><option value="1">1명 (개인)</option></select>
+      <div class="fblock"><label>분담 대상 <em>— 기본 공통(÷4) · 임지은 2.5mg처럼 개인 항목은 한 명만 선택</em></label>
+        <div class="whoRow" id="cWho"></div>
       </div>
       <div class="frow"><label>메모</label><input class="inp" id="cMemo" placeholder="선택 입력"></div>
       <div class="sact">
@@ -944,14 +965,14 @@ var DEFAULT_COSTS = [
   { id:'c4', name:'주유 · 고속도로 (예상)', amt:5000, cur:'JPY', split:4, cat:'transport', memo:'오사카·교토 왕복', ic:'⛽' },
   { id:'c5', name:'산토리 교토 맛투어 (4명)', amt:4000, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,000', ic:'🍺' },
   { id:'c6', name:'하루카스 300 (4명)', amt:7200, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,800', ic:'🌃' },
-  { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인)', amt:139005, cur:'JPY', split:3, cat:'medical', memo:'3인 × ¥46,335 (펜 ¥45,000 + 착불 ¥1,335)', ic:'💉' },
-  { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은)', amt:25335, cur:'JPY', split:1, cat:'medical', memo:'¥24,000 + 착불 ¥1,335', ic:'💉' },
+  { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인)', amt:139005, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥46,335 (펜 ¥45,000 + 착불 ¥1,335)', ic:'💉' },
+  { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은)', amt:25335, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 + 착불 ¥1,335', ic:'💉' },
   { id:'c8', name:'식비 (예상)', amt:72000, cur:'JPY', split:4, cat:'food', memo:'1인 1일 ¥6,000 × 3일', ic:'🍽️' }
 ];
 
 /* ---------------- state ---------------- */
 var LS_KEY = 'osakaTripApp.v2';
-var COST_VER = 2; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨이 자동 갱신된다 */
+var COST_VER = 3; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 
 function load(){
@@ -981,6 +1002,7 @@ function load(){
         var ex = out.costs.filter(function(c){ return c.id === d.id; })[0];
         if(ex){
           ex.name = d.name; ex.amt = d.amt; ex.cur = d.cur; ex.split = d.split;
+          ex.who = d.who ? d.who.slice() : null;
           ex.memo = d.memo; ex.ic = d.ic; ex.cat = d.cat;
         } else if(d.id === 'c7b' && out.costs.some(function(c){ return c.id === 'c7'; })){
           out.costs.push(Object.assign({}, d)); /* 기존 마운자로 항목이 남아 있을 때만 새 2.5mg 항목을 추가 */
@@ -1419,12 +1441,49 @@ function totals(){
   state.costs.forEach(function(c){
     var k2 = krwOf(c);
     if(c.cur === 'JPY') jpy += c.amt; else krw += c.amt;
-    per += k2 / (c.split || 4);
     var cat = c.cat || 'etc';
     byCat[cat] = (byCat[cat] || 0) + k2;
   });
   var total = jpy * state.rate / 100 + krw;
-  return { jpy:jpy, krw:krw, total:total, per:per, byCat:byCat };
+  return { jpy:jpy, krw:krw, total:total, per:total / MEMBERS.length, byCat:byCat };
+}
+/* --- 개인별 몫: c.who(분담 대상)가 있으면 그 중에서만 나누고, 없으면 split 인원으로 나눈다 --- */
+function shareFrac(c, pid){
+  if(c.who && c.who.length) return c.who.indexOf(pid) >= 0 ? 1 / c.who.length : 0;
+  return 1 / (c.split || MEMBERS.length);
+}
+function shareOf(c, pid){ return krwOf(c) * shareFrac(c, pid); }
+function myTotals(pid){
+  var jpy = 0, krw = 0;
+  state.costs.forEach(function(c){
+    var f = shareFrac(c, pid);
+    if(!f) return;
+    if(c.cur === 'JPY') jpy += c.amt * f; else krw += c.amt * f;
+  });
+  return { jpy:jpy, krw:krw, total: jpy * state.rate / 100 + krw };
+}
+function whoLabel(c){
+  if(c.who && c.who.length && c.who.length < MEMBERS.length){
+    return c.who.length + '인 분담 · ' + c.who.map(function(id){ var m = member(id); return m ? m.initial : ''; }).join('·');
+  }
+  var sp = c.split || MEMBERS.length;
+  return sp >= MEMBERS.length ? '공통(÷' + MEMBERS.length + ')' : (sp === 1 ? '개인' : sp + '인 분담');
+}
+function myHeroHTML(){
+  var mm = member(state.profile) || MEMBERS[0];
+  var mt = myTotals(state.profile), t = totals();
+  var pct = t.total ? (mt.total / t.total * 100) : 0;
+  return '<div class="myhero" style="--mc:' + mm.color + '">' +
+    '<div class="mhtop"><span class="mhav" style="background:' + mm.color + '">' + mm.initial + '</span>' +
+      '<span class="mhname">' + esc(mm.name) + ' 기준</span><span class="mhtag">내 예상 부담금</span></div>' +
+    '<div class="mhbig">' + num(mt.total) + '<small>원</small></div>' +
+    '<div class="mhsub">' + mySub(mt, t) + '</div>' +
+    '<div class="mhnote">위 프로필을 바꾸면 이 금액과 각 항목의 <b>내 몫</b>이 그 사람 기준으로 바뀌어요. 개인 항목은 해당자에게만 잡혀요.</div>' +
+  '</div>';
+}
+function mySub(mt, t){
+  var pct = t && t.total ? (mt.total / t.total * 100) : 0;
+  return '엔화 ' + yen(Math.round(mt.jpy)) + ' + 원화 ' + won(mt.krw) + ' · 전체의 ' + pct.toFixed(0) + '%';
 }
 function catRowsHTML(t){
   return Object.keys(CATS).filter(function(k){ return (t.byCat[k]||0) > 0; })
@@ -1447,19 +1506,20 @@ function renderBudget(){
       '<div class="btop"><span class="blab">4인 총 경비 · 원화 환산</span>' +
         '<span class="rate">100¥ = ₩<input id="rateIn" type="number" step="1" min="0" value="' + state.rate + '"></span></div>' +
       '<div class="big">' + num(t.total) + '<small>원</small></div>' +
-      '<div class="bsub">1인당 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw) + '</div>' +
+      '<div class="bsub">1인 평균 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw) + '</div>' +
       '<div class="bgauge">' +
         '<div class="grow"><span class="gin">예산 <input id="budgetIn" type="number" step="10000" min="0" value="' + state.budget + '"> 원</span>' +
         '<span>' + usePct.toFixed(1) + '% 사용 · ' + (t.total <= state.budget ? num(state.budget - t.total) + '원 남음' : num(t.total - state.budget) + '원 초과') + '</span></div>' +
         '<div class="bbar"><i class="' + (usePct>100?'over':'') + '" style="width:' + Math.min(100,usePct).toFixed(1) + '%"></i></div>' +
       '</div>' +
     '</div>' +
+    myHeroHTML() +
     '<div class="sec"><h2>카테고리별 비중</h2><span>총액 대비</span></div>' +
     '<div class="catlist" id="catlist">' + catRowsHTML(t) + '</div>' +
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로는 실측 확정 금액, 주유·식비는 예상치예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다.<br>렌터카 대안: 닛산 노트 e-Power ₩156,568 / 풀커버 ₩257,695(미선택).</p>';
+    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로는 실측 확정 금액, 주유·식비는 예상치예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카 대안: 닛산 노트 e-Power ₩156,568 / 풀커버 ₩257,695(미선택).</p>';
 
   $('#rateIn').addEventListener('input', function(){
     var v = parseFloat(this.value);
@@ -1483,10 +1543,15 @@ function renderBudget(){
 function paintBudget(){
   var t = totals();
   var usePct = t.total / state.budget * 100;
+  var mt = myTotals(state.profile);
+  var mb = $('.myhero .mhbig');
+  if(mb) mb.innerHTML = num(mt.total) + '<small>원</small>';
+  var ms = $('.myhero .mhsub');
+  if(ms) ms.textContent = mySub(mt, t);
   var big = $('.bhero .big');
   if(big) big.innerHTML = num(t.total) + '<small>원</small>';
   var bs = $('.bhero .bsub');
-  if(bs) bs.innerHTML = '1인당 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw);
+  if(bs) bs.innerHTML = '1인 평균 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw);
   var gl = $('.bgauge .grow span:last-child');
   if(gl) gl.textContent = usePct.toFixed(1) + '% 사용 · ' + (t.total <= state.budget ? num(state.budget - t.total) + '원 남음' : num(t.total - state.budget) + '원 초과');
   var bar = $('.bbar i');
@@ -1499,18 +1564,24 @@ function paintBudget(){
     if(!c) return;
     var k = krwOf(c);
     row.querySelector('.amt b').textContent = num(k);
-    row.querySelector('.amt span').textContent = '1인 ' + num(k/(c.split||4)) + '원';
+    var mine = row.querySelector('.amt .mine');
+    if(mine){
+      var sh = shareOf(c, state.profile);
+      mine.textContent = '내 몫 ' + num(sh) + '원';
+      mine.className = 'mine' + (sh > 0 ? '' : ' out');
+    }
   });
 }
 function costRow(c){
   var k = krwOf(c);
   var orig = c.cur === 'JPY' ? yen(c.amt) : won(c.amt);
   var cat = CATS[c.cat || 'etc'];
+  var sh = shareOf(c, state.profile);
   return '<div class="crow2" data-edit="' + c.id + '">' +
     '<div class="ic">' + (c.ic || cat.ic) + '</div>' +
     '<div style="min-width:0;flex:1"><div class="nm">' + esc(c.name) + '</div>' +
-    '<div class="sub2">' + orig + ' · ' + cat.n + ' · ' + (c.split>=4?'4인 분담':(c.split===1?'개인':c.split+'인')) + (c.memo?' · '+esc(c.memo):'') + '</div></div>' +
-    '<div class="amt"><b>' + num(k) + '원</b><span>1인 ' + num(k/(c.split||4)) + '원</span></div>' +
+    '<div class="sub2">' + orig + ' · ' + cat.n + ' · ' + whoLabel(c) + (c.memo?' · '+esc(c.memo):'') + '</div></div>' +
+    '<div class="amt"><b>' + num(k) + '원</b><span class="mine' + (sh > 0 ? '' : ' out') + '">내 몫 ' + num(sh) + '원</span></div>' +
     '<button class="del" data-del="' + c.id + '" aria-label="삭제">×</button></div>';
 }
 function openSheet(id){
@@ -1521,7 +1592,10 @@ function openSheet(id){
   $('#cAmt').value = c ? c.amt : '';
   $('#cCur').value = c ? c.cur : 'JPY';
   $('#cCat').value = c ? (c.cat || 'etc') : 'food';
-  $('#cSplit').value = c ? String(c.split || 4) : '4';
+  var who = c ? (c.who && c.who.length ? c.who.slice() : (c.split === 1 ? [state.profile] : MEMBERS.map(function(m){ return m.id; }))) : MEMBERS.map(function(m){ return m.id; });
+  $('#cWho').innerHTML = MEMBERS.map(function(m){
+    return '<label style="--mc:' + m.color + '"><input type="checkbox" value="' + m.id + '"' + (who.indexOf(m.id) >= 0 ? ' checked' : '') + '><span>' + esc(m.name) + '</span></label>';
+  }).join('');
   $('#cMemo').value = c ? (c.memo || '') : '';
   $('#sheet').classList.add('on');
 }
@@ -1533,13 +1607,16 @@ $('#cSave').addEventListener('click', function(){
   var name = $('#cName').value.trim() || '경비';
   var amt = parseFloat($('#cAmt').value);
   if(!(amt >= 0)){ toast('금액을 입력해 주세요'); return; }
-  var cur = $('#cCur').value, split = parseInt($('#cSplit').value,10) || 4,
+  var cur = $('#cCur').value,
+      who = $$('#cWho input').filter(function(i){ return i.checked; }).map(function(i){ return i.value; }),
       memo = $('#cMemo').value.trim(), cat = $('#cCat').value;
+  if(!who.length){ toast('분담할 사람을 한 명 이상 골라주세요'); return; }
+  var split = who.length, whoArr = (split >= MEMBERS.length) ? null : who;
   if(editingId){
     var c = state.costs.filter(function(x){ return x.id === editingId; })[0];
-    if(c){ c.name=name; c.amt=amt; c.cur=cur; c.split=split; c.memo=memo; c.cat=cat; }
+    if(c){ c.name=name; c.amt=amt; c.cur=cur; c.split=split; c.who=whoArr; c.memo=memo; c.cat=cat; }
   } else {
-    state.costs.push({ id:'c'+Date.now(), name:name, amt:amt, cur:cur, split:split, memo:memo, cat:cat, ic:CATS[cat].ic });
+    state.costs.push({ id:'c'+Date.now(), name:name, amt:amt, cur:cur, split:split, who:whoArr, memo:memo, cat:cat, ic:CATS[cat].ic });
   }
   save(); closeSheet(); renderBudget(); toast('저장했어요');
 });
