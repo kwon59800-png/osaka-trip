@@ -175,6 +175,14 @@
   .badge{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:10px;font-weight:650;padding:3px 7px;border-radius:7px;line-height:1.35}
   .badge.warn{color:#B23A31;background:#FCEDEA;border:1px solid #F6D3CD}
   .badge.info{color:#2B4C7E;background:#EDF1F7;border:1px solid #D9E2EE}
+  /* 추천 메뉴 · 실측 가격 (식당 카드 공통) */
+  .mnbox{margin-top:7px;padding:7px 9px 6px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,#FEFCF7,#FAF4E9)}
+  .mnhead{display:flex;align-items:baseline;gap:6px;font-size:9.5px;font-weight:700;letter-spacing:.01em;color:var(--dim2);margin-bottom:2px}
+  .mnhead em{margin-left:auto;font-style:normal;font-size:10px;font-weight:700;color:var(--gold);white-space:nowrap;letter-spacing:-.01em}
+  .mnrow{display:flex;align-items:baseline;gap:5px;font-size:10.5px;line-height:1.7;color:var(--dim)}
+  .mnrow .n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mnrow .d{flex:1;min-width:6px;border-bottom:1px dotted var(--dash);transform:translateY(-3px)}
+  .mnrow b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
   .card2 .acts{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
   .btn{
     appearance:none;display:inline-flex;align-items:center;gap:4px;text-decoration:none;
@@ -907,6 +915,10 @@
       <div class="srow"><span class="k">주소</span><span class="v mono2" id="spJp">—</span></div>
       <div class="srow" id="spNoteRow"><span class="k">메모</span><span class="v" id="spNote">—</span></div>
       <div class="srow" id="spBadgeRow" style="display:none"><span class="k">확인</span><span class="v" id="spBadge">—</span></div>
+      <div class="mnbox" id="spMenuBox" style="display:none;margin:8px 0 0">
+        <div class="mnhead"><span>추천 메뉴 · 실측 가격</span><em id="spMenuPp"></em></div>
+        <div id="spMenuRows"></div>
+      </div>
       <textarea class="mmemo" id="spMemo" placeholder="이 장소에 대한 개인 메모 (자동 저장)"></textarea>
       <button class="sphoto big" id="spPhoto" style="display:none" aria-label="대표 사진 크게 보기">
         <img id="spPhotoImg" alt="">
@@ -1039,22 +1051,29 @@ var SPOTS = [
     note:'체크인 15:00 / 체크아웃 11:00 · 총 JPY 47,976 · 12/7까지 무료취소. 주차는 옆 코인파킹 パーキングプレイスN゜77 NAMBA (24시간 최대 ¥1,400 · 전고 2.0m 이하).',
     q:'Hotel Links Namba 大阪市浪速区稲荷1-9-27', lat:34.6603, lng:135.4919,
     leg:{ ic:'🚗', t:'차로 약 45분', m:45 } },
-  { id:'d1-9', day:1, t:'21:15', kind:'food', tag:'저녁', title:'우라난바 스시 토후지 (裏なんば 鮨 東藤)',
+  { id:'d1-9', day:1, t:'21:15', kind:'food', tag:'저녁', title:'우라난바 스시 토후지 (鮨酒場 スシトフジ 裏難波)',
     sub:'★4.8 (2,796) · 17:00–23:30 · 도보 15분/택시 5분', jp:'大阪市中央区千日前2-5-7 2F',
-    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게.',
+    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공.',
+    menu:[['大将 5관 오마카세','¥1,209'],['혼마구로 아카미 2관','¥548'],['중토로 1관 / 대토로 1관','¥659 / ¥769'],['흰살·조개 2관','¥438~493'],['모둠 사시미 3종','¥879']],
+    pp:'1인 약 ¥4,500 · 술 1~2잔 포함',
     alt:'대안: 스시×텐푸라 아키라',
     q:'裏なんば 鮨 東藤 大阪', lat:34.66647, lng:135.50499, food:true,
     leg:{ ic:'🚶', t:'도보 15분', m:15 } },
-  { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'히토메보레 난바 (大衆酒場 ひとめぼれ)',
+  { id:'d1-10', day:1, t:'22:30', kind:'food', tag:'2차', title:'히토메보레 난바 (肉ト魚 大衆酒場 ひとめぼれ 裏難波店)',
     sub:'★4.6 · ~24:00', jp:'大阪市中央区千日前2-7-12 1F',
     note:'해산물·사시미 위주로 가볍게 한 잔. 대안: 유세이 우라난바(★4.2 · ~03:00).',
+    menu:[['枡조리 사시미 3종','¥1,089'],['카이센 코보레즈시','¥638'],['네기시오 탄구시','¥748'],['와규 란탄','¥858'],['생맥주 / 하이볼·레몬사워','¥328 / ¥219']],
+    pp:'1인 약 ¥2,800 · 자릿세(お通し) ¥418 별도',
     q:'大衆酒場 ひとめぼれ 裏難波店', lat:34.66595, lng:135.5035, food:true,
     leg:{ ic:'🚶', t:'도보 3분', m:3 } },
 
   /* ---------------- DAY 2 · 12/9 (수) ---------------- */
-  { id:'d2-1', day:2, t:'10:00', kind:'food', tag:'아점', title:'이치란 도톤보리 본관',
-    sub:'24시간 영업 · ★4.3', jp:'大阪市中央区道頓堀1-4-16',
-    note:'오전엔 줄이 짧아요. 면은 적게, 차슈 추가로 단백질 보충.', q:'一蘭 道頓堀本館', lat:34.6687, lng:135.5014, food:true },
+  { id:'d2-1', day:2, t:'10:00', kind:'food', tag:'아점', title:'이치란 도톤보리 별관 (一蘭 道頓堀店別館)',
+    sub:'味集中카운터 24시간 · 테이블석 08:00–23:00 · ★4.3', jp:'大阪市中央区道頓堀1-4-16',
+    badge:'본관(宗右衛門町)은 영업 종료 — 이 주소는 별관', badgeType:'warn',
+    note:'오전엔 줄이 짧아요. 면은 적게, 차슈 추가로 단백질 보충. 22시~06시는 심야요금 +¥100.',
+    menu:[['천연 돈코츠 라멘','¥1,180'],['카에다마(면 추가)','¥210'],['반숙염란','¥160'],['추가 차슈 4매','¥290'],['밥 / 작은밥','¥300 / ¥250']],
+    pp:'1인 약 ¥1,550 · 라멘+카에다마+반숙란', q:'一蘭 道頓堀店別館', lat:34.6687, lng:135.5014, food:true },
   { id:'d2-2', day:2, t:'11:00', kind:'sight', tag:'관광', title:'오사카성 공원',
     sub:'09:00–18:00 · 공원 주차장 이용', jp:'大阪市中央区大阪城1-1',
     note:'천수각 입장은 시간이 걸리니 공원 산책 위주로 40~50분. 12:30 출발.', q:'大阪城公園', lat:34.6872, lng:135.5259,
@@ -1078,21 +1097,27 @@ var SPOTS = [
   { id:'d2-6', day:2, t:'18:00', kind:'food', tag:'저녁', title:'와규 규동 마에다 (和牛専門 牛めし 前田優)',
     sub:'★4.9 · 11:30–16:00 / 17:00–22:30 · 예약 불가', jp:'大阪市中央区千日前2-2-5 1F',
     note:'A5 흑모와규 규동. 기름진 사시미 부위보다 아카미 위주로. 대안: 匠のお重 和牛 韋駄天(IDATEN, ★4.7 · 難波1-8-20 2F).',
+    menu:[['A5 흑모와규 규동 100g','¥2,400'],['같은 것 150g / 200g','¥3,400 / ¥4,400'],['치즈 규동','¥2,600'],['레어·합모리 규동','¥2,400~'],['생맥주(병) / 콜라','¥750 / ¥400']],
+    pp:'1인 약 ¥3,400 · 150g 기준',
     q:'和牛専門 牛めし 前田優 大阪', lat:34.6672, lng:135.5030, food:true,
     leg:{ ic:'🚶', t:'도보 8분', m:8 } },
   { id:'d2-7', day:2, t:'19:30', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
     sub:'09:00–22:00 · 1인 ¥1,800 (4명 ¥7,200)', jp:'大阪市阿倍野区阿倍野筋1-1-43',
     note:'일몰 16:55경 이후가 절정. 난바에서 차 10분, 21시 전 입장 권장.', q:'あべのハルカス ハルカス300', lat:34.6458, lng:135.5140,
     leg:{ ic:'🚗', t:'차로 약 15분', m:15 } },
-  { id:'d2-8', day:2, t:'21:00', kind:'food', tag:'2차', title:'대중술장 만마 (大衆酒場 まんま 裏難波)',
+  { id:'d2-8', day:2, t:'21:00', kind:'food', tag:'2차', title:'대중술장 만마 (大衆酒場 まんま 裏難波店)',
     sub:'★4.6 · 15:00–24:00', jp:'大阪市中央区千日前2-5-5 1F',
-    note:'대안: 스미비야키토리 야이야(★4.9 · ~24:00). 다음 날 07:20 출발이라 과음 금지.', q:'大衆酒場 まんま 裏難波店', lat:34.6668, lng:135.5042, food:true,
+    note:'대안: 스미비야키토리 야이야(★4.9 · ~24:00). 다음 날 07:20 출발이라 과음 금지.',
+    menu:[['오뎅 5종 모둠','¥748'],['도부즈케 쿠시카츠 5본','¥748'],['후나모리(사시미 배)','¥1,628'],['토로타쿠 유케마키','¥1,078'],['생맥주·하이볼·레몬사워','¥329']],
+    pp:'1인 약 ¥2,500 · 2차 기준', q:'大衆酒場 まんま 裏難波店', lat:34.6668, lng:135.5042, food:true,
     leg:{ ic:'🚗', t:'차로 약 12분', m:12 } },
 
   /* ---------------- DAY 3 · 12/10 (목) ---------------- */
   { id:'d3-1', day:3, t:'07:20', kind:'move', tag:'출발', title:'체크아웃 · 공항으로 출발',
     sub:'공항 근처에서 가득 주유', jp:'大阪市浪速区稲荷1-9-27',
-    note:'조식은 편의점 or 공항에서. 렌터카 반납 전 주유 영수증 보관.', q:'Hotel Links Namba', lat:34.6603, lng:135.4919 },
+    note:'조식은 편의점 or 공항에서. 렌터카 반납 전 주유 영수증 보관.',
+    menu:[['편의점 오니기리 2개','¥340~440'],['샌드위치 / 커피','¥330~500 / ¥140~160'],['공항 커피·빵','¥400~700']],
+    pp:'1인 약 ¥900', q:'Hotel Links Namba', lat:34.6603, lng:135.4919 },
   { id:'d3-2', day:3, t:'08:30', kind:'car', tag:'반납', title:'간사이공항 렌터카 반납 (Travel CAR RENT)',
     sub:'반납 마감 12/10 10:00 · 08:30 반납 예정', jp:'大阪府泉佐野市泉州空港北1 エアロプラザ 1階',
     note:'반납 후 셔틀/도보로 1터미널 이동. 반납 전 주유 영수증 보관. 반납 위치는 인수처와 함께 강혜랑 님 측 확인 중.', q:'関西国際空港 エアロプラザ', lat:34.4325, lng:135.2415,
@@ -1213,14 +1238,19 @@ var DEFAULT_COSTS = [
   { id:'c6', name:'하루카스 300 (4명)', amt:7200, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,800', ic:'🌃' },
   { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인)', amt:139005, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥46,335 (펜 ¥45,000 + 착불 ¥1,335)', ic:'💉' },
   { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은)', amt:25335, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 + 착불 ¥1,335', ic:'💉' },
-  { id:'c8', name:'식비 (예상)', amt:72000, cur:'JPY', split:4, cat:'food', memo:'1인 1일 ¥6,000 × 3일', ic:'🍽️' },
+  { id:'f1', name:'1일차 저녁 · 스시 토후지', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세', ic:'🍣', v9:true },
+  { id:'f2', name:'1일차 2차 · 히토메보레', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 枡造り 3종 ¥1,089·카이센즈시 ¥638, 자릿세 ¥418 별도', ic:'🍶', v9:true },
+  { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜', v9:true },
+  { id:'f4', name:'2일차 저녁 · 와규 규동 마에다', amt:13600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,400 × 4 · A5 흑모와규 규동 150g 기준(100g ¥2,400)', ic:'🥩', v9:true },
+  { id:'f5', name:'2일차 2차 · 대중술장 만마', amt:10000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,500 × 4 · 오뎅 5종 ¥748·쿠시카츠 5본 ¥748·생맥주 ¥329', ic:'🍢', v9:true },
+  { id:'f6', name:'3일차 조식·간식 (예상)', amt:3600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥900 × 4 · 편의점 오니기리 ¥170~220·샌드위치·커피 + 공항 커피', ic:'🥐', v9:true },
   { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶' },
   { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 13:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️' },
 ];
 
 /* ---------------- state ---------------- */
 var LS_KEY = 'osakaTripApp.v2';
-var COST_VER = 8; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
+var COST_VER = 9; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -1258,6 +1288,15 @@ function load(){
     var migrated = false;
     if((s.costVer || 1) < COST_VER){
       migrated = true;
+      /* v9: 일괄 식비(c8)를 실제 메뉴 시세 기반 끼니별 6항목으로 교체 — 사용자가 직접 추가한 항목은 그대로 둔다 */
+      if((s.costVer || 1) < 9){
+        var c8i = -1;
+        out.costs.forEach(function(c, i){ if(c.id === 'c8') c8i = i; });
+        out.costs = out.costs.filter(function(c){ return c.id !== 'c8'; });
+        var foods = DEFAULT_COSTS.filter(function(d){ return d.v9; }).map(function(d){ return Object.assign({}, d); });
+        if(c8i < 0 || c8i > out.costs.length) c8i = out.costs.length;
+        Array.prototype.splice.apply(out.costs, [c8i, 0].concat(foods));
+      }
       DEFAULT_COSTS.forEach(function(d){
         var ex = out.costs.filter(function(c){ return c.id === d.id; })[0];
         if(ex){
@@ -1731,6 +1770,23 @@ function renderDays(){
     ? ('DAY ' + cur + ' · ' + DAY[parseInt(cur,10)].date + ' · ' + total + '곳')
     : ('3일 전체 · ' + total + '곳');
 }
+/* ============================================================
+   추천 메뉴 · 실측 가격 — 2026-11 조사분(공식 사이트·타베로그·허트페퍼)
+   s.menu = [[메뉴명, 가격], ...] · s.pp = 1인 예상 객체단가
+   ============================================================ */
+function menuRowsHTML(menu){
+  return menu.map(function(r){
+    return '<div class="mnrow"><span class="n">' + esc(r[0]) + '</span><span class="d"></span><b>' + esc(r[1]) + '</b></div>';
+  }).join('');
+}
+function menuHTML(s){
+  if(!s.menu || !s.menu.length) return '';
+  return '<div class="mnbox">' +
+    '<div class="mnhead"><span>추천 메뉴 · 실측 가격</span>' + (s.pp ? '<em>' + esc(s.pp) + '</em>' : '') + '</div>' +
+    menuRowsHTML(s.menu) +
+  '</div>';
+}
+
 function itemHTML(s){
   var leg = s.leg ? ('<div class="leg"><span class="lrail"><i></i></span>' +
       '<span class="legchip"><b>' + s.leg.ic + '</b>' + esc(s.leg.t) + '</span></div>') : '';
@@ -1742,6 +1798,7 @@ function itemHTML(s){
       (s.sub ? '<div class="sub">' + esc(s.sub) + '</div>' : '') +
       (s.badge ? '<div class="badge ' + (s.badgeType||'info') + '">' + (s.badgeType==='warn'?'⚠️ ':'ℹ️ ') + esc(s.badge) + '</div>' : '') +
       (s.note ? '<p class="note">' + esc(s.note) + '</p>' : '') +
+      menuHTML(s) +
       spotPhotoHTML(s) +
       '<div class="acts">' +
         (s.q ? '<a class="btn" target="_blank" rel="noopener" href="' + gmap(s.q) + '">🗺️ 길찾기</a>' : '') +
@@ -2019,6 +2076,14 @@ function openSpot(id){
   } else {
     $('#spBadgeRow').style.display = 'none';
   }
+  var smb = $('#spMenuBox');
+  if(s.menu && s.menu.length){
+    $('#spMenuPp').textContent = s.pp || '';
+    $('#spMenuRows').innerHTML = menuRowsHTML(s.menu);
+    smb.style.display = 'block';
+  } else {
+    smb.style.display = 'none';
+  }
   $('#spMemo').value = (m.spotNotes && m.spotNotes[s.id]) || '';
   renderSpotPhoto();
   $('#spMap').onclick = function(){ window.open(gmap(s.q || s.title), '_blank', 'noopener'); };
@@ -2049,6 +2114,7 @@ function renderFood(){
       '<div class="fmeta">' + d + ' ' + s.t + ' · ' + esc(meta) + '</div></div>' +
       (star ? '<span class="fstar">' + esc(star) + '</span>' : '') + '</div>' +
       '<p class="fdesc">' + esc(s.note||'') + '</p>' +
+      menuHTML(s) +
       (s.alt ? '<div class="altline">' + esc(s.alt) + '</div>' : '') +
       '<div class="acts" style="display:flex;gap:5px;margin-top:8px">' +
         '<a class="btn" target="_blank" rel="noopener" href="' + gmap(s.q) + '">🗺️ 길찾기</a>' +
@@ -2301,7 +2367,7 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험은 실측 확정 금액, 주유·식비는 예상치예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.</p>';
+    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·헛페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 히토메보레 ¥11,200 · 이치란 ¥6,400 · 마에다 ¥13,600 · 만마 ¥10,000 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥62,800</b>(1인 ¥15,700, 예전 일괄 ¥72,000에서 −¥9,200). 2일차 점심은 10시 이치란 아점이 함께 덮고, 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.</p>';
 
   renderPpl();
 
