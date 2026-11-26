@@ -787,6 +787,69 @@
   @media (min-width:960px){
     body:not(.plan-mode) main{padding:20px 26px 80px;max-width:1020px;margin:0 auto}
   }
+  /* ================= 프로필 바 v2 — 2×2 큰 카드 (390px에서도 4인 이름 안 잘림) ================= */
+  .qr-wrap{display:block;padding:0}
+  .qr-wrap .profiles{flex:none;min-width:0}
+  .profiles{
+    display:grid;grid-template-columns:1fr 1fr;gap:7px;
+    overflow:visible;padding:0;scrollbar-width:auto;
+  }
+  .pf{
+    display:flex;align-items:center;gap:8px;min-width:0;width:100%;
+    padding:8px 9px;border-radius:14px;border:1px solid var(--line2);
+    background:rgba(255,253,249,.95);color:var(--ink);
+    font-size:13.5px;font-weight:800;white-space:normal;text-align:left;
+    box-shadow:var(--sh);transition:.15s;-webkit-tap-highlight-color:transparent;
+  }
+  .pf .av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:13.5px;font-weight:800;color:#fff;flex:none}
+  .pf .pft{flex:1;min-width:0;display:block}
+  .pf .nm{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:800;letter-spacing:-.04em;line-height:1.12;white-space:nowrap}
+  .pf .st{display:block;font-size:8.5px;font-weight:700;color:var(--dim2);margin-top:3px;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pf.on{color:#1D1915;border-color:var(--mc);background:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.95),0 0 0 3.5px var(--mc),var(--sh)}
+  .pf .qdot{width:6px;height:6px;border-radius:50%;background:var(--matcha);flex:none;box-shadow:0 0 0 1.5px #fff}
+  .qr-wrap .qrbtn{
+    width:100%;margin-top:7px;justify-content:center;gap:6px;
+    padding:9px 10px;border-radius:13px;font-size:12.5px;font-weight:800;
+  }
+  .qr-wrap .qrbtn .qic{font-size:14px}
+  @media (max-width:360px){
+    .pf{padding:7px 8px;gap:6px}
+    .pf .av{width:28px;height:28px;font-size:12px}
+    .pf .nm{font-size:12.5px}
+  }
+  @media (min-width:520px){ .profiles{grid-template-columns:repeat(4,1fr)} }
+
+  /* ================= 📦 야마토 택배 수령 슬롯 ================= */
+  .yform{margin-top:8px}
+  .ylb{display:block;font-size:9.5px;font-weight:750;color:var(--dim2);margin-bottom:5px}
+  .ylb em{font-style:normal;font-weight:600;opacity:.85;padding-left:4px}
+  .yrow{display:flex;gap:6px}
+  .yin{
+    flex:1;min-width:0;border:1px solid var(--line2);background:#FCF8F0;border-radius:10px;
+    padding:9px 11px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15px;font-weight:700;
+    letter-spacing:.03em;color:var(--ink);
+  }
+  .yin:focus{outline:none;border-color:#E0A800;background:#fff}
+  .yin::placeholder{color:#C6BAA6;font-weight:600;letter-spacing:.01em}
+  .ybtn{flex:none;border:1px solid var(--line2);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 12px;font-size:11.5px;font-weight:750;white-space:nowrap}
+  .ybtn.pri{background:var(--coral);border-color:var(--coral);color:#fff}
+  .yrow2{display:flex;gap:6px;margin-top:6px}
+  .yrow2 .ybtn{flex:1;text-align:center;font-size:11px;padding:7px 8px}
+  .yempty{margin-top:8px;border:1px dashed var(--line2);background:#FBF7EE;border-radius:10px;padding:8px 10px;font-size:10.5px;line-height:1.55;color:var(--dim)}
+  .yshow{margin-top:9px;border:1.5px solid #E0A800;border-radius:13px;background:#FFFDF4;padding:9px 11px 10px}
+  .yshead{display:flex;align-items:baseline;justify-content:space-between;gap:6px;border-bottom:1px solid #F1E3BC;padding-bottom:6px}
+  .yshead span{font-size:12px;font-weight:800;color:#785600;letter-spacing:.05em}
+  .yshead em{font-style:normal;font-size:8.5px;color:#A98C4A;letter-spacing:-.01em;white-space:nowrap}
+  .ysno{margin-top:7px}
+  .ysno .lb{display:block;font-size:9px;font-weight:750;color:#A98C4A}
+  .ysno b{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:25px;font-weight:700;color:#1D1915;letter-spacing:.01em;line-height:1.18;margin-top:2px;word-break:break-all}
+  .ysrow{display:flex;gap:7px;font-size:11px;margin-top:5px;line-height:1.4}
+  .ysrow span{flex:0 0 56px;color:#A98C4A;font-weight:700;font-size:9.5px;padding-top:1px}
+  .ysrow b{color:#1D1915;font-weight:750;letter-spacing:-.01em;word-break:keep-all}
+  .ysfoot{margin-top:6px;padding-top:5px;border-top:1px dashed #EFDFB4;font-size:9.5px;color:#6E665C;font-weight:650}
+  .yacts{display:flex;gap:6px;margin-top:9px}
+  .yacts .btn{flex:1;justify-content:center;text-align:center;font-size:11px;padding:8px 6px;border-radius:10px}
+  .ynote{margin:6px 0 0;font-size:9px;line-height:1.5;color:var(--dim2)}
 </style>
 </head>
 <body>
@@ -914,7 +977,7 @@
     <div class="hero-bottom">
       <div class="qr-wrap">
         <div class="profiles" id="profiles"></div>
-        <button class="qrbtn" id="qrOpen" aria-label="내 QR 월렛 열기"><span class="qic">📲</span>내 QR</button>
+        <button class="qrbtn" id="qrOpen" aria-label="내 QR 월렛·야마토 택배 열기"><span class="qic">📲</span><span>내 QR · 택배 열기</span></button>
       </div>
     </div>
   </header>
@@ -1125,9 +1188,15 @@ var SPOTS = [
   { id:'d1-5', day:1, t:'16:30', kind:'air', tag:'항공', title:'BX617 김해 → 간사이',
     sub:'16:30 PUS → 17:55 KIX · 약 1시간 25분', jp:'大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナル',
     badge:'시간 재확인 — 일부 안내 16:40 → 18:10 표기', badgeType:'warn',
-    note:'탑승 전 에어부산 앱에서 최종 출도착 시간을 한 번 더 확인하세요. 착륙 후 입국심사·수하물 약 30~40분.',
+    note:'탑승 전 에어부산 앱에서 최종 출도착 시간을 한 번 더 확인하세요. 착륙 후 입국심사·수하물 약 30~40분. 도착 로비 1층 세븐뱅크 ATM에서 엔화를 먼저 인출해 두면 좋아요(다음 카드).',
     q:'関西国際空港 第1ターミナル', lat:34.4343, lng:135.2442,
     leg:{ ic:'🛫', t:'수속 후 탑승', m:0 } },
+  { id:'d1-5a', day:1, t:'18:25', kind:'move', tag:'환전', title:'간사이공항 T1 ATM — 엔화 인출',
+    sub:'1F 도착 로비 세븐뱅크 · 2F 이온은행 · 둘 다 24시간', jp:'大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナル',
+    badge:'트래블월렛 실물카드 + 앱 엔화 충전 · 통화는 JPY 선택', badgeType:'info',
+    note:'입국심사·수하물(약 30~40분) 뒤, 렌터카 카운터로 가기 전에 인출. 1층 국제선 도착 로비 세븐뱅크(SEVEN BANK) ATM — 24시간, 한국어 지원, 기기 수수료 110~220엔. 2층(렌터카·철도 연결통로 이동 동선) 이온은행(AEON) ATM — 24시간, 트래블월렛 VISA로 기기 수수료 무료 사례 다수. ATM 통화 선택은 반드시 엔화(JPY) — 원화 선택은 이중환전. 톨비·야마토 착불 ¥1,335까지 생각해 1~2만 엔 인출 권장.',
+    q:'関西国際空港 第1ターミナル セブン銀行ATM', lat:34.4336, lng:135.2440,
+    leg:{ ic:'🧳', t:'입국·수하물 후 도보 3분', m:3 } },
   { id:'d1-6', day:1, t:'18:30', kind:'car', tag:'렌터카', title:'간사이공항 렌터카 픽업 (Travel CAR RENT)',
     sub:'도요타 프리우스 또는 동급 · 예약 1400831131916716', jp:'大阪府泉佐野市泉州空港北1 エアロプラザ',
     badge:'12/8 18:30 인수 — BX617 착륙 17:55(일부 안내 18:10)', badgeType:'info',
@@ -1717,13 +1786,18 @@ function isWide(){ return window.matchMedia('(min-width:960px)').matches; }
 /* ---------------- hero ---------------- */
 function renderProfiles(){
   $('#profiles').innerHTML = MEMBERS.map(function(m){
+    var qc = (qrHas(m.id,'vjw')?1:0) + (qrHas(m.id,'flight_bx617')?1:0) + (qrHas(m.id,'flight_bx608')?1:0);
+    var tk = yamatoGet(m.id);
     var dot = qrHasAny(m.id) ? '<span class="qdot" aria-label="QR 저장됨"></span>' : '';
-    return '<button class="pf ' + (m.id===state.profile?'on':'') + '" data-pf="' + m.id + '" style="--mc:' + m.color + '">' +
-      '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' + m.name + dot +
-      '<span class="role">' + m.role + '</span></button>';
+    var st = m.role + ' · QR ' + qc + '/3 · 📦 ' + (tk.length === 12 ? yamatoFmt(tk).slice(-4) : '–');
+    return '<button class="pf ' + (m.id===state.profile?'on':'') + '" data-pf="' + m.id + '" style="--mc:' + m.color + '"' +
+        ' title="' + esc(m.name) + ' · ' + esc(m.role) + ' · QR ' + qc + '/3' + (tk.length === 12 ? ' · 야마토 ' + yamatoFmt(tk) : '') + '">' +
+      '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' +
+      '<span class="pft"><span class="nm">' + m.name + dot + '</span><span class="st">' + st + '</span></span>' +
+    '</button>';
   }).join('');
   var qb = $('#qrOpen');
-  if(qb) qb.classList.toggle('has', qrHasAny(state.profile));
+  if(qb) qb.classList.toggle('has', qrHasAny(state.profile) || yamatoHas(state.profile));
 }
 function renderDday(){
   var start = new Date('2026-12-08T16:30:00+09:00');
@@ -1813,6 +1887,70 @@ function qrSlotLabel(slot){
   return '탑승권 QR · ' + (slot.indexOf('bx608') >= 0 ? 'BX608' : 'BX617');
 }
 
+/* ------------------------------------------------------------
+   📦 야마토 택배 수령 — 운송장 번호(送り状番号 12자리) 개인별 저장
+   키 규칙: osaka_yamato_{profileId}  (숫자 12자리만 저장 · 이 기기 전용)
+   ------------------------------------------------------------ */
+var YAMATO_EN = { hyeoksan:'KWON HYUKSAN', sangwoo:'LEE SANGWOO', hyerang:'KANG HYERANG', jieun:'IM JI EUN' };
+var YAMATO_OFFICE = '泉佐野りんくう営業所 (069681)';
+var YAMATO_TRACK = 'https://toi.kuronekoyamato.co.jp/cgi-bin/tneko';
+function yamatoKey(pid){ return 'osaka_yamato_' + pid; }
+function yamatoGet(pid){
+  try{ return (localStorage.getItem(yamatoKey(pid)) || '').replace(/[^0-9]/g, '').slice(0, 12); }catch(e){ return ''; }
+}
+function yamatoFmt(v){
+  var d = (v || '').replace(/[^0-9]/g, '').slice(0, 12);
+  if(d.length <= 4) return d;
+  if(d.length <= 8) return d.slice(0, 4) + '-' + d.slice(4);
+  return d.slice(0, 4) + '-' + d.slice(4, 8) + '-' + d.slice(8);
+}
+function yamatoSet(pid, v){
+  var d = (v || '').replace(/[^0-9]/g, '').slice(0, 12);
+  try{
+    if(d) localStorage.setItem(yamatoKey(pid), d);
+    else localStorage.removeItem(yamatoKey(pid));
+    return true;
+  }catch(e){ return false; }
+}
+function yamatoHas(pid){ return yamatoGet(pid).length === 12; }
+
+function yamatoSlotHtml(pid){
+  var d = yamatoGet(pid), ok = d.length === 12, fmt = yamatoFmt(d);
+  var head = '<div class="qh"><span class="qi">📦</span>' +
+      '<div class="qtt"><b>야마토 택배 수령</b><span>마운자로 · 영업소 069681</span></div>' +
+      '<span class="qpill ' + (ok ? 'has' : '') + '">' + (ok ? '등록됨' : '미입력') + '</span></div>';
+  var form = '<div class="yform">' +
+      '<label class="ylb" for="yamatoIn">운송장 번호 <em>送り状番号 · 12자리</em></label>' +
+      '<div class="yrow">' +
+        '<input class="yin" id="yamatoIn" type="text" inputmode="numeric" enterkeyhint="done" autocomplete="off" spellcheck="false" maxlength="14" placeholder="1234-5678-9012" value="' + esc(fmt) + '" aria-label="야마토 운송장 번호 12자리">' +
+        '<button class="ybtn pri" data-yact="save">' + (ok ? '수정 저장' : '저장') + '</button>' +
+      '</div>' +
+      (ok ? '<div class="yrow2"><button class="ybtn" data-yact="copy">📋 번호 복사</button>' +
+            '<button class="ybtn" data-yact="del">지우기</button></div>' : '') +
+    '</div>';
+  if(!ok){
+    return '<div class="qslot" id="qslot-yamato">' + head + form +
+      '<div class="yempty">12/3~5 발송 후 받는 <b>12자리 운송장 번호</b>를 입력해 두세요.<br>수령 시 <b>여권 + 자필 서명 + 착불 ¥1,335</b> — 대리 수령은 안 됩니다.</div>' +
+    '</div>';
+  }
+  return '<div class="qslot" id="qslot-yamato">' + head + form +
+    '<div class="yshow">' +
+      '<div class="yshead"><span>営業所受取</span><em>スタッフへご提示ください</em></div>' +
+      '<div class="ysno"><span class="lb">送り状番号</span><b>' + esc(fmt) + '</b></div>' +
+      '<div class="ysrow"><span>お名前</span><b>' + esc(YAMATO_EN[pid] || (member(pid) || {}).name || '') + '</b></div>' +
+      '<div class="ysrow"><span>受取場所</span><b>' + YAMATO_OFFICE + '</b></div>' +
+      '<div class="ysrow"><span>お支払い</span><b>着払い ¥1,335</b></div>' +
+      '<div class="ysfoot">パスポート持参 · 本人署名が必要です</div>' +
+    '</div>' +
+    '<div class="yacts">' +
+      '<a class="btn lnk" target="_blank" rel="noopener" href="' + YAMATO_TRACK + '">🔗 야마토 배송조회</a>' +
+      '<a class="btn" target="_blank" rel="noopener" href="https://www.kuronekoyamato.co.jp/">🌐 홈페이지</a>' +
+    '</div>' +
+    '<p class="ynote">조회 화면에서 <b>복사</b>한 번호를 붙여넣으면 실시간 배송 상태가 떠요. 영업소 08:00–21:00 · 072-460-2955.</p>' +
+  '</div>';
+}
+
+
 function qrSlotHtml(pid, slot, ic, title, sub, extra){
   var data = qrData(pid, slot);
   var builtin = qrFromDefault(pid, slot);
@@ -1846,7 +1984,7 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
 
 function renderQR(){
   var pid = state.profile, m = member(pid) || MEMBERS[0];
-  var total = (qrHas(pid,'vjw')?1:0) + (qrHas(pid,'flight_bx617')?1:0) + (qrHas(pid,'flight_bx608')?1:0);
+  var total = (qrHas(pid,'vjw')?1:0) + (qrHas(pid,'flight_bx617')?1:0) + (qrHas(pid,'flight_bx608')?1:0) + (yamatoHas(pid)?1:0);
   var seg = '<div class="qseg">' +
     '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8' + (qrHas(pid,'flight_bx617') ? '<i class="qhas"></i>' : '') + '</button>' +
     '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10' + (qrHas(pid,'flight_bx608') ? '<i class="qhas"></i>' : '') + '</button>' +
@@ -1860,6 +1998,7 @@ function renderQR(){
     '</div>' +
     qrSlotHtml(pid, 'vjw', '🛂', '일본 입국심사·세관', 'VISIT JAPAN WEB · 입국·세관', '') +
     qrSlotHtml(pid, qrSlotKey(), '✈️', '항공 모바일 탑승권', qrFlightName(), seg) +
+    yamatoSlotHtml(pid) +
     '<p class="qnote"><b>바로 열려요.</b> 입국심사·세관 QR은 앱에 미리 담겨 있어 코드 입력 없이 바로 뜹니다. <b>교체</b>로 올린 이미지는 이 브라우저(localStorage)에만 저장되고 다른 사람 폰에서는 보이지 않아요. <b>삭제</b>하면 기본 QR도 숨겨지고, 그 아래 <b>기본 QR 다시 표시</b>로 되돌릴 수 있습니다. (등록 ' + total + '개)</p>' +
     '<div class="sact"><button class="pri" data-qract="close">닫기</button></div>';
 }
@@ -3094,9 +3233,18 @@ function qrPrepRows(){
   var pid = state.profile;
   var rows = [
     { slot:'vjw', ic:'🛂', t:'입국심사·세관 QR', s:'Visit Japan Web' },
-    { slot:qrSlotKey(), ic:'✈️', t:'항공 탑승권 QR', s:qrFlightName() }
+    { slot:qrSlotKey(), ic:'✈️', t:'항공 탑승권 QR', s:qrFlightName() },
+    { slot:'yamato', ic:'📦', t:'야마토 택배 수령', s:'마운자로 · 영업소 069681' }
   ];
   return rows.map(function(r){
+    if(r.slot === 'yamato'){
+      var ytk = yamatoGet(pid), yok = ytk.length === 12;
+      return '<button class="qrow" data-qract="open" data-slot="yamato">' +
+        '<span class="qi">' + r.ic + '</span>' +
+        '<span class="qtt"><b>' + r.t + '</b><span>' + r.s + (yok ? ' · ' + yamatoFmt(ytk) : ' · 번호 입력') + '</span></span>' +
+        '<span class="qpill ' + (yok ? 'has' : '') + '">' + (yok ? '등록됨' : '미입력') + '</span>' +
+      '</button>';
+    }
     var has = qrHas(pid, r.slot);
     var sub = r.s;
     if(r.slot.indexOf('flight_') === 0 && !has){
@@ -3180,6 +3328,17 @@ function renderPrep(){
       '<p class="fdesc">· 기내 핸드캐리 필수 — 화물칸 동결 위험<br>· 처방전·영수증 지참, 1인 면세 $800 이내면 관세 없음<br>· 대리 수령·대리 구매 불가 → 4인 각자 진료·결제·수령<br>· 배송 박스는 착불 ¥1,335, 수령 시 여권 필수<br>· 확정 동선: 12/3 10:30 LINE 채팅 진료 → 결제 → 12/7 영업소 도착 → 12/8 저녁 수령</p>' +
     '</div>' +
 
+    '<div class="sec"><h2>🏧 간사이공항 T1 ATM · 엔화 인출</h2><span>착륙 후 첫 동선</span></div>' +
+    '<div class="fcard" style="border-left:3px solid #C79A00">' +
+      '<p class="fdesc" style="margin-top:0"><b>1층 국제선 도착 로비 — 세븐뱅크(SEVEN BANK) ATM</b><br>24시간 · 한국어 화면 · 기기 수수료 110~220엔</p>' +
+      '<p class="fdesc"><b>2층 (렌터카·철도 연결통로 이동 동선) — 이온은행(AEON) ATM</b><br>24시간 · 트래블월렛 VISA로 기기 수수료 무료 사례 다수</p>' +
+      '<p class="fdesc">· 트래블월렛 <b>실물 카드</b> 지참 + 앱에서 <b>엔화 미리 충전</b> 필수<br>· ATM 통화 선택은 반드시 <b>엔화(JPY)</b> — 원화(KRW) 선택하면 이중환전<br>· 톨비·야마토 착불 <b>¥1,335</b>까지 생각해 <b>1~2만 엔</b> 인출 권장</p>' +
+      '<div class="acts" style="display:flex;gap:6px;margin-top:9px">' +
+        '<a class="btn" target="_blank" rel="noopener" href="' + gmap('関西国際空港 第1ターミナル セブン銀行ATM') + '">🗺️ T1 ATM 길찾기</a>' +
+        '<button class="btn" data-qract="open" data-slot="yamato">📦 야마토 수령번호</button>' +
+      '</div>' +
+    '</div>' +
+
     '<div class="sec"><h2>📝 ' + esc(mm.name) + ' 개인 메모</h2><span>자동 저장</span></div>' +
     '<textarea class="inp" id="memo" placeholder="쇼핑 리스트, 사온 것, 정산할 것…">' + esc(m.memo || '') + '</textarea>' +
     '<p class="footnote">정보 기준 2026-11-26. 홈 화면에 추가하면 앱처럼 열려요 — Safari 공유 → <b>홈 화면에 추가</b>. 저장 데이터는 이 기기 브라우저에만 남습니다. 같은 링크를 4명이 각자 열면 체크리스트·메모·면세 계산기는 각자 폰에 따로 저장돼요.</p>';
@@ -3259,6 +3418,36 @@ document.addEventListener('click', function(e){
     if(fxa === 'refresh'){ toast('환율 받는 중…'); fxFetch(true); }
     else if(fxa === 'auto'){ state.rateMode = 'auto'; save(); toast('환율 받는 중…'); fxFetch(true); }
     return;
+  }
+
+  /* ---- 📦 야마토 택배 수령 ---- */
+  var ya = e.target.closest('[data-yact]');
+  if(ya){
+    var yact = ya.getAttribute('data-yact'), ypid = state.profile;
+    if(yact === 'save'){
+      var yinEl = document.getElementById('yamatoIn');
+      var yd = ((yinEl && yinEl.value) || '').replace(/[^0-9]/g, '');
+      if(yd.length !== 12){
+        toast('운송장 번호 12자리를 입력해 주세요');
+        if(yinEl) yinEl.focus();
+        return;
+      }
+      if(!yamatoSet(ypid, yd)){ toast('저장 공간이 부족해요 — 브라우저 데이터를 정리해 주세요'); return; }
+      renderQR(); renderProfiles();
+      if($('#tab-prep').classList.contains('on')) renderPrep();
+      toast(member(ypid).name + ' 님 야마토 운송장 저장 · ' + yamatoFmt(yd));
+      return;
+    }
+    if(yact === 'del'){
+      if(!yamatoHas(ypid)) return;
+      if(!confirm(member(ypid).name + ' 님의 야마토 운송장 번호를 지울까요?\n(다시 입력하면 복구됩니다)')) return;
+      yamatoSet(ypid, '');
+      renderQR(); renderProfiles();
+      if($('#tab-prep').classList.contains('on')) renderPrep();
+      toast('운송장 번호를 지웠어요');
+      return;
+    }
+    if(yact === 'copy'){ copyText(yamatoFmt(yamatoGet(ypid))); return; }
   }
 
   /* ---- QR 월렛 ---- */
@@ -3391,6 +3580,20 @@ window.addEventListener('resize', function(){
 
 /* ---------------- QR wallet listeners ---------------- */
 $('#qrSheet').addEventListener('click', function(e){ if(e.target === this) closeQR(); });
+/* 운송장 번호 입력 — 숫자만 남겨 자동으로 1234-5678-9012 형태로, Enter는 저장 */
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(!t || t.id !== 'yamatoIn') return;
+  var f = yamatoFmt(t.value);
+  if(t.value !== f) t.value = f;
+});
+document.addEventListener('keydown', function(e){
+  var t = e.target;
+  if(!t || t.id !== 'yamatoIn' || e.key !== 'Enter') return;
+  e.preventDefault();
+  var b = document.querySelector('[data-yact="save"]');
+  if(b) b.click();
+});
 $('#qvClose').addEventListener('click', closeQRView);
 $('#qvIn').addEventListener('click', function(){ qrZoom = Math.min(3, Math.round((qrZoom + 0.25) * 100) / 100); qrApplyZoom(); });
 $('#qvOut').addEventListener('click', function(){ qrZoom = Math.max(1, Math.round((qrZoom - 0.25) * 100) / 100); qrApplyZoom(); });
