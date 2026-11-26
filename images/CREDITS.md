@@ -13,6 +13,7 @@
 | `d2-1.jpg` | 이치란 도톤보리 본관 간판 | WeiHsiang Wang | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Ichiran_ramenin_in_Dotonbori,_Osaka.JPG) |
 | `d2-2.jpg` | 오사카성 천수각과 외해자 | 663highland | CC BY 2.5 | [Commons](https://commons.wikimedia.org/wiki/File:Osaka_Castle_02bs3200.jpg) |
 | `d2-4.jpg` | 산토리 교토 맥주공장 | Own work | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Suntory_Kyoto_Brewery.JPG) |
+| `d2-4b.jpg` | 후시미 이나리 대사 천 본 도리이 | Luka Peternel | CC BY-SA 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Fushimi-Inari-Shrine-Senbon-Torii-2018-Luka-Peternel.jpg) |
 | `d2-5.jpg` | 도톤보리 에비스바시와 글리코상 (야경) | Type specimen | CC BY-SA 3.0 | [Commons](https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Ebisu_Bridge.jpg) |
 | `d2-7.jpg` | 하루카스 300 전망대에서 본 오사카 | Marimonomori | CC BY 4.0 | [Commons](https://commons.wikimedia.org/wiki/File:Osaka_city_view_from_Abenoharukas.jpg) |
 | `d3-2.jpg` | 간사이국제공항 제1터미널 전경 | lasta29 | CC BY 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Kansai_Airport_terminal_1_,from_the_top_of_observation_hall_%22sky_view%22_(16041786233).jpg) |
