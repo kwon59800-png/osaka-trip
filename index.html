@@ -178,7 +178,8 @@
   /* 추천 메뉴 · 실측 가격 (식당 카드 공통) */
   .mnbox{margin-top:7px;padding:7px 9px 6px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,#FEFCF7,#FAF4E9)}
   .mnhead{display:flex;align-items:baseline;gap:6px;font-size:9.5px;font-weight:700;letter-spacing:.01em;color:var(--dim2);margin-bottom:2px}
-  .mnhead em{margin-left:auto;font-style:normal;font-size:10px;font-weight:700;color:var(--gold);white-space:nowrap;letter-spacing:-.01em}
+  .mnhead span{white-space:nowrap}
+  .mnpp{margin-top:5px;padding-top:4px;border-top:1px dashed var(--dash);font-size:10px;font-weight:700;color:var(--gold);text-align:right;letter-spacing:-.01em;line-height:1.4}
   .mnrow{display:flex;align-items:baseline;gap:5px;font-size:10.5px;line-height:1.7;color:var(--dim)}
   .mnrow .n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mnrow .d{flex:1;min-width:6px;border-bottom:1px dotted var(--dash);transform:translateY(-3px)}
@@ -916,8 +917,9 @@
       <div class="srow" id="spNoteRow"><span class="k">메모</span><span class="v" id="spNote">—</span></div>
       <div class="srow" id="spBadgeRow" style="display:none"><span class="k">확인</span><span class="v" id="spBadge">—</span></div>
       <div class="mnbox" id="spMenuBox" style="display:none;margin:8px 0 0">
-        <div class="mnhead"><span>추천 메뉴 · 실측 가격</span><em id="spMenuPp"></em></div>
+        <div class="mnhead"><span>추천 메뉴 · 실측 가격</span></div>
         <div id="spMenuRows"></div>
+        <div class="mnpp" id="spMenuPp"></div>
       </div>
       <textarea class="mmemo" id="spMemo" placeholder="이 장소에 대한 개인 메모 (자동 저장)"></textarea>
       <button class="sphoto big" id="spPhoto" style="display:none" aria-label="대표 사진 크게 보기">
@@ -1063,7 +1065,7 @@ var SPOTS = [
     sub:'★4.6 · ~24:00', jp:'大阪市中央区千日前2-7-12 1F',
     note:'해산물·사시미 위주로 가볍게 한 잔. 대안: 유세이 우라난바(★4.2 · ~03:00).',
     menu:[['枡조리 사시미 3종','¥1,089'],['카이센 코보레즈시','¥638'],['네기시오 탄구시','¥748'],['와규 란탄','¥858'],['생맥주 / 하이볼·레몬사워','¥328 / ¥219']],
-    pp:'1인 약 ¥2,800 · 자릿세(お通し) ¥418 별도',
+    pp:'1인 약 ¥2,800 · 자릿세 ¥418 별도',
     q:'大衆酒場 ひとめぼれ 裏難波店', lat:34.66595, lng:135.5035, food:true,
     leg:{ ic:'🚶', t:'도보 3분', m:3 } },
 
@@ -1782,8 +1784,9 @@ function menuRowsHTML(menu){
 function menuHTML(s){
   if(!s.menu || !s.menu.length) return '';
   return '<div class="mnbox">' +
-    '<div class="mnhead"><span>추천 메뉴 · 실측 가격</span>' + (s.pp ? '<em>' + esc(s.pp) + '</em>' : '') + '</div>' +
+    '<div class="mnhead"><span>추천 메뉴 · 실측 가격</span></div>' +
     menuRowsHTML(s.menu) +
+    (s.pp ? '<div class="mnpp">' + esc(s.pp) + '</div>' : '') +
   '</div>';
 }
 
@@ -2079,6 +2082,7 @@ function openSpot(id){
   var smb = $('#spMenuBox');
   if(s.menu && s.menu.length){
     $('#spMenuPp').textContent = s.pp || '';
+    $('#spMenuPp').style.display = s.pp ? 'block' : 'none';
     $('#spMenuRows').innerHTML = menuRowsHTML(s.menu);
     smb.style.display = 'block';
   } else {
