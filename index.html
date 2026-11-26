@@ -1239,6 +1239,15 @@ function qrSetGone(pid, slot, on){
    삭제 누름            → osaka_qr_gone_* 플래그로 기본도 숨김
    ------------------------------------------------------------ */
 var QR_DEFAULT = {
+  /* 권혁산 님 VJW (downloads/vjw_qr_kwon_20261126.png → 69모듈·616px 1비트) — 코드 714258 */
+  hyeoksan: {
+    vjw: {
+      w: 616, h: 616,
+      salt: '1OyglBSE5VfXy+nJsWfdZw==',
+      iv: '3KxUR+31Rpf22OWP',
+      ct: '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'
+    }
+  },
   hyerang: {
     vjw: {
       w: 650, h: 650,
@@ -1266,6 +1275,41 @@ function qrB64(s){
   for(var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
   return u;
 }
+/* 암호문 1건 풀기 → Promise<dataURL> */
+function qrDecode(d, code){
+  var enc = new TextEncoder();
+  return crypto.subtle.importKey('raw', enc.encode(code), { name:'PBKDF2' }, false, ['deriveKey'])
+    .then(function(base){
+      return crypto.subtle.deriveKey(
+        { name:'PBKDF2', salt: qrB64(d.salt), iterations: 250000, hash:'SHA-256' },
+        base, { name:'AES-GCM', length: 256 }, false, ['decrypt']);
+    })
+    .then(function(k){ return crypto.subtle.decrypt({ name:'AES-GCM', iv: qrB64(d.iv) }, k, qrB64(d.ct)); })
+    .then(function(buf){
+      return new Promise(function(res, rej){
+        var fr = new FileReader();
+        fr.onload = function(){ res(String(fr.result)); };
+        fr.onerror = function(){ rej(new Error('read')); };
+        fr.readAsDataURL(new Blob([buf], { type:'image/png' }));
+      });
+    });
+}
+
+/* 같은 슬롯에 기본 QR이 걸린 다른 프로필도 같은 코드면 같이 열어 둔다
+   (권혁산·강혜랑 VJW 는 같은 코드 — 한 번 풀면 둘 다 저장) */
+function qrUnlockSiblings(pid, slot, code){
+  Object.keys(QR_DEFAULT).forEach(function(other){
+    if(other === pid) return;
+    var d = qrDef(other, slot);
+    if(!d || qrGet(other, slot) || qrIsGone(other, slot)) return;
+    qrDecode(d, code).then(function(url){
+      try{ localStorage.setItem(qrKey(other, slot), url); }catch(e){}
+      renderQR(); renderProfiles();
+      if($('#tab-prep').classList.contains('on')) renderPrep();
+    }).catch(function(){});
+  });
+}
+
 function qrUnlock(pid, slot, code, btn){
   var d = qrDef(pid, slot); if(!d) return;
   code = String(code || '').replace(/\D/g, '');
@@ -1274,24 +1318,14 @@ function qrUnlock(pid, slot, code, btn){
     toast('https 링크에서 열어야 코드를 풀 수 있어요'); return;
   }
   if(btn){ btn.disabled = true; btn.textContent = '푸는 중'; }
-  var enc = new TextEncoder();
-  crypto.subtle.importKey('raw', enc.encode(code), { name:'PBKDF2' }, false, ['deriveKey'])
-    .then(function(base){
-      return crypto.subtle.deriveKey(
-        { name:'PBKDF2', salt: qrB64(d.salt), iterations: 250000, hash:'SHA-256' },
-        base, { name:'AES-GCM', length: 256 }, false, ['decrypt']);
-    })
-    .then(function(k){ return crypto.subtle.decrypt({ name:'AES-GCM', iv: qrB64(d.iv) }, k, qrB64(d.ct)); })
-    .then(function(buf){
-      var fr = new FileReader();
-      fr.onload = function(){
-        try{ localStorage.setItem(qrKey(pid, slot), String(fr.result)); }catch(e){}
-        renderQR(); renderProfiles();
-        if($('#tab-prep').classList.contains('on')) renderPrep();
-        toast(qrSlotLabel(slot) + ' 열었어요 · 이 기기에 저장됨');
-        openQRView(slot);
-      };
-      fr.readAsDataURL(new Blob([buf], { type:'image/png' }));
+  qrDecode(d, code)
+    .then(function(url){
+      try{ localStorage.setItem(qrKey(pid, slot), url); }catch(e){}
+      renderQR(); renderProfiles();
+      if($('#tab-prep').classList.contains('on')) renderPrep();
+      toast(qrSlotLabel(slot) + ' 열었어요 · 이 기기에 저장됨');
+      openQRView(slot);
+      qrUnlockSiblings(pid, slot, code);
     })
     .catch(function(){
       if(btn){ btn.disabled = false; btn.textContent = '열기'; }
@@ -1315,8 +1349,11 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
         '</div>' +
       '</div></div>';
   } else if(locked){
+    var sib = Object.keys(QR_DEFAULT).filter(function(k){ return k !== pid && qrDef(k, slot); });
     body = '<div class="qlock">' +
-      '<div class="qlockt"><b>🔒 기본 등록됨</b><span>' + esc((member(pid) || {}).name || '') + ' 님 QR이 미리 들어 있어요. 코드를 넣으면 이 기기에 저장되고 다음부터는 바로 열려요.</span></div>' +
+      '<div class="qlockt"><b>🔒 기본 등록됨</b><span>' + esc((member(pid) || {}).name || '') + ' 님 QR이 미리 들어 있어요. 코드를 넣으면 이 기기에 저장되고 다음부터는 바로 열려요.' +
+      (sib.length ? ' 같은 코드면 ' + sib.map(function(k){ return esc((member(k) || {}).name || k); }).join('·') + ' 님 QR도 같이 열려요.' : '') +
+      '</span></div>' +
       '<div class="qlockrow">' +
         '<input id="qrc-' + slot + '" type="tel" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6자리 코드" aria-label="보안 코드" onkeydown="if(event.key===\'Enter\'){this.nextElementSibling.click();}">' +
         '<button data-qract="unlock" data-slot="' + slot + '">열기</button>' +
