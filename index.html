@@ -966,7 +966,7 @@
       <div class="frow"><label>분류</label>
         <select class="inp" id="cCat">
           <option value="stay">숙소</option><option value="transport">교통·렌터카</option><option value="food">식비</option>
-          <option value="tour">투어·입장</option><option value="medical">마운자로</option><option value="etc">기타</option>
+          <option value="tour">투어·입장</option><option value="medical">마운자로</option><option value="insurance">보험·준비</option><option value="etc">기타</option>
         </select>
       </div>
       <div class="fblock"><label>분담 대상 <em>— 기본 공통(÷4) · 임지은 2.5mg처럼 개인 항목은 한 명만 선택</em></label>
@@ -1152,6 +1152,7 @@ var WHISKY = [
 ];
 
 var PREP_STEPS = [
+  { d:'완료', t:'해외여행보험 가입 (4명)', s:'카카오페이손해보험 19,780원 · 12/8 16:00 ~ 12/10 11:00 · 신한카드 결제 완료' },
   { d:'지금', t:'렌터카 인수 위치·보험 확인', s:'Travel CAR RENT(트립닷컴) 예약 1400831131916716 — 12/8 18:30 인수로 변경 완료. 인수 카운터 위치·보험 조건은 강혜랑 님 측 확인 중.', now:true },
   { d:'12/2', t:'10:00 UB클리닉 비대면 진료 예약 오픈', s:'4인 각자 본인 명의. 예약 사이트는 해외 IP 차단 → 일본 VPN 필요. VISA/Mastercard 신용카드만(체크 불가).' },
   { d:'12/3–4', t:'UB클리닉 진료 · 결제', s:'수령일 5~6일 전 규칙. 진료 다음 날 발송, 야마토 이즈미사노 린쿠 영업소 지정. 공식 LINE(@578ierwy)에 예약 사실·성함·호텔·수령일 전송.' },
@@ -1165,6 +1166,7 @@ var CHECKLIST = [
   { g:'서류', id:'idp', l:'국제운전면허증(1949) + 한국면허 실물', s:'운전자 전원 · 제네바 협약판' },
   { g:'서류', id:'card', l:'본인 명의 신용카드 (VISA/Master)', s:'렌터카 보증금·UB클리닉 결제용. 체크카드 불가' },
   { g:'서류', id:'ticket', l:'에어부산 e-티켓 (KAYTPM)', s:'BX617 / BX608 · 가는 편 위탁 없음' },
+  { g:'서류', id:'insurance', l:'해외여행보험 (카카오페이손해보험)', s:'가입 완료 (4명 · 19,780원) · 12/8 16:00 ~ 12/10 11:00', pre:true },
   { g:'서류', id:'voucher', l:'숙소·렌터카·산토리 바우처 저장', s:'오프라인에서도 열리게 캡처' },
   { g:'입국', id:'vjw', l:'비짓재팬웹(Visit Japan Web) 등록', s:'입국·세관 QR 미리 발급' },
   { g:'입국', id:'esim', l:'eSIM 설치 (유심스토어 3일)', s:'현지 도착 후 설치 · APN cmlink · QR은 유심스토어 주문내역에서' },
@@ -1189,7 +1191,10 @@ var BOOKINGS = [
     jp:'大阪府泉佐野市泉州空港北1 関西国際空港', q:'関西国際空港 レンタカー' },
   { id:'tour', ic:'🍺', t:'산토리 교토 맥주공장', tag:'예약 확인', tagw:true,
     rows:[['일시','12/9(수) 13:50–15:20'],['인원','4명'],['금액','¥4,000 (1인 ¥1,000) 사전결제'],['무료취소','12/7 정오 전']],
-    jp:'京都府長岡市調子三丁目1-1', q:'サントリー 京都ビール工場' }
+    jp:'京都府長岡市調子三丁目1-1', q:'サントリー 京都ビール工場' },
+  { id:'ins', ic:'🛡️', t:'해외여행보험 · 카카오페이손해보험', tag:'가입 완료', tagw:false,
+    rows:[['보장기간','2026.12.08 16:00 ~ 12.10 11:00'],['가입','4명 (각자 가입)'],['보험료','19,780원 (4인 합계 · 신한카드)'],['1인 부담','4,945원 (4인 공통 ÷ 4)'],['증권 확인','카카오페이 앱 › 보험에서 조회']],
+    jp:'', q:'' }
 ];
 
 var CATS = {
@@ -1198,6 +1203,7 @@ var CATS = {
   food:{ n:'식비', c:'#3B7A57', ic:'🍽️' },
   tour:{ n:'투어·입장', c:'#E85A4F', ic:'🎫' },
   medical:{ n:'마운자로', c:'#8C6A9B', ic:'💉' },
+  insurance:{ n:'보험·준비', c:'#6BA3F5', ic:'🛡️' },
   etc:{ n:'기타', c:'#9A9186', ic:'💸' }
 };
 
@@ -1212,11 +1218,12 @@ var DEFAULT_COSTS = [
   { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은)', amt:25335, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 + 착불 ¥1,335', ic:'💉' },
   { id:'c8', name:'식비 (예상)', amt:72000, cur:'JPY', split:4, cat:'food', memo:'1인 1일 ¥6,000 × 3일', ic:'🍽️' },
   { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶' },
+  { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 11:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️' },
 ];
 
 /* ---------------- state ---------------- */
 var LS_KEY = 'osakaTripApp.v2';
-var COST_VER = 5; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
+var COST_VER = 6; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -1250,7 +1257,7 @@ function load(){
       out.members[m.id].spotNotes = out.members[m.id].spotNotes || {};
     });
     if(!Array.isArray(out.costs)) out.costs = base.costs;
-    /* 기본 항목(id c1~c8)은 최신 기본값으로 갱신 — 사용자가 직접 추가한 항목은 그대로 둔다 */
+    /* 기본 항목(id c1~c10)은 최신 기본값으로 갱신 — 사용자가 직접 추가한 항목은 그대로 둔다 */
     var migrated = false;
     if((s.costVer || 1) < COST_VER){
       migrated = true;
@@ -1264,6 +1271,8 @@ function load(){
           out.costs.push(Object.assign({}, d)); /* 기존 마운자로 항목이 남아 있을 때만 새 2.5mg 항목을 추가 */
         } else if(d.id === 'c9' && !out.costs.some(function(c){ return c.id === 'c9'; })){
           out.costs.push(Object.assign({}, d)); /* 새로 추가된 eSIM 항목 */
+        } else if(d.id === 'c10' && !out.costs.some(function(c){ return c.id === 'c10'; })){
+          out.costs.push(Object.assign({}, d)); /* 새로 추가된 해외여행보험 항목 */
         }
       });
     }
@@ -2376,7 +2385,7 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM은 실측 확정 금액, 주유·식비는 예상치예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.</p>';
+    '<p class="footnote">숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험은 실측 확정 금액, 주유·식비는 예상치예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 각자 결제라 제외했습니다. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.</p>';
 
   renderPpl();
 
@@ -2537,9 +2546,12 @@ function qrPrepRows(){
   }).join('') +
   '<div class="qacts" style="margin-top:8px"><button class="pri" data-qract="open">📲 내 QR 열기 · 올리기</button></div>';
 }
+/* 체크리스트 항목의 현재 상태 — 저장값이 있으면 그 값, 없으면 기본값(pre) */
+function chkOn(c, m){ var v = m.checks[c.id]; return v === undefined ? !!c.pre : !!v; }
+function chkDoneCount(m){ return CHECKLIST.filter(function(c){ return chkOn(c, m); }).length; }
 function renderPrep(){
   var m = me();
-  var done = CHECKLIST.filter(function(c){ return m.checks[c.id]; }).length;
+  var done = chkDoneCount(m);
   var pct = Math.round(done / CHECKLIST.length * 100);
   var mm = member(state.profile);
 
@@ -2576,7 +2588,7 @@ function renderPrep(){
     '<div class="sec"><h2>🎒 준비물 체크</h2><span id="chkPct">' + done + '/' + CHECKLIST.length + ' · ' + pct + '%</span></div>' +
     '<div class="bar"><i style="width:' + pct + '%"></i></div>' +
     '<div id="chklist">' + CHECKLIST.map(function(c){
-      var on = !!m.checks[c.id];
+      var on = chkOn(c, m);
       return '<div class="chk ' + (on?'on':'') + '" data-chk="' + c.id + '">' +
         '<div class="box2">' + (on?'✓':'') + '</div>' +
         '<div><div class="cl">' + esc(c.l) + '</div><div class="cs">' + esc(c.s) + '</div></div></div>';
@@ -2600,12 +2612,14 @@ function renderPrep(){
     if(!row) return;
     var id = row.getAttribute('data-chk');
     var mm2 = me();
-    if(mm2.checks[id]) delete mm2.checks[id]; else mm2.checks[id] = true;
+    var c0 = CHECKLIST.filter(function(c){ return c.id === id; })[0] || {};
+    var was = chkOn(c0, mm2);
+    mm2.checks[id] = !was;
     save();
     var on = !!mm2.checks[id];
     row.classList.toggle('on', on);
     row.querySelector('.box2').textContent = on ? '✓' : '';
-    var d2 = CHECKLIST.filter(function(c){ return mm2.checks[c.id]; }).length;
+    var d2 = chkDoneCount(mm2);
     var p2 = Math.round(d2 / CHECKLIST.length * 100);
     $('#chkPct').textContent = d2 + '/' + CHECKLIST.length + ' · ' + p2 + '%';
     $('.bar i').style.width = p2 + '%';
