@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPhone 폭 미리보기</title>
+<!-- 개발 확인용 헬퍼: 앱을 390×844(아이폰 폭) iframe으로 띄워 화면을 그대로 확인한다.
+     ?u=https://…/my-dashboard/osaka-trip/ 처럼 다른 주소를 넣을 수도 있다. 앱 자체와는 무관. -->
+<style>
+  html,body{margin:0;padding:0;background:#2A2622}
+  #wrap{width:390px;height:844px;margin:24px 0 0 24px;background:#000;overflow:hidden}
+  iframe{width:390px;height:844px;border:0;display:block;background:#FAF6EF}
+  #tag{position:fixed;left:24px;top:0;color:#8C8478;font:11px/24px -apple-system,sans-serif}
+</style></head>
+<body>
+<div id="tag">iPhone 390×844 미리보기</div>
+<div id="wrap"><iframe id="f" src="./" title="오사카 여행 앱"></iframe></div>
+<script>
+  var u = new URLSearchParams(location.search).get('u');
+  if(u) document.getElementById('f').src = u;
+</script>
+</body></html>
