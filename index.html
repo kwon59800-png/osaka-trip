@@ -314,9 +314,18 @@
   .bhero{background:linear-gradient(150deg,#FFF6E6 0%,#FDF3F0 52%,#FFFFFF 100%);border:1px solid #F0E2CC;border-radius:18px;padding:15px 15px 13px;box-shadow:var(--sh2)}
   .bhero .btop{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .bhero .blab{font-size:10.5px;color:var(--dim);font-weight:600;letter-spacing:.02em}
-  .bhero .rate{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--dim2);background:rgba(255,255,255,.72);border:1px solid var(--line);padding:3px 7px;border-radius:999px}
-  .bhero .rate input{width:52px;border:0;background:transparent;font-size:11px;font-weight:700;color:#A96A1B;text-align:right;font-family:"IBM Plex Mono",monospace;padding:0}
-  .bhero .rate input:focus{outline:none}
+  .bhero .fxline{display:flex;align-items:center;flex-wrap:wrap;gap:3px 4px;margin-top:7px;font-size:9.5px;color:var(--dim2);background:rgba(255,255,255,.72);border:1px solid var(--line);padding:4px 7px;border-radius:9px}
+  .bhero .fxline .fxlab{font-weight:650;color:var(--dim)}
+  .bhero .fxline b{font-size:11px;font-weight:700;color:#A96A1B;font-family:"IBM Plex Mono",monospace;letter-spacing:-.01em;white-space:nowrap}
+  .bhero .fxline input{width:44px;border:0;border-bottom:1px dashed #E2D0AC;background:transparent;font-size:11px;font-weight:700;color:#A96A1B;text-align:right;font-family:"IBM Plex Mono",monospace;padding:0;line-height:1.35;-moz-appearance:textfield;appearance:textfield}
+  .bhero .fxline input::-webkit-outer-spin-button,.bhero .fxline input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .bhero .fxline input:focus{outline:none;border-bottom-color:#A96A1B}
+  .bhero .fxline .fxmeta{font-size:9px;color:var(--dim2);flex:1;min-width:0}
+  .bhero .fxline .fxbtn{border:1px solid var(--line);background:#fff;color:var(--dim);font-size:9px;font-weight:650;padding:2px 6px;border-radius:7px;line-height:1.25;flex:0 0 auto}
+  .bhero .fxline .fxbtn:active{background:#F6F1E8}
+  .bhero .fxline .fxauto{display:none}
+  .bhero .fxline.manual .fxauto{display:inline-block}
+  .bhero .fxline.manual b,.bhero .fxline.manual input{color:#8A7B63}
   .bhero .big{font-size:30px;font-weight:800;letter-spacing:-.04em;line-height:1.12;margin-top:5px}
   .bhero .big small{font-size:13px;font-weight:650;color:var(--dim);margin-left:3px}
   .bhero .bsub{font-size:10.5px;color:var(--dim);margin-top:3px}
@@ -1252,6 +1261,150 @@ var DEFAULT_COSTS = [
 
 /* ---------------- state ---------------- */
 var LS_KEY = 'osakaTripApp.v2';
+
+/* ============================================================
+   기준환율 (일별 자동 반영)
+   — 앱을 열 때마다 공개 환율 API에서 100엔당 원화를 받아 날짜별로 캐시하고,
+     경비·면세 계산기의 모든 원화 환산에 바로 쓴다.
+   ============================================================ */
+var FX_CACHE_KEY = 'osakaTripApp.fx.v1';
+/* API를 못 받을 때 쓰는 기본값 — 2026-11-26 한국수출입은행 고시 매매기준율 100엔 844.37원 */
+var FX_FALLBACK = { rate: 844.4, usdJpy: 159.2, date: '2026-11-26', src: '수출입은행 고시' };
+var FX_SOURCES = [
+  { name:'open.er-api.com', url:'https://open.er-api.com/v6/latest/JPY', parse:function(d){
+      if(!d || d.result !== 'success' || !d.rates || !d.rates.KRW) return null;
+      var dt = d.time_last_update_utc ? new Date(d.time_last_update_utc) : null;
+      var day = (dt && !isNaN(dt.getTime())) ? (dt.getFullYear() + '-' + fxPad(dt.getMonth()+1) + '-' + fxPad(dt.getDate())) : '';
+      return { rate: d.rates.KRW * 100, date: day, usdJpy: d.rates.USD ? 1 / d.rates.USD : 0 };
+    } },
+  { name:'frankfurter', url:'https://api.frankfurter.dev/v1/latest?base=JPY&symbols=KRW,USD', parse:function(d){
+      if(!d || !d.rates || !d.rates.KRW) return null;
+      return { rate: d.rates.KRW * 100, date: d.date || '', usdJpy: d.rates.USD ? 1 / d.rates.USD : 0 };
+    } }
+];
+var fxBusy = false;
+function fxPad(n){ return (n < 10 ? '0' : '') + n; }
+function fxToday(){ var d = new Date(); return d.getFullYear() + '-' + fxPad(d.getMonth()+1) + '-' + fxPad(d.getDate()); }
+function fxMd(iso){
+  var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || '');
+  if(!m) m = /^(\d{4})-(\d{2})-(\d{2})/.exec(fxToday());
+  return m ? (m[2] + '/' + m[3]) : '';
+}
+function fxNum(v){ return (Math.round((parseFloat(v) || 0) * 10) / 10).toFixed(1); }
+function fxReadCache(){
+  try{ var o = JSON.parse(localStorage.getItem(FX_CACHE_KEY) || '{}'); return (o && typeof o === 'object') ? o : {}; }catch(e){ return {}; }
+}
+function fxWriteCache(o){ try{ localStorage.setItem(FX_CACHE_KEY, JSON.stringify(o)); }catch(e){} }
+function fxSlimCache(o){
+  var keys = Object.keys(o).sort();
+  while(keys.length > 40){ delete o[keys.shift()]; }
+  return o;
+}
+function fxLatest(cache){
+  var keys = Object.keys(cache || {}).sort();
+  for(var i = keys.length - 1; i >= 0; i--){
+    var e = cache[keys[i]];
+    if(e && e.rate >= 50) return { day: keys[i], rate: e.rate, date: e.date || keys[i], usdJpy: e.usdJpy || 0, src: e.src || '' };
+  }
+  return null;
+}
+function fxModeLabel(mode){
+  return mode === 'manual' ? '직접 입력' : mode === 'auto' ? '자동 반영' : mode === 'cache' ? '저장값' : '기본값';
+}
+function fxLineHTML(){
+  var mode = state.rateMode || 'auto';
+  var rate = (state.rate >= 50) ? state.rate : FX_FALLBACK.rate;
+  var date = state.rateDate || FX_FALLBACK.date;
+  return '<div class="fxline' + (mode === 'manual' ? ' manual' : '') + '" id="fxLine">' +
+    '<span class="fxlab">기준환율:</span>' +
+    '<b>100엔 = <input id="rateIn" type="number" step="0.1" min="0" inputmode="decimal" value="' + fxNum(rate) + '" aria-label="100엔당 원화">원</b>' +
+    '<span class="fxmeta" title="' + esc(state.rateSrc || FX_FALLBACK.src) + '">(' + fxMd(date) + ' 기준 · ' + fxModeLabel(mode) + ')</span>' +
+    '<button class="fxbtn fxauto" data-fx="auto" aria-label="자동 환율로 되돌리기">자동</button>' +
+    '<button class="fxbtn" data-fx="refresh" aria-label="환율 새로고침" title="지금 환율 다시 받기">↻</button>' +
+  '</div>';
+}
+function paintFx(){
+  var el = $('#fxLine');
+  if(!el) return;
+  var act = document.activeElement;
+  var typing = act && act.id === 'rateIn';
+  el.outerHTML = fxLineHTML();
+  if(typing){
+    var inp = $('#rateIn');
+    if(inp){ try{ inp.focus(); }catch(e){} }
+  }
+}
+/* 날짜별 캐시 적용 — mode: auto(오늘 받은 값) / cache(예전 저장값) / fallback(기본값) / manual */
+function fxApply(rate, date, mode, extra){
+  if(!(rate >= 50)) return;
+  state.rate = Math.round(rate * 10) / 10;
+  state.rateDate = date || fxToday();
+  state.rateMode = mode || 'auto';
+  if(extra){
+    if(extra.src) state.rateSrc = extra.src;
+    if(extra.usdJpy >= 50) state.usdJpy = Math.round(extra.usdJpy * 10) / 10;
+  }
+  save();
+  paintFx();
+  if($('#tab-budget') && $('#tab-budget').classList.contains('on')) paintBudget();
+  if($('#calcbox')) paintCalc();
+}
+function fxFetch(byUser){
+  if(fxBusy) return;
+  fxBusy = true;
+  var i = 0;
+  function next(){
+    if(i >= FX_SOURCES.length){ fxBusy = false; fxFetchFail(byUser); return; }
+    var s = FX_SOURCES[i++];
+    var ctl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctl){ try{ ctl.abort(); }catch(e){} } }, 7000);
+    fetch(s.url, { cache:'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(d){
+        clearTimeout(timer);
+        var res = s.parse(d);
+        if(!res || !(res.rate >= 50)) throw new Error('bad payload');
+        var day = fxToday();
+        var cache = fxSlimCache(fxReadCache());
+        cache[day] = {
+          rate: Math.round(res.rate * 10) / 10,
+          date: res.date || day,
+          usdJpy: res.usdJpy ? Math.round(res.usdJpy * 10) / 10 : 0,
+          src: s.name, ts: Date.now()
+        };
+        fxWriteCache(cache);
+        fxBusy = false;
+        fxApply(res.rate, cache[day].date, 'auto', { src: s.name, usdJpy: res.usdJpy });
+        if(byUser) toast('기준환율 100엔 = ' + fxNum(res.rate) + '원 · ' + fxMd(cache[day].date) + ' 기준으로 반영했어요');
+      })
+      .catch(function(){ clearTimeout(timer); next(); });
+  }
+  next();
+}
+function fxFetchFail(byUser){
+  if((state.rateMode || 'auto') === 'manual' && !byUser) return;
+  var last = fxLatest(fxReadCache());
+  if(last){
+    fxApply(last.rate, last.date, 'cache', { src: last.src, usdJpy: last.usdJpy });
+    if(byUser) toast('환율을 못 받아 ' + fxMd(last.date) + ' 저장값을 써요');
+  } else {
+    fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
+    if(byUser) toast('환율을 못 받아 기본값 100엔 = ' + fxNum(FX_FALLBACK.rate) + '원을 써요');
+  }
+}
+/* 앱을 열 때 — 오늘 받아 둔 값이 있으면 그대로, 없으면 캐시/기본값으로 먼저 그리고 새로 받는다 */
+function fxBoot(){
+  if((state.rateMode || 'auto') === 'manual'){ paintFx(); return; }
+  var cache = fxReadCache(), today = fxToday(), hit = cache[today];
+  if(hit && hit.rate >= 50){
+    fxApply(hit.rate, hit.date || today, 'auto', { src: hit.src, usdJpy: hit.usdJpy });
+    return;
+  }
+  var last = fxLatest(cache);
+  if(last) fxApply(last.rate, last.date, 'cache', { src: last.src, usdJpy: last.usdJpy });
+  else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
+  fxFetch(false);
+}
 var COST_VER = 9; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
@@ -1267,7 +1420,7 @@ function defaultDayTab(){
 
 function load(){
   var base = {
-    profile:'hyeoksan', rate:896, budget:3200000,
+    profile:'hyeoksan', rate:FX_FALLBACK.rate, rateDate:FX_FALLBACK.date, rateMode:'fallback', rateSrc:FX_FALLBACK.src, usdJpy:FX_FALLBACK.usdJpy, budget:3200000,
     members:{}, costs:DEFAULT_COSTS.map(function(c){ return Object.assign({},c); }),
     open:{ 1:true, 2:true, 3:true }, mapFilter:defaultDayTab(), mini:false, costVer:COST_VER,
     dayTab: defaultDayTab(), personBudget:{}
@@ -1329,7 +1482,14 @@ function load(){
       }
       return c;
     });
-    if(!out.rate || out.rate < 50) out.rate = 896;
+    /* 기준환율 자동 반영 이전 저장본 — 굳어 있던 896 대신 최신 기준환율로 갈아끼우고 앱을 열 때 다시 받는다 */
+    if(typeof out.rateMode !== 'string'){
+      out.rate = FX_FALLBACK.rate; out.rateDate = FX_FALLBACK.date; out.rateSrc = FX_FALLBACK.src;
+      out.usdJpy = FX_FALLBACK.usdJpy; out.rateMode = 'fallback';
+    }
+    if(!out.rate || out.rate < 50) out.rate = FX_FALLBACK.rate;
+    if(!out.rateDate) out.rateDate = FX_FALLBACK.date;
+    if(!(out.usdJpy >= 50)) out.usdJpy = FX_FALLBACK.usdJpy;
     if(!out.budget || out.budget < 1000) out.budget = 3200000;
     if(!out.open) out.open = base.open;
     if(!out.personBudget || typeof out.personBudget !== 'object') out.personBudget = {};
@@ -2155,7 +2315,8 @@ function renderCalc(){
     '<div class="frow"><label>총 금액 ($)</label><input class="inp" id="dU" type="number" min="0" inputmode="decimal" value="' + esc(d.usd) + '" placeholder="0"></div>' +
     '<div class="chk3" id="dchips"></div>' +
     '<div class="verdict" id="dverdict"></div>' +
-    '<p class="hint" style="margin:9px 0 0">금액은 달러 기준. ¥15,000 ≈ $100 (1$≈¥150)으로 계산하면 편해요. 주류 외 물품은 별도 $800 한도.</p>';
+    '<p class="hint" id="dconv" style="margin:9px 0 0"></p>' +
+    '<p class="hint" style="margin:5px 0 0">금액은 달러 기준이에요 — 오늘 기준환율로 원화까지 같이 계산해 드려요. 주류 외 물품은 별도 $800 한도.</p>';
   ['dB','dL','dU'].forEach(function(id){
     $('#'+id).addEventListener('input', function(){
       d.b = $('#dB').value; d.l = $('#dL').value; d.usd = $('#dU').value;
@@ -2173,6 +2334,15 @@ function paintCalc(){
   ch.innerHTML = chips.map(function(c){
     return '<div class="' + (c.ok?'ok':'no') + '">' + (c.ok?'✓ ':'! ') + c.k + ' ' + c.lim + '</div>';
   }).join('');
+  var cv = $('#dconv');
+  if(cv){
+    var fxRate = (state.rate >= 50) ? state.rate : FX_FALLBACK.rate;
+    var fxUsd = (state.usdJpy >= 50) ? state.usdJpy : FX_FALLBACK.usdJpy;
+    var limY = 400 * fxUsd;
+    var s = '<b>100엔 = ' + fxNum(fxRate) + '원 · 1$ ≈ ¥' + fxNum(fxUsd) + '</b> 적용 — $400 한도 ≈ ' + yen(Math.round(limY)) + ' ≈ ' + won(Math.round(limY * fxRate / 100));
+    if(u > 0) s += '<br>입력한 $' + num(u) + ' ≈ ' + yen(Math.round(u * fxUsd)) + ' ≈ ' + won(Math.round(u * fxUsd * fxRate / 100));
+    cv.innerHTML = s;
+  }
   var v = $('#dverdict'); if(!v) return;
   var over = [];
   if(!okB) over.push('병 수');
@@ -2337,8 +2507,8 @@ function renderBudget(){
 
   $('#budgetbody').innerHTML = '' +
     '<div class="bhero">' +
-      '<div class="btop"><span class="blab">4인 총 경비 · 원화 환산</span>' +
-        '<span class="rate">100¥ = ₩<input id="rateIn" type="number" step="1" min="0" value="' + state.rate + '"></span></div>' +
+      '<div class="btop"><span class="blab">4인 총 경비 · 원화 환산</span></div>' +
+      fxLineHTML() +
       '<div class="big">' + num(t.total) + '<small>원</small></div>' +
       '<div class="bsub">1인 평균 <b>' + num(t.per) + '원</b> · 엔화 ' + yen(Math.round(t.jpy)) + ' + 원화 ' + won(t.krw) + '</div>' +
       '<div class="bgauge">' +
@@ -2375,10 +2545,6 @@ function renderBudget(){
 
   renderPpl();
 
-  $('#rateIn').addEventListener('input', function(){
-    var v = parseFloat(this.value);
-    if(v >= 100){ state.rate = v; save(); paintBudget(); }
-  });
   $('#budgetIn').addEventListener('input', function(){
     var v = parseFloat(this.value);
     if(v >= 1000){ state.budget = v; save(); paintBudget(); }
@@ -2636,7 +2802,44 @@ function go(tab){
   if(tab === 'prep') renderPrep();
 }
 
+/* 기준환율 직접 입력 — 숫자를 고치면 수동 모드로 바뀌고, '자동'을 누르면 다시 자동 반영 */
+document.addEventListener('input', function(e){
+  var t = e.target;
+  if(!t || t.id !== 'rateIn') return;
+  var v = parseFloat(t.value);
+  if(!(v >= 50)) return;
+  state.rate = Math.round(v * 10) / 10;
+  state.rateMode = 'manual';
+  state.rateDate = fxToday();
+  save();
+  var line = $('#fxLine');
+  if(line) line.classList.add('manual');
+  var meta = $('#fxLine .fxmeta');
+  if(meta) meta.textContent = '(' + fxMd(state.rateDate) + ' · 직접 입력)';
+  paintBudget();
+});
+document.addEventListener('change', function(e){
+  if(e.target && e.target.id === 'rateIn') paintFx();
+});
+
+/* 앱으로 돌아오면 날짜가 바뀌었는지 보고 새 기준환율을 받는다 */
+document.addEventListener('visibilitychange', function(){
+  if(document.hidden) return;
+  if((state.rateMode || 'auto') === 'manual') return;
+  var cache = fxReadCache();
+  if(!cache[fxToday()]) fxFetch(false);
+});
+
 document.addEventListener('click', function(e){
+  /* ---- 기준환율 배지 ---- */
+  var fxb = e.target.closest('[data-fx]');
+  if(fxb){
+    var fxa = fxb.getAttribute('data-fx');
+    if(fxa === 'refresh'){ toast('환율 받는 중…'); fxFetch(true); }
+    else if(fxa === 'auto'){ state.rateMode = 'auto'; save(); toast('환율 받는 중…'); fxFetch(true); }
+    return;
+  }
+
   /* ---- QR 월렛 ---- */
   var qa = e.target.closest('[data-qract]');
   if(qa){
@@ -2803,6 +3006,7 @@ renderMapFilters();
 renderMapList();
 renderFood();
 renderBudget();
+fxBoot();
 renderPrep();
 document.body.classList.add('plan-mode');
 if(state.mini && !isWide()){ $('#mmToggle').classList.add('on'); $('#mmWrap').classList.add('on'); }
