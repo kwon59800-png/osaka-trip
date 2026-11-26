@@ -480,18 +480,23 @@
   .qthumb .im{flex:none;width:86px;height:86px;border-radius:11px;border:1px solid var(--line2);background:#fff;object-fit:contain;padding:3px;cursor:zoom-in}
   .qside{flex:1;min-width:0}
   .qmeta{font-size:9.5px;color:var(--dim2);font-family:"IBM Plex Mono",monospace;line-height:1.5}
-  .qacts{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
-  .qacts button{border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:9px;padding:7px 9px;font-size:11px;font-weight:650;letter-spacing:-.02em;white-space:nowrap;flex:0 0 auto}
+  /* 버튼 3개가 좁은 폭에서도 절대 찌그러지지 않게: 줄바꿈 허용 + 크기 고정
+     (.del 은 경비 행의 × 버튼 클래스라 24×24 가 걸린다 → QR 삭제는 .qdel 사용) */
+  .qacts{display:flex;flex-wrap:wrap;gap:5px 6px;margin-top:8px;min-width:0}
+  .qacts button{
+    flex:0 0 auto;flex-shrink:0;width:auto;height:auto;max-width:none;min-width:0;
+    border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:9px;
+    padding:7px 10px;font-size:11px;font-weight:650;letter-spacing:-.02em;line-height:1.25;white-space:nowrap;
+    display:inline-flex;align-items:center;justify-content:center;gap:3px
+  }
   .qacts button.pri{background:var(--coral);border-color:var(--coral);color:#fff}
-  .qacts button.del{color:#A6534B;border-color:#EFD6D1;background:#FDF4F2}
+  .qacts button.qdel{color:#A6534B;border-color:#EFD6D1;background:#FDF4F2}
   .qseg{display:flex;gap:3px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:3px;margin-top:9px}
   .qseg button{flex:1;border:0;background:none;font-size:10.5px;font-weight:700;color:var(--dim);padding:5px 3px;border-radius:999px;letter-spacing:-.02em;white-space:nowrap}
   .qseg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh)}
   .qseg button .qhas{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--matcha);margin-left:4px;vertical-align:middle}
   .qnote{font-size:10px;color:var(--dim2);line-height:1.55;margin:11px 2px 0}
   .qnote b{color:var(--dim);font-weight:650}
-  .qinfo{margin-top:8px;border:1px solid var(--line);background:var(--card2);border-radius:11px;padding:9px 10px;font-family:"IBM Plex Mono",monospace;font-size:9.5px;line-height:1.65;color:var(--ink);white-space:pre-line;word-break:break-all}
-  .qinfo b{color:#2F6647;font-weight:700}
 
   .qview{position:fixed;inset:0;z-index:96;display:none;background:#0D0C0B;flex-direction:column}
   .qview.on{display:flex;animation:fade .15s ease}
@@ -1036,7 +1041,7 @@ var CHECKLIST = [
   { g:'서류', id:'ticket', l:'에어부산 e-티켓 (KAYTPM)', s:'BX617 / BX608 · 가는 편 위탁 없음' },
   { g:'서류', id:'voucher', l:'숙소·렌터카·산토리 바우처 저장', s:'오프라인에서도 열리게 캡처' },
   { g:'입국', id:'vjw', l:'비짓재팬웹(Visit Japan Web) 등록', s:'입국·세관 QR 미리 발급' },
-  { g:'입국', id:'esim', l:'eSIM 설치 (유심스토어 3일)', s:'QR 월렛에 등록됨 · 현지 도착 후 설치·APN cmlink' },
+  { g:'입국', id:'esim', l:'eSIM 설치 (유심스토어 3일)', s:'현지 도착 후 설치 · APN cmlink · QR은 유심스토어 주문내역에서' },
   { g:'약', id:'ub', l:'UB클리닉 예약 · 문진 · 결제 완료', s:'4인 각자 · 영문 처방 PDF 요청' },
   { g:'약', id:'cool', l:'보냉 파우치 · 보랭제', s:'액체 아이스팩은 기내 100ml 제한 → 고체 보랭제 권장' },
   { g:'약', id:'rx', l:'처방전 · 영수증 PDF 저장', s:'세관 제시용 · 최대 3개월(12펜)' },
@@ -1230,17 +1235,13 @@ var qrOpenSlot = null, qrZoom = 1, qrBaseW = 0, qrLock = null, qrTarget = null;
 function qrKey(pid, slot){ return 'osaka_qr_' + pid + '_' + slot; }
 function qrGoneKey(pid, slot){ return 'osaka_qr_gone_' + pid + '_' + slot; }
 function qrGet(pid, slot){ try{ return localStorage.getItem(qrKey(pid, slot)) || ''; }catch(e){ return ''; } }
-function qrInfo(pid, slot){ try{ return localStorage.getItem(qrKey(pid, slot) + '_info') || ''; }catch(e){ return ''; } }
 function qrStore(pid, slot, p){
-  try{
-    localStorage.setItem(qrKey(pid, slot), p.img);
-    if(p.info) localStorage.setItem(qrKey(pid, slot) + '_info', p.info);
-  }catch(e){}
+  try{ localStorage.setItem(qrKey(pid, slot), p.img); }catch(e){}
 }
 function qrDel(pid, slot){
   try{
     localStorage.removeItem(qrKey(pid, slot));
-    localStorage.removeItem(qrKey(pid, slot) + '_info');
+    localStorage.removeItem(qrKey(pid, slot) + '_info'); /* 예전 eSIM 슬롯이 남긴 안내문 키 정리 */
     return true;
   }catch(e){ return false; }
 }
@@ -1264,13 +1265,6 @@ var QR_DEFAULT = {
       salt: '1OyglBSE5VfXy+nJsWfdZw==',
       iv: '3KxUR+31Rpf22OWP',
       ct: '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'
-    },
-    /* 권혁산 님 유심스토어 일본 eSIM 3일 QR + 수동입력(SM-DP+/활성화코드/APN) — 같은 코드 714258, JSON 1건으로 함께 암호화 */
-    esim: {
-      json: 1, w: 574, h: 574,
-      salt: 'hdqBCGENoerM/+j7B/XMAQ==',
-      iv: 'J+tu3t6X3HvllJkr',
-      ct: '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'
     }
   },
   hyerang: {
@@ -1285,13 +1279,12 @@ var QR_DEFAULT = {
 function qrDef(pid, slot){ return (QR_DEFAULT[pid] || {})[slot] || null; }
 function qrLocked(pid, slot){ return !!qrDef(pid, slot) && !qrIsGone(pid, slot) && !qrGet(pid, slot); }
 function qrHas(pid, slot){ return !!(qrGet(pid, slot) || qrLocked(pid, slot)); }
-function qrHasAny(pid){ return qrHas(pid,'vjw') || qrHas(pid,'esim') || qrHas(pid,'flight_bx617') || qrHas(pid,'flight_bx608'); }
+function qrHasAny(pid){ return qrHas(pid,'vjw') || qrHas(pid,'flight_bx617') || qrHas(pid,'flight_bx608'); }
 function qrKB(url){ return Math.max(1, Math.round((url.length - url.indexOf(',') - 1) * 3 / 4 / 1024)); }
 function qrSlotKey(){ return 'flight_' + qrFlight; }
 function qrFlightName(){ return qrFlight === 'bx617' ? 'BX617 · 김해→간사이 12/8' : 'BX608 · 간사이→김해 12/10'; }
 function qrSlotLabel(slot){
   if(slot === 'vjw') return '입국심사·세관 QR';
-  if(slot === 'esim') return 'eSIM 프로파일 QR';
   return '탑승권 QR · ' + (slot.indexOf('bx608') >= 0 ? 'BX608' : 'BX617');
 }
 
@@ -1301,8 +1294,7 @@ function qrB64(s){
   for(var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
   return u;
 }
-/* 암호문 1건 풀기 → Promise<{ img, info }>
-   d.json 이면 안에 이미지(dataURL)·안내문이 JSON 1건으로 들어 있다 (eSIM 처럼 QR + 수동입력값을 같이 넣는 슬롯) */
+/* 암호문 1건 풀기 → Promise<{ img }> (슬롯마다 PNG 1장) */
 function qrDecode(d, code){
   var enc = new TextEncoder();
   return crypto.subtle.importKey('raw', enc.encode(code), { name:'PBKDF2' }, false, ['deriveKey'])
@@ -1313,13 +1305,9 @@ function qrDecode(d, code){
     })
     .then(function(k){ return crypto.subtle.decrypt({ name:'AES-GCM', iv: qrB64(d.iv) }, k, qrB64(d.ct)); })
     .then(function(buf){
-      if(d.json){
-        var o = JSON.parse(new TextDecoder().decode(new Uint8Array(buf)));
-        return { img: String(o.img || ''), info: String(o.info || '') };
-      }
       return new Promise(function(res, rej){
         var fr = new FileReader();
-        fr.onload = function(){ res({ img: String(fr.result), info: '' }); };
+        fr.onload = function(){ res({ img: String(fr.result) }); };
         fr.onerror = function(){ rej(new Error('read')); };
         fr.readAsDataURL(new Blob([buf], { type:'image/png' }));
       });
@@ -1376,11 +1364,9 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
         '<div class="qacts">' +
           '<button class="pri" data-qract="view" data-slot="' + slot + '">🔍 크게</button>' +
           '<button data-qract="pick" data-slot="' + slot + '">교체</button>' +
-          '<button class="del" data-qract="del" data-slot="' + slot + '">삭제</button>' +
+          '<button class="qdel" data-qract="del" data-slot="' + slot + '">삭제</button>' +
         '</div>' +
       '</div></div>';
-    var inf = qrInfo(pid, slot);
-    if(inf) body += '<div class="qinfo">' + esc(inf) + '</div>';
   } else if(locked){
     var sib = Object.keys(QR_DEFAULT).filter(function(k){ return k !== pid && qrDef(k, slot); });
     body = '<div class="qlock">' +
@@ -1397,7 +1383,7 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
       '<b>＋ QR 이미지 올리기</b><span>스크린샷·사진 선택 · 최대 900px로 자동 축소</span></button>' +
       (qrDef(pid, slot) ? '<button class="qrevive" data-qract="revive" data-slot="' + slot + '">기본 QR 다시 켜기</button>' : '');
   }
-  var pill = data ? '저장됐' : (locked ? '기본' : '비었음');
+  var pill = data ? '저장됨' : (locked ? '기본' : '비었음');
   return '<div class="qslot" id="qslot-' + slot + '">' +
     '<div class="qh"><span class="qi">' + ic + '</span>' +
       '<div class="qtt"><b>' + title + '</b><span>' + sub + '</span></div>' +
@@ -1407,7 +1393,7 @@ function qrSlotHtml(pid, slot, ic, title, sub, extra){
 
 function renderQR(){
   var pid = state.profile, m = member(pid) || MEMBERS[0];
-  var total = (qrHas(pid,'vjw')?1:0) + (qrHas(pid,'esim')?1:0) + (qrHas(pid,'flight_bx617')?1:0) + (qrHas(pid,'flight_bx608')?1:0);
+  var total = (qrHas(pid,'vjw')?1:0) + (qrHas(pid,'flight_bx617')?1:0) + (qrHas(pid,'flight_bx608')?1:0);
   var seg = '<div class="qseg">' +
     '<button class="' + (qrFlight === 'bx617' ? 'on' : '') + '" data-qract="flight" data-f="bx617">✈️ BX617 출국 12/8' + (qrHas(pid,'flight_bx617') ? '<i class="qhas"></i>' : '') + '</button>' +
     '<button class="' + (qrFlight === 'bx608' ? 'on' : '') + '" data-qract="flight" data-f="bx608">✈️ BX608 귀국 12/10' + (qrHas(pid,'flight_bx608') ? '<i class="qhas"></i>' : '') + '</button>' +
@@ -1420,7 +1406,6 @@ function renderQR(){
       '<button class="x" data-qract="close" aria-label="닫기">✕</button>' +
     '</div>' +
     qrSlotHtml(pid, 'vjw', '🛂', '일본 입국심사·세관', 'VISIT JAPAN WEB · 입국·세관', '') +
-    qrSlotHtml(pid, 'esim', '📶', 'eSIM 프로파일', '유심스토어 일본 3일 무제한 · 듀얼망', '') +
     qrSlotHtml(pid, qrSlotKey(), '✈️', '항공 모바일 탑승권', qrFlightName(), seg) +
     '<p class="qnote"><b>공개되지 않아요.</b> QR 이미지는 이 브라우저(localStorage)에만 저장됩니다. 같은 링크를 연 다른 사람 폰에는 보이지 않아요. 기본 등록된 QR은 암호문으로만 앱에 들어 있어 공개 페이지에서는 읽히지 않습니다 — <b>' + esc(m.name) + '</b> 님이 이 기기에서 올린 QR만 나옵니다. (저장 ' + total + '개)</p>' +
     '<div class="sact"><button class="pri" data-qract="close">닫기</button></div>';
@@ -2121,7 +2106,6 @@ function qrPrepRows(){
   var pid = state.profile;
   var rows = [
     { slot:'vjw', ic:'🛂', t:'입국심사·세관 QR', s:'Visit Japan Web' },
-    { slot:'esim', ic:'📶', t:'eSIM 프로파일 QR', s:'유심스토어 3일 무제한' },
     { slot:qrSlotKey(), ic:'✈️', t:'항공 탑승권 QR', s:qrFlightName() }
   ];
   return rows.map(function(r){
@@ -2157,7 +2141,7 @@ function renderPrep(){
 
     '<div class="sec" style="margin-top:18px"><h2>📲 내 QR 월렛</h2><span>' + esc(mm.name) + ' · 이 기기 저장</span></div>' +
     '<div class="qcard">' + qrPrepRows() + '</div>' +
-    '<p class="footnote" style="margin-top:8px">입국심사·eSIM·탑승권 QR을 미리 올려 두면 공항에서 두 번 탭으로 꺼내요. 저장은 <b>' + esc(mm.name) + '</b> 님 기기에만 되고 다른 사람 폰·공개 페이지에는 보이지 않습니다.</p>' +
+    '<p class="footnote" style="margin-top:8px">입국심사·탑승권 QR을 미리 올려 두면 공항에서 두 번 탭으로 꺼내요. 저장은 <b>' + esc(mm.name) + '</b> 님 기기에만 되고 다른 사람 폰·공개 페이지에는 보이지 않습니다.</p>' +
 
     '<div class="sec"><h2>🗓️ 사전 준비 타임라인</h2><span>11/26 기준</span></div>' +
     '<div class="steps">' + PREP_STEPS.map(function(s){
