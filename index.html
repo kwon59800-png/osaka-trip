@@ -531,13 +531,6 @@
   .qempty b{display:block;font-size:12.5px;color:var(--ink);letter-spacing:-.02em}
   .qempty span{display:block;font-size:10px;color:var(--dim2);margin-top:3px;line-height:1.45}
   .qrevive{display:block;width:100%;margin-top:6px;border:0;background:none;color:var(--dim2);font-size:10px;font-weight:650;text-decoration:underline;text-underline-offset:2px;letter-spacing:-.02em}
-  .qlock{margin-top:9px;border:1px dashed #E5CDA6;background:#FFFBF2;border-radius:12px;padding:10px 11px}
-  .qlock .qlockt b{display:block;font-size:12px;color:#8A6A34;letter-spacing:-.02em}
-  .qlock .qlockt span{display:block;font-size:10px;color:var(--dim2);line-height:1.45;margin-top:3px}
-  .qlockrow{display:flex;gap:6px;margin-top:8px}
-  .qlockrow input{flex:1;min-width:0;border:1px solid var(--line2);background:#fff;border-radius:9px;padding:8px 10px;font-size:13px;font-family:"IBM Plex Mono",monospace;letter-spacing:.16em;color:var(--ink)}
-  .qlockrow button{flex:none;border:1px solid var(--coral);background:var(--coral);color:#fff;border-radius:9px;padding:8px 13px;font-size:11.5px;font-weight:700;letter-spacing:-.02em}
-  .qlockrow button:disabled{opacity:.6}
   .qthumb{display:flex;gap:10px;align-items:center;margin-top:9px}
   .qthumb .im{flex:none;width:86px;height:86px;border-radius:11px;border:1px solid var(--line2);background:#fff;object-fit:contain;padding:3px;cursor:zoom-in}
   .qside{flex:1;min-width:0}
@@ -1074,13 +1067,12 @@ var SPOTS = [
   { id:'d2-4', day:2, t:'13:50', kind:'sight', tag:'투어', title:'산토리 〈천연수의 맥주 공장〉 교토',
     sub:'더 프리미엄 몰츠 맛 발견 투어 · 13:50–15:20 · 4명 ¥4,000 사전결제 완료', jp:'京都府長岡京市調子3-1-1',
     badge:'예약·결제 완료 · 13:35까지 도착', badgeType:'info',
-    note:'90분 제조공정 견학 + 프리미엄 몰츠 3종 시음. 4인 전원 시음·운전자 0명으로 접수, JR 나가오카쿄역 무료 셔틀 이용. 12/7 정오 전 무료취소 · 문의 075-952-2020. 시음 뒤에는 차량 운전이 안 되니 귀경 수단을 따로 정해야 해요.',
+    note:'90분 제조공정 견학 + 프리미엄 몰츠 3종 시음. 렌터카 유지 · 운전자 1명은 무알콜 소프트드링크, 나머지 3명이 시음(현장 접수 시 운전자 1명 안내). JR 나가오카쿄역 무료 셔틀 이용. 12/7 정오 전 무료취소 · 문의 075-952-2020.',
     q:'サントリー 京都ビール工場', lat:34.9100, lng:135.6944,
     leg:{ ic:'🚌', t:'셔틀 약 10분', m:10 } },
   { id:'d2-5', day:2, t:'16:20', kind:'shop', tag:'쇼핑', title:'난바 복귀 · 도톤보리 · 닛폰바시 쇼핑',
     sub:'도톤보리 · 닛폰바시 리쿼샵 투어', jp:'大阪市中央区道頓堀1丁目',
-    badge:'4인 전원 시음(운전자 0명) — 귀경 수단 확인 필요', badgeType:'warn',
-    note:'시음 후 렌터카 운전은 법으로 금지돼요. JR 나가오카쿄→난바 약 50분으로 오려면 차량을 호텔에 두고 다니는 계획이 필요합니다. 울트라마켓(19:30 마감) → 빅카메라 난바(22:00) → 에디온 난바 순, 울트라마켓은 18시 전에 먼저.',
+    note:'투어 뒤 렌터카로 난바 복귀(차 약 55분). 울트라마켓(19:30 마감) → 빅카메라 난바(22:00) → 에디온 난바 순, 울트라마켓은 18시 전에 먼저.',
     q:'道頓堀 大阪', lat:34.6680, lng:135.5015,
     leg:{ ic:'🚗', t:'차로 약 55분', m:55 } },
   { id:'d2-6', day:2, t:'18:00', kind:'food', tag:'저녁', title:'와규 규동 마에다 (和牛専門 牛めし 前田優)',
@@ -1195,7 +1187,7 @@ var BOOKINGS = [
     rows:[['예약번호','1400831131916716'],['차량','도요타 프리우스 또는 동급'],['금액','75,859원 (사전결제 완료 · 4인 분담)'],['인수','12/8(화) 18:30'],['반납','12/10(목) 10:00 (08:30 반납 예정)'],['무료취소','12/7 18:30 이전'],['확인 중','인수 위치·보험 상세 — 강혜랑 님 측']],
     jp:'大阪府泉佐野市泉州空港北1 関西国際空港', q:'関西国際空港 レンタカー' },
   { id:'tour', ic:'🍺', t:'산토리 교토 맥주공장', tag:'예약 확정', tagw:false,
-    rows:[['일시','12/9(수) 13:50–15:20 (13:35까지 도착)'],['코스','더 프리미엄 몰츠 맛 발견 투어 (20세 이상)'],['인원·이동','4명 · JR 나가오카쿄역 무료 셔틀 · 운전자 0명'],['금액','¥4,000 (1인 ¥1,000) 카드 사전결제 완료'],['무료취소','12/7 정오 전 · 075-952-2020']],
+    rows:[['일시','12/9(수) 13:50–15:20 (13:35까지 도착)'],['코스','더 프리미엄 몰츠 맛 발견 투어 (20세 이상)'],['인원·이동','4명 · JR 나가오카쿄역 무료 셔틀 · 렌터카 유지 · 운전자 1명 소프트드링크 / 3명 시음 (현장 접수 시 운전자 1명 안내)'],['금액','¥4,000 (1인 ¥1,000) 카드 사전결제 완료'],['무료취소','12/7 정오 전 · 075-952-2020']],
     jp:'京都府長岡京市調子3-1-1', q:'サントリー 京都ビール工場' },
   { id:'ins', ic:'🛡️', t:'해외여행보험 · 카카오페이손해보험', tag:'가입 완료', tagw:false,
     rows:[['보장기간','2026.12.08 16:00 ~ 12.10 13:00'],['가입','4명 (각자 가입)'],['보험료','19,780원 (4인 합계 · 신한카드)'],['1인 부담','4,945원 (4인 공통 ÷ 4)'],['증권 확인','카카오페이 앱 › 보험에서 조회']],
@@ -1415,34 +1407,28 @@ function qrSetGone(pid, slot, on){
 }
 
 /* ------------------------------------------------------------
-   기본 내장 QR — 암호문만 앱에 들어 있다 (AES-GCM / PBKDF2)
-   공개 페이지 소스에는 base64 암호문만 남고, 여권번호·이름 같은
-   내용은 6자리 코드를 넣어야 이 기기에서만 풀린다.
-   키 없음 + 기본 있음  → '코드 입력' 카드
-   삭제 누름            → osaka_qr_gone_* 플래그로 기본도 숨김
+   기본 내장 QR — 앱에 미리 담겨 있어 코드 입력 없이 바로 뜬다
+   .img = PNG data URL. 이 기기 저장본(localStorage)이 있으면 그쪽을 우선 쓰고,
+   '삭제'를 누르면 내장 기본도 숨긴다 (osaka_qr_gone_* 플래그)
+   → '기본 QR 다시 표시'로 언제든 복구.
    ------------------------------------------------------------ */
 var QR_DEFAULT = {
-  /* 권혁산 님 VJW (downloads/vjw_qr_kwon_20261126.png → 69모듈·616px 1비트) — 코드 714258 */
+  /* 권혁산 님 VJW 입국·세관 통합 QR (1440×1440 · 1비트) */
   hyeoksan: {
-    vjw: {
-      w: 616, h: 616,
-      salt: '1OyglBSE5VfXy+nJsWfdZw==',
-      iv: '3KxUR+31Rpf22OWP',
-      ct: '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'
-    }
+    vjw: { w: 1440, h: 1440, img: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAWgCAAAAACNy7sUAAAg7klEQVR4nO3cwW7jWJZF0XTD///L1aMGAmwXGc/3UdpUrjWqgiWSohQbnOT5+s8/ABT9z7svAICfCTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRH2/+wJ+6+uF5/rPi899dr7d17LzeNNjrb7/+PozO4/10/Gu3v/O+7py7KPdv/VX/1s6O/cTeIIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoh67B700c6t19KO8dTuc/15vLvv0+r7z65tdff46vUr1zJ97+rfr863cuwrd/6+pl65NX0XT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFEfswd9NN0aXnntdK/3aOe28J1bw3fvGk/+Ptlr3mFlq3rlvTucnf/uHe0Vd/4bfgpP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUR+7B1022Yeebt7eud87PdZ0R3vl/KvHvnr/ZE/86thX17p6vMl7j69/5170v4EnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKHvQv3C1z7u6gbuy97u6z7v7WleOvWqykz01/Y6u7uPKJvPVe6cbzF//5X//zbFXz8WMJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKiP3YN+5y7t6ibz6ut/+9qfzlUyvW9ndm9XX13ryk7yzs/5N872xa+88vdW/q2+iidogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqI/Z4ti9tbDiapdhsrVx97knf9/9uXe+/2rHYfXaV63ct5X33vH3Fbu/06vX/9t5ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiHrsHvR0r3en1U3cyd937xSv/v1Pd28ov/L9d+9Dr5z77vdPNpd3b52X/h0XeYIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoj6euoe6+7d2bPjTTdvV002mXd75Wf/1HNd2b1FvfL+3fvOd5r8G/6b9xd5ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiPp+9wX81p0budNN3NV936vj//n31c+9ewP3z+NNP9fu+3zmeOzVa3/nJvNuK7+nOz/36rGuPHHv+YonaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqMfuQR9d7dCu7P3u3jF+5e7x0eo+7yt3s1ePN9l/nn7u1e/4znNdnXvleK/83FO7f19P4AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqY/agjyY7tqu7sbt3Zs+u/e5rW9lNnh5754b3qqvfx/Rck43nOz/31NW5d25b373h/QSeoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABor7euS07Md16Le31ruzaTs+98/W793h3vn91D/yV28Gr537StV69/2jnv7vVcz+BJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKjH7kEfTTeZdx57+vozu7eB33mfpu9fef27t6vv/Hd255709DuYfKe7/509kSdogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaICo73dfwC6rO7R3bjBPN3HP3r97c3myg7z63qtr37klfDTdCt75+9q94T35fe7+Dq+Ot3PD+d+wF+0JGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6uuJG6n//LO+ybzy/nffk7Md25071z9ZuW/TPd7de713XtvRK/fFr95/NP23cXasu+/T2bW9+vdU4AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6vvdF/AqK3sHq/9N/3RL4er9KxsTr9wnuDr26rmmuw4rmyWr7tx1WP3Odu5fTHc77rwv0/vwCdscnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaI+Zg96det15fWre8/T453t3u7euJ1s7k53jHfvRZ/tZk+3ha+uZednnR5r5fXT72C6lb5ybTt3sJ/CEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QNRj96Dv3Mx99a7xO3dsX3nu3fdxZTf7aPfG8s6d7ru3qVdee/z73b+XybV+Ik/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRj92DPrra313Z+51s+f7Gyq7tnTvEq8ffvZF8dR/uvLYrq59tZdd49e87d7Tvvk9XJpvO/4Z9aE/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRH7MHPd21PdvIPXvt37z+6v1HZ8e7Otfqtezck969x7tzg3n12Lvfv/L72n3uo5Xf13TDe/de+cq5P4EnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqI/Zg151tqk73cBd3bydbOZO93Ynm8u7P+ed+76779PV34/nO7tv09/TzuPdvYt956b31bmeyBM0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx+xBT3aNj3+/eu/de8+v3EU+Wv1sk2NPt4cndm9Trxxv9dzT38PK/vPureqr16/8O/yEfedVnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIeuwe9utm8snu7utd89frpZu6K6X7vyvtX78PqtRztvLbde893mm6dl3aUd34vq/fliTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEfT11M3W6cXv2uae7sqvv371dvGLn9vTOrenp66fXsmplm/jO3+7fHH+ym717w/vM9Fo+YR/aEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUY7c4rty5AXD1+is7NylW9wpW78udmyWrx5t8D3fvX0zcvf3yyk2KV+5lfMLWxhVP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUd/vvoBXuXNndroXvXJtqxvJO/efj8fbvUW983h3X8vq68/u6+7N7p07yauf+877vHsn+wk8QQNECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRH09cSP1n3/WN3OPdu5DT/9+db6J1XPd+XuY7ma/cuf4yis3lt9533b/Pib3vfRbfhVP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUfagf3G8u+/Z2bVMt6avzvXOneyjyf7v7s3lVTuP/0kb3Z+6dX4XT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFHf776A35puu+7cQT6a7h6fXct0g3nqz+Ovfs53bldP78Pq9vBkq/rq2NPf19l3uNvk2u/e7H4CT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFGP3YM+euXm8qqdm7vTjdydm7rTXexXblvv3qI+unO7ePW+rFzr9L5Mv7Od2+efyBM0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx+xBH002clc3bKc7xyvHn17b1euPJnvBd96Hq7/v3ODebfcW9Z27yDt31n9z/LPX3rkfXuEJGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6uupm6mrG7irW8STYx/t3EW+c/v3eK4rq/u70/twp+m28M7d7KPpv9Gz40+/g9X7cqdP3If2BA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPX97gu4y2Rz+crxWKvHvnMjd3Xz9uqznB3v7g3lO7+z1Wtf/c4mW8R37j9fHX/3514599Wx7vx9VHmCBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaI+pg96J37vpMt39/YuRW8e9f47Pir9+XqWqbXvnJtu7eG79x/Xv3OVu7z9DucuvPf2qv/Hd/BEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx2xxrOw0XLl7n+CVewPTTYmz46+e+/j33Tshd24tTLdeVq5t9b07N01Wv4MnfWdP5AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqsXvQqxu5Vya7tru3gXduMB9Nd43PTO/56n7vdIv4zCfdp6N37mbv/M6mv/0n8AQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD19cSN1N+YbOru3h2ebFlPv6/yZu7uLeuV107PvaK0Y/zu38POret3f5Y7eIIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoj6fvcF/NZ0o3nnxvPqzuzquf88/up+7u7Xf538bVVpB3n1XKvb1F//5X//zbmnW9ZHOzeX37lVfeWJ+89HnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaK+nrqZOt3UPTp7/87t6NVzX1n9XNNt4VduU1+9/2hybavn3nnfzl77N1avbee/+Xdueh+9cqv6VTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEPXYP+mi6izx573R/984t4ele79lnWd3JfuV9unrv9D5Njjf5Lf7m/Wevn97zlXOtunMv/Ck8QQNECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRD12D/rO/d7pbvGVO3drp1vVO3eOj+4895XptvDOz7b7Wnbel92/9aPJ8Xd/J0/gCRogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIOr73Rewy86t16t93Tu3qK+sbv9OtoJX33/3/u7K/u/unePd3/mdx77zO3v1XvTKuaa/9SJP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUY/dg75zt3Z1X3f3tvDkXNNN3JXPPtkh/un10+/0z/9/932Y7CCv7jnfucG8+/e08h1dvf4T951XeYIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoh67B700XQz92yHdnWv9+zYP5ns3q5e66qza9997tUt4TOr17L6HU5ev/s7WrWyubxze/pvznd2n/6NPEEDRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEfT31v3ffvX8xuQ+7txTu3L/Y+X3ffa7V72jle3j1xsTO39fOXZBVV8e68/e1eu47r+1VPEEDRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0R9v/sCfmvnNvBvXj+xuku7c+d4urH8zl3jld3jO7ekr849Pd70nq9cy/Q7mH7uyft33vMqT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFFfk33fd5pu5k42cu/cc746/3TXePp9T65l9b5ONp1Xt4Lv3sVe+b2tnntybbu/o6PJ66fHfmrb/uQJGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6mP2oK9Md5RXjn33JvPE7v3es/eunnvntawe+2iyRf3T63de+9Hk2u68rp/c+e9weu4iT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFHf776A35ruyq7s/U6PtfP9003b3TvIK+9dPffkvt69/Tu5T3d+B6929Z3svPbVY7166/oOnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIeuwd9tLr9Otl/XjnWT3+f7NSu7u2ubiqvHG/3Pu/VtU32oVfPPbVyLXd/hyv74tMN5elO+4pP2Hu+4gkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqsXvQqxu5Kxu8083ko7s3dncee2U3efW+TLeCJ9vFq/dw92/gld/hUWk3efIdTr+DJ/IEDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0Q9dg96CuTfejdu7PT959t5u4+9s693qPdG8tnx9/5uX56/9HV8V75Ha4cf3ofdt/nyblX3/8EnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaI+Zg96ukX85/+fbt5Od493bgdfvf6V+71Xdu5D371bvPM7n+w5/83fJ+7eUD67b3f+O3oKT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRX3f/t/avMt3i2Pne3RsC/zn526rp972ylbB6LTu/w+mxj165UfLKDYk7v4OfXn9057/D1Wsp8gQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD12D3o6cbymeme89TkfFfvvXNrePod7Hz/6n3YvXN8tLJdffXenbvI09/2zq3z49/vvpYn8AQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1r9mDXnn/dDN551bw6rlevXM8sfs7PDtWaf/5yvQ7WLmvu+/LzuNNz331+ifwBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPX97gv4rekO7dk27OS9f2P1eGc7t9Nr27nn++r7cnZtO4+129W5XrlrXNp/5v/zBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPXYPejp/vPK3u/dm7WTa7naEl7dmr5z/3nnd7Lb6rmvPss7P9vOPfPpd7xq5fdW/j3t4gkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDq6+6t47tMNm5ffe5X7tZON3N33sfd5766T2fvX33v5Fw/vf/Oa5tcy+pv750b4E9t1YQnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqH/NHvTK5u7OfebjsafHnx5r5/t336ezc+0+33T/efL63dvTE7s/9yu9ctv8XTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEPXYP+p2m+707N5jL28K778PRyme5+75M9sZfvU29Ynqtk2uZ7jt/wj60J2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKjvd1/Ab023hFccd2Tv3pVd2dydbgdPN3Z3vne6Nfzn61/5uX463/F4K9/h7s3ls+NPN7ynm98rx1u9T0/cfz7yBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPXYPeijnduvqxu2R6t7viuvX93AvfvvZ6Y7x9PXr5juGq8eb3Ls1XOd/X3672a6wfwJm8138gQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0Q9fXU/xZ+uvNw9Of7V/cFdm8pTLY4Vs91tPLZpzsMq8eb3uedJtc2/T2t3uedv6e7/y3c6Ymt8wQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1/e4L+ERXG7tXu7ST3dqrc19dy8q5Vz/n7p3tnVvVq9e+e7N55dxHpfs03Zf+Ovnb6rV8Ak/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABR9qB/4Wrj9mjnFvF0f/fq3EeTvd6rY62+fvWzrbx3eq7J++8+99nva7rZfbR783ty7qMn7kV7ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiPrYPegnbr/+n5WN3Lv3e8+uZXruo9Vd5FfuHO/8PV0da7Lv/DfvXzH5Dv7m7+/8vT2BJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKiP2YOebN7utnotK7u2q8de3dCd7EPfeayf3n91vsm5V3eNV4+3YvK5f3r/yn2fnvvq9ZP7Mt2ifgJP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUV9P3EgF+DfwBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1vxfqwphkUKsoAAAAAElFTkSuQmCC' }
   },
+  /* 강혜랑 님 VJW 입국·세관 통합 QR (1130×1130 · 1비트, 원본 스크린샷에서 추출·재생성) */
   hyerang: {
-    vjw: {
-      w: 650, h: 650,
-      salt: '1Kj+mke/sDcdnYaFkKHbtA==',
-      iv: 'X/6pzstOvyfUtsKq',
-      ct: '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'
-    }
+    vjw: { w: 1130, h: 1130, img: 'data:image/png;base64,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' }
   }
 };
 function qrDef(pid, slot){ return (QR_DEFAULT[pid] || {})[slot] || null; }
-function qrLocked(pid, slot){ return !!qrDef(pid, slot) && !qrIsGone(pid, slot) && !qrGet(pid, slot); }
-function qrHas(pid, slot){ return !!(qrGet(pid, slot) || qrLocked(pid, slot)); }
+/* 내장 기본 QR(삭제 전) — data URL, 없으면 '' */
+function qrDefault(pid, slot){ var d = qrDef(pid, slot); return (d && d.img && !qrIsGone(pid, slot)) ? d.img : ''; }
+/* 화면에 띄울 실제 이미지 — 이 기기 저장본 우선, 없으면 내장 기본 */
+function qrData(pid, slot){ return qrGet(pid, slot) || qrDefault(pid, slot); }
+function qrFromDefault(pid, slot){ return !qrGet(pid, slot) && !!qrDefault(pid, slot); }
+function qrHas(pid, slot){ return !!qrData(pid, slot); }
 function qrHasAny(pid){ return qrHas(pid,'vjw') || qrHas(pid,'flight_bx617') || qrHas(pid,'flight_bx608'); }
 function qrKB(url){ return Math.max(1, Math.round((url.length - url.indexOf(',') - 1) * 3 / 4 / 1024)); }
 function qrSlotKey(){ return 'flight_' + qrFlight; }
@@ -1452,106 +1438,34 @@ function qrSlotLabel(slot){
   return '탑승권 QR · ' + (slot.indexOf('bx608') >= 0 ? 'BX608' : 'BX617');
 }
 
-/* ---------- 기본 내장 QR 풀기 (AES-GCM) ---------- */
-function qrB64(s){
-  var bin = atob(s), u = new Uint8Array(bin.length);
-  for(var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
-  return u;
-}
-/* 암호문 1건 풀기 → Promise<{ img }> (슬롯마다 PNG 1장) */
-function qrDecode(d, code){
-  var enc = new TextEncoder();
-  return crypto.subtle.importKey('raw', enc.encode(code), { name:'PBKDF2' }, false, ['deriveKey'])
-    .then(function(base){
-      return crypto.subtle.deriveKey(
-        { name:'PBKDF2', salt: qrB64(d.salt), iterations: 250000, hash:'SHA-256' },
-        base, { name:'AES-GCM', length: 256 }, false, ['decrypt']);
-    })
-    .then(function(k){ return crypto.subtle.decrypt({ name:'AES-GCM', iv: qrB64(d.iv) }, k, qrB64(d.ct)); })
-    .then(function(buf){
-      return new Promise(function(res, rej){
-        var fr = new FileReader();
-        fr.onload = function(){ res({ img: String(fr.result) }); };
-        fr.onerror = function(){ rej(new Error('read')); };
-        fr.readAsDataURL(new Blob([buf], { type:'image/png' }));
-      });
-    });
-}
-
-/* 같은 슬롯에 기본 QR이 걸린 다른 프로필도 같은 코드면 같이 열어 둔다
-   (권혁산·강혜랑 VJW 는 같은 코드 — 한 번 풀면 둘 다 저장) */
-function qrUnlockSiblings(pid, slot, code){
-  Object.keys(QR_DEFAULT).forEach(function(other){
-    if(other === pid) return;
-    var d = qrDef(other, slot);
-    if(!d || qrGet(other, slot) || qrIsGone(other, slot)) return;
-    qrDecode(d, code).then(function(p){
-      qrStore(other, slot, p);
-      renderQR(); renderProfiles();
-      if($('#tab-prep').classList.contains('on')) renderPrep();
-    }).catch(function(){});
-  });
-}
-
-function qrUnlock(pid, slot, code, btn){
-  var d = qrDef(pid, slot); if(!d) return;
-  code = String(code || '').replace(/\D/g, '');
-  if(!code){ toast('코드를 입력해 주세요'); return; }
-  if(!(window.crypto && window.crypto.subtle && window.crypto.subtle.importKey)){
-    toast('https 링크에서 열어야 코드를 풀 수 있어요'); return;
-  }
-  if(btn){ btn.disabled = true; btn.textContent = '푸는 중'; }
-  qrDecode(d, code)
-    .then(function(p){
-      qrStore(pid, slot, p);
-      renderQR(); renderProfiles();
-      if($('#tab-prep').classList.contains('on')) renderPrep();
-      toast(qrSlotLabel(slot) + ' 열었어요 · 이 기기에 저장됨');
-      openQRView(slot);
-      qrUnlockSiblings(pid, slot, code);
-    })
-    .catch(function(){
-      if(btn){ btn.disabled = false; btn.textContent = '열기'; }
-      toast('코드가 맞지 않아요');
-    });
-}
-
 function qrSlotHtml(pid, slot, ic, title, sub, extra){
-  var data = qrGet(pid, slot);
-  var locked = !data && qrLocked(pid, slot);
+  var data = qrData(pid, slot);
+  var builtin = qrFromDefault(pid, slot);
   var body;
   if(data){
+    var meta = builtin
+      ? '기본 등록됨 · 앱에 포함<br>바로 열려요'
+      : '저장됨 · 약 ' + qrKB(data) + 'KB<br>이 기기에만 보관';
     body = '<div class="qthumb">' +
       '<img class="im" src="' + data + '" alt="' + esc(title) + '" data-qract="view" data-slot="' + slot + '">' +
       '<div class="qside">' +
-        '<div class="qmeta">저장됨 · 약 ' + qrKB(data) + 'KB<br>이 기기에만 보관</div>' +
+        '<div class="qmeta">' + meta + '</div>' +
         '<div class="qacts">' +
           '<button class="pri" data-qract="view" data-slot="' + slot + '">🔍 크게</button>' +
           '<button data-qract="pick" data-slot="' + slot + '">교체</button>' +
           '<button class="qdel" data-qract="del" data-slot="' + slot + '">삭제</button>' +
         '</div>' +
       '</div></div>';
-  } else if(locked){
-    var sib = Object.keys(QR_DEFAULT).filter(function(k){ return k !== pid && qrDef(k, slot); });
-    body = '<div class="qlock">' +
-      '<div class="qlockt"><b>🔒 기본 등록됨</b><span>' + esc((member(pid) || {}).name || '') + ' 님 QR이 미리 들어 있어요. 코드를 넣으면 이 기기에 저장되고 다음부터는 바로 열려요.' +
-      (sib.length ? ' 같은 코드면 ' + sib.map(function(k){ return esc((member(k) || {}).name || k); }).join('·') + ' 님 QR도 같이 열려요.' : '') +
-      '</span></div>' +
-      '<div class="qlockrow">' +
-        '<input id="qrc-' + slot + '" type="tel" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="6자리 코드" aria-label="보안 코드" onkeydown="if(event.key===\'Enter\'){this.nextElementSibling.click();}">' +
-        '<button data-qract="unlock" data-slot="' + slot + '">열기</button>' +
-      '</div>' +
-    '</div>';
   } else {
     body = '<button class="qempty" data-qract="pick" data-slot="' + slot + '">' +
       '<b>＋ QR 이미지 올리기</b><span>스크린샷·사진 선택 · 최대 900px로 자동 축소</span></button>' +
-      (qrDef(pid, slot) ? '<button class="qrevive" data-qract="revive" data-slot="' + slot + '">기본 QR 다시 켜기</button>' : '');
+      (qrDef(pid, slot) ? '<button class="qrevive" data-qract="revive" data-slot="' + slot + '">기본 QR 다시 표시</button>' : '');
   }
-  var pill = data ? '저장됨' : (locked ? '기본' : '비었음');
+  var pill = data ? '등록됨' : '미등록';
   return '<div class="qslot" id="qslot-' + slot + '">' +
     '<div class="qh"><span class="qi">' + ic + '</span>' +
       '<div class="qtt"><b>' + title + '</b><span>' + sub + '</span></div>' +
-      '<span class="qpill ' + ((data || locked) ? 'has' : '') + '">' + pill + '</span>' +
+      '<span class="qpill ' + (data ? 'has' : '') + '">' + pill + '</span>' +
     '</div>' + (extra || '') + body + '</div>';
 }
 
@@ -1566,12 +1480,12 @@ function renderQR(){
     '<div class="grab"></div>' +
     '<div class="qrhd">' +
       '<span class="av" style="background:' + m.color + '">' + m.initial + '</span>' +
-      '<div class="t"><div class="sday">QR 월렛 · 이 기기에만 저장</div><h3>' + esc(m.name) + ' 님의 QR</h3></div>' +
+      '<div class="t"><div class="sday">QR 월렛 · 바로 열림 · 오프라인 OK</div><h3>' + esc(m.name) + ' 님의 QR</h3></div>' +
       '<button class="x" data-qract="close" aria-label="닫기">✕</button>' +
     '</div>' +
     qrSlotHtml(pid, 'vjw', '🛂', '일본 입국심사·세관', 'VISIT JAPAN WEB · 입국·세관', '') +
     qrSlotHtml(pid, qrSlotKey(), '✈️', '항공 모바일 탑승권', qrFlightName(), seg) +
-    '<p class="qnote"><b>공개되지 않아요.</b> QR 이미지는 이 브라우저(localStorage)에만 저장됩니다. 같은 링크를 연 다른 사람 폰에는 보이지 않아요. 기본 등록된 QR은 암호문으로만 앱에 들어 있어 공개 페이지에서는 읽히지 않습니다 — <b>' + esc(m.name) + '</b> 님이 이 기기에서 올린 QR만 나옵니다. (저장 ' + total + '개)</p>' +
+    '<p class="qnote"><b>바로 열려요.</b> 입국심사·세관 QR은 앱에 미리 담겨 있어 코드 입력 없이 바로 뜹니다. <b>교체</b>로 올린 이미지는 이 브라우저(localStorage)에만 저장되고 다른 사람 폰에서는 보이지 않아요. <b>삭제</b>하면 기본 QR도 숨겨지고, 그 아래 <b>기본 QR 다시 표시</b>로 되돌릴 수 있습니다. (등록 ' + total + '개)</p>' +
     '<div class="sact"><button class="pri" data-qract="close">닫기</button></div>';
 }
 
@@ -1668,7 +1582,7 @@ function qrDelete(slot){
   var hasLocal = !!qrGet(pid, slot);
   var msg = hasLocal
     ? member(pid).name + ' 님의 ' + qrSlotLabel(slot) + ' 이미지를 이 기기에서 지울까요?\n(다시 올리면 복구됩니다)'
-    : member(pid).name + ' 님의 기본 등록 ' + qrSlotLabel(slot) + '를 이 기기에서 끌까요?\n(아래 "기본 QR 다시 켜기"로 언제든 되돌릴 수 있어요)';
+    : member(pid).name + ' 님의 기본 ' + qrSlotLabel(slot) + '를 월렛에서 숨길까요?\n(아래 "기본 QR 다시 표시"로 언제든 되돌릴 수 있어요)';
   if(!confirm(msg)) return;
   qrDel(pid, slot);
   if(qrDef(pid, slot)) qrSetGone(pid, slot, true);
@@ -1681,7 +1595,7 @@ function qrRevive(slot){
   qrSetGone(pid, slot, false);
   renderQR(); renderProfiles();
   if($('#tab-prep').classList.contains('on')) renderPrep();
-  toast('기본 QR을 다시 켰어요 · 코드를 넣으면 열려요');
+  toast('기본 QR을 다시 표시했어요 · 바로 열려요');
 }
 
 /* ---------------- 전체화면 보기 (밝기·크기 강조) ---------------- */
@@ -1712,13 +1626,10 @@ function qrApplyZoom(){
   im.style.maxWidth = 'none'; im.style.maxHeight = 'none';
 }
 function openQRView(slot){
-  var data = qrGet(state.profile, slot);
+  var data = qrData(state.profile, slot);
   if(!data){
-    if(qrLocked(state.profile, slot)){
-      openQR(slot);
-      setTimeout(function(){ var inp = document.getElementById('qrc-' + slot); if(inp) inp.focus(); }, 120);
-      toast('기본 등록된 QR이에요 — 코드를 넣어 주세요');
-    } else { toast('먼저 QR 이미지를 올려 주세요'); }
+    openQR(slot);
+    toast('먼저 QR 이미지를 올려 주세요');
     return;
   }
   var im = $('#qvImg');
@@ -2536,17 +2447,16 @@ function qrPrepRows(){
   ];
   return rows.map(function(r){
     var has = qrHas(pid, r.slot);
-    var lock = !qrGet(pid, r.slot) && qrLocked(pid, r.slot);
     var sub = r.s;
     if(r.slot.indexOf('flight_') === 0 && !has){
       var other = qrFlight === 'bx617' ? 'bx608' : 'bx617';
       if(qrHas(pid, 'flight_' + other)) sub += ' · ' + other.toUpperCase() + '에 저장됨';
     }
-    if(lock) sub += ' · 기본 등록 · 코드 입력';
-    return '<button class="qrow" data-qract="' + (has ? (lock ? 'open' : 'view') : 'open') + '" data-slot="' + r.slot + '">' +
+    if(qrFromDefault(pid, r.slot)) sub += ' · 기본 등록 · 바로 열기';
+    return '<button class="qrow" data-qract="' + (has ? 'view' : 'open') + '" data-slot="' + r.slot + '">' +
       '<span class="qi">' + r.ic + '</span>' +
       '<span class="qtt"><b>' + r.t + '</b><span>' + sub + '</span></span>' +
-      '<span class="qpill ' + (has ? 'has' : '') + '">' + (lock ? '기본' : (has ? '보기' : '미등록')) + '</span>' +
+      '<span class="qpill ' + (has ? 'has' : '') + '">' + (has ? '등록됨' : '미등록') + '</span>' +
     '</button>';
   }).join('') +
   '<div class="qacts" style="margin-top:8px"><button class="pri" data-qract="open">📲 내 QR 열기 · 올리기</button></div>';
@@ -2575,9 +2485,9 @@ function renderPrep(){
       '<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=%E3%83%A4%E3%83%9E%E3%83%88%E9%81%8B%E8%BC%B8%20%E6%B3%89%E4%BD%90%E9%87%8E%E3%82%8A%E3%82%93%E3%81%8F%E3%81%86%E5%96%B6%E6%A5%AD%E6%89%80">🗺️ 영업소 길찾기</a></div>' +
     '</div>' +
 
-    '<div class="sec" style="margin-top:18px"><h2>📲 내 QR 월렛</h2><span>' + esc(mm.name) + ' · 이 기기 저장</span></div>' +
+    '<div class="sec" style="margin-top:18px"><h2>📲 내 QR 월렛</h2><span>' + esc(mm.name) + ' · 바로 열기</span></div>' +
     '<div class="qcard">' + qrPrepRows() + '</div>' +
-    '<p class="footnote" style="margin-top:8px">입국심사·탑승권 QR을 미리 올려 두면 공항에서 두 번 탭으로 꺼내요. 저장은 <b>' + esc(mm.name) + '</b> 님 기기에만 되고 다른 사람 폰·공개 페이지에는 보이지 않습니다.</p>' +
+    '<p class="footnote" style="margin-top:8px">입국심사·세관 QR은 미리 담겨 있어 공항에서 두 번 탭이면 바로 떠요. 탑승권 QR은 <b>＋ QR 이미지 올리기</b>로 <b>' + esc(mm.name) + '</b> 님 기기에만 저장되고 다른 사람 폰에는 보이지 않습니다.</p>' +
 
     '<div class="sec"><h2>🗓️ 사전 준비 타임라인</h2><span>11/26 기준</span></div>' +
     '<div class="steps">' + PREP_STEPS.map(function(s){
@@ -2667,11 +2577,6 @@ document.addEventListener('click', function(e){
     if(act === 'pick'){ qrPickFile(state.profile, qs); return; }
     if(act === 'del'){ qrDelete(qs); return; }
     if(act === 'view'){ openQRView(qs); return; }
-    if(act === 'unlock'){
-      var box = qa.parentNode, inp = box ? box.querySelector('input') : null;
-      qrUnlock(state.profile, qs, inp ? inp.value : '', qa);
-      return;
-    }
     if(act === 'revive'){ qrRevive(qs); return; }
     if(act === 'flight'){
       qrFlight = qa.getAttribute('data-f');
