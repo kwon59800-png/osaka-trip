@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="theme-color" content="#F7F3EB">
+<meta name="robots" content="noindex,nofollow">
+<title>배경 모션 3종 비교 · 오사카 2박 3일</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+<style>
+:root{--bg:#F7F3EB;--paper:#FFFDF9;--card:#fff;--card2:#FBF6EC;--line:#EAE3D6;--line2:#DED4C2;--ink:#231F20;--dim:#6E665C;--dim2:#9A9186;--coral:#E85A4F;--indigo:#2B4C7E;--matcha:#3B7A57;--gold:#D9822B;--plum:#8C6A9B;--sh:0 1px 2px rgba(70,55,38,.05),0 12px 26px -18px rgba(70,55,38,.35)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;padding-top:calc(98px + env(safe-area-inset-top));overflow-x:hidden}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+
+/* ===== 배경 3레이어 ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.wave{position:absolute;inset:-400px;opacity:0;transition:opacity .7s;will-change:transform}
+.waveflow{position:absolute;inset:0;background-size:120px 60px;animation:flow 34s linear infinite;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cg fill='none' stroke='%23917C5A' stroke-width='1'%3E%3Cg transform='translate(0,0)'%3E%3Cpath d='M-30 0a30 30 0 0 1 60 0'/%3E%3Cpath d='M-20 0a20 20 0 0 1 40 0'/%3E%3Cpath d='M-10 0a10 10 0 0 1 20 0'/%3E%3C/g%3E%3Cg transform='translate(60,0)'%3E%3Cpath d='M-30 0a30 30 0 0 1 60 0'/%3E%3Cpath d='M-20 0a20 20 0 0 1 40 0'/%3E%3Cpath d='M-10 0a10 10 0 0 1 20 0'/%3E%3C/g%3E%3Cg transform='translate(120,0)'%3E%3Cpath d='M-30 0a30 30 0 0 1 60 0'/%3E%3Cpath d='M-20 0a20 20 0 0 1 40 0'/%3E%3Cpath d='M-10 0a10 10 0 0 1 20 0'/%3E%3C/g%3E%3Cg transform='translate(30,30)'%3E%3Cpath d='M-30 0a30 30 0 0 1 60 0'/%3E%3Cpath d='M-20 0a20 20 0 0 1 40 0'/%3E%3Cpath d='M-10 0a10 10 0 0 1 20 0'/%3E%3C/g%3E%3Cg transform='translate(90,30)'%3E%3Cpath d='M-30 0a30 30 0 0 1 60 0'/%3E%3Cpath d='M-20 0a20 20 0 0 1 40 0'/%3E%3Cpath d='M-10 0a10 10 0 0 1 20 0'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+@keyframes flow{from{transform:translate3d(0,0,0)}to{transform:translate3d(120px,-60px,0)}}
+#pc{position:absolute;left:0;top:-30vh;width:100%;height:165vh;opacity:0;transition:opacity .7s;will-change:transform}
+.bokeh{position:absolute;inset:0;opacity:0;transition:opacity .9s}
+.bokeh i{position:absolute;display:block;border-radius:50%;filter:blur(48px);will-change:transform,opacity}
+.b1{width:330px;height:330px;left:-70px;top:-40px;background:radial-gradient(circle,#FFDFB4,rgba(255,223,180,0)68%);animation:o1 26s ease-in-out infinite alternate}
+.b2{width:300px;height:300px;right:-80px;top:150px;background:radial-gradient(circle,#FFC9B4,rgba(255,201,180,0)68%);animation:o2 31s ease-in-out infinite alternate}
+.b3{width:310px;height:310px;left:50px;bottom:40px;background:radial-gradient(circle,#CFD8F4,rgba(207,216,244,0)68%);animation:o3 35s ease-in-out infinite alternate}
+.b4{width:260px;height:260px;right:-50px;bottom:-40px;background:radial-gradient(circle,#F7D9A8,rgba(247,217,168,0)68%);animation:o1 29s ease-in-out infinite alternate-reverse}
+.b5{width:220px;height:220px;left:38%;top:44%;background:radial-gradient(circle,#FBD9E2,rgba(251,217,226,0)68%);animation:o2 24s ease-in-out infinite alternate-reverse}
+@keyframes o1{to{transform:translate3d(70px,50px,0) scale(1.16);opacity:.75}}
+@keyframes o2{to{transform:translate3d(-80px,-40px,0) scale(1.1);opacity:.62}}
+@keyframes o3{to{transform:translate3d(50px,-70px,0) scale(1.2);opacity:.7}}
+body[data-p="1"] .wave,body[data-p="3"] .wave{opacity:.17}
+body[data-p="1"] #pc,body[data-p="3"] #pc{opacity:1}
+body[data-p="2"] .bokeh{opacity:.85}
+body:not([data-p="1"]):not([data-p="3"]) .waveflow{animation-play-state:paused}
+body:not([data-p="2"]) .bokeh i{animation-play-state:paused}
+
+/* ===== 상단 스위처 ===== */
+.bar{position:fixed;left:0;right:0;top:0;z-index:20;padding:calc(7px + env(safe-area-inset-top)) 12px 9px;background:rgba(250,247,240,.9);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--line)}
+.btop{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750;color:var(--dim);margin-bottom:7px;letter-spacing:-.01em}
+.btop b{color:var(--coral);letter-spacing:.02em}
+.btop span{margin-left:auto;font-size:9px;color:var(--dim2);font-weight:600}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#F1EAE0;border:1px solid var(--line);border-radius:12px;padding:3px}
+.tabs button{border:0;background:none;border-radius:9px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--dim);font-weight:750;font-size:11px;letter-spacing:-.03em;line-height:1.2;transition:.18s;font-family:inherit}
+.tabs button em{font-style:normal;font-size:8.5px;font-weight:600;color:var(--dim2);letter-spacing:-.01em}
+.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(70,55,38,.14),0 6px 14px -10px rgba(70,55,38,.5)}
+.tabs button.on em{color:var(--coral)}
+
+/* ===== 본문 ===== */
+#app{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.hero{position:relative;padding:20px 18px 16px;background:linear-gradient(180deg,rgba(247,243,235,.9),rgba(247,243,235,.55) 62%,rgba(247,243,235,0))}
+.kicker{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:.22em;color:var(--dim);font-weight:600;text-transform:uppercase}
+.kicker .jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:12px;letter-spacing:.2em;color:var(--coral);font-weight:600}
+.kicker .ln{width:22px;height:1px;background:var(--line2)}
+h1{margin:7px 0 0;font-size:27px;line-height:1.16;letter-spacing:-.035em;font-weight:800;color:#1D1915}
+h1 small{display:inline-block;font-size:10.5px;font-weight:700;color:#A65A50;background:#FBEBE7;border:1px solid #F3D7D0;padding:2px 7px;border-radius:999px;margin-left:8px;transform:translateY(-4px)}
+.dates{margin:5px 0 0;font-size:11.5px;color:var(--dim)}
+.pfs{display:flex;gap:6px;overflow-x:auto;margin:13px -4px 0;padding:2px 4px;scrollbar-width:none}
+.pfs::-webkit-scrollbar{display:none}
+.pf{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,253,249,.96);box-shadow:var(--sh);font-size:11.5px;white-space:nowrap}
+.pf i{width:22px;height:22px;border-radius:50%;background:var(--mc);color:#fff;display:grid;place-items:center;font-style:normal;font-size:10.5px;font-weight:800}
+.pf b{font-weight:800;letter-spacing:-.03em}
+.pf em{font-style:normal;font-size:9px;color:var(--dim2)}
+main{padding:0 14px 40px}
+.now{background:rgba(255,253,249,.96);border:1px solid var(--line);border-radius:16px;padding:12px 13px;box-shadow:var(--sh);backdrop-filter:blur(4px)}
+.nowtop{display:flex;align-items:center;gap:7px}
+.nowtop .ic{font-size:15px}
+.nowtop b{font-size:13px;font-weight:800;letter-spacing:-.03em}
+.nowtop .tag{margin-left:auto;font-size:8.5px;font-weight:750;font-family:"IBM Plex Mono",monospace;color:var(--plum);background:#F3EEF7;border:1px solid #E2D8EA;border-radius:6px;padding:2px 6px}
+.now p{margin:6px 0 0;font-size:11px;line-height:1.6;color:var(--dim)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:20px 2px 8px}
+.sec h2{margin:0;font-size:13.5px;font-weight:750;letter-spacing:-.025em}
+.sec span{font-size:10.5px;color:var(--dim2)}
+.item{display:grid;grid-template-columns:28px 1fr;column-gap:9px}
+.item .rail{display:flex;justify-content:center}
+.pin{width:26px;height:26px;border-radius:50%;background:var(--dc);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center;margin-top:9px;font-family:"IBM Plex Mono",monospace;box-shadow:0 0 0 3px var(--bg),0 3px 8px rgba(70,55,38,.22)}
+.card2{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:10px 11px 9px;margin-bottom:8px;box-shadow:0 1px 2px rgba(70,55,38,.04)}
+.ctop{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.ctop .time{font-size:10.5px;font-weight:700;color:var(--dim);font-family:"IBM Plex Mono",monospace}
+.ctop .chip{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:6px}
+.chip.air{color:#2B4C7E;background:#EAF0F7}
+.chip.pick{color:#B23A31;background:#FCEDEA}
+.chip.food{color:#A96A1B;background:#FBF0DE}
+.ctop .more{margin-left:auto;font-size:10px;color:var(--dim2)}
+.ttl{font-size:13.5px;font-weight:700;letter-spacing:-.025em;line-height:1.35}
+.sub{font-size:11px;color:var(--dim);margin-top:2px;line-height:1.45}
+.badge{display:inline-flex;align-items:center;margin-top:6px;font-size:10px;font-weight:650;padding:3px 7px;border-radius:7px;line-height:1.35;color:#2B4C7E;background:#EDF1F7;border:1px solid #D9E2EE}
+.resv{display:flex;align-items:center;gap:5px;margin-top:6px;padding:4px 8px;border-radius:9px;background:#F4FAF2;border:1px solid #D3E7CF;color:#2F6647;font-size:9.5px;font-weight:750}
+.resv b{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.03em;color:#1F4D31}
+.bhero{background:linear-gradient(150deg,#FFF6E6,#FDF3F0 52%,#FFF);border:1px solid #F0E2CC;border-radius:18px;padding:14px 15px 12px;box-shadow:var(--sh)}
+.blab{font-size:10.5px;color:var(--dim);font-weight:600}
+.big{font-size:30px;font-weight:800;letter-spacing:-.04em;line-height:1.12;margin-top:4px}
+.big small{font-size:13px;font-weight:650;color:var(--dim);margin-left:3px}
+.bsub{font-size:10.5px;color:var(--dim);margin-top:3px}
+.bbar{height:7px;border-radius:99px;background:#EFE7D8;overflow:hidden;margin-top:11px}
+.bbar i{display:block;height:100%;width:68%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--coral))}
+.btrow{display:flex;justify-content:space-between;font-size:10.5px;color:var(--dim2);margin-top:5px}
+.footnote{font-size:10.5px;color:var(--dim2);line-height:1.6;margin:18px 2px 0}
+.footnote b{color:var(--dim);font-weight:600}
+</style>
+</head>
+<body data-p="1">
+
+<div class="bg" aria-hidden="true">
+  <div class="wave" id="wave"><div class="waveflow"></div></div>
+  <canvas id="pc"></canvas>
+  <div class="bokeh"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i></div>
+</div>
+
+<header class="bar">
+  <div class="btop"><b>모션 미리보기</b>오사카 2박 3일 · 배경효과 비교<span>탭해서 즉시 전환</span></div>
+  <div class="tabs" role="tablist" aria-label="배경 모션 선택">
+    <button class="on" data-p="1" role="tab" aria-selected="true">🌊 물결+입자<em>preset-1</em></button>
+    <button data-p="2" role="tab" aria-selected="false">✨ 오로라·보케<em>preset-2</em></button>
+    <button data-p="3" role="tab" aria-selected="false">📱 물결+패럴랙스<em>preset-3</em></button>
+  </div>
+</header>
+
+<div id="app">
+  <section class="hero">
+    <div class="kicker"><span class="jp">大阪</span><span class="ln"></span>OSAKA JOURNAL · 2泊3日</div>
+    <h1>오사카 2박 3일<small>4인</small></h1>
+    <p class="dates">2026.12.08(화) — 12.10(목) · 에어부산 BX617 / BX608</p>
+    <div class="pfs">
+      <span class="pf" style="--mc:#E85A4F"><i>혁</i><b>권혁산</b><em>총무·운전</em></span>
+      <span class="pf" style="--mc:#3B7A57"><i>상</i><b>이상우</b><em>동행</em></span>
+      <span class="pf" style="--mc:#2B4C7E"><i>혜</i><b>강혜랑</b><em>렌터카</em></span>
+      <span class="pf" style="--mc:#8C6A9B"><i>지</i><b>임지은</b><em>동행</em></span>
+    </div>
+  </section>
+
+  <main>
+    <div class="now">
+      <div class="nowtop"><span class="ic" id="nowIc">🌊</span><b id="nowTitle">전통 물결 + 빛입자</b><span class="tag" id="nowTag">preset-1</span></div>
+      <p id="nowDesc">세이가이하 문양이 34초에 한 타일씩 대각선으로 흐르고, 앰버·금빛 입자 20개가 아래에서 위로 떠오릅니다.</p>
+    </div>
+
+    <div class="sec"><h2>일정</h2><span>DAY 1 · 12.08 (화)</span></div>
+    <div class="item"><div class="rail"><span class="pin" style="--dc:#E85A4F">5</span></div>
+      <div class="card2">
+        <div class="ctop"><span class="time">16:30</span><span class="chip air">항공</span><span class="more">상세 ›</span></div>
+        <div class="ttl">BX617 김해 → 간사이</div>
+        <div class="sub">16:30 PUS → 17:55 KIX · 약 1시간 25분</div>
+        <span class="badge">탑승 전 에어부산 앱에서 출도착 시간 재확인</span>
+      </div>
+    </div>
+    <div class="item"><div class="rail"><span class="pin" style="--dc:#B23A31">7</span></div>
+      <div class="card2">
+        <div class="ctop"><span class="time">19:20</span><span class="chip pick">수령</span><span class="more">상세 ›</span></div>
+        <div class="ttl">야마토 이즈미사노 린쿠 영업소</div>
+        <div class="sub">공항에서 차 9분 · 21:00 마감 · 4인 여권 필수</div>
+        <div class="resv">📦 박스 2 · 착불 <b>¥1,335</b></div>
+      </div>
+    </div>
+
+    <div class="sec"><h2>맛집</h2><span>난바 동선</span></div>
+    <div class="card2">
+      <div class="ctop"><span class="time">21:30</span><span class="chip food">야식</span><span class="more">3.8 ★</span></div>
+      <div class="ttl">도톤보리 · 타코야키 와나카</div>
+      <div class="sub">줄 서는 집 · 8개 ¥550 · 22:00까지</div>
+    </div>
+
+    <div class="sec"><h2>경비</h2><span>4인 합계</span></div>
+    <div class="bhero">
+      <div class="blab">이번 여행 총 경비 (항공·숙소·렌터카·마운자로)</div>
+      <div class="big">4,140,000<small>원</small></div>
+      <div class="bsub">1인 평균 <b>1,035,000원</b> · 현지 지출 별도</div>
+      <div class="bbar"><i></i></div>
+      <div class="btrow"><span>예산 대비 68%</span><span class="mono">JPY 100 = 940원</span></div>
+    </div>
+
+    <p class="footnote">이 페이지는<b> 배경 모션 3종 비교용 샘플</b>입니다. 위 탭을 누르면 효과가 즉시 바뀌고, 카드 사이를 스크롤하면 3번(preset-3)에서 패럴랙스 깊이를 확인할 수 있어요.<br>본 앱 <b>index.html</b>은 손대지 않았습니다.</p>
+  </main>
+</div>
+
+<script>
+(function(){
+  var body=document.body, wave=document.getElementById('wave'), pc=document.getElementById('pc'), ctx=pc.getContext('2d');
+  var INFO={1:['🌊','전통 물결 + 빛입자','세이가이하 문양이 34초에 한 타일씩 대각선으로 흐르고, 앰버·금빛 입자 20개가 아래에서 위로 떠오릅니다.'],
+            2:['✨','오로라·보케 빛망울','크림·피치·인디고·골드 빛망울 5개가 24~35초 주기로 blur(48px) 상태에서 천천히 겹치며 숨 쉽니다. DOM 5개뿐이라 가장 가볍습니다.'],
+            3:['📱','물결 + 스크롤 패럴랙스','1번에 깊이를 더했습니다. 물결 0.15배, 입자 0.35배로 스크롤을 따라가며 rAF + translate3d로 GPU 합성합니다.'],
+            0:['⏸️','모션 대기 (동작 줄이기)','기기에서 prefers-reduced-motion이 켜져 있어 모션을 멈춰 뒀습니다. 위 탭을 누르면 의도적으로 모션을 켭니다.']};
+
+  /* --- 입자 스프라이트 4색 --- */
+  var COL=['#F0B872','#E9A45F','#E8A6A0','#FFF1D2'];
+  var SP=COL.map(function(c){
+    var s=document.createElement('canvas'); s.width=s.height=64;
+    var x=s.getContext('2d'), g=x.createRadialGradient(32,32,0,32,32,32);
+    g.addColorStop(0,'rgba(255,255,255,.95)'); g.addColorStop(.22,c+'ee'); g.addColorStop(.5,c+'59'); g.addColorStop(1,c+'00');
+    x.fillStyle=g; x.beginPath(); x.arc(32,32,32,0,6.284); x.fill(); return s;
+  });
+  var P=[], N=20;
+  for(var i=0;i<N;i++) P.push({x:Math.random(),y:Math.random(),r:1.5+Math.random()*2.4,
+    vy:7+Math.random()*13,ph:Math.random()*6.28,sp:.35+Math.random()*.8,c:i%4});
+
+  var W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2);
+  function size(){ var w=pc.offsetWidth, h=pc.offsetHeight; if(!w||!h) return;
+    W=w; H=h; pc.width=Math.round(w*dpr); pc.height=Math.round(h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); addEventListener('resize',function(){ size(); },{passive:true});
+
+  var scroll=0, cur=0, t=0, last=0;
+  addEventListener('scroll',function(){ scroll=window.scrollY||window.pageYOffset||0; },{passive:true});
+
+  function frame(now){
+    var dt=Math.min((now-(last||now))/1000,.05); last=now; t+=dt;
+    var p=+body.dataset.p;
+    cur+=(scroll-cur)*.14;
+    if(p===3){
+      wave.style.transform='translate3d(0,'+(-cur*.15).toFixed(1)+'px,0)';
+      pc.style.transform='translate3d(0,'+(-Math.min(cur,700)*.35).toFixed(1)+'px,0)';
+    }else if(wave.style.transform){ wave.style.transform=''; pc.style.transform=''; }
+
+    if(p!==2&&W>0){
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<N;i++){
+        var q=P[i];
+        q.y-=q.vy*dt/H;
+        if(q.y<-.06){ q.y=1.06; q.x=Math.random(); }
+        var px=(q.x+Math.sin(t*q.sp+q.ph)*.025)*W, py=q.y*H, sz=q.r*7;
+        ctx.globalAlpha=.26+.3*(.5+.5*Math.sin(t*q.sp*1.7+q.ph*2));
+        ctx.drawImage(SP[q.c],px-sz/2,py-sz/2,sz,sz);
+      }
+      ctx.globalAlpha=1;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function setP(n){
+    body.dataset.p=String(n);
+    var b=document.querySelectorAll('.tabs button');
+    for(var i=0;i<b.length;i++){ var on=b[i].dataset.p===String(n);
+      b[i].classList.toggle('on',on); b[i].setAttribute('aria-selected',on?'true':'false'); }
+    var f=INFO[n]||INFO[1];
+    document.getElementById('nowIc').textContent=f[0];
+    document.getElementById('nowTitle').textContent=f[1];
+    document.getElementById('nowDesc').textContent=f[2];
+    document.getElementById('nowTag').textContent='preset-'+n;
+  }
+  var btns=document.querySelectorAll('.tabs button');
+  for(var j=0;j<btns.length;j++) btns[j].addEventListener('click',function(){ setP(this.dataset.p); });
+
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) setP(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
