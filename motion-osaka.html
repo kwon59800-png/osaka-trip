@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="theme-color" content="#F7F3EB">
+<meta name="robots" content="noindex,nofollow">
+<title>오사카 감성 모션 3종 · 12월 오사카 2박 3일</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+<style>
+:root{--bg:#F7F3EB;--paper:#FFFDF9;--line:#EAE3D6;--line2:#DED4C2;--ink:#231F20;--dim:#6E665C;--dim2:#9A9186;--coral:#E85A4F;--indigo:#2B4C7E;--gold:#D9822B;--sh:0 1px 2px rgba(70,55,38,.05),0 14px 30px -20px rgba(70,55,38,.4)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;--tx:#1D1915;--tx2:#6E665C;--tx3:#8A8177;padding-top:calc(98px + env(safe-area-inset-top))}
+body[data-p="3"]{--tx:#F7F0E4;--tx2:#D6C7B6;--tx3:#B9A896;background:#1a1518}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+/* ===== 배경 (3장면) ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity .75s ease;will-change:opacity}
+body[data-p="1"] #sc1,body[data-p="2"] #sc2,body[data-p="3"] #sc3{opacity:1}
+.sc *{animation-play-state:paused}
+body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animation-play-state:running}
+.sil{position:absolute;color:#8C6A46;opacity:.075}
+/* ① 도톤보리 — 강물 반사 + 제등 입자 */
+#sc1{background:linear-gradient(180deg,#F9F5EC,#F7F3EB 46%,#F4EBDC)}
+#sc1 .bridge{top:9%;right:-14%;width:330px;height:210px}
+.water{position:absolute;left:-10%;right:-10%;bottom:0;height:47%;background:linear-gradient(0deg,rgba(206,132,64,.22),rgba(232,120,79,.07) 46%,rgba(232,120,79,0))}
+.water i{position:absolute;left:-25%;width:150%;height:9px;border-radius:50%;background:linear-gradient(90deg,rgba(232,120,79,0),rgba(255,196,124,.6),rgba(232,90,79,.32),rgba(232,120,79,0));filter:blur(6px);animation:ripple 9s ease-in-out infinite alternate}
+.water i:nth-child(1){bottom:6%;height:13px;animation-duration:11s}
+.water i:nth-child(2){bottom:16%;animation-duration:8s;animation-delay:-3s;opacity:.8}
+.water i:nth-child(3){bottom:27%;height:7px;animation-duration:13s;animation-delay:-6s}
+.water i:nth-child(4){bottom:38%;animation-duration:10s;animation-delay:-2s;opacity:.65}
+.water i:nth-child(5){bottom:53%;height:5px;animation-duration:15s;animation-delay:-9s;opacity:.5}
+@keyframes ripple{0%{transform:translate3d(-4%,0,0) scaleX(.86) scaleY(.85);opacity:.22}100%{transform:translate3d(4%,-4px,0) scaleX(1.12) scaleY(1.2);opacity:.72}}
+.lans{position:absolute;left:0;right:0;bottom:0;height:72%}
+.lans b{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,rgba(255,240,204,.95),rgba(255,148,84,.5) 42%,rgba(232,90,79,0) 72%);filter:blur(.6px);animation:float 12s ease-in-out infinite alternate}
+@keyframes float{0%{transform:translate3d(-9px,8px,0) scale(.78);opacity:.16}50%{opacity:.68}100%{transform:translate3d(11px,-26px,0) scale(1.16);opacity:.3}}
+/* ② 오사카성 — 단풍 + 금빛 햇살 */
+#sc2{background:linear-gradient(180deg,#FBF6EA,#F7F3EB 40%,#F6EEDF)}
+#sc2 .sun{position:absolute;left:-18%;top:-16%;width:86%;height:66%;background:radial-gradient(circle at 34% 34%,rgba(255,206,128,.62),rgba(255,206,128,0) 66%);filter:blur(6px);animation:breathe 17s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:translate3d(4%,3%,0) scale(1.1);opacity:.7}}
+#sc2 .castle{bottom:-2%;right:-6%;width:290px;height:200px;opacity:.06}
+.leaves{position:absolute;inset:0;overflow:hidden}
+.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 2px 2px rgba(120,70,40,.12))}
+@keyframes fall{0%{transform:translate3d(0,-14vh,0) rotate(-12deg);opacity:0}8%{opacity:var(--o)}22%{transform:translate3d(-9vw,12vh,0) rotate(78deg)}42%{transform:translate3d(-4vw,36vh,0) rotate(150deg)}62%{transform:translate3d(-15vw,62vh,0) rotate(238deg)}82%{transform:translate3d(-9vw,86vh,0) rotate(302deg)}100%{transform:translate3d(-22vw,114vh,0) rotate(388deg);opacity:0}}
+/* ③ 우라난바 — 골목 김 + 네온 */
+#sc3{background:linear-gradient(180deg,#160f13,#2a1d20 42%,#33211d 72%,#1d1417)}
+.steam{position:absolute;left:0;right:0;bottom:0;height:100%}
+.steam i{position:absolute;bottom:-14%;width:var(--w);height:52%;border-radius:50% 50% 40% 40%;background:linear-gradient(0deg,rgba(255,206,166,.28),rgba(255,178,140,.1) 52%,rgba(255,178,140,0));filter:blur(20px);animation:rise var(--d) ease-in-out infinite;animation-delay:var(--dl);opacity:0}
+@keyframes rise{0%{transform:translate3d(0,12vh,0) scale(.8,.7);opacity:0}22%{opacity:.62}58%{transform:translate3d(16px,-16vh,0) scale(1.06,1.15);opacity:.4}100%{transform:translate3d(-14px,-42vh,0) scale(1.24,1.5);opacity:0}}
+.neon{position:absolute;inset:0}
+.neon i{position:absolute;display:block;border-radius:50%;filter:blur(46px);animation:glow var(--d) ease-in-out infinite alternate;opacity:.4}
+.neon i:nth-child(1){width:300px;height:300px;left:-70px;top:8%;background:radial-gradient(circle,rgba(232,90,79,.75),rgba(232,90,79,0) 68%);--d:24s}
+.neon i:nth-child(2){width:250px;height:250px;right:-60px;top:26%;background:radial-gradient(circle,rgba(217,130,43,.8),rgba(217,130,43,0) 68%);--d:31s;animation-delay:-8s}
+.neon i:nth-child(3){width:260px;height:260px;left:26%;bottom:4%;background:radial-gradient(circle,rgba(79,209,197,.6),rgba(79,209,197,0) 68%);--d:28s;animation-delay:-15s}
+.neon i:nth-child(4){width:200px;height:200px;right:6%;bottom:16%;background:radial-gradient(circle,rgba(255,196,120,.7),rgba(255,196,120,0) 68%);--d:22s;animation-delay:-4s}
+@keyframes glow{to{transform:translate3d(26px,-22px,0) scale(1.16);opacity:.62}}
+/* ===== 상단 스위처 ===== */
+.bar{position:fixed;left:0;right:0;top:0;z-index:20;padding:calc(7px + env(safe-area-inset-top)) 12px 9px;background:rgba(250,247,240,.9);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--line)}
+.btop{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:750;color:#6E665C;margin-bottom:7px;letter-spacing:-.01em}
+.btop b{color:var(--coral);letter-spacing:.02em}
+.btop span{margin-left:auto;font-size:9px;color:#9A9186;font-weight:600}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#F1EAE0;border:1px solid var(--line);border-radius:12px;padding:3px}
+.tabs button{border:0;background:none;border-radius:9px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#6E665C;font-weight:750;font-size:11px;letter-spacing:-.03em;line-height:1.2;transition:.18s;font-family:inherit;cursor:pointer}
+.tabs button em{font-style:normal;font-size:8.5px;font-weight:600;color:#9A9186;letter-spacing:-.01em}
+.tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(70,55,38,.14),0 6px 14px -10px rgba(70,55,38,.5)}
+.tabs button.on em{color:var(--coral)}
+/* ===== 본문 ===== */
+#app{position:relative;z-index:1;max-width:640px;margin:0 auto}
+.hero{position:relative;padding:22px 18px 14px}
+.kicker{display:flex;align-items:center;gap:7px;font-size:9px;letter-spacing:.22em;color:var(--tx2);font-weight:600;text-transform:uppercase}
+.kicker .jp{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:12px;letter-spacing:.2em;color:var(--coral);font-weight:600}
+.kicker .ln{width:22px;height:1px;background:currentColor;opacity:.4}
+h1{margin:7px 0 0;font-size:27px;line-height:1.16;letter-spacing:-.035em;font-weight:800;color:var(--tx);transition:color .5s}
+h1 small{display:inline-block;font-size:10.5px;font-weight:700;color:#A65A50;background:#FBEBE7;border:1px solid #F3D7D0;padding:2px 7px;border-radius:999px;margin-left:8px;transform:translateY(-4px)}
+.dates{margin:5px 0 0;font-size:11.5px;color:var(--tx2)}
+.now{margin:14px 0 0;display:flex;align-items:flex-start;gap:8px;padding:9px 11px;border-radius:13px;background:rgba(255,253,249,.72);border:1px solid rgba(234,227,214,.9);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body[data-p="3"] .now{background:rgba(255,253,249,.9);border-color:rgba(255,255,255,.14)}
+.now .ic{font-size:15px;line-height:1.2}
+.now b{font-size:12px;font-weight:800;letter-spacing:-.03em;display:block}
+.now p{margin:2px 0 0;font-size:10.5px;line-height:1.55;color:#6E665C}
+.now .tag{margin-left:auto;flex:0 0 auto;font-size:8.5px;font-weight:750;color:#8C6A9B;background:#F3EEF7;border:1px solid #E2D8EA;border-radius:6px;padding:2px 6px;font-family:"IBM Plex Mono",monospace}
+main{padding:0 14px 60px}
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:14px 3px 8px}
+.sec h2{margin:0;font-size:13px;font-weight:750;letter-spacing:-.025em;color:var(--tx)}
+.sec span{font-size:10.5px;color:var(--tx3)}
+.card{background:rgba(255,253,249,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(234,227,214,.95);border-radius:15px;padding:11px 12px 10px;margin-bottom:9px;box-shadow:0 1px 2px rgba(70,55,38,.05),0 14px 28px -22px rgba(40,28,18,.75)}
+.ctop{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.ctop .time{font-size:10.5px;font-weight:700;color:#6E665C;font-family:"IBM Plex Mono",monospace}
+.ctop .chip{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:6px}
+.chip.air{color:#2B4C7E;background:#EAF0F7}
+.chip.sight{color:#3B7A57;background:#EDF6EF}
+.chip.cruise{color:#2B6E7E;background:#E8F3F5}
+.chip.food{color:#A96A1B;background:#FBF0DE}
+.ctop .more{margin-left:auto;font-size:10px;color:#9A9186}
+.ttl{font-size:13.5px;font-weight:750;letter-spacing:-.025em;line-height:1.35;color:#231F20}
+.sub{font-size:11px;color:#6E665C;margin-top:2px;line-height:1.5}
+.badge{display:inline-flex;align-items:center;margin-top:6px;font-size:10px;font-weight:650;padding:3px 7px;border-radius:7px;line-height:1.35;color:#2B4C7E;background:#EDF1F7;border:1px solid #D9E2EE}
+.resv{display:flex;align-items:center;gap:5px;margin-top:6px;padding:4px 8px;border-radius:9px;background:#F4FAF2;border:1px solid #D3E7CF;color:#2F6647;font-size:9.5px;font-weight:750}
+.resv b{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.02em;color:#1F4D31}
+.footnote{font-size:10.5px;color:var(--tx3);line-height:1.65;margin:16px 3px 0}
+.footnote b{color:var(--tx2);font-weight:650}
+@media (prefers-reduced-motion:reduce){.sc *{animation:none!important}.leaf{opacity:.35;transform:translate3d(0,30vh,0)}}
+</style>
+</head>
+<body data-p="1">
+
+<div class="bg" aria-hidden="true">
+  <div class="sc" id="sc1">
+    <svg class="sil bridge" viewBox="0 0 330 210" fill="none" stroke="currentColor">
+      <path d="M8 152Q165 84 322 152" stroke-width="3"/><path d="M8 166Q165 98 322 166" stroke-width="3"/>
+      <path d="M55 150v-16M100 140v-20M165 132v-24M230 140v-20M275 150v-16" stroke-width="2"/>
+      <path d="M34 126v-18M120 112v-18M210 112v-18M296 126v-18" stroke-width="2"/>
+      <g fill="currentColor" stroke="none"><circle cx="34" cy="104" r="7"/><circle cx="120" cy="90" r="7"/><circle cx="210" cy="90" r="6"/><circle cx="296" cy="104" r="7"/></g>
+    </svg>
+    <div class="water"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="lans" id="lans"></div>
+  </div>
+  <div class="sc" id="sc2">
+    <div class="sun"></div>
+    <svg class="sil castle" viewBox="0 0 200 140" fill="currentColor">
+      <path d="M96 6h8v6h-8z"/><path d="M60 30Q92 26 96 12q4 14 40 18z"/><path d="M84 22h32v10H84z"/>
+      <path d="M50 50Q90 46 95 34q5 12 55 16z"/><path d="M76 42h48v12H76z"/>
+      <path d="M38 74Q86 70 94 56q8 14 68 18z"/><path d="M66 66h68v14H66z"/>
+      <path d="M28 100Q84 96 94 82q10 14 78 18z"/><path d="M56 92h88v16H56z"/>
+      <path d="M40 108h120l22 22H18z" opacity=".55"/>
+    </svg>
+    <div class="leaves" id="leaves"></div>
+  </div>
+  <div class="sc" id="sc3">
+    <div class="neon"><i></i><i></i><i></i><i></i></div>
+    <div class="steam" id="steam"></div>
+  </div>
+</div>
+
+<header class="bar">
+  <div class="btop"><b>오사카 감성 모션</b>12월 원정 · 배경 3종<span>탭해서 즉시 전환</span></div>
+  <div class="tabs" role="tablist" aria-label="배경 모션 선택">
+    <button class="on" data-p="1" role="tab" aria-selected="true">🏮 도톤보리<em>등불·강물</em></button>
+    <button data-p="2" role="tab" aria-selected="false">🍁 오사카성<em>늦가을 단풍</em></button>
+    <button data-p="3" role="tab" aria-selected="false">🍢 우라난바<em>골목 온기</em></button>
+  </div>
+</header>
+
+<div id="app">
+  <section class="hero">
+    <div class="kicker"><span class="jp">大阪</span><span class="ln"></span>OSAKA JOURNAL · 2泊3日</div>
+    <h1>오사카 2박 3일<small>4인</small></h1>
+    <p class="dates">2026.12.08(화) — 12.10(목) · 에어부산 BX617 / BX608</p>
+    <div class="now"><span class="ic" id="nowIc">🏮</span><div><b id="nowTitle">도톤보리 등불·강물</b><p id="nowDesc">강물 위 금빛 반사 5겹이 8~15초 주기로 일렁이고, 제등 불빛 16개가 물 위에서 은은하게 떠오릅니다.</p></div><span class="tag" id="nowTag">osaka-1</span></div>
+  </section>
+
+  <main>
+    <div class="sec"><h2>일정 샘플</h2><span>카드가 모션을 가리지 않는지 확인</span></div>
+
+    <div class="card">
+      <div class="ctop"><span class="time">12.08 16:30</span><span class="chip air">항공</span><span class="more">PUS → KIX</span></div>
+      <div class="ttl">BX617 김해 → 간사이</div>
+      <div class="sub">16:30 PUS → 17:55 KIX · 약 1시간 25분 · 착륙 후 입국 30~40분</div>
+      <span class="badge">일부 안내 16:40 → 18:10 표기 · 탑승 전 앱 재확인</span>
+    </div>
+
+    <div class="card">
+      <div class="ctop"><span class="time">12.09 11:10</span><span class="chip sight">관람</span><span class="more">極楽橋</span></div>
+      <div class="ttl">오사카성 고자부네 뱃놀이</div>
+      <div class="sub">11:10편 승선 · 약 20분 · 성인 ¥1,800 → 조이패스 3회차(¥0)</div>
+      <span class="badge">매표소에서 QR 제시 → 便指定 승선권 교환 · 11:01 도착 권장</span>
+    </div>
+
+    <div class="card">
+      <div class="ctop"><span class="time">12.09 18:30</span><span class="chip cruise">크루즈</span><span class="more">日本橋船着場</span></div>
+      <div class="ttl">도톤보리 크루즈 · 원더크루즈</div>
+      <div class="sub">18:30 출항 · 18:50 하선 · 성인 ¥2,000 → 조이패스 2회차(¥0)</div>
+      <div class="resv">🚤 예약 <b>W_261126_4453485577_1</b> · 18:20까지 카운터</div>
+    </div>
+
+    <div class="card">
+      <div class="ctop"><span class="time">12.08 22:45</span><span class="chip food">야식</span><span class="more">★3.42</span></div>
+      <div class="ttl">우라난바 야키토리 陽 (炭焼笑店 陽 難波店)</div>
+      <div class="sub">15:00–02:30 (L.O. 요리 01:30) · 난바역 도보 3분 · 연중무휴</div>
+      <span class="badge">예약 없이 워크인 · 4인 테이블 · 오토시 ¥385</span>
+    </div>
+
+    <p class="footnote">배경 모션 <b>3종 비교용 샘플</b>입니다. 위 탭을 눌러 장면이 바로 바뀌는지, 카드 글자가 모션 위에서 또렷한지 봐 주세요. 한 장면을 고르면 <b>index.html</b> 배경에 그대로 옮겨 넣습니다.<br>본 앱 <b>index.html</b>은 손대지 않았습니다.</p>
+  </main>
+</div>
+
+<script>
+(function(){
+  var body=document.body;
+  var INFO={1:['🏮','도톤보리 등불·강물','강물 위 금빛 반사 5겹이 8~15초 주기로 일렁이고, 제등 불빛 16개가 물 위에서 은은하게 떠오릅니다.'],
+            2:['🍁','오사카성 늦가을 단풍','단풍·은행잎 15장이 17~31초에 걸쳐 바람을 타고 대각선으로 흩날리고, 우하단에 천수각 실루엣이 6%로 깔립니다.'],
+            3:['🍢','우라난바 골목 온기·네온','야키토리 집 김 5줄기가 아래에서 피어오르고, 산호·앰버·틸 네온망울 4개가 blur(46px)로 천천히 숨 쉽니다.']};
+
+  /* ① 제등 불빛 16개 */
+  var lans=document.getElementById('lans'),h='';
+  for(var i=0;i<16;i++){
+    var s=(4+Math.random()*9).toFixed(1);
+    h+='<b style="left:'+(3+Math.random()*94).toFixed(1)+'%;bottom:'+(4+Math.random()*62).toFixed(1)+'%;width:'+s+'px;height:'+s+'px;animation-duration:'+(9+Math.random()*9).toFixed(1)+'s;animation-delay:-'+(Math.random()*12).toFixed(1)+'s"></b>';
+  }
+  lans.innerHTML=h;
+
+  /* ② 단풍잎 15장 — 단풍(적·주황)·은행(금) */
+  var MA='%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E';
+  var GI='%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 22.4V13C10.8 13 4 11 2 5.2c4.2-1.2 8.2 1 10 4.9 1.8-3.9 5.8-6.1 10-4.9C20 11 13.2 13 12 13v9.4z%27/%3E%3C/svg%3E';
+  function uri(tpl,c){return 'url("data:image/svg+xml,'+tpl.replace('COL','%23'+c)+'")';}
+  var SH=[uri(MA,'C4552F'),uri(MA,'D9742B'),uri(MA,'B8452C'),uri(GI,'D9A32B')];
+  var lv=document.getElementById('leaves'),g='';
+  for(var j=0;j<15;j++){
+    g+='<i class="leaf" style="--x:'+(2+Math.random()*96).toFixed(1)+'%;--w:'+(13+Math.random()*13).toFixed(0)+'px;--t:'+(17+Math.random()*14).toFixed(1)+'s;--dl:-'+(Math.random()*22).toFixed(1)+'s;--o:'+(.28+Math.random()*.32).toFixed(2)+';background-image:'+SH[j%4]+'"></i>';
+  }
+  lv.innerHTML=g;
+
+  /* ③ 김 5줄기 */
+  var st=document.getElementById('steam'),k='';
+  for(var m=0;m<5;m++){
+    k+='<i style="left:'+(4+m*19+Math.random()*7).toFixed(1)+'%;--w:'+(58+Math.random()*62).toFixed(0)+'px;--d:'+(11+Math.random()*7).toFixed(1)+'s;--dl:-'+((m*2.4)+Math.random()*3).toFixed(1)+'s"></i>';
+  }
+  st.innerHTML=k;
+
+  function setP(n){
+    body.dataset.p=String(n);
+    var b=document.querySelectorAll('.tabs button');
+    for(var i=0;i<b.length;i++){var on=b[i].dataset.p===String(n);
+      b[i].classList.toggle('on',on);b[i].setAttribute('aria-selected',on?'true':'false');}
+    var f=INFO[n]||INFO[1];
+    document.getElementById('nowIc').textContent=f[0];
+    document.getElementById('nowTitle').textContent=f[1];
+    document.getElementById('nowDesc').textContent=f[2];
+    document.getElementById('nowTag').textContent='osaka-'+n;
+  }
+  var btns=document.querySelectorAll('.tabs button');
+  for(var b2=0;b2<btns.length;b2++) btns[b2].addEventListener('click',function(){setP(this.dataset.p);});
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) setP(1);
+})();
+</script>
+</body>
+</html>
