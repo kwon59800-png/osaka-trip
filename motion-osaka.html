@@ -23,7 +23,8 @@ body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animatio
 .sil{position:absolute;color:#8C6A46;opacity:.075}
 /* ① 도톤보리 — 강물 반사 + 제등 입자 */
 #sc1{background:linear-gradient(180deg,#F9F5EC,#F7F3EB 46%,#F4EBDC)}
-#sc1 .bridge{top:9%;right:-14%;width:330px;height:210px}
+#sc1 .bridge{bottom:-4%;right:-9%;width:300px;height:190px}
+#sc1 .sign{top:9.5%;right:5%;width:42px;height:120px;opacity:.07}
 .water{position:absolute;left:-10%;right:-10%;bottom:0;height:47%;background:linear-gradient(0deg,rgba(188,104,56,.34),rgba(226,118,76,.14) 44%,rgba(232,120,79,0))}
 .wl{position:absolute;left:-10%;right:-10%;bottom:0;height:32%;background:repeating-linear-gradient(180deg,rgba(176,94,52,.13) 0 1px,rgba(176,94,52,0) 1px 9px);-webkit-mask-image:linear-gradient(0deg,#000,rgba(0,0,0,0));mask-image:linear-gradient(0deg,#000,rgba(0,0,0,0));animation:wlm 13s ease-in-out infinite alternate}
 @keyframes wlm{to{transform:translate3d(-14px,-6px,0) scaleY(1.06)}}
@@ -109,6 +110,11 @@ main{padding:0 14px 60px}
 
 <div class="bg" aria-hidden="true">
   <div class="sc" id="sc1">
+    <svg class="sil sign" viewBox="0 0 64 180" aria-hidden="true">
+      <rect x="2" y="2" width="60" height="176" rx="9" fill="currentColor"/>
+      <g fill="#F7F3EB" font-family="Hiragino Mincho ProN,Yu Mincho,serif" font-size="30" text-anchor="middle"><text x="32" y="50">道</text><text x="32" y="88">頓</text><text x="32" y="126">堀</text></g>
+      <circle cx="32" cy="158" r="9" fill="none" stroke="#F7F3EB" stroke-width="3"/>
+    </svg>
     <svg class="sil bridge" viewBox="0 0 330 210" fill="none" stroke="currentColor">
       <path d="M8 152Q165 84 322 152" stroke-width="3"/><path d="M8 166Q165 98 322 166" stroke-width="3"/>
       <path d="M55 150v-16M100 140v-20M165 132v-24M230 140v-20M275 150v-16" stroke-width="2"/>
