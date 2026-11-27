@@ -99,7 +99,7 @@
   .tab.on{display:block;animation:fade .2s ease}
   @keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-  .sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:22px 2px 9px}
+  .sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:19px 2px 8px}
   .sec:first-child{margin-top:4px}
   .sec h2{margin:0;font-size:13.5px;font-weight:750;letter-spacing:-.025em}
   .sec span{font-size:10.5px;color:var(--dim2)}
@@ -420,17 +420,6 @@
   .bbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--coral));transition:width .25s}
   .bbar i.over{background:linear-gradient(90deg,var(--coral),#B23A31)}
 
-  .catlist{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 13px;box-shadow:var(--sh);margin-top:10px}
-  .catrow{display:flex;align-items:center;gap:9px;padding:5px 0}
-  .catrow .cic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:12px;background:var(--card2);border:1px solid var(--line);flex:none}
-  .catrow .cbody{flex:1;min-width:0}
-  .catrow .ctop2{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
-  .catrow .cname{font-size:11.5px;font-weight:650}
-  .catrow .camt{font-size:11px;font-weight:700;font-family:"IBM Plex Mono",monospace;letter-spacing:-.02em}
-  .catrow .cbar{height:5px;border-radius:99px;background:#F2EBDD;margin-top:4px;overflow:hidden}
-  .catrow .cbar i{display:block;height:100%;border-radius:99px;background:var(--cc);transition:width .25s}
-  .catrow .cpct{flex:none;width:34px;text-align:right;font-size:9.5px;color:var(--dim2);font-family:"IBM Plex Mono",monospace}
-
   .crow2{display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:9px 10px;margin-bottom:7px;box-shadow:0 1px 2px rgba(70,55,38,.03);cursor:pointer}
   .crow2 .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;background:var(--card2);border:1px solid var(--line);flex:none}
   .crow2 .nm{font-size:12.5px;font-weight:650;line-height:1.3;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -457,20 +446,19 @@
 
   /* ---- 마운자로 · 한국 정가 대비 절약 카드 ---- */
   .mjcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:11px 12px 10px;margin-top:9px}
-  .mjstat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px 10px}
+  .mjstat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:8px 10px 9px}
   .mjstat + .mjstat{margin-top:7px}
   .mjstat.top{background:linear-gradient(150deg,#F1F8F3 0%,#FBFAF3 100%);border-color:#CFE3D6}
   .mjlab{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9.5px;font-weight:750;color:var(--dim);letter-spacing:.02em}
   .mjchip{font-size:8px;font-weight:700;color:#2F6647;background:#fff;border:1px solid #CFE3D6;border-radius:999px;padding:1px 6px;white-space:nowrap;flex:none}
-  .mjflow{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:4px;font-size:9.5px;color:var(--dim2)}
+  .mjflow{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:3px;font-size:9.5px;color:var(--dim2)}
   .mjflow span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mjflow b{flex:none;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;color:var(--dim);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .mjbig{margin-top:5px;font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.15;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;word-break:keep-all}
+  .mjbig{margin-top:4px;font-size:16.5px;font-weight:800;letter-spacing:-.03em;line-height:1.15;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;word-break:keep-all}
   .mjbig small{font-size:9px;font-weight:700;letter-spacing:0;color:var(--dim);margin-left:2px}
   .mjbig.ok{color:#2F6647}
   .mjbig.no{color:#B23A31}
   .mjtl{font-size:8.5px;color:#6E8F7A;margin-top:3px;line-height:1.5;word-break:keep-all}
-  .mjbar{margin-top:8px;display:flex;flex-direction:column;gap:6px}
   .mjblab{display:flex;align-items:baseline;justify-content:space-between;gap:6px;font-size:8.5px;line-height:1.25;color:var(--dim2);letter-spacing:-.01em}
   .mjblab span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mjblab b{flex:none;font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;color:var(--dim);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -482,39 +470,18 @@
   .mjtrk i:first-child{border-radius:99px 0 0 99px}
   .mjtrk i:last-child{border-radius:0 99px 99px 0}
   .mjtrk i:only-child{border-radius:99px}
-  .mjfill.kr{background:linear-gradient(90deg,#DCD2C0,#C4B69E)}
   .mjfill.jp{background:linear-gradient(90deg,#DFA046,#D0781F)}
   .mjfill.trip{background:linear-gradient(90deg,#D9822B,#E4544A)}
   .mjfill.sv{background:linear-gradient(90deg,#7FBC9D,#2F6647)}
   .mjfill.over{background:linear-gradient(90deg,#E85A4F,#A82F27)}
-  .mjmini{display:flex;align-items:center;gap:6px;margin-top:5px;min-width:0}
-  .mjmini .mjtrk{flex:1;min-width:0;height:5px;margin-top:0}
-  .mjmini em{flex:none;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;color:var(--dim2);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .mjrows{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2)}
-  .mjrhead{font-size:8.5px;font-weight:750;letter-spacing:.06em;color:var(--dim2)}
-  .mjrow{display:flex;align-items:flex-start;gap:7px;padding-top:7px}
-  .mjrow + .mjrow{border-top:1px solid #F3EDE2;margin-top:7px}
-  .mjav{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:800;color:#fff;flex:none;margin-top:1px}
-  .mjnm{flex:1;min-width:0}
-  .mjnm b{display:block;font-size:11px;font-weight:700;line-height:1.35;letter-spacing:-.02em}
-  .mjnm b em{font-style:normal;font-size:8.5px;font-weight:650;color:#6B4E78;background:#F4EEF7;border:1px solid #E6DAEC;border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px;letter-spacing:0}
-  .mjdet,.mjdet2{display:block;font-size:8.5px;line-height:1.5;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mjdet{color:var(--dim2)}
-  .mjdet2{color:#A79D8C}
-  .mjdiff{flex:none;text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:800;letter-spacing:-.03em;line-height:1.25;white-space:nowrap;font-variant-numeric:tabular-nums}
-  .mjdiff i{display:block;font-style:normal;font-size:8px;font-weight:600;color:var(--dim2);letter-spacing:0;margin-top:1px}
-  .mjdiff.ok{color:#2F6647}
-  .mjdiff.no{color:#B23A31}
+  .mjstat .mjblab{margin-top:7px}
+  .mjb1{margin-top:6px;height:9px}
   .mjfoot{margin-top:8px;padding-top:7px;border-top:1px dashed var(--line2);font-size:8px;color:var(--dim2);line-height:1.55}
   @media (min-width:600px){
     .mjstats{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
     .mjstat{display:flex;flex-direction:column}
     .mjstat + .mjstat{margin-top:0}
-    .mjstat .mjbig{margin-top:auto;padding-top:6px}
     .mjtl{margin-top:4px}
-    .mjlist{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
-    .mjlist .mjrow{padding-top:0;margin-top:0;border-top:0}
-    .mjlist .mjrow:nth-child(n+3){border-top:1px solid #F3EDE2;margin-top:7px;padding-top:7px}
   }
   .mjempty{font-size:10.5px;color:var(--dim2);padding:4px 2px}
 
@@ -539,25 +506,30 @@
   .ppl{display:flex;flex-direction:column;gap:7px;margin-top:9px}
   .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
   .pcard.open{border-color:var(--line2);box-shadow:var(--sh2)}
-  .pcard .phead2{display:flex;align-items:center;gap:9px;padding:10px 11px 8px;cursor:pointer}
+  .pcard .phead2{display:flex;align-items:center;gap:9px;padding:10px 11px 5px;cursor:pointer}
   .pcard .pav{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:11.5px;font-weight:800;flex:none}
   .pcard .pnm{flex:1;min-width:0}
   .pcard .pnm b{display:block;font-size:12px;font-weight:750;letter-spacing:-.02em}
   .pcard .pnm span{display:block;font-size:9px;color:var(--dim2);margin-top:1px}
   .pcard .pamt{text-align:right;flex:none}
+  .pcard .pnm b em.pdose{font-style:normal;font-size:8px;font-weight:650;color:#6B4E78;background:#F4EEF7;border:1px solid #E6DAEC;border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px;letter-spacing:0}
   .pcard .pamt b{display:block;font-size:13px;font-weight:800;font-family:"IBM Plex Mono",monospace;letter-spacing:-.03em;line-height:1.15}
-  .pcard .pamt span{display:block;font-size:9px;color:var(--dim2);font-family:"IBM Plex Mono",monospace;margin-top:1px}
-  .pcard .pamt .pct{color:#2F6647;font-weight:700}
-  .pcard .pamt .pct.over{color:#B23A31}
+  .pcard .pamt span{display:block;font-size:8.5px;color:var(--dim2);margin-top:1px;letter-spacing:-.01em}
   .pcard .pchev{flex:none;width:16px;text-align:center;color:var(--dim2);font-size:10px;transition:.15s}
   .pcard.open .pchev{transform:rotate(180deg)}
-  .pcard .pbar{height:5px;background:#F2EBDD;margin:0 11px 9px;border-radius:99px;overflow:hidden}
-  .pcard .pbar i{display:block;height:100%;border-radius:99px;background:var(--mc);transition:width .25s}
-  .pcard .pbar i.over{background:#B23A31}
-  .pcard .pmj{padding:0 11px 9px}
-  .pcard .pmj .mjblab{font-size:8.5px}
-  .pcard .pmj .mjtrk{height:6px;margin-top:3px}
-  @media (min-width:600px){ .pcard .pmj{max-width:600px} }
+  .pcard .pmeta2{margin:0 11px 6px;font-size:9px;color:var(--dim2);line-height:1.4;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pcard .pmeta2 b{font-weight:750;color:var(--dim);font-family:"IBM Plex Mono",monospace;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .pcard .pmeta2 b.ok{color:#2F6647}
+  .pcard .pmeta2 b.no{color:#B23A31}
+  .pcard .pmeta2 i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-weight:700;color:#2F6647;font-variant-numeric:tabular-nums}
+  .pcard .pmeta2 i.over{color:#B23A31}
+  .pcard .pbar{display:flex;gap:2px;height:7px;background:#F2EBDD;margin:0 11px 10px;border-radius:99px;overflow:hidden}
+  .pcard .pbar i{display:block;height:100%;flex:none;transition:width .25s;background:linear-gradient(90deg,#D9822B,#E4544A)}
+  .pcard .pbar i.sv{background:linear-gradient(90deg,#7FBC9D,#2F6647)}
+  .pcard .pbar i.over{background:linear-gradient(90deg,#E85A4F,#A82F27)}
+  .pcard .pbar i:first-child{border-radius:99px 0 0 99px}
+  .pcard .pbar i:last-child{border-radius:0 99px 99px 0}
+  .pcard .pbar i:only-child{border-radius:99px}
   .pcard .pdet{display:none;border-top:1px solid var(--line);background:#FCF8F0;padding:6px 11px 9px}
   .pcard.open .pdet{display:block}
   .pdet .pbrow{display:flex;align-items:center;gap:6px;padding:2px 0 7px;border-bottom:1px dashed var(--line2);font-size:10px;color:var(--dim2)}
@@ -565,6 +537,8 @@
   .pdet .pbrow input{width:92px;border:1px solid var(--line2);background:#fff;border-radius:7px;padding:3px 6px;font-size:11px;font-weight:700;text-align:right;font-family:"IBM Plex Mono",monospace;color:var(--ink)}
   .pdet .pbrow input:focus{outline:none;border-color:var(--coral)}
   .pdet .pbrow button{flex:none;border:1px solid var(--line2);background:#fff;border-radius:7px;padding:3px 7px;font-size:9.5px;font-weight:700;color:var(--dim)}
+  .pdet .dnote{padding:6px 0 2px;font-size:9.5px;color:var(--dim2);font-family:"IBM Plex Mono",monospace;letter-spacing:-.02em}
+  .pdet .dnote b{font-weight:700;color:#14504A}
   .pdet .drow{display:flex;align-items:baseline;gap:7px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:11px}
   .pdet .drow:last-child{border-bottom:0}
   .pdet .drow .dn{flex:1;min-width:0;line-height:1.35}
@@ -1222,7 +1196,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <!-- 데이터 파일은 메인 스크립트보다 먼저 동기 로드 (UI/로직은 이 파일에만) -->
 <script src="./qr-data.js?v=18"></script>
-<script src="./data.js?v=18"></script>
+<script src="./data.js?v=19"></script>
 <script>
 /* ============================================================
    오사카 2박 3일 · 2026-12-08 ~ 12-10
@@ -1407,9 +1381,13 @@ function defaultDayTab(){
   return '1';
 }
 
+/* 한국 마운자로 약값 — 개인 배분 예산의 기본값이자 절약 비교의 기준
+   (2026-11-27 지정 · 3개월 12펜: 5mg 월 370,000원 ×3 = 111만 / 2.5mg 월 270,000원 ×3 = 81만 · 4인 합계 414만) */
+var PERSON_BUDGET = { hyeoksan:1110000, sangwoo:1110000, hyerang:1110000, jieun:810000 };
+
 function load(){
   var base = {
-    profile:'hyeoksan', rate:FX_FALLBACK.rate, rateDate:FX_FALLBACK.date, rateMode:'fallback', rateSrc:FX_FALLBACK.src, usdJpy:FX_FALLBACK.usdJpy, budget:3200000,
+    profile:'hyeoksan', rate:FX_FALLBACK.rate, rateDate:FX_FALLBACK.date, rateMode:'fallback', rateSrc:FX_FALLBACK.src, usdJpy:FX_FALLBACK.usdJpy, budget:4140000,
     members:{}, costs:DEFAULT_COSTS.map(function(c){ return Object.assign({},c); }),
     open:{ 1:true, 2:true, 3:true }, mapFilter:defaultDayTab(), mini:false, costVer:COST_VER,
     dayTab: defaultDayTab(), personBudget:{}
@@ -1465,6 +1443,15 @@ function load(){
           out.costs.unshift(Object.assign({}, d)); /* v18: 항공 · 에어부산 왕복 4인 832,000원 — 맨 위에 배치 */
         }
       });
+      /* v19: 예산 기준을 한국 마운자로 약값으로 — 예전 기본값(320만 · 1인 80만)만 새 기본(414만 · 111만/81만)으로 올린다 */
+      if((s.costVer || 1) < 19){
+        if(!s.budget || s.budget < 1000 || Math.round(s.budget) === 3200000) out.budget = 4140000;
+        if(!out.personBudget || typeof out.personBudget !== 'object') out.personBudget = {};
+        MEMBERS.forEach(function(m){
+          var pv = out.personBudget[m.id];
+          if(!pv || pv < 1000 || Math.round(pv) === 800000) out.personBudget[m.id] = PERSON_BUDGET[m.id];
+        });
+      }
     }
     out.costVer = COST_VER;
     /* 일차 탭이 없는 예전 저장본 — 일차와 지도 필터를 같은 일차로 맞춘다 */
@@ -1489,7 +1476,7 @@ function load(){
     if(!out.rate || out.rate < 50) out.rate = FX_FALLBACK.rate;
     if(!out.rateDate) out.rateDate = FX_FALLBACK.date;
     if(!(out.usdJpy >= 50)) out.usdJpy = FX_FALLBACK.usdJpy;
-    if(!out.budget || out.budget < 1000) out.budget = 3200000;
+    if(!out.budget || out.budget < 1000) out.budget = 4140000;
     if(!out.open) out.open = base.open;
     if(!out.personBudget || typeof out.personBudget !== 'object') out.personBudget = {};
     if(out.dayTab !== 'all' && out.dayTab !== '1' && out.dayTab !== '2' && out.dayTab !== '3'){
@@ -2692,18 +2679,6 @@ function whoLabel(c){
   var sp = c.split || MEMBERS.length;
   return sp >= MEMBERS.length ? '공통(÷' + MEMBERS.length + ')' : (sp === 1 ? '개인' : sp + '인 분담');
 }
-function catRowsHTML(t){
-  return Object.keys(CATS).filter(function(k){ return (t.byCat[k]||0) > 0; })
-    .sort(function(a,b){ return t.byCat[b]-t.byCat[a]; })
-    .map(function(k){
-      var c = CATS[k], amt = t.byCat[k], pct = t.total ? amt / t.total * 100 : 0;
-      return '<div class="catrow">' +
-        '<span class="cic">' + c.ic + '</span>' +
-        '<div class="cbody"><div class="ctop2"><span class="cname">' + c.n + '</span><span class="camt">' + num(amt) + '원</span></div>' +
-        '<div class="cbar"><i style="width:' + Math.min(100,pct).toFixed(1) + '%;--cc:' + c.c + '"></i></div></div>' +
-        '<span class="cpct">' + pct.toFixed(0) + '%</span></div>';
-    }).join('');
-}
 
 /* ============================================================
    예산 총괄표 · 개인별 배분 예산
@@ -2738,11 +2713,12 @@ function catTableHTML(t){
     '<div class="csum"><span>항목 합계</span><b>' + num(t.total) + '원</b></div>';
 }
 
-/* 개인별 배분 예산 — 기본 전체 ÷ 4, 카드에서 따로 조정 가능 */
+/* 개인별 배분 예산 — 기본은 한국 마운자로 약값(PERSON_BUDGET), 카드에서 사람별로 조정 가능 */
+function personBudgetDefault(pid){ return PERSON_BUDGET[pid] || Math.round(state.budget / MEMBERS.length); }
 function perBudget(pid){
   var pb = state.personBudget || {};
   var v = pb[pid];
-  return (v && v >= 1000) ? v : Math.round(state.budget / MEMBERS.length);
+  return (v && v >= 1000) ? v : personBudgetDefault(pid);
 }
 function perBudgetSum(){
   return MEMBERS.reduce(function(a,m){ return a + perBudget(m.id); }, 0);
@@ -2753,8 +2729,8 @@ function personItems(pid){
     .sort(function(a,b){ return b.sh - a.sh; });
 }
 function personDetailHTML(m){
-  var pbDefault = Math.round(state.budget / MEMBERS.length);
-  var pb = (state.personBudget && state.personBudget[m.id]) || pbDefault;
+  var pb = perBudget(m.id);
+  var loc = myLocal(m.id);
   var rows = personItems(m.id).map(function(x){
     var c = x.c;
     var tag = shareNature(c) === 'indiv' ? c.who.length + '인' : '÷4';
@@ -2763,41 +2739,36 @@ function personDetailHTML(m){
       '<span class="dv">' + num(x.sh) + '</span></div>';
   }).join('');
   if(!rows) rows = '<div class="dzero">이 사람에게 잡힌 항목이 없어요.</div>';
-  return '<div class="pbrow"><label>이 사람 배분 예산 · 비우면 전체÷4</label>' +
+  return '<div class="pbrow"><label>배분 예산 · 비우면 한국 약값</label>' +
       '<input type="number" inputmode="numeric" step="10000" min="0" data-pb="' + m.id + '" value="' + pb + '">' +
-      '<button data-pbreset="' + m.id + '">÷4</button></div>' + rows;
+      '<button data-pbreset="' + m.id + '">약값</button></div>' +
+    '<div class="dnote">현지 지출 ¥' + num(Math.round(loc.jpy)) + ' · 사전결제 제외</div>' + rows;
 }
 var openPid = null;
 function renderPpl(){
   var el = $('#ppl'); if(!el) return;
   el.innerHTML = MEMBERS.map(function(m){
     var pb = perBudget(m.id), mine = myTotals(m.id).total;
-    var loc = myLocal(m.id);
     var use = pb ? (mine / pb * 100) : 0;
     var left = pb - mine;
+    var over = left < 0;
     var open = (openPid === m.id);
-    var kr = MJ_KR[m.id] || 0;
-    var mjRow = '';
-    if(kr > 0){
-      var mjRatio = mine / kr * 100, mjGap = kr - mine;
-      mjRow = '<div class="pmj">' +
-        '<div class="mjblab"><span>💉 마운자로 · 한국 약값 ' + mjMan(kr) + ' → 원정 ' + mjMan(mine) + '</span>' +
-          '<b class="' + (mjGap >= 0 ? 'sv' : 'over') + '">' + (mjGap >= 0 ? '흑자 ' : '초과 ') + mjMan(Math.abs(mjGap)) + ' · ' + mjPctS(mjRatio) + '</b></div>' +
-        '<div class="mjtrk">' + (mjGap >= 0
-          ? '<i class="mjfill trip" style="width:' + mjW(mjRatio, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(mjRatio, 4)) + '%"></i>'
-          : '<i class="mjfill over" style="width:' + mjW(mjRatio) + '%"></i>') +
-        '</div></div>';
-    }
+    var krBase = (Math.round(pb) === PERSON_BUDGET[m.id]);
+    var barHTML = over
+      ? '<i class="over" style="width:' + mjW(use) + '%"></i>'
+      : '<i style="width:' + mjW(use, 4) + '%"></i>' + (use < 100 ? '<i class="sv" style="flex:1 1 auto"></i>' : '');
     return '<div class="pcard' + (open ? ' open' : '') + '" style="--mc:' + m.color + '">' +
       '<div class="phead2" data-pbopen="' + m.id + '" role="button" tabindex="0" aria-expanded="' + (open ? 'true' : 'false') + '">' +
         '<span class="pav" style="background:' + m.color + '">' + m.initial + '</span>' +
-        '<span class="pnm"><b>' + esc(m.name) + '</b><span>배분 예산 ' + num(pb) + '원' + (m.role ? ' · ' + esc(m.role) : '') + ' · <i class="ploc">현지 ¥' + num(Math.round(loc.jpy)) + '</i></span></span>' +
-        '<span class="pamt"><b>' + num(mine) + '</b><span>' + (left >= 0 ? '남음 ' + num(left) : '초과 ' + num(-left)) + '원 · ' +
-          '<i class="pct' + (use > 100 ? ' over' : '') + '">' + use.toFixed(0) + '%</i></span></span>' +
+        '<span class="pnm"><b>' + esc(m.name) + (MJ_DOSE[m.id] ? '<em class="pdose">' + MJ_DOSE[m.id] + '</em>' : '') + '</b>' +
+          '<span>' + esc(m.role || '동행') + '</span></span>' +
+        '<span class="pamt"><b>' + num(mine) + '</b><span>원정 총지출</span></span>' +
         '<span class="pchev">▾</span>' +
       '</div>' +
-      '<div class="pbar"><i class="' + (use > 100 ? 'over' : '') + '" style="width:' + Math.min(100, use).toFixed(1) + '%"></i></div>' +
-      mjRow +
+      '<div class="pmeta2">' + (krBase ? '한국 약값(예산)' : '배분 예산') + ' <b>' + mjMan(pb) + '</b> · ' +
+        (over ? '초과 <b class="no">' + mjMan(-left) + '</b>' : '남음(흑자) <b class="ok">' + mjMan(left) + '</b>') +
+        ' · <i class="' + (over ? 'over' : '') + '">' + mjPctS(use) + '</i></div>' +
+      '<div class="pbar">' + barHTML + '</div>' +
       '<div class="pdet">' + personDetailHTML(m) + '</div>' +
     '</div>';
   }).join('');
@@ -2817,7 +2788,7 @@ function togglePid(pid){ openPid = (openPid === pid) ? null : pid; renderPpl(); 
      2.5mg 월 270,000원 × 3 =   810,000원/인 (지은)  → 4인 4,140,000원
    일본 쪽은 경비 항목 c7 + c7b + c7s 를 그대로 쓴다(환율·금액 수정이 바로 반영).
    ============================================================ */
-var MJ_KR = { hyeoksan:370000*3, sangwoo:370000*3, hyerang:370000*3, jieun:270000*3 };
+var MJ_KR = PERSON_BUDGET;
 var MJ_DOSE = { hyeoksan:'5mg 12펜', sangwoo:'5mg 12펜', hyerang:'5mg 12펜', jieun:'2.5mg 12펜' };
 function mjJpPart(c){ return c.id === 'c7' || c.id === 'c7b' || c.id === 'c7s'; }
 function mjKrTotal(){ return MEMBERS.reduce(function(a,m){ return a + (MJ_KR[m.id] || 0); }, 0); }
@@ -2838,17 +2809,13 @@ function mjW(p, min){
   if(min && w > 0 && w < min) w = min;
   return (Math.round(w * 10) / 10).toFixed(1);
 }
-/* 두 층(한국 100% + 비교 비율) 막대 바 묶음 */
+/* 두 층(한국 100% + 비교 비율) 막대 바는 예산 기준을 바꿔 읽히지 않게 한 줄짜리로 쑨다 */
 function mjBarsHTML(krLab, fillCls, topLab, topPct, restLab, restPct, over){
-  return '<div class="mjbar">' +
-    '<div class="mjbline"><div class="mjblab"><span>' + krLab + '</span><b>100%</b></div>' +
-      '<div class="mjtrk"><i class="mjfill kr" style="width:100%"></i></div></div>' +
-    '<div class="mjbline"><div class="mjblab"><span class="' + (over ? 'over' : 'jp') + '">' + topLab + ' ' + mjPctS(topPct) + '</span>' +
+  return '<div class="mjblab"><span class="' + (over ? 'over' : 'jp') + '">' + topLab + ' ' + mjPctS(topPct) + '</span>' +
       '<b class="' + (over ? 'over' : 'sv') + '">' + restLab + ' ' + mjPctS(Math.abs(restPct)) + '</b></div>' +
-      '<div class="mjtrk">' + (over
-        ? '<i class="mjfill over" style="width:' + mjW(topPct) + '%"></i>'
-        : '<i class="mjfill ' + fillCls + '" style="width:' + mjW(topPct, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(topPct, 4)) + '%"></i>') +
-      '</div></div>' +
+    '<div class="mjtrk mjb1">' + (over
+      ? '<i class="mjfill over" style="width:' + mjW(topPct) + '%"></i>'
+      : '<i class="mjfill ' + fillCls + '" style="width:' + mjW(topPct, 4) + '%"></i><i class="mjfill sv" style="flex:1 1 auto"></i>') +
     '</div>';
 }
 function mjCardInner(){
@@ -2875,34 +2842,14 @@ function mjCardInner(){
     '</div>' +
     '<div class="mjstat">' +
       '<div class="mjlab"><span>여행 전액 포함</span><span class="mjchip">4인 총경비</span></div>' +
-      '<div class="mjflow"><span>오사카 2박 3일 4인 총경비</span><b>' + won(Math.round(t.total)) + '</b></div>' +
       '<div class="mjflow"><span>한국 약값</span><b>' + won(krTot) + '</b></div>' +
+      '<div class="mjflow"><span>오사카 2박 3일 4인 총경비</span><b>' + won(Math.round(t.total)) + '</b></div>' +
       mjBarsHTML('한국 약값', 'trip', '오사카 총경비', tripPct, trip >= 0 ? '여유' : '초과', trip >= 0 ? 100 - tripPct : tripPct - 100, trip < 0) +
       '<div class="mjbig ' + (trip >= 0 ? 'ok' : 'no') + '">' + (trip >= 0 ? won(Math.round(trip)) + ' <small>흑자</small>' : won(Math.round(-trip)) + ' <small>초과</small>') + '</div>' +
       '<div class="mjtl">' + (trip >= 0 ? '한국에서 약값만 치를 돈으로 4인 여행 전체를 하고도 이만큼 남아요.' : '여행 경비까지 더하면 한국 약값보다 이만큼 더 들어요.') + '</div>' +
     '</div>' +
     '</div>' +
-    '<div class="mjrows"><div class="mjrhead">개인별 비교 · 한국 약값 대비</div>' +
-    '<div class="mjlist">' +
-    MEMBERS.map(function(m){
-      var kr = MJ_KR[m.id] || 0;
-      var tripv = myTotals(m.id).total;
-      var drug = 0;
-      state.costs.forEach(function(c){ if(mjJpPart(c)) drug += shareOf(c, m.id); });
-      var tripDiff = kr - tripv, drugDiff = kr - drug;
-      var tripRatio = kr > 0 ? tripv / kr * 100 : 0;
-      return '<div class="mjrow">' +
-        '<span class="mjav" style="background:' + m.color + '">' + m.initial + '</span>' +
-        '<span class="mjnm"><b>' + esc(m.name) + '<em>' + MJ_DOSE[m.id] + '</em></b>' +
-          '<span class="mjdet">한국 ' + mjMan(kr) + ' · 일본 약값 ' + mjMan(drug) + '</span>' +
-          '<span class="mjdet2">원정 ' + mjMan(tripv) + ' · 약값만 ' + mjSigned(drugDiff) + '</span>' +
-          '<span class="mjmini"><span class="mjtrk">' + (tripDiff >= 0
-            ? '<i class="mjfill trip" style="width:' + mjW(tripRatio, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(tripRatio, 4)) + '%"></i>'
-            : '<i class="mjfill over" style="width:' + mjW(tripRatio) + '%"></i>') + '</span><em>' + mjPctS(tripRatio) + '</em></span></span>' +
-        '<span class="mjdiff ' + (tripDiff >= 0 ? 'ok' : 'no') + '">' + mjSigned(tripDiff) + '<i>여행 포함</i></span>' +
-      '</div>';
-    }).join('') + '</div></div>' +
-    '<div class="mjfoot">한국 정가 5mg 월 370,000원 · 2.5mg 월 270,000원 × 3개월(12펜) 기준. 일본 금액은 경비 항목 <b>c7 · c7b · c7s</b>를 100엔 = ' + fxNum(rate) + '원으로 환산한 값이라 환율·항목을 고치면 바로 따라 바뀌어요. 개인별 금액은 위 경비의 분담 몫 기준입니다.</div>';
+    '<div class="mjfoot">한국 정가 5mg 월 370,000원 · 2.5mg 월 270,000원 × 3개월(12펜) 기준. 일본 약값은 경비 항목 <b>c7 · c7b · c7s</b>를 100엔 = ' + fxNum(rate) + '원으로 환산한 값이라 환율·항목을 고치면 바로 따라 바뀌어요.</div>';
   return h;
 }
 
@@ -2926,25 +2873,20 @@ function renderBudget(){
       '</div>' +
     '</div>' +
 
-    '<div class="sec"><h2>📊 예산 총괄표</h2><span>4인 전체</span></div>' +
+    '<div class="sec"><h2>📊 경비 총괄</h2><span>4인 전체</span></div>' +
     '<div class="btable">' +
-      '<div class="btrow"><span>전체 예산</span><b id="tbBudget">' + num(state.budget) + '원</b></div>' +
       '<div class="btrow"><span>예상 지출 총액</span><b id="tbTotal">' + num(t.total) + '원</b></div>' +
       '<div class="btrow loc"><span>└ 현지 지출 (환전·트래블월렛)</span><b id="tbLocal">' + num(lt.total) + '원</b></div>' +
-      '<div class="btrow hi' + (left < 0 ? ' over' : '') + '"><span id="tbLeftLab">' + (left >= 0 ? '남은 예산' : '초과 금액') + '</span><b id="tbLeft">' + num(Math.abs(left)) + '원</b></div>' +
-      '<div class="btrow soft"><span>1인 배분 예산 (전체 ÷ 4)</span><b id="tbPer">' + num(Math.round(state.budget / MEMBERS.length)) + '원</b></div>' +
-      '<div class="btrow soft"><span>1인 평균 예상 부담</span><b id="tbAvg">' + num(t.per) + '원</b></div>' +
+      '<div class="btrow soft"><span>└ 선결제 (한국에서 결제 완료)</span><b id="tbPre">' + num(t.total - lt.total) + '원</b></div>' +
+      '<div class="btrow hi' + (left < 0 ? ' over' : '') + '"><span id="tbLeftLab">' + (left >= 0 ? '예산(한국 약값) 대비 여유' : '예산(한국 약값) 초과') + '</span><b id="tbLeft">' + num(Math.abs(left)) + '원</b></div>' +
     '</div>' +
-    '<p class="pnote">예산은 위 게이지의 숫자를 눌러 바로 고칠 수 있어요. 개인별 배분 예산은 기본 <b>전체 ÷ 4</b>이고, 아래 개인 카드를 열면 한 사람씩 다르게 잡을 수 있습니다.</p>' +
+    '<p class="pnote">예산은 위 게이지 숫자를 눌러 고칠 수 있어요. 개인 배분 예산은 기본이 <b>한국 마운자로 약값</b>(5mg 111만 · 2.5mg 81만)이고, 개인 카드를 열면 한 사람씩 조정할 수 있어요.</p>' +
 
     '<div class="sec"><h2>💉 마운자로 · 한국 가격 대비 절약</h2><span>3개월 12펜 · 4인</span></div>' +
     '<div class="mjcard" id="mjcard">' + mjCardInner() + '</div>' +
 
     '<div class="sec"><h2>분류별 총액 · 분담</h2><span>공통 vs 개인</span></div>' +
     '<div class="ctable" id="ctable">' + catTableHTML(t) + '</div>' +
-
-    '<div class="sec"><h2>카테고리 비중</h2><span>총액 대비</span></div>' +
-    '<div class="catlist" id="catlist">' + catRowsHTML(t) + '</div>' +
 
     '<div class="sec"><h2>👤 개인별 예산 · 부담액</h2><span>눌러서 상세</span></div>' +
     '<div class="ppl" id="ppl"></div>' +
@@ -2953,7 +2895,7 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">항공·숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 스미야키 쇼텐 陽 ¥12,800 · 이치란 ¥6,400 · 와규 야키니쿠 긴 ¥22,000 · 진베에 난바 ¥11,200 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥74,000</b>(1인 ¥18,500). 1일차 2차·2일차 저녁·2차를 타베로그 검증 맛집으로 바꾸면서 예전 ¥62,800보다 <b>+¥11,200</b> 늘었어요. 2일차 점심은 09:40 이치란 아점이 함께 덮고, 2일차 카페(후시미 산도 차야 1인 ¥900)와 커피·간식 여유분은 따로 잡지 않았어요. 위스키·면세 쇼핑(리쿼마운틴 등)은 별도예요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 에어부산 왕복 <b>4인 832,000원</b>(1인 208,000원 · 예약 KAYTPM · BX617/BX608)으로 4인 분담에 넣었어요. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>간사이 조이 패스 1 Week Free Pass(3개 시설 선택)는 4장 <b>72,580원</b>에 KKday에서 사전결제했어요(1인 18,145원 · 주문 #26KK220794270·#26KK220794580). QR 4장은 앱 QR 월렛에 각자 이름으로 담겨 있어요.<br>이 패스로 <b>하루카스 300</b>·<b>도톤보리 크루즈(원더크루즈)</b>·<b>오사카성 고자부네</b> 세 곳을 덮었어요 — 정가로는 4인 <b>¥22,400</b>(₩189,000 안팎)인데 조이패스는 4인 72,580원이라, 세 항목은 <b>조이패스 1~3회차 차감 (¥0)</b>으로 바꾸고 현지 지출에서 뺐어요. 조이패스 3회를 <b>모두 사용</b>했고 1인 ¥5,600 혜택입니다.<br>원더크루즈는 지금까지 잡아 둔 톤보리 리버크루즈(一本松海運 · 太左衛門橋)와 <b>운영사·선착장이 달라요</b> — 日本橋船着場(道頓堀1-1-6 강변 B1) 18:30편(17:00~21:30 30분 간격)이고, 조이패스 QR을 제시하면 1인 ¥2,000이 <b>¥0</b>이에요. 대신 <b>승선 시간은 18:30편으로 예약 완료</b>(W_261126_4453485577_1 · 수요일은 예약자만 승선)이고, 별도 QR이 없어 <b>18:20까지 카운터에서 예약 확인 메일 + 조이패스 QR 4장</b>을 제시해 승선권을 먼저 받아야 해요. 매진이면 一本松海運 18:30편(¥2,000×4 현장 결제)으로 대체하면 됩니다.<br>원화 환산은 앱을 열 때 받은 그날의 기준환율을 씁니다 — 위 배지의 숫자를 고치면 직접 입력, <b>↻</b>로 다시 받거나 <b>자동</b>을 누르면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(항공·숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
+    '<p class="footnote">항공·숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 스미야키 쇼텐 陽 ¥12,800 · 이치란 ¥6,400 · 와규 야키니쿠 긴 ¥22,000 · 진베에 난바 ¥11,200 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥74,000</b>(1인 ¥18,500). 1일차 2차·2일차 저녁·2차를 타베로그 검증 맛집으로 바꾸면서 예전 ¥62,800보다 <b>+¥11,200</b> 늘었어요. 2일차 점심은 09:40 이치란 아점이 함께 덮고, 2일차 카페(후시미 산도 차야 1인 ¥900)와 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 에어부산 왕복 <b>4인 832,000원</b>(1인 208,000원 · 예약 KAYTPM · BX617/BX608)으로 4인 분담에 넣었어요. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>간사이 조이 패스 1 Week Free Pass(3개 시설 선택)는 4장 <b>72,580원</b>에 KKday에서 사전결제했어요(1인 18,145원 · 주문 #26KK220794270·#26KK220794580). QR 4장은 앱 QR 월렛에 각자 이름으로 담겨 있어요.<br>이 패스로 <b>하루카스 300</b>·<b>도톤보리 크루즈(원더크루즈)</b>·<b>오사카성 고자부네</b> 세 곳을 덮었어요 — 정가로는 4인 <b>¥22,400</b>(₩189,000 안팎)인데 조이패스는 4인 72,580원이라, 세 항목은 <b>조이패스 1~3회차 차감 (¥0)</b>으로 바꾸고 현지 지출에서 뺐어요. 조이패스 3회를 <b>모두 사용</b>했고 1인 ¥5,600 혜택입니다.<br>원더크루즈는 지금까지 잡아 둔 톤보리 리버크루즈(一本松海運 · 太左衛門橋)와 <b>운영사·선착장이 달라요</b> — 日本橋船着場(道頓堀1-1-6 강변 B1) 18:30편(17:00~21:30 30분 간격)이고, 조이패스 QR을 제시하면 1인 ¥2,000이 <b>¥0</b>이에요. 대신 <b>승선 시간은 18:30편으로 예약 완료</b>(W_261126_4453485577_1 · 수요일은 예약자만 승선)이고, 별도 QR이 없어 <b>18:20까지 카운터에서 예약 확인 메일 + 조이패스 QR 4장</b>을 제시해 승선권을 먼저 받아야 해요. 매진이면 一本松海運 18:30편(¥2,000×4 현장 결제)으로 대체하면 됩니다.<br>원화 환산은 그날의 기준환율을 쓰고, 배지의 숫자를 고치면 직접 입력 · <b>↻</b>면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(항공·숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
 
   renderPpl();
 
@@ -2978,7 +2920,7 @@ function renderBudget(){
       var pid0 = rs.getAttribute('data-pbreset');
       state.personBudget = state.personBudget || {};
       delete state.personBudget[pid0];
-      save(); renderPpl(); toast('전체 ÷ 4로 맞췄어요'); return;
+      save(); renderPpl(); toast('한국 약값으로 맞췄어요'); return;
     }
     var op = e.target.closest('[data-pbopen]');
     if(op && !e.target.closest('input')) togglePid(op.getAttribute('data-pbopen'));
@@ -3015,18 +2957,15 @@ function paintBudget(){
   if(gl) gl.textContent = usePct.toFixed(1) + '% 사용 · ' + (left >= 0 ? num(left) + '원 남음' : num(-left) + '원 초과');
   var bar = $('.bbar i');
   if(bar){ bar.style.width = Math.min(100, usePct).toFixed(1) + '%'; bar.className = usePct > 100 ? 'over' : ''; }
-  var tbB = $('#tbBudget'); if(tbB) tbB.textContent = num(state.budget) + '원';
   var tbT = $('#tbTotal'); if(tbT) tbT.textContent = num(t.total) + '원';
   var tbLc = $('#tbLocal'); if(tbLc) tbLc.textContent = num(lt.total) + '원';
+  var tbPre = $('#tbPre'); if(tbPre) tbPre.textContent = num(t.total - lt.total) + '원';
   var tbL = $('#tbLeft'); if(tbL) tbL.textContent = num(Math.abs(left)) + '원';
-  var tbLL = $('#tbLeftLab'); if(tbLL) tbLL.textContent = left >= 0 ? '남은 예산' : '초과 금액';
+  var tbLL = $('#tbLeftLab'); if(tbLL) tbLL.textContent = left >= 0 ? '예산(한국 약값) 대비 여유' : '예산(한국 약값) 초과';
   var leftRow = $('#tbLeft') && $('#tbLeft').closest('.btrow');
   if(leftRow) leftRow.className = 'btrow hi' + (left < 0 ? ' over' : '');
-  var tbP = $('#tbPer'); if(tbP) tbP.textContent = num(Math.round(state.budget / MEMBERS.length)) + '원';
-  var tbA = $('#tbAvg'); if(tbA) tbA.textContent = num(t.per) + '원';
   var ct = $('#ctable'); if(ct) ct.innerHTML = catTableHTML(t);
   var mjc = $('#mjcard'); if(mjc) mjc.innerHTML = mjCardInner();
-  var cl = $('#catlist'); if(cl) cl.innerHTML = catRowsHTML(t);
   renderPpl();
   $$('#costlist .crow2').forEach(function(row){
     var id = row.getAttribute('data-edit');
