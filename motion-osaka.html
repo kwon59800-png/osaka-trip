@@ -34,7 +34,7 @@ body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animatio
 .water i:nth-child(4){bottom:38%;animation-duration:10s;animation-delay:-2s;opacity:.65}
 .water i:nth-child(5){bottom:53%;height:5px;animation-duration:15s;animation-delay:-9s;opacity:.5}
 @keyframes ripple{0%{transform:translate3d(-5%,0,0) scaleX(.84) scaleY(.8);opacity:.34}100%{transform:translate3d(5%,-5px,0) scaleX(1.14) scaleY(1.3);opacity:.9}}
-.lans{position:absolute;left:0;right:0;bottom:0;height:72%}
+.lans{position:absolute;left:0;right:0;bottom:0;height:94%}
 .lans b{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,rgba(255,198,124,1),rgba(234,104,62,.94) 38%,rgba(226,86,76,0) 72%);filter:blur(.3px);animation:float 12s ease-in-out infinite alternate}
 @keyframes float{0%{transform:translate3d(-9px,8px,0) scale(.8);opacity:.3}50%{opacity:.92}100%{transform:translate3d(11px,-26px,0) scale(1.2);opacity:.45}}
 /* ② 오사카성 — 단풍 + 금빛 햇살 */
@@ -43,7 +43,7 @@ body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animatio
 @keyframes breathe{to{transform:translate3d(4%,3%,0) scale(1.1);opacity:.7}}
 #sc2 .castle{bottom:-2%;right:-6%;width:290px;height:200px;opacity:.06}
 .leaves{position:absolute;inset:0;overflow:hidden}
-.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 2px 2px rgba(120,70,40,.12))}
+.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 3px 3px rgba(120,70,40,.18))}
 @keyframes fall{0%{transform:translate3d(0,-14vh,0) rotate(-12deg);opacity:0}8%{opacity:var(--o)}22%{transform:translate3d(-9vw,12vh,0) rotate(78deg)}42%{transform:translate3d(-4vw,36vh,0) rotate(150deg)}62%{transform:translate3d(-15vw,62vh,0) rotate(238deg)}82%{transform:translate3d(-9vw,86vh,0) rotate(302deg)}100%{transform:translate3d(-22vw,114vh,0) rotate(388deg);opacity:0}}
 /* ③ 우라난바 — 골목 김 + 네온 */
 #sc3{background:linear-gradient(180deg,#160f13,#2a1d20 42%,#33211d 72%,#1d1417)}
@@ -192,14 +192,14 @@ main{padding:0 14px 60px}
 (function(){
   var body=document.body;
   var INFO={1:['🏮','도톤보리 등불·강물','강물 위 금빛 반사 5겹이 8~15초 주기로 일렁이고, 제등 불빛 16개가 물 위에서 은은하게 떠오릅니다.'],
-            2:['🍁','오사카성 늦가을 단풍','단풍·은행잎 15장이 17~31초에 걸쳐 바람을 타고 대각선으로 흩날리고, 우하단에 천수각 실루엣이 6%로 깔립니다.'],
+            2:['🍁','오사카성 늦가을 단풍','단풍·은행잎 16장이 17~31초에 걸쳐 바람을 타고 대각선으로 흩날리고, 우하단에 천수각 실루엣이 6%로 깔립니다.'],
             3:['🍢','우라난바 골목 온기·네온','야키토리 집 김 5줄기가 아래에서 피어오르고, 산호·앰버·틸 네온망울 4개가 blur(46px)로 천천히 숨 쉽니다.']};
 
   /* ① 제등 불빛 16개 */
   var lans=document.getElementById('lans'),h='';
   for(var i=0;i<16;i++){
     var s=(12+Math.random()*15).toFixed(1);
-    h+='<b style="left:'+(3+Math.random()*94).toFixed(1)+'%;bottom:'+(4+Math.random()*62).toFixed(1)+'%;width:'+s+'px;height:'+s+'px;animation-duration:'+(9+Math.random()*9).toFixed(1)+'s;animation-delay:-'+(Math.random()*12).toFixed(1)+'s"></b>';
+    h+='<b style="left:'+(3+Math.random()*94).toFixed(1)+'%;bottom:'+(3+Math.random()*67).toFixed(1)+'%;width:'+s+'px;height:'+s+'px;animation-duration:'+(9+Math.random()*9).toFixed(1)+'s;animation-delay:-'+(Math.random()*12).toFixed(1)+'s"></b>';
   }
   lans.innerHTML=h;
 
@@ -209,8 +209,8 @@ main{padding:0 14px 60px}
   function uri(tpl,c){return "url('data:image/svg+xml,"+tpl.replace('COL','%23'+c)+"')";}
   var SH=[uri(MA,'C4552F'),uri(MA,'D9742B'),uri(MA,'B8452C'),uri(GI,'D9A32B')];
   var lv=document.getElementById('leaves'),g='';
-  for(var j=0;j<15;j++){
-    g+='<i class="leaf" style="--x:'+(2+Math.random()*96).toFixed(1)+'%;--w:'+(13+Math.random()*13).toFixed(0)+'px;--t:'+(17+Math.random()*14).toFixed(1)+'s;--dl:-'+(Math.random()*22).toFixed(1)+'s;--o:'+(.28+Math.random()*.32).toFixed(2)+';background-image:'+SH[j%4]+'"></i>';
+  for(var j=0;j<16;j++){
+    g+='<i class="leaf" style="--x:'+(2+Math.random()*96).toFixed(1)+'%;--w:'+(15+Math.random()*15).toFixed(0)+'px;--t:'+(17+Math.random()*14).toFixed(1)+'s;--dl:-'+(Math.random()*22).toFixed(1)+'s;--o:'+(.28+Math.random()*.32).toFixed(2)+';background-image:'+SH[j%4]+'"></i>';
   }
   lv.innerHTML=g;
 
