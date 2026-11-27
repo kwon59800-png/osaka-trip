@@ -2780,7 +2780,7 @@ function renderPpl(){
     if(kr > 0){
       var mjRatio = mine / kr * 100, mjGap = kr - mine;
       mjRow = '<div class="pmj">' +
-        '<div class="mjblab"><span>💉 한국 약값 ' + mjMan(kr) + ' → 원정 ' + mjMan(mine) + '</span>' +
+        '<div class="mjblab"><span>💉 마운자로 · 한국 약값 ' + mjMan(kr) + ' → 원정 ' + mjMan(mine) + '</span>' +
           '<b class="' + (mjGap >= 0 ? 'sv' : 'over') + '">' + (mjGap >= 0 ? '흑자 ' : '초과 ') + mjMan(Math.abs(mjGap)) + ' · ' + mjPctS(mjRatio) + '</b></div>' +
         '<div class="mjtrk">' + (mjGap >= 0
           ? '<i class="mjfill trip" style="width:' + mjW(mjRatio, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(mjRatio, 4)) + '%"></i>'
