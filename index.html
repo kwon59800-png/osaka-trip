@@ -896,9 +896,488 @@
   .yacts{display:flex;gap:6px;margin-top:9px}
   .yacts .btn{flex:1;justify-content:center;text-align:center;font-size:11px;padding:8px 6px;border-radius:10px}
   .ynote{margin:6px 0 0;font-size:9px;line-height:1.5;color:var(--dim2)}
+/* ===== 배경 (3장면) ===== */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity .75s ease;will-change:opacity}
+body[data-p="1"] #sc1,body[data-p="2"] #sc2,body[data-p="3"] #sc3{opacity:1}
+.sc *{animation-play-state:paused}
+body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animation-play-state:running}
+.sil{position:absolute;color:#8C6A46;opacity:.075}
+.grain{position:absolute;inset:0;opacity:.08;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+.scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,243,235,.5),transparent 18%,transparent 82%,rgba(247,243,235,.45))}
+body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),transparent 20%,transparent 80%,rgba(26,21,24,.5))}
+/* ① 도톤보리 — 강물 반사 + 제등 입자 */
+#sc1{background:linear-gradient(180deg,#F9F5EC,#F7F3EB 46%,#F4EBDC)}
+#sc1 .bridge{bottom:-4%;right:-9%;width:300px;height:190px}
+#sc1 .bridge2{bottom:-2%;left:-12%;width:230px;height:120px;opacity:.12}
+#sc1 .sign{top:9.5%;right:5%;width:42px;height:120px;opacity:.07}
+.water{position:absolute;left:-10%;right:-10%;bottom:0;height:47%;background:linear-gradient(0deg,rgba(188,104,56,.34),rgba(226,118,76,.14) 44%,rgba(232,120,79,0))}
+.wl{position:absolute;left:-10%;right:-10%;bottom:0;height:32%;background:repeating-linear-gradient(180deg,rgba(176,94,52,.13) 0 1px,rgba(176,94,52,0) 1px 9px);-webkit-mask-image:linear-gradient(0deg,#000,rgba(0,0,0,0));mask-image:linear-gradient(0deg,#000,rgba(0,0,0,0));animation:wlm 13s ease-in-out infinite alternate}
+@keyframes wlm{to{transform:translate3d(-14px,-6px,0) scaleY(1.06)}}
+.water-near{position:absolute;left:-10%;right:-10%;bottom:0;height:12%;background:linear-gradient(0deg,rgba(150,70,40,.3),rgba(150,70,40,0));overflow:hidden}
+.water-near i{position:absolute;left:0;right:0;height:1px;background:rgba(176,94,52,.28)}
+.water-near i:nth-child(1){bottom:22%}.water-near i:nth-child(2){bottom:52%;opacity:.7}.water-near i:nth-child(3){bottom:80%;opacity:.45}
+.water i{position:absolute;left:-25%;width:150%;height:12px;border-radius:50%;background:linear-gradient(90deg,rgba(232,120,79,0),rgba(255,168,86,.95),rgba(214,74,68,.62),rgba(232,120,79,0));filter:blur(4px);animation:ripple 9s ease-in-out infinite alternate}
+.water i:nth-child(1){bottom:6%;height:13px;animation-duration:11s}
+.water i:nth-child(2){bottom:16%;animation-duration:8s;animation-delay:-3s;opacity:.8}
+.water i:nth-child(3){bottom:27%;height:7px;animation-duration:13s;animation-delay:-6s}
+.water i:nth-child(4){bottom:38%;animation-duration:10s;animation-delay:-2s;opacity:.65}
+.water i:nth-child(5){bottom:53%;height:5px;animation-duration:15s;animation-delay:-9s;opacity:.5}
+@keyframes ripple{0%{transform:translate3d(-5%,0,0) scaleX(.84) scaleY(.8);opacity:.34}100%{transform:translate3d(5%,-5px,0) scaleX(1.14) scaleY(1.3);opacity:.9}}
+.refl{position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none}
+.refl i{position:absolute;bottom:0;width:8px;height:100%;border-radius:99px;
+  background:linear-gradient(180deg,rgba(255,168,86,.55),rgba(255,168,86,0));
+  filter:blur(3px);transform-origin:bottom;animation:sway 7s ease-in-out infinite alternate}
+.refl i:nth-child(1){left:18%;width:6px}
+.refl i:nth-child(2){left:42%;width:10px;animation-duration:8.5s;animation-delay:-2s}
+.refl i:nth-child(3){left:63%;width:7px;animation-duration:6.2s;animation-delay:-4s}
+.refl i:nth-child(4){left:84%;width:12px;animation-duration:9s;animation-delay:-1s}
+@keyframes sway{from{transform:translateX(-3px) scaleY(.85);opacity:.3}to{transform:translateX(3px) scaleY(1.08);opacity:.6}}
+.boatwrap{position:absolute;left:0;bottom:17%;width:120px;height:44px;will-change:transform}
+.boat{animation:sail 48s linear infinite}
+.boat svg{display:block;width:120px;height:44px;filter:drop-shadow(0 0 10px rgba(255,170,90,.5))}
+@keyframes sail{0%{transform:translate(-140px,0)}25%{transform:translate(25vw,-3px)}50%{transform:translate(50vw,2px)}75%{transform:translate(75vw,-3px)}100%{transform:translate(112vw,0)}}
+.lans{position:absolute;left:0;right:0;bottom:0;height:94%;opacity:calc(.9*var(--int))}
+.lans b{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,rgba(255,198,124,1),rgba(234,104,62,.94) 38%,rgba(226,86,76,0) 72%);filter:blur(.3px);animation:float 12s ease-in-out infinite alternate}
+.lans b.far{background:radial-gradient(circle,rgba(255,198,124,.7),rgba(234,104,62,.6) 38%,rgba(226,86,76,0) 72%)}
+@keyframes float{0%{transform:translate3d(-9px,8px,0) scale(.8);opacity:.3}50%{opacity:.92}100%{transform:translate3d(11px,-26px,0) scale(1.2);opacity:.45}}
+.cho{position:absolute;filter:drop-shadow(0 0 12px rgba(255,170,90,.75));animation:choF var(--d) ease-in-out infinite alternate;animation-delay:var(--dl)}
+@keyframes choF{from{transform:translate(0,6px) rotate(-3deg)}to{transform:translate(8px,-18px) rotate(4deg)}}
+/* ① 입체감 — 하늘 구름·새 · 먼 건물 · 앞 배 · 앞 제등 · 앞 난간 */
+.clouds{position:absolute;inset:0;overflow:hidden}
+.cloud{position:absolute;left:0;border-radius:50%;background:#fff;filter:blur(18px);opacity:.35;animation:cloudDrift var(--d) linear infinite}
+@keyframes cloudDrift{from{transform:translateX(-32vw)}to{transform:translateX(115vw)}}
+.bird{position:absolute;left:0;width:34px;height:12px;opacity:.5;animation:fly var(--d) linear infinite;animation-delay:var(--dl)}
+@keyframes fly{from{transform:translate(-60px,0)}to{transform:translate(112vw,-14px)}}
+.buildings{position:absolute;left:0;bottom:45%;width:200px;height:180px;color:#8C6A46;opacity:.12}
+.boatwrap2{position:absolute;left:0;bottom:9%;width:160px;height:58px;will-change:transform}
+.boat2{animation:sail2 32s linear infinite}
+.boat2 svg{display:block;width:160px;height:58px;filter:drop-shadow(0 0 10px rgba(255,170,90,.5))}
+@keyframes sail2{0%{transform:translate(-180px,0)}25%{transform:translate(25vw,-4px)}50%{transform:translate(50vw,3px)}75%{transform:translate(75vw,-4px)}100%{transform:translate(112vw,0)}}
+.lanbig{position:absolute;inset:0}
+.lanbig i{position:absolute;border-radius:50%;filter:blur(10px);
+  background:radial-gradient(circle,rgba(255,190,110,.85),rgba(234,104,62,.5) 45%,rgba(234,104,62,0) 72%);
+  animation:lanDrift var(--d) ease-in-out infinite alternate}
+@keyframes lanDrift{from{transform:translate(-14px,6px) scale(.95)}to{transform:translate(18px,-10px) scale(1.06)}}
+.railing{position:absolute;left:0;right:0;bottom:0;height:46px;opacity:.92;filter:blur(1px);
+  background:
+    linear-gradient(#3A2A22,#3A2A22) top/100% 6px no-repeat,
+    linear-gradient(#3A2A22,#3A2A22) bottom/100% 6px no-repeat,
+    repeating-linear-gradient(90deg,#3A2A22 0 4px,transparent 4px 30px)}
+.refl i:nth-child(5){left:30%;width:16px;filter:blur(6px);animation-duration:5.5s}
+.refl i:nth-child(6){left:72%;width:20px;filter:blur(6px);animation-duration:8s;animation-delay:-3s}
+/* ② 오사카성 — 단풍 + 금빛 햇살 */
+#sc2{background:linear-gradient(180deg,#FBF6EA,#F7F3EB 40%,#F6EEDF)}
+#sc2 .sun{position:absolute;left:-18%;top:-16%;width:86%;height:66%;background:radial-gradient(circle at 34% 34%,rgba(255,206,128,.62),rgba(255,206,128,0) 66%);filter:blur(6px);animation:breathe 17s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:translate3d(4%,3%,0) scale(1.1);opacity:.7}}
+.rays{position:absolute;left:-25%;top:-30%;width:110%;height:90%;transform-origin:34% 30%;
+  background:repeating-conic-gradient(from 0deg at 34% 30%,rgba(255,206,128,.13) 0deg 5deg,transparent 5deg 16deg);
+  -webkit-mask-image:radial-gradient(circle at 34% 30%,#000 0%,transparent 62%);
+  mask-image:radial-gradient(circle at 34% 30%,#000 0%,transparent 62%);
+  animation:raySpin 90s linear infinite}
+@keyframes raySpin{to{transform:rotate(24deg)}}
+#sc2 .castle{bottom:-2%;right:-6%;width:290px;height:200px;opacity:.06}
+#sc2 .wall{bottom:0;left:-4%;width:340px;height:70px;opacity:.09}
+.leaves{position:absolute;inset:0;overflow:hidden;opacity:calc(.9*var(--int))}
+.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 3px 3px rgba(120,70,40,.18))}
+.leaf.front{filter:blur(1px) drop-shadow(0 4px 4px rgba(120,70,40,.22))}
+@keyframes fall{0%{transform:translate3d(0,-14vh,0) rotate(-12deg);opacity:0}8%{opacity:var(--o)}22%{transform:translate3d(-9vw,12vh,0) rotate(78deg)}42%{transform:translate3d(-4vw,36vh,0) rotate(150deg)}62%{transform:translate3d(-15vw,62vh,0) rotate(238deg)}82%{transform:translate3d(-9vw,86vh,0) rotate(302deg)}100%{transform:translate3d(-22vw,114vh,0) rotate(388deg);opacity:0}}
+.motes{position:absolute;inset:0;opacity:calc(.9*var(--int))}
+.motes i{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFE9A8;box-shadow:0 0 8px 2px rgba(255,220,140,.8);animation:mote 9s ease-in-out infinite alternate}
+@keyframes mote{0%{transform:translate(0,0);opacity:.15}50%{opacity:.9}100%{transform:translate(14px,-22px);opacity:.3}}
+.fallen{position:absolute;left:0;right:0;bottom:0;height:30px;opacity:.2;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='30'%3E%3Cpath fill='%23B8452C' d='M14 3l2 5.4 5.4-2.2-1.6 5.4 5.4.4-4 3.8 4 3.8-5.4.4 1.6 5.4-5.4-2.2-2 5.6-2-5.6-5.4 2.2 1.6-5.4-5.4-.4 4-3.8-4-3.8 5.4-.4-1.6-5.4 5.4 2.2z'/%3E%3C/svg%3E");
+  background-size:64px 30px;background-repeat:repeat-x}
+.moat{position:absolute;left:0;right:0;bottom:0;height:9%;background:linear-gradient(0deg,rgba(217,163,43,.22),rgba(217,163,43,0));overflow:hidden}
+.moat i{position:absolute;left:-20%;width:140%;height:6px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,214,130,.7),transparent);filter:blur(3px);animation:moatRip 8s ease-in-out infinite alternate}
+.moat i:nth-child(2){bottom:34%;animation-duration:11s;animation-delay:-4s;opacity:.7}
+@keyframes moatRip{from{transform:translateX(-4%) scaleX(.9);opacity:.4}to{transform:translateX(4%) scaleX(1.05);opacity:.8}}
+/* ② 입체감 — 먼 산·소나무·앞 단풍 가지·앞 큰 잎·햇살 플레어 */
+.hills{position:absolute;left:0;right:0;bottom:8%;width:100%;height:80px;color:#8C6A46;opacity:.05}
+.pines{position:absolute;left:0;bottom:6%;width:300px;height:120px;color:#5A4A3A;opacity:.1}
+.branch{position:absolute;filter:blur(2px);opacity:.92}
+.branch.tl{top:-8px;left:-16px;width:200px;height:160px}
+.branch.br{top:-6px;right:-14px;width:170px;height:140px}
+.branch.br .mirror{transform:scaleX(-1)}
+.branch svg{display:block;width:100%;height:100%;animation:branchSway 7s ease-in-out infinite alternate;transform-origin:0 0}
+.branch.br svg{transform-origin:100% 0;animation-delay:-3.5s}
+@keyframes branchSway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.4deg)}}
+.leaves-fg{position:absolute;inset:0;overflow:hidden}
+.leaf.big{filter:blur(3px) drop-shadow(0 4px 4px rgba(120,70,40,.2))}
+.flare{position:absolute;left:8%;top:6%;width:220px;height:26px;border-radius:50%;
+  background:linear-gradient(90deg,transparent,rgba(255,220,150,.5),transparent);
+  filter:blur(6px);transform:rotate(-24deg);animation:flareP 9s ease-in-out infinite alternate}
+@keyframes flareP{from{opacity:.12}to{opacity:.3}}
+.ground{position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(180deg,transparent,rgba(90,60,30,.16))}
+.fleaf{position:absolute;background-size:100% 100%;background-repeat:no-repeat;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23C4552F' d='M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z'/%3E%3C/svg%3E")}
+.fleaf.gold{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23D9A32B' d='M12 22.4V13C10.8 13 4 11 2 5.2c4.2-1.2 8.2 1 10 4.9 1.8-3.9 5.8-6.1 10-4.9C20 11 13.2 13 12 13v9.4z'/%3E%3C/svg%3E")}
+/* ③ 우라난바 — 골목 김 + 네온 */
+#sc3{background:linear-gradient(180deg,#160f13,#2a1d20 42%,#33211d 72%,#1d1417)}
+.steam{position:absolute;left:0;right:0;bottom:0;height:100%;opacity:calc(.9*var(--int))}
+.steam i{position:absolute;bottom:-14%;width:var(--w);height:52%;border-radius:50% 50% 40% 40%;background:linear-gradient(0deg,rgba(255,206,166,.28),rgba(255,178,140,.1) 52%,rgba(255,178,140,0));filter:blur(20px);animation:rise var(--d) ease-in-out infinite;animation-delay:var(--dl);opacity:0}
+.steam i.front{filter:blur(24px);background:linear-gradient(0deg,rgba(255,206,166,.38),rgba(255,178,140,.14) 52%,rgba(255,178,140,0))}
+@keyframes rise{0%{transform:translate3d(0,12vh,0) scale(.8,.7);opacity:0}22%{opacity:.62}58%{transform:translate3d(16px,-16vh,0) scale(1.06,1.15);opacity:.4}100%{transform:translate3d(-14px,-42vh,0) scale(1.24,1.5);opacity:0}}
+.neon{position:absolute;inset:0;opacity:calc(.9*var(--int))}
+.neon i{position:absolute;display:block;border-radius:50%;filter:blur(46px);animation:glow var(--d) ease-in-out infinite alternate;opacity:.4}
+.neon i:nth-child(1){width:300px;height:300px;left:-70px;top:8%;background:radial-gradient(circle,rgba(232,90,79,.75),rgba(232,90,79,0) 68%);--d:24s}
+.neon i:nth-child(2){width:250px;height:250px;right:-60px;top:26%;background:radial-gradient(circle,rgba(217,130,43,.8),rgba(217,130,43,0) 68%);--d:31s;animation-delay:-8s}
+.neon i:nth-child(3){width:260px;height:260px;left:26%;bottom:4%;background:radial-gradient(circle,rgba(79,209,197,.6),rgba(79,209,197,0) 68%);--d:28s;animation-delay:-15s}
+.neon i:nth-child(4){width:200px;height:200px;right:6%;bottom:16%;background:radial-gradient(circle,rgba(255,196,120,.7),rgba(255,196,120,0) 68%);--d:22s;animation-delay:-4s}
+.neon i:nth-child(5){width:180px;height:180px;left:40%;top:10%;background:radial-gradient(circle,rgba(255,122,184,.55),rgba(255,122,184,0) 68%);--d:26s;animation-delay:-11s}
+.neon i:nth-child(6){width:120px;height:120px;left:8%;bottom:30%;background:radial-gradient(circle,rgba(255,182,72,.75),rgba(255,182,72,0) 62%);filter:blur(24px);--d:19s;animation-delay:-6s}
+.neon i:nth-child(7){width:150px;height:150px;left:55%;bottom:38%;background:radial-gradient(circle,rgba(179,136,255,.55),rgba(179,136,255,0) 68%);--d:25s;animation-delay:-13s}
+@keyframes glow{to{transform:translate3d(26px,-22px,0) scale(1.16);opacity:.7}}
+.embers{position:absolute;inset:0;opacity:calc(.9*var(--int))}
+.ember{position:absolute;bottom:0;width:3px;height:3px;border-radius:50%;background:#FFB35C;box-shadow:0 0 8px 2px rgba(255,150,60,.7);animation:emb var(--d) ease-in infinite;opacity:0}
+@keyframes emb{0%{transform:translate(0,0);opacity:0}12%{opacity:.95}100%{transform:translate(var(--dx),-52vh);opacity:0}}
+.nsign{position:absolute;top:12%;width:34px;padding:10px 0;text-align:center;border:1.5px solid;border-radius:8px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:15px;letter-spacing:.18em;writing-mode:vertical-rl;animation:flick 7s linear infinite}
+.nsign.left{left:4%;color:#FF6B5E;border-color:rgba(255,107,94,.8);text-shadow:0 0 10px rgba(255,107,94,.9);box-shadow:0 0 18px rgba(255,107,94,.35),inset 0 0 12px rgba(255,107,94,.25)}
+.nsign.right{right:4%;color:#FFB648;border-color:rgba(255,182,72,.8);text-shadow:0 0 10px rgba(255,182,72,.9);box-shadow:0 0 18px rgba(255,182,72,.3),inset 0 0 12px rgba(255,182,72,.22);animation-delay:-3.5s}
+@keyframes flick{0%,91%,93%,100%{opacity:.9}92%{opacity:.25}94%{opacity:.55}}
+.alley{position:absolute;left:0;right:0;bottom:0;width:100%;height:90px;opacity:.85}
+.win{position:absolute;width:14px;height:20px;border-radius:3px;background:#FFC46B;box-shadow:0 0 14px 4px rgba(255,196,107,.45);opacity:.85;animation:winF 5s ease-in-out infinite alternate}
+@keyframes winF{from{opacity:.6}to{opacity:.95}}
+/* 우라난바 강화 — 앞쪽 빛망울 · 간판 추가 · 가로등 · 젖은 길 · 제등 줄 */
+.orbs{position:absolute;inset:0}
+.orbs i{position:absolute;display:block;border-radius:50%;filter:blur(30px);opacity:.3;animation:orbDrift var(--d) ease-in-out infinite alternate}
+.orbs i:nth-child(1){width:90px;height:90px;left:12%;top:24%;background:radial-gradient(circle,rgba(255,170,90,.8),rgba(255,170,90,0) 70%);--d:44s}
+.orbs i:nth-child(2){width:70px;height:70px;left:62%;top:58%;background:radial-gradient(circle,rgba(255,122,184,.7),rgba(255,122,184,0) 70%);--d:52s;animation-delay:-14s}
+.orbs i:nth-child(3){width:100px;height:100px;left:38%;top:68%;background:radial-gradient(circle,rgba(255,196,120,.7),rgba(255,196,120,0) 70%);--d:58s;animation-delay:-26s}
+.orbs i:nth-child(4){width:60px;height:60px;left:80%;top:36%;background:radial-gradient(circle,rgba(79,209,197,.6),rgba(79,209,197,0) 70%);--d:47s;animation-delay:-8s}
+@keyframes orbDrift{from{transform:translate(-16px,8px) scale(.92)}to{transform:translate(20px,-14px) scale(1.08)}}
+.nsign.teal{color:#4FD1C5;border-color:rgba(79,209,197,.8);text-shadow:0 0 10px rgba(79,209,197,.9);box-shadow:0 0 18px rgba(79,209,197,.3),inset 0 0 12px rgba(79,209,197,.22)}
+.nsign.pink{color:#FF7AB8;border-color:rgba(255,122,184,.8);text-shadow:0 0 10px rgba(255,122,184,.9);box-shadow:0 0 18px rgba(255,122,184,.3),inset 0 0 12px rgba(255,122,184,.22)}
+.lamp{position:absolute;right:13%;top:16%;width:74px;height:190px;animation:lampSway 6s ease-in-out infinite alternate;transform-origin:50% 0}
+@keyframes lampSway{from{transform:rotate(-.6deg)}to{transform:rotate(.6deg)}}
+.lamp .halo{animation:haloB 4s ease-in-out infinite alternate}
+@keyframes haloB{from{opacity:.75}to{opacity:1}}
+.street{position:absolute;left:0;right:0;bottom:0;height:13%;overflow:hidden}
+.street i{position:absolute;left:-10%;width:120%;height:5px;border-radius:50%;filter:blur(4px);animation:streetRip var(--d) ease-in-out infinite alternate}
+.street i:nth-child(1){bottom:18%;background:linear-gradient(90deg,transparent,rgba(255,107,94,.8),rgba(255,107,94,.4),transparent);--d:7s}
+.street i:nth-child(2){bottom:38%;background:linear-gradient(90deg,transparent,rgba(255,182,72,.75),transparent);--d:9s;animation-delay:-3s}
+.street i:nth-child(3){bottom:56%;background:linear-gradient(90deg,transparent,rgba(79,209,197,.6),transparent);--d:8s;animation-delay:-5s}
+.street i:nth-child(4){bottom:72%;background:linear-gradient(90deg,transparent,rgba(255,122,184,.65),transparent);--d:10s;animation-delay:-2s}
+.street i:nth-child(5){bottom:88%;background:linear-gradient(90deg,transparent,rgba(255,196,120,.7),transparent);--d:6.5s;animation-delay:-4s}
+@keyframes streetRip{from{transform:translateX(-2%) scaleX(.92);opacity:.45}to{transform:translateX(2%) scaleX(1.05);opacity:.85}}
+.stringlights{position:absolute;left:0;right:0;top:0;height:44px}
+.stringlights svg.wire{position:absolute;inset:0;width:100%;height:100%}
+.bulb{position:absolute;transform-origin:50% 0;animation:bulbSway var(--d) ease-in-out infinite alternate}
+.bulb .line{display:block;width:1px;height:7px;margin:0 auto;background:rgba(255,255,255,.28)}
+.bulb b{display:block;width:9px;height:9px;border-radius:50%;margin:0 auto;
+  background:radial-gradient(circle at 40% 35%,#FFF6D8,var(--bc) 55%,var(--bc));
+  box-shadow:0 0 12px 3px var(--bg2);animation:bulbTw var(--tw) ease-in-out infinite alternate;animation-delay:var(--twd,0s)}
+@keyframes bulbSway{from{transform:rotate(-2.4deg)}to{transform:rotate(2.4deg)}}
+@keyframes bulbTw{from{opacity:.65;transform:scale(.88)}to{opacity:1;transform:scale(1.08)}}
+
+/* ==========================================================================
+   🎨 배경 모션 v2 — 오사카 여행 앱 통합 (3장면 · 시간 맞춤 기본)
+   ========================================================================== */
+body{--tx:#1D1915;--tx2:#6E665C;--tx3:#9A9186;--int:1}
+body[data-p="3"]{--tx:#F7F0E4;--tx2:#D8C9B8;--tx3:#B7A695;background:#151013}
+body.bg-off{background:var(--bg)}
+.bg{transition:opacity .45s ease}
+body.bg-off .bg{opacity:0;visibility:hidden}
+
+/* ---- 층: 배경(0) → 종이 패턴(0) → 콘텐츠(1) ---- */
+#app{position:relative;z-index:1}
+.paper{opacity:.05}
+body[data-p="3"] .paper{opacity:.02;mix-blend-mode:soft-light}
+body.bg-off .paper{opacity:.062;mix-blend-mode:normal}
+
+/* ---- 히어로: 정적 일러스트 대신 모션 배경이 그 자리를 맡는다 ---- */
+.hero{background:transparent!important;border-bottom:1px solid rgba(234,227,214,.5)}
+.hero-art{display:none!important}
+body[data-p="3"] .hero{border-bottom-color:rgba(255,255,255,.13)}
+body.bg-off .hero{background:#FBF3E4!important}
+body.bg-off .hero-art{display:block!important}
+h1{color:var(--tx)}
+.kicker{color:var(--tx2)}
+.dates{color:var(--tx2)}
+
+/* ---- 카드·패널: 은은한 반투명 (모션이 비친다) ---- */
+.ov,.day,.wx,.fcard,.wtable,.calc,.btable,.mjcard,.ctable,.pcard,.bk,.bhero,.urgent,
+.mm-toggle{
+  background-color:rgba(255,253,249,.86);
+  background-image:none;
+  backdrop-filter:blur(8px) saturate(112%);
+  -webkit-backdrop-filter:blur(8px) saturate(112%);
+  border-color:rgba(234,227,214,.85);
+}
+.wx,.bhero,.urgent{background-color:transparent}
+.wx{background-image:linear-gradient(158deg,rgba(242,248,252,.88) 0%,rgba(255,255,255,.8) 72%)}
+.bhero{background-image:linear-gradient(150deg,rgba(255,246,230,.9) 0%,rgba(253,243,240,.86) 52%,rgba(255,255,255,.84) 100%)}
+.urgent{background-image:linear-gradient(160deg,rgba(255,247,245,.9),rgba(255,255,255,.84) 78%)}
+/* 작은 행 카드 — 글자 또렷하게, 성능 위해 blur 없이 */
+.card2,.crow2,.chk,.chk.on,.spotrow,.qslot,.qcard,.addbtn,.mjstat,.card2.warn,
+.pcard .pdet,.pcard .pbar,.qseg,.whoRow span,.chk3 div,.cthead,.btrow.hi,.csum{
+  background-color:rgba(255,253,249,.9);
+  border-color:rgba(234,227,214,.85);
+}
+.card2.warn{background-color:rgba(255,248,246,.92);border-color:#F2CFC9}
+.chk.on{background-color:rgba(248,251,247,.92);border-color:#CFE2D2}
+.addbtn{background-color:rgba(255,255,255,.6)}
+.pf{background-color:rgba(255,253,249,.92)}
+
+/* ---- 야간(우라난바 밤) 텍스트 보정: 바깥 글씨는 밝게, 카드 속 글씨는 그대로 ---- */
+body[data-p="3"] h1,body[data-p="3"] .kicker,body[data-p="3"] .dates,
+body[data-p="3"] .sec h2,body[data-p="3"] .step .st{color:var(--tx)}
+body[data-p="3"] .sec span,body[data-p="3"] .footnote,body[data-p="3"] .mapnote,
+body[data-p="3"] .daysum,body[data-p="3"] .pnote,body[data-p="3"] .checkhead .pct,
+body[data-p="3"] .empty,body[data-p="3"] .step .d,body[data-p="3"] .step .sd{color:var(--tx3)}
+body[data-p="3"] .footnote b{color:var(--tx2)}
+body[data-p="3"] .kicker .bar{background:rgba(255,255,255,.4)}
+body[data-p="3"] .step .rail:before{background:rgba(255,255,255,.22)}
+body[data-p="3"] .bar{background:rgba(255,255,255,.14)}
+body[data-p="3"] .dseg{background:rgba(21,16,19,.72)}
+body[data-p="3"] .sec span#planHint{color:var(--tx3)}
+
+/* 하단 내비 — 야간엔 어두운 유리 */
+body[data-p="3"] nav{background:rgba(20,15,18,.9);border-top-color:rgba(255,255,255,.13)}
+body[data-p="3"] nav button{color:#C9BAA9}
+body[data-p="3"] nav button.on{color:#FF8F82}
+body[data-p="3"] nav button.on .ic{filter:none}
+@media (min-width:960px){
+  body[data-p="3"] nav{border-bottom-color:rgba(255,255,255,.13)}
+  body[data-p="3"] nav button.on{background:#FFFDF9;color:var(--coral);border-color:rgba(255,255,255,.2)}
+}
+
+/* ==========================================================================
+   🎨 배경 모션 컨트롤 (우하단 작은 칩 → 팝오버)
+   ========================================================================== */
+.mo-btn{
+  position:fixed;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:60;
+  display:flex;align-items:center;gap:5px;height:36px;padding:0 12px 0 10px;
+  border-radius:999px;border:1px solid rgba(255,255,255,.6);
+  background:rgba(255,253,249,.86);color:#4A423A;
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:0 8px 22px -10px rgba(50,35,20,.5),0 1px 0 rgba(255,255,255,.7) inset;
+  font-size:14px;line-height:1;letter-spacing:-.02em;transition:transform .14s;
+}
+.mo-btn:active{transform:scale(.95)}
+.mo-btn .lb{font-size:10px;font-weight:800;letter-spacing:-.02em;color:#6E665C}
+.mo-btn .dot{width:5px;height:5px;border-radius:50%;background:var(--coral)}
+body[data-p="3"] .mo-btn{background:rgba(28,20,24,.72);border-color:rgba(255,255,255,.18);color:#FFD9A0;box-shadow:0 8px 22px -10px rgba(0,0,0,.7)}
+body[data-p="3"] .mo-btn .lb{color:#D8C9B8}
+
+.mo-panel{
+  position:fixed;right:12px;bottom:calc(124px + env(safe-area-inset-bottom));z-index:61;
+  width:258px;max-width:calc(100vw - 24px);
+  padding:11px 11px 10px;border-radius:17px;display:none;
+  background:rgba(253,250,243,.97);border:1px solid rgba(234,227,214,.95);
+  backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+  box-shadow:0 22px 50px -20px rgba(45,32,18,.6),0 1px 0 rgba(255,255,255,.8) inset;
+  color:#231F20;
+}
+.mo-panel.on{display:block;animation:moIn .17s cubic-bezier(.2,.8,.3,1)}
+@keyframes moIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.mo-panel .mhd{display:flex;align-items:baseline;gap:6px;margin:0 2px 3px}
+.mo-panel .mhd b{font-size:11.5px;font-weight:800;letter-spacing:-.03em;color:#231F20}
+.mo-panel .mhd span{margin-left:auto;font-size:9px;font-weight:700;color:#9A9186;letter-spacing:-.01em}
+.mo-panel .mhint{font-size:9.5px;color:#6E665C;line-height:1.55;margin:0 2px 8px;letter-spacing:-.01em;
+  white-space:pre-line;font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif}
+.mo-panel .mlb{font-size:8.5px;font-weight:800;letter-spacing:.08em;color:#9A9186;margin:0 2px 4px}
+.mo-modes{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:9px}
+.mo-modes button{
+  display:block;border:1px solid rgba(234,227,214,.95);background:rgba(255,255,255,.7);
+  border-radius:9px;padding:5px 7px 6px;font-size:10.5px;font-weight:750;color:#6E665C;letter-spacing:-.03em;
+  line-height:1.25;text-align:left;transition:.14s;white-space:nowrap;
+}
+.mo-modes button em{font-style:normal;font-size:8px;font-weight:650;color:#9A9186;display:block;letter-spacing:-.02em;margin-top:1px}
+.mo-modes button.on{background:#FFFDF9;border-color:var(--coral);color:var(--coral);box-shadow:0 4px 12px -7px rgba(232,90,79,.7)}
+.mo-modes button.on em{color:#C4736A}
+.mo-int{display:flex;gap:3px;background:rgba(241,234,224,.85);border:1px solid rgba(234,227,214,.9);border-radius:999px;padding:3px}
+.mo-int button{flex:1;border:0;background:none;border-radius:999px;padding:5px 2px;font-size:10px;font-weight:750;color:#6E665C;letter-spacing:-.03em}
+.mo-int button.on{background:#FFFDF9;color:var(--coral);box-shadow:0 2px 6px -3px rgba(70,55,38,.5)}
+.mo-foot{margin:8px 2px 0;font-size:8.5px;color:#9A9186;line-height:1.45;letter-spacing:-.01em}
+@media (max-width:360px){.mo-panel{width:244px}}
+
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="chochin" viewBox="0 0 40 56">
+    <ellipse cx="20" cy="30" rx="15" ry="20" fill="#E8543F"/>
+    <ellipse cx="20" cy="30" rx="15" ry="20" fill="none" stroke="#B23A31" stroke-width="1"/>
+    <path d="M6 22h28M5 30h30M6 38h28" stroke="#B23A31" stroke-width="1"/>
+    <rect x="14" y="6" width="12" height="5" rx="2" fill="#7A2E1F"/>
+    <rect x="14" y="48" width="12" height="4" rx="2" fill="#7A2E1F"/>
+    <circle cx="20" cy="30" r="7" fill="#FFD9A0" opacity=".85"/>
+  </symbol>
+  <symbol id="maple" viewBox="0 0 24 24">
+    <path d="M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z"/>
+  </symbol>
+</svg>
+
+<div class="bg" aria-hidden="true">
+  <div class="sc" id="sc1">
+    <div class="clouds" id="clouds">
+      <span class="cloud" style="width:140px;height:36px;top:6%;--d:80s;animation-delay:-20s"></span>
+      <span class="cloud" style="width:200px;height:44px;top:12%;--d:110s;animation-delay:-55s"></span>
+      <span class="cloud" style="width:170px;height:40px;top:18%;--d:95s;animation-delay:-80s"></span>
+    </div>
+    <svg class="bird" style="top:8%;--d:32s;--dl:-8s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:13%;--d:40s;--dl:-20s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:19%;--d:36s;--dl:-30s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="sil sign" viewBox="0 0 64 180" aria-hidden="true">
+      <rect x="2" y="2" width="60" height="176" rx="9" fill="currentColor"/>
+      <g fill="#F7F3EB" font-family="Hiragino Mincho ProN,Yu Mincho,serif" font-size="30" text-anchor="middle"><text x="32" y="50">道</text><text x="32" y="88">頓</text><text x="32" y="126">堀</text></g>
+      <circle cx="32" cy="158" r="9" fill="none" stroke="#F7F3EB" stroke-width="3"/>
+    </svg>
+    <svg class="sil bridge" id="bridge" viewBox="0 0 330 210" fill="none" stroke="currentColor">
+      <path d="M8 152Q165 84 322 152" stroke-width="3"/><path d="M8 166Q165 98 322 166" stroke-width="3"/>
+      <path d="M55 150v-16M100 140v-20M165 132v-24M230 140v-20M275 150v-16" stroke-width="2"/>
+      <path d="M34 126v-18M120 112v-18M210 112v-18M296 126v-18" stroke-width="2"/>
+      <g fill="currentColor" stroke="none"><circle cx="34" cy="104" r="7"/><circle cx="120" cy="90" r="7"/><circle cx="210" cy="90" r="6"/><circle cx="296" cy="104" r="7"/></g>
+    </svg>
+    <svg class="sil bridge2" id="bridge2" viewBox="0 0 330 210" fill="none" stroke="currentColor">
+      <path d="M8 152Q165 84 322 152" stroke-width="4"/><path d="M8 166Q165 98 322 166" stroke-width="4"/>
+      <path d="M100 140v-20M165 132v-24M230 140v-20" stroke-width="2"/>
+    </svg>
+    <svg class="buildings" id="buildings" viewBox="0 0 200 180" aria-hidden="true">
+      <g fill="currentColor">
+        <rect x="0" y="60" width="34" height="120"/>
+        <rect x="38" y="30" width="30" height="150"/>
+        <rect x="72" y="80" width="36" height="100"/>
+        <rect x="112" y="45" width="28" height="135"/>
+        <rect x="144" y="95" width="34" height="85"/>
+        <rect x="178" y="70" width="22" height="110"/>
+      </g>
+      <g fill="#F7F3EB" opacity=".55">
+        <rect x="8" y="72" width="5" height="7"/><rect x="20" y="72" width="5" height="7"/>
+        <rect x="8" y="90" width="5" height="7"/><rect x="20" y="108" width="5" height="7"/>
+        <rect x="46" y="42" width="5" height="7"/><rect x="56" y="60" width="5" height="7"/>
+        <rect x="46" y="84" width="5" height="7"/><rect x="56" y="110" width="5" height="7"/>
+        <rect x="120" y="58" width="5" height="7"/><rect x="130" y="76" width="5" height="7"/>
+        <rect x="152" y="108" width="5" height="7"/><rect x="164" y="126" width="5" height="7"/>
+      </g>
+    </svg>
+    <div class="water" id="water"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wl"></div>
+    <div class="water-near" id="waterNear"><i></i><i></i><i></i></div>
+    <div class="refl"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="boatwrap" id="boatwrap"><div class="boat">
+      <svg viewBox="0 0 120 44" aria-hidden="true">
+        <path d="M6 26 L114 26 L104 38 L16 38 Z" fill="#6B4A2F"/>
+        <path d="M28 26 V12 Q60 4 92 12 V26" fill="#7A5638"/>
+        <rect x="56" y="12" width="8" height="14" fill="#5A3A26"/>
+        <circle cx="60" cy="8" r="4" fill="#FFC46B"/>
+      </svg>
+    </div></div>
+    <div class="boatwrap2" id="boatwrap2"><div class="boat2">
+      <svg viewBox="0 0 120 44" aria-hidden="true">
+        <path d="M6 26 L114 26 L104 38 L16 38 Z" fill="#5A3A26"/>
+        <path d="M28 26 V12 Q60 4 92 12 V26" fill="#6B4A2F"/>
+        <rect x="56" y="12" width="8" height="14" fill="#4A2E1F"/>
+        <circle cx="60" cy="8" r="4" fill="#FFC46B"/>
+      </svg>
+    </div></div>
+    <svg class="cho" style="left:12%;bottom:34%;width:22px;height:31px;--d:14s;--dl:-4s" viewBox="0 0 40 56"><use href="#chochin"/></svg>
+    <svg class="cho" style="left:58%;bottom:52%;width:26px;height:36px;--d:17s;--dl:-9s" viewBox="0 0 40 56"><use href="#chochin"/></svg>
+    <svg class="cho" style="left:82%;bottom:26%;width:20px;height:28px;--d:12s;--dl:-2s" viewBox="0 0 40 56"><use href="#chochin"/></svg>
+    <div class="lanbig" id="lanbig">
+      <i style="width:70px;height:70px;left:8%;top:52%;--d:40s"></i>
+      <i style="width:90px;height:90px;left:64%;top:28%;--d:52s;animation-delay:-14s"></i>
+      <i style="width:80px;height:80px;left:42%;top:66%;--d:47s;animation-delay:-26s"></i>
+    </div>
+    <div class="lans" id="lans"></div>
+    <div class="railing" id="railing"></div>
+  </div>
+  <div class="sc" id="sc2">
+    <div class="sun"></div>
+    <div class="rays"></div>
+    <div class="flare" id="flare"></div>
+    <svg class="bird" style="top:10%;--d:38s;--dl:-12s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:16%;--d:44s;--dl:-28s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="hills" id="hills" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 80 V50 Q60 20 120 42 Q180 14 240 40 Q300 18 360 44 Q390 52 400 48 V80 Z" fill="currentColor"/>
+    </svg>
+    <svg class="sil castle" id="castle" viewBox="0 0 200 140" fill="currentColor">
+      <path d="M96 6h8v6h-8z"/><path d="M60 30Q92 26 96 12q4 14 40 18z"/><path d="M84 22h32v10H84z"/>
+      <path d="M50 50Q90 46 95 34q5 12 55 16z"/><path d="M76 42h48v12H76z"/>
+      <path d="M38 74Q86 70 94 56q8 14 68 18z"/><path d="M66 66h68v14H66z"/>
+      <path d="M28 100Q84 96 94 82q10 14 78 18z"/><path d="M56 92h88v16H56z"/>
+      <path d="M40 108h120l22 22H18z" opacity=".55"/>
+    </svg>
+    <svg class="pines" id="pines" viewBox="0 0 300 120" aria-hidden="true">
+      <g fill="currentColor">
+        <rect x="28" y="88" width="4" height="32"/>
+        <path d="M30 40 L14 72 H46 Z"/><path d="M30 58 L18 86 H42 Z"/><path d="M30 76 L20 100 H40 Z"/>
+        <rect x="248" y="94" width="4" height="26"/>
+        <path d="M250 46 L236 74 H264 Z"/><path d="M250 62 L240 84 H260 Z"/><path d="M250 78 L242 98 H258 Z"/>
+      </g>
+    </svg>
+    <svg class="sil wall" id="wall" viewBox="0 0 340 70" fill="currentColor">
+      <path d="M0 70 V40 L60 30 L120 42 L180 26 L240 40 L300 32 L340 44 V70 Z"/>
+      <path d="M20 44h30M80 40h30M140 36h30M200 38h30M260 38h30" stroke="#F7F3EB" stroke-width="2"/>
+    </svg>
+    <div class="leaves" id="leaves"></div>
+    <div class="leaves-fg" id="leavesFg">
+      <i class="leaf big" style="--x:12%;--w:90px;--t:26s;--dl:-6s;--o:.22;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%23C4552F%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E')"></i>
+      <i class="leaf big" style="--x:38%;--w:110px;--t:32s;--dl:-18s;--o:.28;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%23D9742B%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E')"></i>
+      <i class="leaf big" style="--x:64%;--w:80px;--t:28s;--dl:-11s;--o:.2;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%23D9A32B%27 d=%27M12 22.4V13C10.8 13 4 11 2 5.2c4.2-1.2 8.2 1 10 4.9 1.8-3.9 5.8-6.1 10-4.9C20 11 13.2 13 12 13v9.4z%27/%3E%3C/svg%3E')"></i>
+      <i class="leaf big" style="--x:85%;--w:100px;--t:34s;--dl:-24s;--o:.25;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%23B8452C%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E')"></i>
+    </div>
+    <div class="motes" id="motes"></div>
+    <div class="moat"><i></i><i></i></div>
+    <div class="fallen"></div>
+    <div class="ground" id="ground"></div>
+    <span class="fleaf" style="left:12%;bottom:6px;width:20px;height:20px;transform:rotate(24deg)"></span>
+    <span class="fleaf gold" style="left:30%;bottom:12px;width:16px;height:16px;transform:rotate(-30deg)"></span>
+    <span class="fleaf" style="left:52%;bottom:4px;width:24px;height:24px;transform:rotate(60deg)"></span>
+    <span class="fleaf gold" style="left:71%;bottom:10px;width:18px;height:18px;transform:rotate(12deg)"></span>
+    <span class="fleaf" style="left:88%;bottom:5px;width:22px;height:22px;transform:rotate(-48deg)"></span>
+    <div class="branch tl" id="branchTl"><svg viewBox="0 0 200 160" aria-hidden="true">
+      <path d="M-10 8 Q60 38 118 88 Q158 122 192 152" fill="none" stroke="#7A4A2E" stroke-width="5" stroke-linecap="round"/>
+      <path d="M60 38 Q90 60 108 88" fill="none" stroke="#7A4A2E" stroke-width="3.5" stroke-linecap="round"/>
+      <use href="#maple" x="28" y="18" width="26" height="26" fill="#C4552F" transform="rotate(-20 41 31)"/>
+      <use href="#maple" x="66" y="44" width="31" height="31" fill="#D9742B" transform="rotate(30 81 59)"/>
+      <use href="#maple" x="104" y="72" width="29" height="29" fill="#B8452C" transform="rotate(-8 118 86)"/>
+      <use href="#maple" x="140" y="104" width="24" height="24" fill="#C4552F" transform="rotate(42 152 116)"/>
+      <use href="#maple" x="84" y="20" width="22" height="22" fill="#8B3A21" transform="rotate(12 95 31)"/>
+    </svg></div>
+    <div class="branch br" id="branchBr"><div class="mirror"><svg viewBox="0 0 200 160" aria-hidden="true">
+      <path d="M-10 8 Q60 38 118 88 Q158 122 192 152" fill="none" stroke="#7A4A2E" stroke-width="5" stroke-linecap="round"/>
+      <path d="M60 38 Q90 60 108 88" fill="none" stroke="#7A4A2E" stroke-width="3.5" stroke-linecap="round"/>
+      <use href="#maple" x="28" y="18" width="26" height="26" fill="#C4552F" transform="rotate(-20 41 31)"/>
+      <use href="#maple" x="66" y="44" width="31" height="31" fill="#D9742B" transform="rotate(30 81 59)"/>
+      <use href="#maple" x="104" y="72" width="29" height="29" fill="#B8452C" transform="rotate(-8 118 86)"/>
+      <use href="#maple" x="140" y="104" width="24" height="24" fill="#C4552F" transform="rotate(42 152 116)"/>
+      <use href="#maple" x="84" y="20" width="22" height="22" fill="#8B3A21" transform="rotate(12 95 31)"/>
+    </svg></div></div>
+  </div>
+  <div class="sc" id="sc3">
+    <div class="orbs"><i></i><i></i><i></i><i></i></div>
+    <div class="neon" id="neon"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="nsign left"><span>やきとり</span></div>
+    <div class="nsign right"><span>酒場</span></div>
+    <div class="nsign teal" style="left:4%;top:48%;animation-delay:-2s"><span>ラーメン</span></div>
+    <div class="nsign pink" style="right:4%;top:42%;animation-delay:-5s"><span>たこ焼き</span></div>
+    <div class="win" style="left:18%;top:34%;animation-delay:-1s"></div>
+    <div class="win" style="left:72%;top:26%;animation-delay:-3s"></div>
+    <div class="win" style="left:55%;top:44%;animation-delay:-2s"></div>
+    <div class="win" style="left:38%;top:20%;animation-delay:-4s"></div>
+    <div class="win" style="left:62%;top:52%;animation-delay:-2.5s"></div>
+    <svg class="lamp" viewBox="0 0 74 190" aria-hidden="true">
+      <path d="M37 190 V30" stroke="#0D090B" stroke-width="5"/>
+      <path d="M37 30 Q37 14 52 14" fill="none" stroke="#0D090B" stroke-width="4"/>
+      <circle class="halo" cx="54" cy="18" r="16" fill="rgba(255,196,107,.35)"/>
+      <circle cx="54" cy="18" r="7" fill="#FFC46B"/>
+      <path d="M46 24 L62 24 L74 78 L34 78 Z" fill="rgba(255,196,107,.14)"/>
+    </svg>
+    <svg class="alley" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 90 V55 L40 45 L70 55 L110 38 L150 52 L200 30 L250 50 L300 40 L340 58 L400 48 V90 Z" fill="#0D090B"/>
+    </svg>
+    <div class="street"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="steam" id="steam"></div>
+    <div class="embers" id="embers"></div>
+    <div class="stringlights" id="stringlights"><svg class="wire" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 Q200 32 400 8" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/></svg></div>
+  </div>
+  <div class="grain"></div>
+  <div class="scrim"></div>
+</div>
 
 <svg class="paper" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
   <defs>
@@ -1191,6 +1670,31 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- ===== 🎨 배경 모션 컨트롤 ===== -->
+<button class="mo-btn" id="moBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="배경 모션 설정">
+  <span id="moIc">🕐</span><span class="lb" id="moLb">시간</span><span class="dot"></span>
+</button>
+<div class="mo-panel" id="moPanel" role="dialog" aria-label="배경 모션 선택">
+  <div class="mhd"><b>🎨 배경 모션</b><span>3장면 · v2</span></div>
+  <div class="mhint" id="moHint">—</div>
+  <div class="mlb">장면</div>
+  <div class="mo-modes" id="moModes">
+    <button type="button" data-mp="1">🏮 도톤보리<em>오후 · 강물</em></button>
+    <button type="button" data-mp="2">🍁 오사카성<em>석양 · 단풍</em></button>
+    <button type="button" data-mp="3">🍢 우라난바<em>밤 · 골목</em></button>
+    <button type="button" data-mp="4">🌇 하루 흐름<em>8초 순환</em></button>
+    <button type="button" data-mp="5">🕐 시간 맞춤<em>지금 시각</em></button>
+    <button type="button" data-mp="off">⏹ 끄기<em>정적 배경</em></button>
+  </div>
+  <div class="mlb">강도</div>
+  <div class="mo-int" id="moInt">
+    <button type="button" data-mi="0">은은함</button>
+    <button type="button" data-mi="1">보통</button>
+    <button type="button" data-mi="2">화려함</button>
+  </div>
+  <p class="mo-foot">06–16시 도톤보리 · 16–18시 오사카성 · 18–06시 우라난바</p>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -3444,6 +3948,326 @@ if(state.mini && !isWide()){ $('#mmToggle').classList.add('on'); $('#mmWrap').cl
 if(isWide()){
   setTimeout(function(){ drawMap('desk'); }, 120);
 }
+</script>
+<script>
+/* ============ 🎨 배경 모션 v2 — 시간 맞춤 기본 ============ */
+(function(){
+  var body = document.body;
+  var LS = 'osaka.motion.v1';
+  var st = { p: 5, i: 2 };            /* 기본: 시간 맞춤(5) + 화려함 */
+
+  try{
+    var raw = localStorage.getItem(LS);
+    if(raw){
+      var o = JSON.parse(raw) || {};
+      if(o.p === 'off' || [1,2,3,4,5].indexOf(Number(o.p)) > -1) st.p = (o.p === 'off' ? 'off' : Number(o.p));
+      if([0,1,2].indexOf(Number(o.i)) > -1) st.i = Number(o.i);
+    }
+  }catch(e){}
+  function save(){ try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} }
+
+  /* ---------- ① 제등 불빛 30개 (먼 14 + 가까운 16) ---------- */
+  var lanEls = [];
+  var lans = document.getElementById('lans');
+  if(lans){
+    for(var i=0;i<30;i++){
+      var far = i<14, s = far ? (8+Math.random()*6) : (14+Math.random()*12);
+      var b = document.createElement('b');
+      if(far) b.className = 'far';
+      b.style.cssText = 'left:'+(3+Math.random()*94).toFixed(1)+'%;bottom:'+(3+Math.random()*67).toFixed(1)+
+        '%;width:'+s.toFixed(1)+'px;height:'+s.toFixed(1)+'px;animation-duration:'+
+        (far ? 12+Math.random()*8 : 8+Math.random()*6).toFixed(1)+'s;animation-delay:-'+(Math.random()*12).toFixed(1)+'s';
+      lans.appendChild(b); lanEls.push(b);
+    }
+  }
+
+  /* ---------- ② 단풍잎 30장 (뒤 18 + 앞 12) ---------- */
+  var MA = '%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E';
+  var GI = '%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 22.4V13C10.8 13 4 11 2 5.2c4.2-1.2 8.2 1 10 4.9 1.8-3.9 5.8-6.1 10-4.9C20 11 13.2 13 12 13v9.4z%27/%3E%3C/svg%3E';
+  function uri(tpl,c){ return "url('data:image/svg+xml,"+tpl.replace('COL','%23'+c)+"')"; }
+  var SH = [uri(MA,'C4552F'),uri(MA,'D9742B'),uri(MA,'B8452C'),uri(GI,'D9A32B')];
+  var leafEls = [];
+  var lv = document.getElementById('leaves');
+  if(lv){
+    for(var j=0;j<30;j++){
+      var front = j>=18;
+      var el = document.createElement('i');
+      el.className = 'leaf'+(front ? ' front' : '');
+      var w = front ? (26+Math.random()*14) : (15+Math.random()*11);
+      el.style.cssText = '--x:'+(2+Math.random()*96).toFixed(1)+'%;--w:'+w.toFixed(0)+'px;--t:'+
+        (front ? 12+Math.random()*8 : 17+Math.random()*14).toFixed(1)+'s;--dl:-'+(Math.random()*22).toFixed(1)+
+        's;--o:'+(front ? .5+Math.random()*.3 : .28+Math.random()*.32).toFixed(2)+';background-image:'+SH[j%4];
+      lv.appendChild(el); leafEls.push(el);
+    }
+  }
+
+  /* ---------- ② 금빛 먼지 10개 ---------- */
+  var mo = document.getElementById('motes');
+  if(mo){
+    for(var k=0;k<10;k++){
+      var d = document.createElement('i');
+      d.style.cssText = 'left:'+(5+Math.random()*70).toFixed(1)+'%;top:'+(5+Math.random()*55).toFixed(1)+
+        '%;animation-duration:'+(7+Math.random()*4).toFixed(1)+'s;animation-delay:-'+(Math.random()*8).toFixed(1)+'s';
+      mo.appendChild(d);
+    }
+  }
+
+  /* ---------- ③ 김 8줄기 (뒤 5 + 앞 3) ---------- */
+  var steamEls = [];
+  var sd = document.getElementById('steam');
+  if(sd){
+    for(var m=0;m<8;m++){
+      var fr = m>=5, col = document.createElement('i');
+      if(fr) col.className = 'front';
+      col.style.cssText = 'left:'+(4+m*11+Math.random()*6).toFixed(1)+'%;--w:'+
+        (fr ? 90+Math.random()*50 : 40+Math.random()*30).toFixed(0)+'px;--d:'+
+        (fr ? 14+Math.random()*6 : 9+Math.random()*5).toFixed(1)+'s;--dl:-'+((m*2.2)+Math.random()*3).toFixed(1)+'s';
+      sd.appendChild(col); steamEls.push(col);
+    }
+  }
+
+  /* ---------- ③ 불씨 10개 ---------- */
+  var embEls = [];
+  var em = document.getElementById('embers');
+  if(em){
+    for(var n=0;n<10;n++){
+      var e = document.createElement('i');
+      e.className = 'ember';
+      e.style.cssText = 'left:'+(8+Math.random()*84).toFixed(1)+'%;--d:'+(6+Math.random()*4).toFixed(1)+
+        's;--dx:'+(-20+Math.random()*40).toFixed(0)+'px;animation-delay:-'+(Math.random()*8).toFixed(1)+'s';
+      em.appendChild(e); embEls.push(e);
+    }
+  }
+
+  /* ---------- ③ 제등 줄 전구 14개 (전선 곡선 y = 8 + 48·t·(1-t)) ---------- */
+  var bulbEls = [];
+  var sl = document.getElementById('stringlights');
+  var BC = [['#FFC46B','rgba(255,196,107,.55)'],['#FF7A5C','rgba(255,122,92,.5)'],['#FFB3C7','rgba(255,179,199,.5)']];
+  if(sl){
+    for(var p2=0;p2<14;p2++){
+      var t = p2/13, x = 4+t*92, yy = 8+48*t*(1-t), colr = BC[p2%3];
+      var bl = document.createElement('i');
+      bl.className = 'bulb';
+      bl.style.cssText = 'left:'+x.toFixed(1)+'%;top:'+yy.toFixed(1)+'px;--d:'+(3+Math.random()*2).toFixed(1)+
+        's;--tw:'+(2+Math.random()*2.5).toFixed(1)+'s;--twd:-'+(Math.random()*4).toFixed(1)+'s;--bc:'+colr[0]+
+        ';--bg2:'+colr[1]+';animation-delay:-'+(Math.random()*4).toFixed(1)+'s';
+      bl.innerHTML = '<span class="line"></span><b></b>';
+      sl.appendChild(bl); bulbEls.push(bl);
+    }
+  }
+
+  /* ---------- 강도 3단 ---------- */
+  var INT = [.55, 1, 1.6];
+  var GROUPS = [
+    { els: lanEls,  counts: [14,24,30] },
+    { els: leafEls, counts: [14,24,30] },
+    { els: steamEls, counts: [4,6,8] },
+    { els: embEls,  counts: [4,8,10] },
+    { els: bulbEls, counts: [7,11,14] }
+  ];
+  function applyIntensity(){
+    document.body.style.setProperty('--int', INT[st.i]);
+    for(var g=0;g<GROUPS.length;g++){
+      var gr = GROUPS[g], lim = gr.counts[st.i];
+      for(var q=0;q<gr.els.length;q++) gr.els[q].style.display = q < lim ? '' : 'none';
+    }
+    var ib = document.querySelectorAll('#moInt button');
+    for(var z=0;z<ib.length;z++) ib[z].classList.toggle('on', Number(ib[z].getAttribute('data-mi')) === st.i);
+  }
+
+  /* ---------- rAF 스크롤 패럴랙스 (층마다 속도) ---------- */
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var PX = [
+    { el: document.querySelector('#sc1 .sign'), f: .05 },
+    { el: document.getElementById('bridge'), f: .05 },
+    { el: document.getElementById('bridge2'), f: .07 },
+    { el: document.getElementById('castle'), f: .05 },
+    { el: document.getElementById('wall'), f: .07 },
+    { el: document.getElementById('water'), f: .08 },
+    { el: document.getElementById('waterNear'), f: .1 },
+    { el: document.getElementById('boatwrap'), f: .1 },
+    { el: document.getElementById('leaves'), f: .15 },
+    { el: document.getElementById('steam'), f: .12 },
+    { el: document.getElementById('neon'), f: .04 },
+    { el: document.getElementById('clouds'), f: .02 },
+    { el: document.getElementById('buildings'), f: .03 },
+    { el: document.getElementById('boatwrap2'), f: .18 },
+    { el: document.getElementById('lanbig'), f: .2 },
+    { el: document.getElementById('railing'), f: .25 },
+    { el: document.getElementById('hills'), f: .02 },
+    { el: document.getElementById('pines'), f: .08 },
+    { el: document.getElementById('branchTl'), f: .25 },
+    { el: document.getElementById('branchBr'), f: .25 },
+    { el: document.getElementById('leavesFg'), f: .22 },
+    { el: document.getElementById('flare'), f: .03 },
+    { el: document.getElementById('ground'), f: .18 }
+  ];
+  if(!reduce){
+    var scrollY = 0, pcur = 0;
+    addEventListener('scroll', function(){ scrollY = window.pageYOffset || document.documentElement.scrollTop || 0; }, { passive: true });
+    (function pframe(){
+      pcur += (scrollY - pcur) * .1;
+      for(var q=0;q<PX.length;q++){
+        var L = PX[q];
+        if(!L.el) continue;
+        L.el.style.transform = 'translate3d(0,'+(-pcur*L.f).toFixed(1)+'px,0)';
+      }
+      requestAnimationFrame(pframe);
+    })();
+  }
+
+  /* ---------- 하루 흐름 자동 순환 (모드 4) ---------- */
+  var cycTimer = null, cycIdx = 1, cycLeft = 8, cycTick = null;
+  function startCycle(){
+    stopCycle();
+    cycIdx = 1; cycLeft = 8;
+    body.setAttribute('data-p', '1');
+    setTheme('1');
+    cycTimer = setInterval(function(){
+      cycIdx = cycIdx%3 + 1; cycLeft = 8;
+      body.setAttribute('data-p', String(cycIdx));
+      setTheme(String(cycIdx));
+      hint();
+    }, 8000);
+    cycTick = setInterval(function(){ cycLeft = Math.max(0, cycLeft-1); hint(); }, 1000);
+    hint();
+  }
+  function stopCycle(){
+    if(cycTimer){ clearInterval(cycTimer); cycTimer = null; }
+    if(cycTick){ clearInterval(cycTick); cycTick = null; }
+  }
+
+  /* ---------- 지금 시간 맞춤 (모드 5) ---------- */
+  var timeInt = null;
+  var SCENE_NAME = { 1:'도톤보리 오후', 2:'오사카성 석양', 3:'우라난바 밤' };
+  function koTime(d){
+    var h = d.getHours(), mi = d.getMinutes();
+    return (h<12 ? '오전 ' : '오후 ') + (h%12 === 0 ? 12 : h%12) + '시' + (mi ? ' '+mi+'분' : '');
+  }
+  function timeState(now){
+    var h = now.getHours() + now.getMinutes()/60;
+    if(h >= 6 && h < 16) return { scene: 1, start: 6,  end: 16, endClock: '16:00', nextTxt: '오사카성' };
+    if(h >= 16 && h < 18) return { scene: 2, start: 16, end: 18, endClock: '18:00', nextTxt: '우라난바' };
+    return { scene: 3, start: 18, end: 30, endClock: '06:00', nextTxt: '도톤보리' };
+  }
+  function tick(){
+    var now = new Date(), s = timeState(now);
+    if(body.getAttribute('data-p') !== String(s.scene)){
+      body.setAttribute('data-p', String(s.scene));
+      setTheme(String(s.scene));
+    }
+    hint();
+  }
+  function startTime(){
+    stopTime();
+    tick();
+    timeInt = setInterval(tick, 30000);
+  }
+  function stopTime(){ if(timeInt){ clearInterval(timeInt); timeInt = null; } }
+
+  /* ---------- 테마 컬러(상태바) ---------- */
+  var metaTC = document.querySelector('meta[name="theme-color"]');
+  function setTheme(p){
+    if(!metaTC) return;
+    metaTC.setAttribute('content', p === '3' ? '#1a1518' : '#FAF6EF');
+  }
+
+  /* ---------- 모드 적용 ---------- */
+  var MODE_META = {
+    '1':['🏮','도톤보리'], '2':['🍁','오사카성'], '3':['🍢','우라난바'],
+    '4':['🌇','순환'], '5':['🕐','시간'], 'off':['⏹','끔']
+  };
+  function paint(){
+    var mb = document.querySelectorAll('#moModes button');
+    var key = String(st.p);
+    for(var q=0;q<mb.length;q++){
+      mb[q].classList.toggle('on', mb[q].getAttribute('data-mp') === key);
+    }
+    var mt = MODE_META[key] || MODE_META['5'];
+    var ic = document.getElementById('moIc'), lb = document.getElementById('moLb');
+    if(ic) ic.textContent = mt[0];
+    if(lb) lb.textContent = mt[1];
+    var btn = document.getElementById('moBtn');
+    if(btn) btn.setAttribute('aria-label', '배경 모션 · ' + mt[1] + ' (설정 열기)');
+  }
+  function hint(){
+    var el = document.getElementById('moHint');
+    if(!el) return;
+    var p = String(st.p);
+    if(p === '4'){
+      el.textContent = '🌇 자동 순환 · 다음 장면 ' + cycLeft + '초';
+      return;
+    }
+    if(p === '5'){
+      var now = new Date(), s = timeState(now), hh = now.getHours() + now.getMinutes()/60;
+      if(s.scene === 3 && hh < 6) hh += 24;
+      var remain = Math.max(0, Math.round((s.end - hh) * 60));
+      var rt = remain >= 60 ? Math.floor(remain/60)+'시간 '+(remain%60)+'분' : remain+'분';
+      el.textContent = '🕐 ' + koTime(now) + ' · ' + SCENE_NAME[s.scene] + '\n다음 ' + s.endClock + ' ' + s.nextTxt + ' · ' + rt + ' 후';
+      return;
+    }
+    if(p === 'off'){ el.textContent = '⏹ 배경 모션 꺼짐 · 기본 배경'; return; }
+    el.textContent = (MODE_META[p] ? MODE_META[p][0] : '🎨') + ' ' + SCENE_NAME[Number(p)] + ' 고정';
+  }
+
+  function setP(n){
+    st.p = (n === 'off') ? 'off' : Number(n);
+    save();
+    if(st.p === 'off'){
+      stopCycle(); stopTime();
+      body.classList.add('bg-off');
+      body.removeAttribute('data-p');
+      setTheme('off');
+    } else {
+      body.classList.remove('bg-off');
+      if(st.p === 4){ stopTime(); startCycle(); }
+      else if(st.p === 5){ stopCycle(); startTime(); }
+      else {
+        stopCycle(); stopTime();
+        body.setAttribute('data-p', String(st.p));
+        setTheme(String(st.p));
+      }
+    }
+    paint(); hint();
+  }
+
+  /* ---------- 컨트롤 UI ---------- */
+  var panel = document.getElementById('moPanel'), btn = document.getElementById('moBtn');
+  function openPanel(on){
+    if(!panel) return;
+    panel.classList.toggle('on', on);
+    if(btn) btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    if(on) hint();
+  }
+  if(btn) btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    openPanel(!panel.classList.contains('on'));
+  });
+  if(panel){
+    panel.addEventListener('click', function(e){
+      var m = e.target.closest('[data-mp]');
+      if(m){ setP(m.getAttribute('data-mp')); return; }
+      var it = e.target.closest('[data-mi]');
+      if(it){ st.i = Number(it.getAttribute('data-mi')); applyIntensity(); save(); return; }
+    });
+  }
+  document.addEventListener('click', function(e){
+    if(!panel || !panel.classList.contains('on')) return;
+    if(e.target.closest('#moPanel') || e.target.closest('#moBtn')) return;
+    openPanel(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && panel && panel.classList.contains('on')) openPanel(false);
+  });
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden && st.p === 5) tick();
+  });
+
+  /* ---------- 시작 ---------- */
+  applyIntensity();
+  setP(st.p === 'off' ? 'off' : st.p);
+})();
+
 </script>
 </body>
 </html>
