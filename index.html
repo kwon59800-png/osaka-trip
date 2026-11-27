@@ -455,6 +455,49 @@
   .btin{width:96px;border:1px solid var(--line2);background:#fff;border-radius:7px;padding:2px 6px;font-size:11.5px;font-weight:750;text-align:right;font-family:"IBM Plex Mono",monospace;color:var(--ink)}
   .btin:focus{outline:none;border-color:var(--coral)}
 
+  /* ---- 마운자로 · 한국 정가 대비 절약 카드 ---- */
+  .mjcard{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);padding:11px 12px 10px;margin-top:9px}
+  .mjstat{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px 10px}
+  .mjstat + .mjstat{margin-top:7px}
+  .mjstat.top{background:linear-gradient(150deg,#F1F8F3 0%,#FBFAF3 100%);border-color:#CFE3D6}
+  .mjlab{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9.5px;font-weight:750;color:var(--dim);letter-spacing:.02em}
+  .mjchip{font-size:8px;font-weight:700;color:#2F6647;background:#fff;border:1px solid #CFE3D6;border-radius:999px;padding:1px 6px;white-space:nowrap;flex:none}
+  .mjflow{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:4px;font-size:9.5px;color:var(--dim2)}
+  .mjflow span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mjflow b{flex:none;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;color:var(--dim);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .mjbig{margin-top:5px;font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.15;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;word-break:keep-all}
+  .mjbig small{font-size:9px;font-weight:700;letter-spacing:0;color:var(--dim);margin-left:2px}
+  .mjbig.ok{color:#2F6647}
+  .mjbig.no{color:#B23A31}
+  .mjtl{font-size:8.5px;color:#6E8F7A;margin-top:3px;line-height:1.5;word-break:keep-all}
+  .mjrows{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2)}
+  .mjrhead{font-size:8.5px;font-weight:750;letter-spacing:.06em;color:var(--dim2)}
+  .mjrow{display:flex;align-items:flex-start;gap:7px;padding-top:7px}
+  .mjrow + .mjrow{border-top:1px solid #F3EDE2;margin-top:7px}
+  .mjav{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:9.5px;font-weight:800;color:#fff;flex:none;margin-top:1px}
+  .mjnm{flex:1;min-width:0}
+  .mjnm b{display:block;font-size:11px;font-weight:700;line-height:1.35;letter-spacing:-.02em}
+  .mjnm b em{font-style:normal;font-size:8.5px;font-weight:650;color:#6B4E78;background:#F4EEF7;border:1px solid #E6DAEC;border-radius:4px;padding:0 4px;margin-left:3px;vertical-align:1px;letter-spacing:0}
+  .mjdet,.mjdet2{display:block;font-size:8.5px;line-height:1.5;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mjdet{color:var(--dim2)}
+  .mjdet2{color:#A79D8C}
+  .mjdiff{flex:none;text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:800;letter-spacing:-.03em;line-height:1.25;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .mjdiff i{display:block;font-style:normal;font-size:8px;font-weight:600;color:var(--dim2);letter-spacing:0;margin-top:1px}
+  .mjdiff.ok{color:#2F6647}
+  .mjdiff.no{color:#B23A31}
+  .mjfoot{margin-top:8px;padding-top:7px;border-top:1px dashed var(--line2);font-size:8px;color:var(--dim2);line-height:1.55}
+  @media (min-width:600px){
+    .mjstats{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:stretch}
+    .mjstat{display:flex;flex-direction:column}
+    .mjstat + .mjstat{margin-top:0}
+    .mjstat .mjbig{margin-top:auto;padding-top:6px}
+    .mjtl{margin-top:4px}
+    .mjlist{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+    .mjlist .mjrow{padding-top:0;margin-top:0;border-top:0}
+    .mjlist .mjrow:nth-child(n+3){border-top:1px solid #F3EDE2;margin-top:7px;padding-top:7px}
+  }
+  .mjempty{font-size:10.5px;color:var(--dim2);padding:4px 2px}
+
   /* ---- 카테고리별 총액·분담 ---- */
   .ctable{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);overflow:hidden;margin-top:9px}
   .cthead,.ctrow{display:grid;grid-template-columns:1fr 86px 74px;align-items:center;gap:8px;padding:8px 12px}
@@ -2730,6 +2773,71 @@ function renderPpl(){
 }
 function togglePid(pid){ openPid = (openPid === pid) ? null : pid; renderPpl(); }
 
+/* ============================================================
+   💉 마운자로 · 한국 정가 대비 절약 카드
+   한국 정가(2026-11-27 혁산님 지정, 3개월 12펜 기준)
+     5mg  월 370,000원 × 3 = 1,110,000원/인 (혁산·상우·혜랑)
+     2.5mg 월 270,000원 × 3 =   810,000원/인 (지은)  → 4인 4,140,000원
+   일본 쪽은 경비 항목 c7 + c7b + c7s 를 그대로 쓴다(환율·금액 수정이 바로 반영).
+   ============================================================ */
+var MJ_KR = { hyeoksan:370000*3, sangwoo:370000*3, hyerang:370000*3, jieun:270000*3 };
+var MJ_DOSE = { hyeoksan:'5mg 12펜', sangwoo:'5mg 12펜', hyerang:'5mg 12펜', jieun:'2.5mg 12펜' };
+function mjJpPart(c){ return c.id === 'c7' || c.id === 'c7b' || c.id === 'c7s'; }
+function mjKrTotal(){ return MEMBERS.reduce(function(a,m){ return a + (MJ_KR[m.id] || 0); }, 0); }
+function mjJpKrw(){ var s = 0; state.costs.forEach(function(c){ if(mjJpPart(c)) s += krwOf(c); }); return s; }
+function mjJpYen(){ var y = 0; state.costs.forEach(function(c){ if(mjJpPart(c) && c.cur === 'JPY') y += c.amt; }); return y; }
+function mjMan(v){
+  var m = v / 10000;
+  var n = Math.abs(m) >= 100 ? Math.round(m) : Math.round(m * 10) / 10;
+  return n.toLocaleString('ko-KR') + '만';
+}
+function mjSigned(v){ return (v >= 0 ? '+' : '−') + mjMan(Math.abs(v)); }
+function mjCardInner(){
+  var krTot = mjKrTotal(), jpTot = mjJpKrw(), jpYen = mjJpYen();
+  if(jpTot <= 0){
+    return '<div class="mjempty">경비 항목에 마운자로 약값(c7 · c7b · c7s)이 없어 비교를 계산할 수 없어요.</div>';
+  }
+  var t = totals();
+  var save = krTot - jpTot;
+  var trip = krTot - t.total;
+  var pct = Math.round(Math.abs(save) / krTot * 100);
+  var rate = (state.rate >= 50) ? state.rate : FX_FALLBACK.rate;
+  var h = '' +
+    '<div class="mjstats">' +
+    '<div class="mjstat top">' +
+      '<div class="mjlab"><span>약값만 비교</span><span class="mjchip">' + (save >= 0 ? '-' : '+') + pct + '%</span></div>' +
+      '<div class="mjflow"><span>한국 정가 · 3개월 12펜</span><b>' + won(krTot) + '</b></div>' +
+      '<div class="mjflow"><span>일본 UB클리닉 · ¥' + num(jpYen) + '</span><b>' + won(Math.round(jpTot)) + '</b></div>' +
+      '<div class="mjbig ' + (save >= 0 ? 'ok' : 'no') + '">' + (save >= 0 ? won(Math.round(save)) + ' <small>절약</small>' : won(Math.round(-save)) + ' <small>더 비쌈</small>') + '</div>' +
+    '</div>' +
+    '<div class="mjstat">' +
+      '<div class="mjlab"><span>여행 전액 포함</span><span class="mjchip">4인 총경비</span></div>' +
+      '<div class="mjflow"><span>오사카 2박 3일 4인 총경비</span><b>' + won(Math.round(t.total)) + '</b></div>' +
+      '<div class="mjflow"><span>한국 약값</span><b>' + won(krTot) + '</b></div>' +
+      '<div class="mjbig ' + (trip >= 0 ? 'ok' : 'no') + '">' + (trip >= 0 ? won(Math.round(trip)) + ' <small>흑자</small>' : won(Math.round(-trip)) + ' <small>초과</small>') + '</div>' +
+      '<div class="mjtl">' + (trip >= 0 ? '한국에서 약값만 치를 돈으로 4인 여행 전체를 하고도 이만큼 남아요.' : '여행 경비까지 더하면 한국 약값보다 이만큼 더 들어요.') + '</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="mjrows"><div class="mjrhead">개인별 비교 · 한국 약값 대비</div>' +
+    '<div class="mjlist">' +
+    MEMBERS.map(function(m){
+      var kr = MJ_KR[m.id] || 0;
+      var tripv = myTotals(m.id).total;
+      var drug = 0;
+      state.costs.forEach(function(c){ if(mjJpPart(c)) drug += shareOf(c, m.id); });
+      var tripDiff = kr - tripv, drugDiff = kr - drug;
+      return '<div class="mjrow">' +
+        '<span class="mjav" style="background:' + m.color + '">' + m.initial + '</span>' +
+        '<span class="mjnm"><b>' + esc(m.name) + '<em>' + MJ_DOSE[m.id] + '</em></b>' +
+          '<span class="mjdet">한국 ' + mjMan(kr) + ' · 일본 약값 ' + mjMan(drug) + '</span>' +
+          '<span class="mjdet2">원정 ' + mjMan(tripv) + ' · 약값만 ' + mjSigned(drugDiff) + '</span></span>' +
+        '<span class="mjdiff ' + (tripDiff >= 0 ? 'ok' : 'no') + '">' + mjSigned(tripDiff) + '<i>여행 포함</i></span>' +
+      '</div>';
+    }).join('') + '</div></div>' +
+    '<div class="mjfoot">한국 정가 5mg 월 370,000원 · 2.5mg 월 270,000원 × 3개월(12펜) 기준. 일본 금액은 경비 항목 <b>c7 · c7b · c7s</b>를 100엔 = ' + fxNum(rate) + '원으로 환산한 값이라 환율·항목을 고치면 바로 따라 바뀌어요. 개인별 금액은 위 경비의 분담 몫 기준입니다.</div>';
+  return h;
+}
+
 function renderBudget(){
   var t = totals();
   var lt = localTotals();
@@ -2760,6 +2868,9 @@ function renderBudget(){
       '<div class="btrow soft"><span>1인 평균 예상 부담</span><b id="tbAvg">' + num(t.per) + '원</b></div>' +
     '</div>' +
     '<p class="pnote">예산은 위 게이지의 숫자를 눌러 바로 고칠 수 있어요. 개인별 배분 예산은 기본 <b>전체 ÷ 4</b>이고, 아래 개인 카드를 열면 한 사람씩 다르게 잡을 수 있습니다.</p>' +
+
+    '<div class="sec"><h2>💉 마운자로 · 한국 가격 대비 절약</h2><span>3개월 12펜 · 4인</span></div>' +
+    '<div class="mjcard" id="mjcard">' + mjCardInner() + '</div>' +
 
     '<div class="sec"><h2>분류별 총액 · 분담</h2><span>공통 vs 개인</span></div>' +
     '<div class="ctable" id="ctable">' + catTableHTML(t) + '</div>' +
@@ -2846,6 +2957,7 @@ function paintBudget(){
   var tbP = $('#tbPer'); if(tbP) tbP.textContent = num(Math.round(state.budget / MEMBERS.length)) + '원';
   var tbA = $('#tbAvg'); if(tbA) tbA.textContent = num(t.per) + '원';
   var ct = $('#ctable'); if(ct) ct.innerHTML = catTableHTML(t);
+  var mjc = $('#mjcard'); if(mjc) mjc.innerHTML = mjCardInner();
   var cl = $('#catlist'); if(cl) cl.innerHTML = catRowsHTML(t);
   renderPpl();
   $$('#costlist .crow2').forEach(function(row){
