@@ -12,7 +12,7 @@
 <title>오사카 2박 3일 · 12/8–10</title>
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=1">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=1">
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./manifest.json">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -1234,6 +1234,48 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
   .beamwrap{animation:none}
 }
 
+
+/* ================= v3 · 다음 일정 바 · 일본어 모달 · 정산기 · 타임라인 · 바운스 ================= */
+#nextBar{display:none;gap:8px;align-items:center;margin:10px 14px 0;padding:10px 12px;border-radius:14px;background:#fff;border:1px solid #EDE4D3;box-shadow:0 2px 10px rgba(35,31,32,.06);font-size:14px}
+#nextBar.on{display:flex}
+#nextBar .nb-tag{flex:none;color:#E85A4F;font-weight:800;white-space:nowrap}
+#nextBar .nb-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#nextBar .nb-txt b{font-weight:800}
+#nextBar .nb-go{flex:none;background:#E85A4F;color:#fff;border-radius:999px;padding:7px 12px;font-weight:700;text-decoration:none}
+#nextBar .nb-sim{flex:none;border:1px solid #D9CDB8;background:#FAF6EF;border-radius:999px;padding:6px 10px;font-weight:700;color:#6b6259}
+.jpmodal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(26,21,24,.55);padding:20px}
+.jpmodal.on{display:flex}
+.jpbox{background:#FFFDF9;border-radius:20px;padding:22px 20px;width:100%;max-width:360px;box-shadow:0 12px 40px rgba(0,0,0,.25);text-align:center}
+.jpbox .jplab{font-size:13px;font-weight:800;color:#8C6A9B;letter-spacing:.02em;margin-bottom:12px}
+.jpbox .jptxt{font-size:27px;line-height:1.65;font-weight:700;color:#231F20;word-break:keep-all}
+.jpbox .jpsub{margin-top:12px;font-size:14px;line-height:1.6;color:#6b6259}
+.jpbox .jptel{margin-top:14px;display:none;align-items:center;justify-content:center;gap:8px;font-size:15px}
+.jpbox .jptel b{font-family:IBM Plex Mono,monospace}
+.jpbox .jptel .btn{padding:6px 10px;font-size:13px}
+.jpbox .jpclose{margin-top:18px;width:100%;padding:13px;border-radius:12px;background:#231F20;color:#fff;font-size:16px;font-weight:800;border:0}
+.card2.past{opacity:.68}
+.nowdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#E85A4F;margin-left:6px;vertical-align:middle;animation:blinkdot 1.4s ease-in-out infinite}
+@keyframes blinkdot{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.14)}100%{transform:scale(1)}}
+.pop{animation:pop .25s ease}
+.split-form{display:grid;grid-template-columns:1fr 86px 110px;gap:8px;margin:10px 0;padding:12px;border:1px solid #EFE7D8;border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(70,55,38,.04)}
+.split-form input:not([type=checkbox]),.split-form select{width:100%;padding:10px 11px;border:1px solid #E3D9C6;border-radius:10px;background:#fff;font-size:15px;font-family:inherit;color:#231F20;box-sizing:border-box}
+.split-form input[type=checkbox]{flex:0 0 auto;width:16px;height:16px;margin:0;padding:0;border:0;background:none}
+.split-form .sp-name{grid-column:1/-1}
+.split-who{display:flex;flex-wrap:wrap;gap:6px;grid-column:1/-1}
+.split-who label{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border:1px solid #E3D9C6;border-radius:999px;background:#fff;font-size:14px;cursor:pointer;white-space:nowrap;line-height:1.2}
+.split-who input{accent-color:#E85A4F}
+.split-add{grid-column:1/-1;padding:12px;border-radius:12px;background:#E85A4F;color:#fff;font-size:15px;font-weight:800;border:0}
+.split-item{display:flex;align-items:center;gap:8px;padding:9px 11px;margin:6px 0;border:1px solid #EFE7D8;border-radius:12px;background:#fff;color:#231F20;font-size:14px}
+.split-item .nm{flex:1;min-width:0}
+.split-item .nm b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.split-item .nm span{color:#8a8178;font-size:12px}
+.split-item .am{text-align:right;font-weight:800;white-space:nowrap}
+.split-item .am span{display:block;font-weight:400;color:#8a8178;font-size:12px}
+.split-item .del{flex:none;border:0;background:none;font-size:18px;color:#B23A31;padding:4px 6px}
+.split-settle{margin-top:10px;padding:12px;border-radius:12px;background:#F3EDE0;font-size:14px;line-height:1.9}
+.split-empty{padding:13px;border:1px solid #EFE7D8;border-radius:12px;background:#fff;color:#8a8178;font-size:14px}
+.srow .btn{flex:none;padding:6px 10px;font-size:13px}
 </style>
 </head>
 <body>
@@ -1548,6 +1590,8 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
     </div>
   </header>
 
+  <div id="nextBar" aria-live="polite"></div>
+
   <nav id="nav">
     <button data-tab="plan" class="on"><span class="ic">📅</span>일정</button>
     <button data-tab="map"><span class="ic">🗺️</span>지도</button>
@@ -1649,6 +1693,15 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
   
 
   <!-- place detail sheet -->
+  <div class="jpmodal" id="jpModal" role="dialog" aria-modal="true" aria-label="직원에게 보여주기">
+    <div class="jpbox">
+      <div class="jplab">🇯🇵 직원에게 보여주기</div>
+      <div class="jptxt" id="jpTxt">—</div>
+      <div class="jpsub" id="jpSub">—</div>
+      <div class="jptel" id="jpTelRow">☎ <b id="jpTel">—</b><button class="btn" id="jpTelCopy" type="button">복사</button></div>
+      <button class="jpclose" id="jpClose" type="button">닫기</button>
+    </div>
+  </div>
   <div class="sheet" id="spotSheet">
     <div class="sheetbox">
       <div class="grab"></div>
@@ -1658,6 +1711,7 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <button class="x" id="spClose">✕</button>
       </div>
       <div class="srow"><span class="k">주소</span><span class="v mono2" id="spJp">—</span></div>
+      <div class="srow" id="spTelRow" style="display:none"><span class="k">전화</span><span class="v mono2" id="spTel">—</span><button class="btn" id="spTelCopy" type="button">복사</button></div>
       <div class="srow" id="spNoteRow"><span class="k">메모</span><span class="v" id="spNote">—</span></div>
       <div class="srow" id="spBadgeRow" style="display:none"><span class="k">확인</span><span class="v" id="spBadge">—</span></div>
       <div id="spShowBox"></div>
@@ -1675,6 +1729,7 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <a class="btn lnk" id="spLink" target="_blank" rel="noopener">🔗 후기·예약</a>
         <button class="pri" id="spMap">🗺️ 길찾기</button>
         <button id="spCopy">📋 주소 복사</button>
+        <button id="spJpShow" type="button" style="display:none">🇯🇵 직원에게 보여주기</button>
         <button id="spShow">📍 지도에서 보기</button>
       </div>
     </div>
@@ -2770,8 +2825,8 @@ function itemHTML(s){
       '<span class="legchip"><b>' + s.leg.ic + '</b>' + esc(s.leg.t) + '</span></div>') : '';
   return leg + '<div class="item">' +
     '<div class="rail"><button class="pin" data-pin="' + s.id + '" aria-label="지도에서 보기">' + s._n + '</button></div>' +
-    '<div class="card2 ' + (s.badgeType==='warn'?'warn':'') + '" data-open="' + s.id + '">' +
-      '<div class="ctop"><span class="time">' + s.t + '</span><span class="chip ' + s.kind + '">' + esc(s.tag) + '</span>' +
+    '<div class="card2 ' + (s.badgeType==='warn'?'warn':'') + spotTimeClass(s) + '" data-open="' + s.id + '">' +
+      '<div class="ctop"><span class="time">' + s.t + '</span>' + (isNowSpot(s) ? '<span class="nowdot" aria-label="지금 일정"></span>' : '') + '<span class="chip ' + s.kind + '">' + esc(s.tag) + '</span>' +
         (s.cuisine ? '<span class="cuis">' + esc(s.cuisine) + '</span>' : '') +
         '<span class="more">›</span></div>' +
       '<div class="ttl">' + esc(s.title) + '</div>' +
@@ -2785,6 +2840,7 @@ function itemHTML(s){
         (s.q ? '<a class="btn" target="_blank" rel="noopener" href="' + gmap(s.q) + '">🗺️ 길찾기</a>' : '') +
         (s.link ? '<a class="btn lnk" target="_blank" rel="noopener" href="' + s.link.u + '" title="' + esc(s.link.t) + '에서 후기·예약 보기">🔗 후기·예약</a>' : '') +
         (s.jp ? '<button class="btn" data-copy="' + esc(s.jp) + '">📋 주소</button>' : '') +
+        (JP_SHOW[s.id] ? '<button class="btn" data-jp="' + s.id + '">🇯🇵 보여주기</button>' : '') +
         '<button class="btn ghost" data-open="' + s.id + '">상세</button>' +
       '</div>' +
     '</div></div>';
@@ -3049,6 +3105,13 @@ function openSpot(id){
   renderSpotPhoto();
   $('#spMap').onclick = function(){ window.open(gmap(s.q || s.title), '_blank', 'noopener'); };
   $('#spCopy').onclick = function(){ if(s.jp) copyText(s.jp); };
+  var jpD = JP_SHOW[s.id];
+  var jb = $('#spJpShow');
+  if(jpD){ jb.style.display = ''; jb.onclick = function(){ openJp(s.id); }; }
+  else { jb.style.display = 'none'; jb.onclick = null; }
+  var tr = $('#spTelRow');
+  if(jpD && jpD.tel){ tr.style.display = 'flex'; $('#spTel').textContent = jpD.tel; $('#spTelCopy').onclick = function(){ copyText(jpD.tel); }; }
+  else { tr.style.display = 'none'; }
   $('#spShow').onclick = function(){ closeSpot(); setTimeout(function(){ focusSpot(s.id, true); }, 120); };
   var lk = $('#spLink');
   if(s.link){ lk.href = s.link.u; lk.title = s.link.t + '에서 후기·예약 보기'; lk.style.display = ''; }
@@ -3444,9 +3507,12 @@ function renderBudget(){
     '<div class="sec"><h2>항목</h2><span>' + state.costs.length + '개 · 눌러서 수정</span></div>' +
     '<div id="costlist">' + state.costs.map(costRow).join('') + '</div>' +
     '<button class="addbtn" id="addCost">＋ 항목 추가</button>' +
-    '<p class="footnote">항공·숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 스미야키 쇼텐 陽 ¥12,800 · 이치란 ¥6,400 · 와규 야키니쿠 긴 ¥22,000 · 진베에 난바 ¥11,200 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥74,000</b>(1인 ¥18,500). 1일차 2차·2일차 저녁·2차를 타베로그 검증 맛집으로 바꾸면서 예전 ¥62,800보다 <b>+¥11,200</b> 늘었어요. 2일차 점심은 09:40 이치란 아점이 함께 덮고, 2일차 카페(후시미 산도 차야 1인 ¥900)와 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 에어부산 왕복 <b>4인 832,000원</b>(1인 208,000원 · 예약 KAYTPM · BX617/BX608)으로 4인 분담에 넣었어요. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>간사이 조이 패스 1 Week Free Pass(3개 시설 선택)는 4장 <b>72,580원</b>에 KKday에서 사전결제했어요(1인 18,145원 · 주문 #26KK220794270·#26KK220794580). QR 4장은 앱 QR 월렛에 각자 이름으로 담겨 있어요.<br>이 패스로 <b>하루카스 300</b>·<b>도톤보리 크루즈(원더크루즈)</b>·<b>오사카성 고자부네</b> 세 곳을 덮었어요 — 정가로는 4인 <b>¥22,400</b>(₩189,000 안팎)인데 조이패스는 4인 72,580원이라, 세 항목은 <b>조이패스 1~3회차 차감 (¥0)</b>으로 바꾸고 현지 지출에서 뺐어요. 조이패스 3회를 <b>모두 사용</b>했고 1인 ¥5,600 혜택입니다.<br>원더크루즈는 지금까지 잡아 둔 톤보리 리버크루즈(一本松海運 · 太左衛門橋)와 <b>운영사·선착장이 달라요</b> — 日本橋船着場(道頓堀1-1-6 강변 B1) 18:30편(17:00~21:30 30분 간격)이고, 조이패스 QR을 제시하면 1인 ¥2,000이 <b>¥0</b>이에요. 대신 <b>승선 시간은 18:30편으로 예약 완료</b>(W_261126_4453485577_1 · 수요일은 예약자만 승선)이고, 별도 QR이 없어 <b>18:20까지 카운터에서 예약 확인 메일 + 조이패스 QR 4장</b>을 제시해 승선권을 먼저 받아야 해요. 매진이면 一本松海運 18:30편(¥2,000×4 현장 결제)으로 대체하면 됩니다.<br>원화 환산은 그날의 기준환율을 쓰고, 배지의 숫자를 고치면 직접 입력 · <b>↻</b>면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(항공·숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>';
+    '<p class="footnote">항공·숙소·렌터카·투어·전망대·마운자로·eSIM·해외여행보험이 실측 확정 금액이에요. 주유는 예상치이고, 식비는 <b>일정에 넣은 5곳의 실제 메뉴 가격</b>(공식 사이트·타베로그·핫페퍼 2026년판)으로 다시 계산했어요 — 스시 토후지 ¥18,000 · 스미야키 쇼텐 陽 ¥12,800 · 이치란 ¥6,400 · 와규 야키니쿠 긴 ¥22,000 · 진베에 난바 ¥11,200 · 3일차 조식·간식 ¥3,600 = 4인 <b>¥74,000</b>(1인 ¥18,500). 1일차 2차·2일차 저녁·2차를 타베로그 검증 맛집으로 바꾸면서 예전 ¥62,800보다 <b>+¥11,200</b> 늘었어요. 2일차 점심은 09:40 이치란 아점이 함께 덮고, 2일차 카페(후시미 산도 차야 1인 ¥900)와 커피·간식 여유분은 따로 잡지 않았어요. 항목을 눌러 수정하거나 <b>×</b>로 지울 수 있어요. 항공권은 에어부산 왕복 <b>4인 832,000원</b>(1인 208,000원 · 예약 KAYTPM · BX617/BX608)으로 4인 분담에 넣었어요. 각 항목의 <b>내 몫</b>은 위에서 고른 프로필 기준이고, 항목의 <b>분담 대상</b>을 바꾸면 그 사람들에게만 나눠집니다.<br>렌터카는 Travel CAR RENT 프리우스 <b>75,859원 사전결제</b>(4인 분담)로 갱신했어요. 인수 위치·보험 상세는 강혜랑 님 측 확인 중.<br>해외여행보험은 카카오페이손해보험 <b>4인 가입 19,780원</b>(1인 4,945원)을 신한카드로 결제 완료했어요.<br>산토리 교토 맥주공장 투어는 4명 <b>¥4,000 카드 사전결제 완료</b>(1인 ¥1,000 · 4인 공통 분담)예요.<br>간사이 조이 패스 1 Week Free Pass(3개 시설 선택)는 4장 <b>72,580원</b>에 KKday에서 사전결제했어요(1인 18,145원 · 주문 #26KK220794270·#26KK220794580). QR 4장은 앱 QR 월렛에 각자 이름으로 담겨 있어요.<br>이 패스로 <b>하루카스 300</b>·<b>도톤보리 크루즈(원더크루즈)</b>·<b>오사카성 고자부네</b> 세 곳을 덮었어요 — 정가로는 4인 <b>¥22,400</b>(₩189,000 안팎)인데 조이패스는 4인 72,580원이라, 세 항목은 <b>조이패스 1~3회차 차감 (¥0)</b>으로 바꾸고 현지 지출에서 뺐어요. 조이패스 3회를 <b>모두 사용</b>했고 1인 ¥5,600 혜택입니다.<br>원더크루즈는 지금까지 잡아 둔 톤보리 리버크루즈(一本松海運 · 太左衛門橋)와 <b>운영사·선착장이 달라요</b> — 日本橋船着場(道頓堀1-1-6 강변 B1) 18:30편(17:00~21:30 30분 간격)이고, 조이패스 QR을 제시하면 1인 ¥2,000이 <b>¥0</b>이에요. 대신 <b>승선 시간은 18:30편으로 예약 완료</b>(W_261126_4453485577_1 · 수요일은 예약자만 승선)이고, 별도 QR이 없어 <b>18:20까지 카운터에서 예약 확인 메일 + 조이패스 QR 4장</b>을 제시해 승선권을 먼저 받아야 해요. 매진이면 一本松海運 18:30편(¥2,000×4 현장 결제)으로 대체하면 됩니다.<br>원화 환산은 그날의 기준환율을 쓰고, 배지의 숫자를 고치면 직접 입력 · <b>↻</b>면 자동 반영으로 돌아가요.<br><b>선결제</b> 표시가 붙은 항목(항공·숙소·렌터카·산토리·마운자로 약값·eSIM·보험)은 한국에서 이미 결제한 금액이라 <b>현지 지출</b>에서 빠집니다. 마운자로 <b>착불 배송비 ¥1,335 × 4박스</b>는 수령할 때 내는 돈이라 현지 지출로 따로 잡았어요. 위스키·면세 쇼핑처럼 아직 안 잡은 돈은 별도입니다.</p>' +
+    '<div class="sec"><h2>🧾 현장 지출 · N빵 정산</h2><span>현지에서 쓴 돈</span></div>' +
+    '<div id="splitBox"></div>';
 
   renderPpl();
+  renderSplit();
 
   $('#budgetIn').addEventListener('input', function(){
     var v = parseFloat(this.value);
@@ -3973,6 +4039,218 @@ document.addEventListener('keydown', function(e){
 document.addEventListener('visibilitychange', function(){
   if(!document.hidden && $('#qrView').classList.contains('on')) qrWake(true);
 });
+
+
+/* ================= v3 · 다음 일정 바 · 일본어 모달 · N빵 정산 · 타임라인 · 바운스 ================= */
+var JP_SHOW = {
+  'd1-7':  { ja:'着払いの荷物を受け取りに来ました。（名前：KWON HYUKSAN）', ko:'착불 택배 수령하러 왔어요. (이름: KWON HYUKSAN)', tel:'072-460-2955' },
+  'd2-1b': { ja:'駐車サービスをお願いします。', ko:'주차 정산 부탁해요. 영수증과 주차권을 함께 드릴게요.', tel:null },
+  'd1-10': { ja:'予約なしですが、4名入れますか？', ko:'예약 없이 왔는데, 4명 들어갈 수 있을까요?', tel:null },
+  'd1-8':  { ja:'チェックインをお願いします。（予約名：KWON HYUKSAN）', ko:'체크인 부탁해요. (예약자명: KWON HYUKSAN)', tel:null }
+};
+var SIM = null;
+function appNow(){ return SIM || new Date(); }
+function spotDate(s){
+  var d = ['2026-12-08', '2026-12-09', '2026-12-10'][s.day - 1] || '2026-12-08';
+  return new Date(d + 'T' + s.t + ':00+09:00');
+}
+function inTripWindow(now){
+  var t = now.getTime();
+  return t >= new Date('2026-12-08T00:00:00+09:00').getTime() && t < new Date('2026-12-11T00:00:00+09:00').getTime();
+}
+function shortTitle(s){ var x = (s.title || '').split(' (')[0]; return x.length > 20 ? x.slice(0, 20) + '…' : x; }
+function fmtRemain(ms){
+  var m = Math.max(0, Math.round(ms / 60000));
+  if(m < 60) return m + '분 뒤';
+  if(m < 1440){ var hh = Math.floor(m / 60); return hh + '시간 ' + (m % 60) + '분 뒤'; }
+  return Math.floor(m / 1440) + '일 ' + Math.floor((m % 1440) / 60) + '시간 뒤';
+}
+function nextSpot(){
+  var now = appNow().getTime(), best = null, bestT = Infinity;
+  for(var i = 0; i < SPOTS.length; i++){
+    var t = spotDate(SPOTS[i]).getTime();
+    if(t > now && t < bestT){ bestT = t; best = SPOTS[i]; }
+  }
+  return best;
+}
+function clearSim(){ SIM = null; renderNextBar(); renderDays(); }
+function renderNextBar(){
+  var bar = $('#nextBar'); if(!bar) return;
+  if(SIM && inTripWindow(new Date())) SIM = null;
+  var now = appNow();
+  bar.classList.add('on');
+  if(!inTripWindow(now)){
+    bar.innerHTML = '<span class="nb-txt">여행 전이에요 · 12/8부터 다음 일정이 떠요</span><button class="nb-sim" id="nbSim" type="button">당일 시뮬레이션</button>';
+    $('#nbSim').onclick = function(){ SIM = new Date('2026-12-09T09:30:00+09:00'); renderNextBar(); renderDays(); };
+    return;
+  }
+  var s = nextSpot();
+  if(!s){
+    bar.innerHTML = '<span class="nb-txt">' + (SIM ? '시뮬레이션 · ' : '') + '모든 일정이 끝났어요 · 안전 귀가하세요</span>' + (SIM ? '<button class="nb-sim" id="nbSimOff" type="button">시뮬레이션 끄기</button>' : '');
+    var off = $('#nbSimOff'); if(off) off.onclick = clearSim;
+    return;
+  }
+  var remain = spotDate(s).getTime() - now.getTime();
+  bar.innerHTML = '<span class="nb-tag">다음 일정 · ' + fmtRemain(remain) + '</span><span class="nb-txt"><b>' + s.t + '</b> ' + esc(shortTitle(s)) + '</span><a class="nb-go" target="_blank" rel="noopener" href="' + gmap(s.q || s.title) + '">길찾기</a>' + (SIM ? '<button class="nb-sim" id="nbSimOff" type="button">끄기</button>' : '');
+  var off2 = $('#nbSimOff'); if(off2) off2.onclick = clearSim;
+}
+function isNowSpot(s){
+  if(!inTripWindow(appNow())) return false;
+  var now = appNow().getTime(), t = spotDate(s).getTime();
+  if(t > now || now - t > 120 * 60000) return false;
+  for(var i = 0; i < SPOTS.length; i++){
+    var o = SPOTS[i];
+    if(o.day !== s.day) continue;
+    var ot = spotDate(o).getTime();
+    if(ot > t && ot <= now) return false;
+  }
+  return true;
+}
+function spotTimeClass(s){
+  if(!inTripWindow(appNow())) return '';
+  var now = appNow().getTime(), t = spotDate(s).getTime();
+  if(t > now) return '';
+  return isNowSpot(s) ? ' now' : ' past';
+}
+var curJpId = null;
+function openJp(id){
+  var j = JP_SHOW[id]; if(!j) return;
+  curJpId = id;
+  $('#jpTxt').textContent = j.ja;
+  $('#jpSub').textContent = j.ko;
+  var tr = $('#jpTelRow');
+  if(j.tel){ tr.style.display = 'flex'; $('#jpTel').textContent = j.tel; }
+  else { tr.style.display = 'none'; }
+  $('#jpModal').classList.add('on');
+}
+function closeJp(){ $('#jpModal').classList.remove('on'); }
+$('#jpClose').addEventListener('click', closeJp);
+$('#jpModal').addEventListener('click', function(e){ if(e.target === this) closeJp(); });
+$('#jpTelCopy').addEventListener('click', function(){ var j = JP_SHOW[curJpId]; if(j && j.tel) copyText(j.tel); });
+document.addEventListener('click', function(e){
+  var jp = e.target && e.target.closest ? e.target.closest('[data-jp]') : null;
+  if(jp){ e.stopPropagation(); e.preventDefault(); openJp(jp.getAttribute('data-jp')); }
+}, true);
+var SPLIT_KEY = 'osaka.split.v1';
+var splitDraft = null, splitClear = false;
+function loadSplit(){
+  try{
+    var raw = localStorage.getItem(SPLIT_KEY);
+    var arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  }catch(e){ return []; }
+}
+function saveSplit(arr){ try{ localStorage.setItem(SPLIT_KEY, JSON.stringify(arr)); }catch(e){} }
+function splitSettleHTML(arr){
+  if(!arr.length) return '<div class="split-empty">아직 현장 지출이 없어요. 위에서 추가하면 여기로 정산 결과가 떠요.</div>';
+  var bal = {};
+  for(var i = 0; i < MEMBERS.length; i++) bal[MEMBERS[i].id] = 0;
+  for(var k = 0; k < arr.length; k++){
+    var it = arr[k], krw = krwOf(it);
+    var who = (it.who && it.who.length) ? it.who : MEMBERS.map(function(m){ return m.id; });
+    var share = krw / who.length;
+    bal[it.payer] = (bal[it.payer] || 0) + krw;
+    for(var w = 0; w < who.length; w++) bal[who[w]] = (bal[who[w]] || 0) - share;
+  }
+  var creditors = [], debtors = [];
+  for(var p = 0; p < MEMBERS.length; p++){
+    var b = Math.round(bal[MEMBERS[p].id] || 0);
+    if(b >= 100) creditors.push({ id: MEMBERS[p].id, amt: b });
+    else if(b <= -100) debtors.push({ id: MEMBERS[p].id, amt: -b });
+  }
+  if(!creditors.length && !debtors.length) return '<div class="split-settle">✅ 주고받을 돈이 없어요 · 딱 맞았어요</div>';
+  creditors.sort(function(a, b){ return b.amt - a.amt; });
+  debtors.sort(function(a, b){ return b.amt - a.amt; });
+  var lines = [], ci = 0, di = 0;
+  while(ci < creditors.length && di < debtors.length){
+    var mv = Math.min(creditors[ci].amt, debtors[di].amt);
+    lines.push(member(debtors[di].id).name + ' → ' + member(creditors[ci].id).name + ' <b>' + num(mv) + '원</b>');
+    creditors[ci].amt -= mv; debtors[di].amt -= mv;
+    if(creditors[ci].amt < 100) ci++;
+    if(debtors[di].amt < 100) di++;
+  }
+  return '<div class="split-settle">💸 최소 정산<br>' + lines.join('<br>') + '</div>';
+}
+function renderSplit(){
+  var box = $('#splitBox'); if(!box) return;
+  if(splitClear){ splitDraft = null; splitClear = false; }
+  else {
+    var nm = $('#spName'), am = $('#spAmt');
+    if(nm && am){
+      splitDraft = { name: nm.value, amt: am.value, cur: $('#spCur').value, payer: $('#spPayer').value,
+        who: $$('#spWho input[type=checkbox]').filter(function(c){ return c.checked; }).map(function(c){ return c.value; }) };
+    }
+  }
+  var cur = splitDraft || { name: '', amt: '', cur: 'JPY', payer: (state.profile || 'hyeoksan'), who: MEMBERS.map(function(m){ return m.id; }) };
+  var arr = loadSplit();
+  var whoHtml = MEMBERS.map(function(m){
+    var chk = (cur.who || []).indexOf(m.id) > -1 ? ' checked' : '';
+    return '<label><input type="checkbox" value="' + m.id + '"' + chk + '> ' + esc(m.name) + '</label>';
+  }).join('');
+  var payOpts = MEMBERS.map(function(m){
+    return '<option value="' + m.id + '"' + (m.id === cur.payer ? ' selected' : '') + '>' + esc(m.name) + '</option>';
+  }).join('');
+  var listHtml = arr.map(function(it){
+    var who = (it.who && it.who.length) ? it.who : MEMBERS.map(function(m){ return m.id; });
+    var whoNames = who.map(function(id){ return member(id).name; }).join(' · ');
+    return '<div class="split-item"><div class="nm"><b>' + esc(it.name) + '</b><span>' + esc(member(it.payer).name) + ' 결제 · ' + who.length + '명 나눔 (' + esc(whoNames) + ')</span></div>' +
+      '<div class="am">' + (it.cur === 'JPY' ? '¥' + num(it.amt) : num(it.amt) + '원') + '<span>≈ ' + num(Math.round(krwOf(it))) + '원</span></div>' +
+      '<button class="del" data-spdel="' + it.id + '" aria-label="삭제">×</button></div>';
+  }).join('');
+  box.innerHTML =
+    '<div class="split-form">' +
+      '<input class="sp-name" id="spName" type="text" placeholder="항목명 · 예) 야키토리 2차" value="' + esc(cur.name || '') + '" maxlength="40">' +
+      '<input id="spAmt" type="number" inputmode="decimal" min="0" placeholder="금액" value="' + esc(cur.amt || '') + '">' +
+      '<select id="spCur"><option value="JPY"' + (cur.cur === 'JPY' ? ' selected' : '') + '>엔 JPY</option><option value="KRW"' + (cur.cur === 'KRW' ? ' selected' : '') + '>원 KRW</option></select>' +
+      '<select id="spPayer">' + payOpts + '</select>' +
+      '<div class="split-who" id="spWho">' + whoHtml + '</div>' +
+      '<button class="split-add" id="spAdd" type="button">＋ 현장 지출 추가</button>' +
+    '</div>' +
+    (arr.length ? '<div id="splitList">' + listHtml + '</div>' : '') +
+    splitSettleHTML(arr);
+  $('#spAdd').onclick = function(){
+    var name = $('#spName').value.trim();
+    var amt = parseFloat($('#spAmt').value);
+    if(!name){ toast('항목명을 적어 주세요'); return; }
+    if(!(amt > 0)){ toast('금액을 적어 주세요'); return; }
+    var who = $$('#spWho input[type=checkbox]').filter(function(c){ return c.checked; }).map(function(c){ return c.value; });
+    if(!who.length){ toast('나눌 사람을 1명 이상 골라 주세요'); return; }
+    var items = loadSplit();
+    items.push({ id: 'sp' + Date.now(), name: name, amt: amt, cur: $('#spCur').value, payer: $('#spPayer').value, who: who.length === MEMBERS.length ? null : who });
+    saveSplit(items);
+    splitClear = true;
+    renderSplit();
+    toast('추가했어요');
+  };
+  if(!box._spBound){
+    box._spBound = true;
+    box.addEventListener('click', function(e){
+      var del = e.target.closest('[data-spdel]');
+      if(!del) return;
+      var items = loadSplit().filter(function(it){ return it.id !== del.getAttribute('data-spdel'); });
+      saveSplit(items);
+      renderSplit();
+      toast('삭제했어요');
+    });
+  }
+}
+function popEl(el){ if(!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); }, 300); }
+document.addEventListener('click', function(e){
+  var cp = e.target.closest('[data-copy]');
+  if(cp){ popEl(cp); return; }
+  var tb = e.target.closest('#nav [data-tab]');
+  if(tb){ popEl(tb); }
+});
+document.addEventListener('change', function(e){
+  if(e.target && e.target.type === 'checkbox'){ popEl(e.target.closest('label') || e.target); }
+});
+if('serviceWorker' in navigator){
+  try{ navigator.serviceWorker.register('./sw.js').catch(function(){}); }catch(e){}
+}
+renderNextBar();
+setInterval(renderNextBar, 30000);
+setInterval(function(){ if(inTripWindow(appNow())) renderDays(); }, 300000);
+document.addEventListener('visibilitychange', function(){ if(!document.hidden){ renderNextBar(); if(inTripWindow(appNow())) renderDays(); } });
 
 /* ---------------- boot ---------------- */
 renderProfiles();
