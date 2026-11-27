@@ -1299,14 +1299,15 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
   .gauge.over .fill{background:#D64545}
   .gauge.over .g-top span:last-child{color:#D64545}
   .shop-item{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid #EFE7D8;font-size:13px}
-  .shop-item .nm{flex:1;min-width:0;line-height:1.35}
+  .shop-item .nm{flex:1;min-width:0;line-height:1.35;overflow-wrap:anywhere}
   .shop-item .nm small{display:block;font-size:10.5px;color:var(--dim2)}
   .shop-item .pr{text-align:right;white-space:nowrap;font-weight:700}
   .shop-item .pr small{display:block;font-size:10px;color:var(--dim2);font-weight:600}
   .shop-item .del{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--dim);font-size:12px;line-height:1}
   .shop-form{border:1px solid var(--line);border-radius:12px;background:#FCF8F0;padding:11px;margin-top:10px}
-  .shop-form .frow{grid-template-columns:1fr 96px}
+  .shop-form .frow{grid-template-columns:64px minmax(0,1fr);gap:6px}
   .shop-form .frow label{font-size:12px}
+  .shop-form input[type=text]{text-align:left;font-family:inherit;font-weight:600;font-size:14px}
   .car-sec{margin:0 0 14px}
   .car-sec h4{margin:0 0 2px;font-size:13.5px}
   .car-sec .cs-sub{font-size:11px;color:var(--dim2);margin:0 0 7px;line-height:1.5}
@@ -3450,7 +3451,8 @@ function planbHTML(id){
 function togglePlanB(id, btn){
   var box = document.getElementById('planb-' + id); if(!box) return;
   var on = box.classList.toggle('on');
-  if(btn) btn.textContent = (on ? '☔ 대안 닫기' : ((id === 'd1-10' ? '⏳' : '☔') + ' 대안 보기'));
+  var ic = (id === 'd1-10' ? '⏳' : '☔');
+  if(btn) btn.textContent = ic + (on ? ' 대안 닫기' : ' 대안 보기');
 }
 
 /* ---- v4: 렌터카 대시보드 (2026-11-27 확인 기준 · 요금은 현지 표지판 우선) ---- */
