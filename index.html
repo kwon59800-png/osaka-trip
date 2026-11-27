@@ -1097,28 +1097,28 @@ h1{color:var(--tx)}
 .dates{color:var(--tx2)}
 
 /* ---- 카드·패널: 은은한 반투명 (모션이 비친다) ---- */
-.ov,.day,.wx,.fcard,.wtable,.calc,.btable,.mjcard,.ctable,.pcard,.bk,.bhero,.urgent,
-.mm-toggle{
+body:not(.bg-off) .ov,body:not(.bg-off) .day,body:not(.bg-off) .wx,body:not(.bg-off) .fcard,body:not(.bg-off) .wtable,body:not(.bg-off) .calc,body:not(.bg-off) .btable,body:not(.bg-off) .mjcard,body:not(.bg-off) .ctable,body:not(.bg-off) .pcard,body:not(.bg-off) .bk,body:not(.bg-off) .bhero,body:not(.bg-off) .urgent,
+body:not(.bg-off) .mm-toggle{
   background-color:rgba(255,253,249,.86);
   background-image:none;
   backdrop-filter:blur(8px) saturate(112%);
   -webkit-backdrop-filter:blur(8px) saturate(112%);
   border-color:rgba(234,227,214,.85);
 }
-.wx,.bhero,.urgent{background-color:transparent}
-.wx{background-image:linear-gradient(158deg,rgba(242,248,252,.88) 0%,rgba(255,255,255,.8) 72%)}
-.bhero{background-image:linear-gradient(150deg,rgba(255,246,230,.9) 0%,rgba(253,243,240,.86) 52%,rgba(255,255,255,.84) 100%)}
-.urgent{background-image:linear-gradient(160deg,rgba(255,247,245,.9),rgba(255,255,255,.84) 78%)}
+body:not(.bg-off) .wx,body:not(.bg-off) .bhero,body:not(.bg-off) .urgent{background-color:transparent}
+body:not(.bg-off) .wx{background-image:linear-gradient(158deg,rgba(242,248,252,.88) 0%,rgba(255,255,255,.8) 72%)}
+body:not(.bg-off) .bhero{background-image:linear-gradient(150deg,rgba(255,246,230,.9) 0%,rgba(253,243,240,.86) 52%,rgba(255,255,255,.84) 100%)}
+body:not(.bg-off) .urgent{background-image:linear-gradient(160deg,rgba(255,247,245,.9),rgba(255,255,255,.84) 78%)}
 /* 작은 행 카드 — 글자 또렷하게, 성능 위해 blur 없이 */
-.card2,.crow2,.chk,.chk.on,.spotrow,.qslot,.qcard,.addbtn,.mjstat,.card2.warn,
-.pcard .pdet,.pcard .pbar,.qseg,.whoRow span,.chk3 div,.cthead,.btrow.hi,.csum{
+body:not(.bg-off) .card2,body:not(.bg-off) .crow2,body:not(.bg-off) .chk,body:not(.bg-off) .chk.on,body:not(.bg-off) .spotrow,body:not(.bg-off) .qslot,body:not(.bg-off) .qcard,body:not(.bg-off) .addbtn,body:not(.bg-off) .mjstat,body:not(.bg-off) .card2.warn,
+body:not(.bg-off) .pcard .pdet,body:not(.bg-off) .pcard .pbar,body:not(.bg-off) .qseg,body:not(.bg-off) .whoRow span,body:not(.bg-off) .chk3 div,body:not(.bg-off) .cthead,body:not(.bg-off) .btrow.hi,body:not(.bg-off) .csum{
   background-color:rgba(255,253,249,.9);
   border-color:rgba(234,227,214,.85);
 }
-.card2.warn{background-color:rgba(255,248,246,.92);border-color:#F2CFC9}
-.chk.on{background-color:rgba(248,251,247,.92);border-color:#CFE2D2}
-.addbtn{background-color:rgba(255,255,255,.6)}
-.pf{background-color:rgba(255,253,249,.92)}
+body:not(.bg-off) .card2.warn{background-color:rgba(255,248,246,.92);border-color:#F2CFC9}
+body:not(.bg-off) .chk.on{background-color:rgba(248,251,247,.92);border-color:#CFE2D2}
+body:not(.bg-off) .addbtn{background-color:rgba(255,255,255,.6)}
+body:not(.bg-off) .pf{background-color:rgba(255,253,249,.92)}
 
 /* ---- 야간(우라난바 밤) 텍스트 보정: 바깥 글씨는 밝게, 카드 속 글씨는 그대로 ---- */
 body[data-p="3"] h1,body[data-p="3"] .kicker,body[data-p="3"] .dates,
