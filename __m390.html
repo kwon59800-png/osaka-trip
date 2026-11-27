@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>mobile frame test</title>
+<style>
+  html,body{margin:0;background:#1b1b1f;font:12px/1.4 -apple-system,system-ui,sans-serif;color:#ddd}
+  #wrap{display:flex;gap:14px;padding:12px;align-items:flex-start}
+  iframe{display:block;border:0;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+  #log{width:520px;max-height:820px;overflow:auto;background:#111;border:1px solid #333;border-radius:8px;padding:8px}
+  #log h3{margin:0 0 6px;font-size:12px;color:#9ad}
+  #errs{margin:0;white-space:pre-wrap;word-break:break-all;color:#f99;font:11px/1.45 ui-monospace,monospace}
+  #meta{margin:0 0 8px;color:#8f8;font:11px/1.45 ui-monospace,monospace;white-space:pre-wrap}
+  .btn{background:#333;color:#eee;border:1px solid #555;border-radius:6px;padding:4px 8px;margin:0 4px 4px 0;font-size:11px}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <iframe id="fr" width="390" height="844" src="about:blank"></iframe>
+  <div id="log">
+    <h3>captured errors / state</h3>
+    <pre id="meta">loading…</pre>
+    <pre id="errs"></pre>
+    <div id="btns"></div>
+  </div>
+</div>
+<script>
+window.__errs = [];
+var q = new URLSearchParams(location.search);
+var W = +(q.get('w')||390), H = +(q.get('h')||844);
+var fr = document.getElementById('fr');
+fr.width = W; fr.height = H;
+
+var guard = '<script>'
+ + 'window.__errs = parent.__errs;'
+ + 'window.addEventListener("error", function(e){ parent.__errs.push("ERROR: " + (e.message||"") + " @ " + (e.filename||"") + ":" + (e.lineno||"")); });'
+ + 'window.addEventListener("unhandledrejection", function(e){ parent.__errs.push("REJECT: " + e.reason); });'
+ + '(function(){ var ce = console.error; console.error = function(){ parent.__errs.push("console.error: " + [].join.call(arguments, " ")); ce.apply(console, arguments); }; })();'
+ + '<\/script>';
+
+fetch('./index.html?h=' + Date.now(), {cache:'no-store'})
+  .then(function(r){ return r.text(); })
+  .then(function(html){
+    html = html.replace('<head>', '<head>' + guard);
+    var d = fr.contentDocument;
+    d.open(); d.write(html); d.close();
+    setTimeout(report, 2500);
+  });
+
+function report(){
+  var w = fr.contentWindow, d = fr.contentDocument;
+  try{
+    var cs = function(el){ return el ? w.getComputedStyle(el) : null; };
+    var mode = d.getElementById('moLb');
+    document.getElementById('meta').textContent = [
+      'frame ' + fr.width + 'x' + fr.height + ' · inner ' + w.innerWidth + 'x' + w.innerHeight,
+      'data-p=' + d.body.getAttribute('data-p') + ' bg-off=' + d.body.classList.contains('bg-off'),
+      'mode=' + (mode ? mode.textContent : '?') + ' int=' + w.getComputedStyle(d.body).getPropertyValue('--int'),
+      'lans=' + d.querySelectorAll('#lans b').length + ' leaves=' + d.querySelectorAll('#leaves i').length +
+      ' steam=' + d.querySelectorAll('#steam i').length + ' bulbs=' + d.querySelectorAll('#stringlights .bulb').length,
+      'theme=' + (d.querySelector('meta[name=theme-color]')||{}).content,
+      'h1=' + cs(d.querySelector('h1')).color + ' · nav=' + cs(d.querySelector('nav')).backgroundColor,
+      'hero=' + cs(d.querySelector('.hero')).backgroundColor,
+      'scrollH=' + d.documentElement.scrollHeight
+    ].join('\n');
+  }catch(e){ document.getElementById('meta').textContent = 'report error: ' + e; }
+  document.getElementById('errs').textContent = window.__errs.length ? window.__errs.join('\n') : '(no errors captured)';
+}
+
+document.getElementById('btns').innerHTML =
+  '<button class="btn" data-p="1">도톤보리</button>' +
+  '<button class="btn" data-p="2">오사카성</button>' +
+  '<button class="btn" data-p="3">우라난바</button>' +
+  '<button class="btn" data-p="5">시간맞춤</button>' +
+  '<button class="btn" data-p="off">끄기</button>' +
+  '<button class="btn" data-tab="budget">경비탭</button>' +
+  '<button class="btn" data-tab="prep">준비탭</button>' +
+  '<button class="btn" data-tab="plan">일정탭</button>' +
+  '<button class="btn" data-r="1">다시보고</button>';
+
+document.getElementById('btns').addEventListener('click', function(e){
+  var b = e.target.closest('.btn'); if(!b) return;
+  var d = fr.contentDocument, w = fr.contentWindow;
+  if(b.dataset.p){ 
+    var mb = d.querySelector('#moModes [data-mp="' + b.dataset.p + '"]');
+    if(mb){ mb.click(); }
+  }
+  if(b.dataset.tab){
+    var nb = d.querySelector('#nav button[data-tab="' + b.dataset.tab + '"]');
+    if(nb){ nb.click(); }
+  }
+  setTimeout(report, 700);
+});
+</script>
+</body>
+</html>
