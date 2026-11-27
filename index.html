@@ -1153,6 +1153,9 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- 데이터 파일은 메인 스크립트보다 먼저 동기 로드 (UI/로직은 이 파일에만) -->
+<script src="./qr-data.js?v=18"></script>
+<script src="./data.js?v=18"></script>
 <script>
 /* ============================================================
    오사카 2박 3일 · 2026-12-08 ~ 12-10
@@ -1160,298 +1163,7 @@
    데이터 기준: 2026-11-26 확정 내용
    ============================================================ */
 
-var MEMBERS = [
-  { id:'hyeoksan', name:'권혁산', initial:'혁', color:'#E85A4F', role:'총무·운전' },
-  { id:'sangwoo',  name:'이상우', initial:'상', color:'#3B7A57', role:'동행' },
-  { id:'hyerang',  name:'강혜랑', initial:'혜', color:'#2B4C7E', role:'렌터카' },
-  { id:'jieun',    name:'임지은', initial:'지', color:'#8C6A9B', role:'동행' }
-];
-
-var DAY = {
-  1:{ date:'12.08 (화)', title:'입국 → 야마토 수령 → 난바 → 리쿼마운틴', color:'#E85A4F', sub:'김해 16:30 → 간사이 17:55 · 밤 위스키 쇼핑' },
-  2:{ date:'12.09 (수)', title:'오사카성 고자부네 → 교토 → 후시미 이나리 → 난바', color:'#2B4C7E', sub:'오전 오사카성·고자부네 뱃놀이 · 오후 교토·후시미' },
-  3:{ date:'12.10 (목)', title:'반납 → 면세 → 귀국', color:'#3B7A57', sub:'11:00 KIX → 12:40 PUS' }
-};
-
-var SPOTS = [
-  /* ---------------- DAY 1 · 12/8 (화) ---------------- */
-  { id:'d1-1', day:1, t:'08:30', kind:'move', tag:'이동', title:'대전 노은 스타돔 출발',
-    sub:'4인 카풀 · 부산까지 약 2시간 30분', jp:'대전 유성구 노은동 스타돔',
-    note:'김해공항까지 여유 있게. 12월 아침 블랙아이스 주의.', q:'대전 스타돔', map:false },
-  { id:'d1-2', day:1, t:'11:00', kind:'sight', tag:'방문', title:'한국해양수산개발원(KMI) 부산지부',
-    sub:'부산 영도구 해양로301번길 26', jp:'부산광역시 영도구 해양로301번길 26',
-    note:'업무 마치고 12:30 점심 → 14:30 김해공항.', q:'한국해양수산개발원 부산', map:false,
-    leg:{ ic:'🚗', t:'차로 약 2시간 30분', m:150 } },
-  { id:'d1-3', day:1, t:'12:30', kind:'food', tag:'점심', title:'영도 · 부산역 근처 점심',
-    sub:'김해공항까지 차로 약 40분', jp:'부산광역시 영도구',
-    note:'가볍게 먹고 14:30까지 김해공항 도착 목표.', q:'부산 영도 맛집', map:false,
-    leg:{ ic:'🚶', t:'도보 10분', m:10 } },
-  { id:'d1-4', day:1, t:'14:30', kind:'air', tag:'공항', title:'김해국제공항 도착 · 출국 수속',
-    sub:'PUS 국제선 · BX617', jp:'부산광역시 강서구 공항진입로 108',
-    note:'가는 편은 위탁수하물 미포함 — 기내 짐만. 15:40 탑승구 도착 권장.', q:'김해국제공항', lat:35.1795, lng:128.9382, map:false,
-    leg:{ ic:'🚗', t:'차로 약 40분', m:40 } },
-  { id:'d1-5', day:1, t:'16:30', kind:'air', tag:'항공', title:'BX617 김해 → 간사이',
-    sub:'16:30 PUS → 17:55 KIX · 약 1시간 25분', jp:'大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナル',
-    badge:'시간 재확인 — 일부 안내 16:40 → 18:10 표기', badgeType:'warn',
-    note:'탑승 전 에어부산 앱에서 최종 출도착 시간을 한 번 더 확인하세요. 착륙 후 입국심사·수하물 약 30~40분. 도착 로비 1층 세븐뱅크 ATM에서 엔화를 먼저 인출해 두면 좋아요(다음 카드).',
-    q:'関西国際空港 第1ターミナル', lat:34.4343, lng:135.2442,
-    leg:{ ic:'🛫', t:'수속 후 탑승', m:0 } },
-  { id:'d1-5a', day:1, t:'18:25', kind:'move', tag:'환전', title:'간사이공항 T1 ATM — 엔화 인출',
-    sub:'1F 도착 로비 세븐뱅크 · 2F 이온은행 · 둘 다 24시간', jp:'大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナル',
-    badge:'트래블월렛 실물카드 + 앱 엔화 충전 · 통화는 JPY 선택', badgeType:'info',
-    note:'입국심사·수하물(약 30~40분) 뒤, 렌터카 카운터로 가기 전에 인출. 1층 국제선 도착 로비 세븐뱅크(SEVEN BANK) ATM — 24시간, 한국어 지원, 기기 수수료 110~220엔. 2층(렌터카·철도 연결통로 이동 동선) 이온은행(AEON) ATM — 24시간, 트래블월렛 VISA로 기기 수수료 무료 사례 다수. ATM 통화 선택은 반드시 엔화(JPY) — 원화 선택은 이중환전. 톨비·야마토 착불 ¥1,335까지 생각해 1~2만 엔 인출 권장.',
-    q:'関西国際空港 第1ターミナル セブン銀行ATM', lat:34.4336, lng:135.2440,
-    leg:{ ic:'🧳', t:'입국·수하물 후 도보 3분', m:3 } },
-  { id:'d1-6', day:1, t:'18:30', kind:'car', tag:'렌터카', title:'간사이공항 렌터카 픽업 (Travel CAR RENT)',
-    sub:'도요타 프리우스 또는 동급 · 예약 1400831131916716', jp:'大阪府泉佐野市泉州空港北1 エアロプラザ',
-    badge:'12/8 18:30 인수 — BX617 착륙 17:55(일부 안내 18:10)', badgeType:'info',
-    note:'강혜랑 님 예약 · 75,859원 사전결제 완료 · 4인 분담 · 12/7 18:30까지 무료취소. 인수 카운터 위치·보험 상세는 강혜랑 님 측 확인 중. 착륙이 늦어지면 카운터에 도착 예정 시간을 알리세요.',
-    q:'関西国際空港 レンタカー', lat:34.4325, lng:135.2415,
-    leg:{ ic:'✈️', t:'비행 1시간 25분', m:85 } },
-  { id:'d1-7', day:1, t:'19:20', kind:'pick', tag:'수령', title:'야마토 이즈미사노 린쿠 영업소',
-    sub:'마운자로 수령 · 공항에서 차 9분 · 21:00 마감', jp:'大阪府泉佐野市りんくう往来北2-10',
-    badge:'4인 각자 여권 필수 · 박스당 착불 ¥1,335', badgeType:'info',
-    note:'영업 08:00~21:00 (072-460-2955). 21시를 넘기면 12/9 오전 수령으로 전환. 대리 수령 불가.',
-    q:'ヤマト運輸 泉佐野りんくう営業所', lat:34.4108, lng:135.2986,
-    leg:{ ic:'🚗', t:'차로 약 9분', m:9 } },
-  { id:'d1-8', day:1, t:'20:20', kind:'stay', tag:'숙소', title:'Hotel Links Namba 체크인',
-    sub:'예약 1801920651 · 1인 1실 더블 × 4실', jp:'大阪市浪速区稲荷1-9-27',
-    note:'체크인 15:00 / 체크아웃 11:00 · 총 JPY 47,976 · 12/7까지 무료취소. 주차는 옆 코인파킹 パーキングプレイスN゜77 NAMBA (24시간 최대 ¥1,400 · 전고 2.0m 이하).',
-    q:'Hotel Links Namba 大阪市浪速区稲荷1-9-27', lat:34.6603, lng:135.4919,
-    leg:{ ic:'🚗', t:'차로 약 45분', m:45 } },
-  { id:'d1-9', day:1, t:'21:15', kind:'food', tag:'저녁', title:'우라난바 스시 토후지 (鮨酒場 スシトフジ 裏難波)',
-    sub:'★4.8 (2,796) · 17:00–23:30 (L.O. 22:30) · 도보 15분/택시 5분', jp:'大阪市中央区千日前2-5-7 2F',
-    badge:'자리만 예약 · [개실] 테이블 금연 · 4명', badgeType:'ok',
-    resv:'SE9752286',
-    /* 자리만(단품)으로 재예약 완료 — 기존 아카후지 코스 예약 SE9751507은 취소 */
-    show:{ no:'SE9752286', dt:'12月8日（火）21:15', plan:'お席のみのご予約（単品注文）', seat:'個室・禁煙' },
-    note:'고단백 픽: 흰살생선 · 참치 아카미 · 오징어 · 조개. 튀김·마요네즈 소스는 가볍게. 초밥은 2관 단위 제공. 아카후지 코스 예약(SE9751507)은 취소하고 자리만(단품) SE9752286으로 다시 잡았어요 — 21:15 입장, 22:30 주문 마감이라 22:45 2차는 도보 3분 거리(難波千日前)라 여유를 둡니다.',
-    menu:[['大将 5관 오마카세','¥1,209'],['혼마구로 아카미 2관','¥548'],['중토로 1관 / 대토로 1관','¥659 / ¥769'],['흰살·조개 2관','¥438~493'],['모둠 사시미 3종','¥879']],
-    pp:'1인 약 ¥4,500 · 단품 주문 + 음료 1잔',
-    alt:'대안: 스시×텐푸라 아키라',
-    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27141205/' },
-    cuisine:'초밥',
-    q:'鮨酒場スシトフジ うらなんば 裏難波店 大阪', lat:34.66647, lng:135.50499, food:true,
-    leg:{ ic:'🚶', t:'도보 15분', m:15 } },
-  { id:'d1-10', day:1, t:'22:45', kind:'food', tag:'2차', title:'스미야키 쇼텐 요 난바점 (炭焼笑店 陽 難波店)',
-    sub:'★3.42 (341) · 15:00–02:30 (L.O. 요리 01:30 / 술 02:00) · 난바역 도보 3분 · 연중무휴', jp:'大阪府大阪市中央区難波千日前14-25 阪南ビル 1F',
-    badge:'예약 없이 당일 워크인 · 4명 · 분연/6인 반개실 또는 테이블 · 오토시 ¥385', badgeType:'ok',
-    note:'스시 토후지에서 도보 3분(200m) — 바로 옆 골목이라 이동이 짧아요. 예약 없이 당일 워크인이라 22:45에 그냥 들어가면 되고, 좌석은 분연·6인 반개실 또는 테이블로 안내받아요(4명이면 넉넉해요). 기슈 비초탄으로 구운 대화육계(大和肉鶏) 야키토리와 직접 계약한 어시장 회가 간판이고, 15:00~02:30이라 늦게 들어가도 부담이 없어요. 테이블 오토시(先付け) ¥385가 1인당 붙습니다. 단품 주문이라 야키토리 1인 4~5꼬치 + 회 1접시 + 술 1~2잔이면 1인 ¥3,200 선이에요. 카드·QR 결제 모두 돼요. 만석이면 바로 대체 — 焼鶏だんな(浪速区難波中1-9-6 · 17:30~01:00 · 일 휴무 · 도보 8분) 또는 たか鳥 なんば座裏店(中央区難波4-3-14 · 17:00~03:00 · 도보 7분). 숙소(호텔 링크스 난바)까지는 도보 17분·택시 8분.',
-    menu:[['焼鶏 大和肉鶏 ねぎま (1꼬치)','¥374'],['焼鶏 せせり','¥352'],['陽の唐揚げ (塩)','¥748'],['長崎 本マグロ造り','¥1,628'],['3種のチーズ 大人のポテトサラダ','¥759'],['先付け(お通し)','¥385']],
-    pp:'1인 약 ¥3,200 · 4인 ¥12,800',
-    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27053755/' },
-    cuisine:'야키토리',
-    q:'炭焼笑店 陽 難波店 大阪', lat:34.6640787, lng:135.5031245, food:true,
-    leg:{ ic:'🚶', t:'도보 3분', m:3 } },
-  { id:'d1-10b', day:1, t:'23:55', kind:'shop', tag:'쇼핑', title:'리쿼마운틴 스오마치점 (リカーマウンテン 周防町店)',
-    sub:'2차에서 23:55 출발 · 도보 13분(0.9km) · 위스키 500종 · 12:00–05:00(일 12:00–03:00) · 면세 가능', jp:'〒542-0083 大阪府大阪市中央区東心斎橋1-6-15',
-    badge:'★4.6 (474) · Whisky Kingdom 위스키 500종 · 새벽 5시까지', badgeType:'info',
-    note:'陽 난바에서 周防町筋까지 도보 13분이에요. 위스키 전문 매장(Whisky Kingdom 500종)으로 야마자키·하쿠슈·히비키·발베니 같은 일본·스카치 위스키를 기본가에 팔고, 면세 카운터가 있어 여권을 챙기면 세금을 빼고 살 수 있어요. 05:00까지 열어 2차가 길어지면 00:30 이후로 미뤄도 되고, 12/9 밤은 진베에 23:30 마감에 다음 날 07:20 출발이라 이 밤이 사실상 유일한 자리예요. 여기서 호텔 링크스 난바까지 도보 26분(1.8km)이라 짐이 생기면 택시 5분(¥1,000 안팎)을 쓰세요.',
-    link:{ t:'리카마운틴 공식', u:'https://www.likaman.co.jp/' },
-    q:'リカーマウンテン 周防町店 大阪', lat:34.6720863, lng:135.5046081,
-    leg:{ ic:'🚶', t:'도보 약 13분', m:13 } },
-
-  /* ---------------- DAY 2 · 12/9 (수) ---------------- */
-  { id:'d2-1', day:2, t:'09:40', kind:'food', tag:'아점', title:'이치란 도톤보리 별관 (一蘭 道頓堀店別館)',
-    sub:'味集中카운터 24시간 · 테이블석 08:00–23:00 · ★4.3', jp:'大阪市中央区道頓堀1-4-16',
-    badge:'본관(宗右衛門町)은 영업 종료 — 이 주소는 별관', badgeType:'warn',
-    note:'오전엔 줄이 짧아요 — 09:40에 들어가면 10:20 전후로 나와요. 면은 적게, 차슈 추가로 단백질 보충(22시~06시만 심야요금 +¥100). 식사 후에는 바로 오사카성으로 이동해요 — 10:20 출발, 차로 18분(5.4km)이면 大阪城公園駅前駐車場이에요. 저녁 크루즈는 18:30편 시간예약을 이미 잡아 뒀어요(W_261126_4453485577_1 · 수요일은 예약자만 승선).',
-    menu:[['천연 돈코츠 라멘','¥1,180'],['카에다마(면 추가)','¥210'],['반숙염란','¥160'],['추가 차슈 4매','¥290'],['밥 / 작은밥','¥300 / ¥250']],
-    pp:'1인 약 ¥1,550 · 라멘+카에다마+반숙란', cuisine:'라멘', q:'一蘭 道頓堀店別館', lat:34.6687, lng:135.5014, food:true },
-  { id:'d2-2', day:2, t:'10:38', kind:'move', tag:'주차·이동', title:'오사카성 공원 주차 → 極楽橋 승선권 판매소',
-    sub:'이치란 10:20 출발 · 차 18분(5.4km) · 大阪城公園駅前駐車場(171대 · 평일 60분 ¥400) · 極楽橋까지 도보 13분', jp:'大阪府大阪市中央区大阪城3-4 大阪城公園駅前駐車場',
-    badge:'천수각 내부 입장은 조이패스 미포함 — 이번엔 공원·뱃놀이만', badgeType:'info',
-    note:'10:38 주차, 10:51 乗船券販売所 도착이 목표예요. 매표소는 천수각 북쪽 極楽橋 서쪽 옛 매점 자리이고 승선장도 바로 앞이에요(전화 예약 불가 · 당일 매표소 판매만, 티켓 판매 09:30~). 주차는 평일 08:00~22:00 60분 ¥400이라 2시간이면 ¥800 안팎, 출차할 때 정산해요.',
-    q:'大阪城公園駅前駐車場 大阪', lat:34.6873509, lng:135.5339141,
-    leg:{ ic:'🚗', t:'차로 약 18분', m:18 } },
-  { id:'d2-2b', day:2, t:'11:00', kind:'sight', tag:'관람', title:'오사카성 공원 & 고자부네 뱃놀이 (大阪城御座船)',
-    sub:'11:00편 승선 · 약 20분 · 성인 ¥1,800 → 조이패스 3회차(¥0) · 10:00~16:30 10분 간격 운항', jp:'大阪府大阪市中央区大阪城2 極楽橋西側 乗船券販売所 (Gozabune Ticket Office)',
-    badge:'조이패스 3번째 시설 — QR 제시 후 便指定 승선권 교환 · 11:20 하선 → 공원 산책 → 12:30 교토 출발', badgeType:'ok',
-    note:'금박을 입힌 御座船으로 내해를 20분 도는 코스 — 천수각을 해자 위에서 올려다보는 유일한 배예요. 3척이 10분 간격으로 도는데 날씨에 따라 1~2척·15~30분 간격으로 줄어요. 매표소에서 조이패스 QR을 보여주고 便指定 승선권으로 교환하면 4인 ¥7,200이 ¥0 — 이걸로 조이패스 3회를 모두 씁니다(1인 ¥5,600 혜택). 만석이면 그 便은 못 타니 11:00편 승선권을 먼저 교환해 두세요. 11:20 하선 뒤 천수각 앞·니시노마루 정원을 40분쯤 보고, 12:05 極楽橋를 나서 도보 13분으로 12:18 주차장 → 12:30 교토 출발이에요.',
-    q:'大阪城御座船 乗船場 極楽橋 大阪', lat:34.6888836, lng:135.5266229,
-    leg:{ ic:'🚶', t:'極楽橋까지 도보 13분', m:13 } },
-  { id:'d2-3', day:2, t:'12:30', kind:'move', tag:'이동', title:'오사카성 → JR 나가오카쿄역 (산토리 셔틀)',
-    sub:'차로 약 50분 · 역 서쪽 출구 1번 승강장 무료 셔틀 약 10분', jp:'京都府長岡京市神足2丁目',
-    note:'공장 자체 주차가 넉넉지 않아 JR 나가오카쿄역 주변 주차 후 무료 셔틀 이용(先着). 13:35까지 공장 도착이라 13:10까지 역에 닿는 편이 안전해요.',
-    q:'JR 長岡京駅', lat:34.9236, lng:135.7004,
-    leg:{ ic:'🚗', t:'차로 약 50분', m:50 } },
-  { id:'d2-4', day:2, t:'13:50', kind:'sight', tag:'투어', title:'산토리 〈천연수의 맥주 공장〉 교토',
-    sub:'더 프리미엄 몰츠 맛 발견 투어 · 13:50–15:20 · 4명 ¥4,000 사전결제 완료', jp:'京都府長岡京市調子3-1-1',
-    badge:'예약·결제 완료 · 13:35까지 도착', badgeType:'info',
-    note:'90분 제조공정 견학 + 프리미엄 몰츠 3종 시음. 렌터카 유지 · 운전자 1명은 무알콜 소프트드링크, 나머지 3명이 시음(현장 접수 시 운전자 1명 안내). JR 나가오카쿄역 무료 셔틀 이용. 12/7 정오 전 무료취소 · 문의 075-952-2020.',
-    q:'サントリー 京都ビール工場', lat:34.9100, lng:135.6944,
-    leg:{ ic:'🚌', t:'셔틀 약 10분', m:10 } },
-  { id:'d2-4a', day:2, t:'15:20', kind:'move', tag:'이동', title:'산토리 → 후시미 이나리 대사',
-    sub:'차로 약 20~25분 · 타임즈 후시미 이나리 대사 서 주차', jp:'京都府京都市伏見区深草下横縄町25',
-    note:'투어 15:20 종료 후 바로 출발. 주차는 タイムズ伏見稲荷大社西 — 40대 · 60분 ¥200 · 24시간 최대 ¥500 · 24시간 입출고. 참배길 입구까지 도보 3~5분이에요.',
-    q:'タイムズ伏見稲荷大社西 京都府京都市伏見区深草下横縄町25', lat:34.9667, lng:135.7714,
-    leg:{ ic:'🚗', t:'차로 약 25분', m:25 } },
-  { id:'d2-4b', day:2, t:'15:45', kind:'sight', tag:'관광', title:'후시미 이나리 대사 (伏見稲荷大社)',
-    sub:'24시간 개방 · 입장 무료 · 일몰 16:47', jp:'京都府京都市伏見区深草藪之内町68',
-    badge:'천 본 도리이 석양 · 야간 라이트업', badgeType:'info',
-    note:'센본 도리이(千本鳥居)는 15~16시가 하루 중 가장 붐벼요 — 오르는 길 초입만 다녀와도 충분합니다. 16:47 일몰 뒤 조명이 들어오면 붉은 도리이가 가장 예뻐요. 16:30에 참배길 입구 카페로 이동해 15분만 쉬고 16:45 교토 출발.',
-    q:'伏見稲荷大社', lat:34.9671, lng:135.7727 },
-  { id:'d2-4c', day:2, t:'16:30', kind:'food', tag:'카페', title:'후시미 이나리 산도 차야 (伏見稲荷 参道茶屋)',
-    sub:'★4.6 · 10:00–17:30 · 연중무휴 · 16:30–16:45 간단 휴식', jp:'京都府京都市伏見区深草開土町1-10',
-    note:'참배길 입구의 전통 말차·커피 카페. 12/9는 저녁 19:15 예약에 맞춰 교토 출발이 16:45로 당겨져 16:30~16:45 15분짜리 간단 휴식이에요 — 앉자마자 음료만 주문하고 16:42까지 계산을 마치세요(테이크아웃 가능). 스페셜티 커피로 바꾸려면 ABOUT US COFFEE(수 09:00–17:00)가 대안이지만 오늘은 시간이 짧아 그냥 지나가는 편이 안전해요.',
-    menu:[['말차 라떼','¥560'],['커피','¥450~510'],['산도 파페','¥1,300'],['야키모치','현장 가격']],
-    pp:'1인 약 ¥900 · 음료 + 간식(예상)',
-    alt:'대안: ABOUT US COFFEE (스페셜티 · 수 09:00–17:00)',
-    link:{ t:'食べログ', u:'https://tabelog.com/kyoto/A2601/A260601/26019250/' },
-    cuisine:'말차·카페',
-    q:'伏見稲荷 参道茶屋 京都', lat:34.96796, lng:135.77136, food:true,
-    leg:{ ic:'🚶', t:'도보 4분', m:4 } },
-  { id:'d2-4d', day:2, t:'16:45', kind:'move', tag:'이동', title:'후시미 이나리 → 난바 복귀',
-    sub:'16:45 출발 · 평일 저녁 차량 약 67분 · 17:52 난바 도착', jp:'大阪市中央区道頓堀1丁目',
-    note:'16:45 출발이면 평일 저녁 정체를 감안해 약 67분 — 17:52 난바 도착이 목표예요. 주차 2~3분 + 도보 약 8분이면 18:05 전후 日本橋船着場이라 18:30 출항에 넉넉합니다. 카페는 16:42에 마치고 16:45 정시 출발을 지켜 주세요 — 이 15분이 저녁 19:15 예약의 여유를 만들어요.',
-    q:'道頓堀 大阪', lat:34.6680, lng:135.5015,
-    leg:{ ic:'🚗', t:'차로 약 67분', m:67 } },
-  { id:'d2-5', day:2, t:'17:55', kind:'move', tag:'주차·이동', title:'난바 주차 · 日本橋船着場으로 이동',
-    sub:'17:52 난바 도착 → 코인파킹 2~3분 → 日本橋船着場 도보 약 8분 · 18:15까지 여유 도착', jp:'大阪市中央区道頓堀1丁目',
-    note:'도착하면 道頓堀 주변 코인파킹에 세우고 바로 日本橋船着場으로 걸어가요(18:15까지 도착이 안전선). 선착장은 道頓堀 동쪽 끝 日本橋 쪽 — 돈키호테 강변 입구 옆 太左衛門橋가 아니에요. 매표소(Dotonbori Riverside Grill Wonder, 16:45 오픈)에서 조이패스 QR 4장을 보여주고 승선하세요. 쇼핑은 전날 밤 리쿼마운틴 스오마치점에서 이미 끝냈고, 빅카메라 난바(22:00)·에디온 난바(21:00)도 19:15 저녁 → 20:30 하루카스 → 21:30 2차로 이어져 끼울 자리가 없어요. 술·기념품은 크루즈 뒤 도톤보리 상가에서 10분 정도만 보세요.',
-    q:'道頓堀 大阪', lat:34.6680, lng:135.5015 },
-  { id:'d2-5b', day:2, t:'18:30', kind:'sight', tag:'크루즈', title:'도톤보리 크루즈 · 원더크루즈 (ワンダークルーズ)',
-    sub:'18:30 출항 · 약 20분(18:50 하선) · 성인 ¥2,000 → 조이패스 2회차(¥0) · 18:20까지 日本橋船着場 카운터', jp:'大阪市中央区道頓堀1-1-6 川沿いB1 (日本橋船着場)',
-    badge:'예약 완료 W_261126_4453485577_1 · 별도 QR 없음 · 18:10부터 접수', badgeType:'ok',
-    resv:'W_261126_4453485577_1', resvDl:'',
-    note:'日本橋船着場(道頓堀1-1-6 강변 B1 · Dotonbori Riverside Grill Wonder)에서 20분 코스 — 글리코상·에비스바시·돈키호테 관람차 앞을 지나 다시 출발지로 돌아와요. 지붕이 있어 비 와도 운항하고, 18:30편은 해가 진 뒤라 네온이 물에 비치는 야경이에요. 12/9 18:30편 4명으로 시간예약을 잡아 뒀어요(예약자 Kwon Hyuksan · Kansai Joy Pass 이용 · 추가 결제 없음). 별도 QR이 발행되지 않으니 출항 10분 전(18:20)까지 카운터에서 예약 확인 메일을 보여주고 간사이 조이패스 QR 4장을 함께 제시해 승선권을 받은 뒤 줄을 서세요 — 접수는 각 승선 시간 20분 전(18:10)부터고, 승선권을 받지 않으면 탈 수 없어요. 18:50 하선 뒤 긴 난바점까지 도보 약 7분이라 18:57~19:00 입장이에요. 문의 06-6147-7097.',
-    menu:[['성인 × 4명 (정가)','¥8,000'],['조이패스 차감','¥0'],['성인 1인 (정가)','¥2,000'],['어린이 (6~12세)','¥1,000']],
-    pp:'조이패스 2회차 차감 (¥0) · 정가 1인 ¥2,000',
-    link:{ t:'원더크루즈 공식', u:'https://wondercruise.jp/' },
-    q:'ワンダークルーズ 日本橋船着場 大阪市中央区道頓堀1-1-6', lat:34.6689201, lng:135.5054825,
-    leg:{ ic:'🚶', t:'선착장까지 도보 약 8분', m:8 } },
-  { id:'d2-6', day:2, t:'19:15', kind:'food', tag:'저녁', title:'고시츠 와규 야키니쿠 긴 난바점 (個室 和牛焼肉 吟 難波店)',
-    sub:'★3.41 (341) · 야키니쿠 WEST 백명점 2022 · 전석 개별실·전석 금연 · 17:00–23:00 (L.O. 22:00)',
-    jp:'大阪府大阪市中央区難波1-8-16 なんばHIPS 10F',
-    badge:'자리만(120분) · [개실] 테이블 금연 · 4명 · 19:00→19:15 변경 완료', badgeType:'ok',
-    resv:'SE9750168', resvDl:'12/9(수) 00:00',
-    show:{ no:'SE9750168', dt:'12月9日（水）19:15', plan:'お席のみのご予約（120分）', seat:'個室・禁煙' },
-    note:'크루즈 18:50 하선 → 도보 7분 → 18:57~19:00 입장이라 19:15 예약에 여유가 있어요. 난바역 15-B 출구 직결 빌딩 10층, 개별실 25실이라 4인도 조용해요. 자리만 예약이라 A5 흑모와규·고베규를 단품으로 골라 먹으면 1인 ¥5,500 선. 다음 날 07:20 출발이라 술은 가볍게.',
-    menu:[['A5 흑모와규 카르비','¥748~'],['고베규 카르비','¥1,628'],['특상 규탄(牛タン)','¥1,980'],['와규 유케(육회)','¥1,078'],['코스 요금 (전채~디저트)','¥6,000~']],
-    pp:'1인 약 ¥5,500 · 단품 기준 (4인 ¥22,000)',
-    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27060998/' },
-    cuisine:'야키니쿠',
-    q:'個室 和牛焼肉 吟 難波店 大阪', lat:34.6675993, lng:135.5006679, food:true,
-    leg:{ ic:'🚶', t:'선착장에서 도보 약 7분', m:7 } },
-  { id:'d2-7', day:2, t:'20:30', kind:'sight', tag:'야경', title:'하루카스 300 전망대',
-    sub:'09:00–22:00 · 마지막 입장 21:30 · 1인 ¥1,800 → 조이패스 1회 차감(¥0) · 미도스지선 난바→덴노지 3정거장', jp:'大阪市阿倍野区阿倍野筋1-1-43',
-    badge:'조이패스 QR 제시(1회 차감) · 21:30 진베에 예약에 맞춰 20:30 입장', badgeType:'ok',
-    note:'64층 300m 전망대. 16F 매표소에서 조이패스 QR을 보여주고 입장권으로 교환하세요 — 1인 ¥1,800이 ¥0(4인 ¥7,200 절약). 20:30 입장이면 45분쯤 여유 — 21:15~21:20에 내려와 덴노지역에서 미도스지선 3정거장(6분)+도보 8분, 또는 택시 10분(약 ¥1,000~1,300)으로 21:30 진베에 도착. 렌터카는 숙소 주차장에 두고 지하철·택시로 움직이세요(전망대 자체 주차는 킨테쓰 백화점 대형주차).',
-    q:'あべのハルカス ハルカス300', lat:34.6458, lng:135.5140,
-    leg:{ ic:'🚇', t:'지하철 3정거장 + 도보', m:18 } },
-  { id:'d2-8', day:2, t:'21:30', kind:'food', tag:'2차', title:'오뎅&소바 이자카야 진베에 난바점 (おでんとお蕎麦居酒屋 じんべえ 難波店)',
-    sub:'★3.47 · 17:00–23:30 (L.O. 23:00) · 난바역·닛폰바시 도보 5분',
-    jp:'大阪府大阪市中央区難波千日前1-8',
-    badge:'【평일】자리만 예약 · 테이블 금연 · 4명', badgeType:'ok',
-    resv:'SE9751598', resvDl:'12/9(수) 00:00',
-    show:{ no:'SE9751598', dt:'12月9日（水）21:30', plan:'お席のみのご予約', seat:'テーブル・禁煙' },
-    note:'자사 중도매 직송 회와 오사카 다시 오뎅, 마무리 소바. 1층은 오뎅 솥 카운터, 2층은 오자시키·테이블. 21:30 입장이면 23:00 라스트오더까지 1시간 반 — 22:50까지 주문을 마치세요. 자릿세(오토시) ¥330 별도.',
-    menu:[['명물 오뎅 모둠','¥1,309'],['회 5종 모둠','¥1,419'],['하나마키 소바 (마무리)','¥539'],['하이볼','¥429'],['자릿세 (오토시)','¥330']],
-    pp:'1인 약 ¥2,800 · 4인 ¥11,200',
-    link:{ t:'食べログ', u:'https://tabelog.com/osaka/A2701/A270202/27105974/' },
-    cuisine:'오뎅·소바',
-    q:'おでんとお蕎麦居酒屋 じんべえ 難波店', lat:34.6647871, lng:135.5054405, food:true,
-    leg:{ ic:'🚇', t:'지하철 + 도보 약 15분', m:15 } },
-
-  /* ---------------- DAY 3 · 12/10 (목) ---------------- */
-  { id:'d3-1', day:3, t:'07:20', kind:'move', tag:'출발', title:'체크아웃 · 공항으로 출발',
-    sub:'공항 근처에서 가득 주유', jp:'大阪市浪速区稲荷1-9-27',
-    note:'조식은 편의점 or 공항에서. 렌터카 반납 전 주유 영수증 보관.',
-    menu:[['편의점 오니기리 2개','¥340~440'],['샌드위치 / 커피','¥330~500 / ¥140~160'],['공항 커피·빵','¥400~700']],
-    pp:'1인 약 ¥900', cuisine:'조식·커피', q:'Hotel Links Namba', lat:34.6603, lng:135.4919 },
-  { id:'d3-2', day:3, t:'08:30', kind:'car', tag:'반납', title:'간사이공항 렌터카 반납 (Travel CAR RENT)',
-    sub:'반납 마감 12/10 10:00 · 08:30 반납 예정', jp:'大阪府泉佐野市泉州空港北1 エアロプラザ 1階',
-    note:'반납 후 셔틀/도보로 1터미널 이동. 반납 전 주유 영수증 보관. 반납 위치는 인수처와 함께 강혜랑 님 측 확인 중.', q:'関西国際空港 エアロプラザ', lat:34.4325, lng:135.2415,
-    leg:{ ic:'🚗', t:'차로 약 36분', m:36 } },
-  { id:'d3-3', day:3, t:'09:00', kind:'shop', tag:'면세', title:'출국 수속 · 면세 쇼핑',
-    sub:'세관 키오스크에서 면세 환급', jp:'大阪府泉佐野市泉州空港北1 第1ターミナル',
-    note:'면세품은 여권·영수증 지참, 세관 키오스크 스캔. 마운자로는 기내 가방에.', q:'関西国際空港 第1ターミナル', lat:34.4343, lng:135.2442,
-    leg:{ ic:'🚶', t:'셔틀·도보 5분', m:5 } },
-  { id:'d3-4', day:3, t:'11:00', kind:'air', tag:'항공', title:'BX608 간사이 → 김해',
-    sub:'11:00 KIX → 12:40 PUS', jp:'大阪府泉佐野市泉州空港北1 関西国際空港 第1ターミナル',
-    note:'오는 편은 위탁 15kg 무료 포함. 마운자로는 반드시 기내(화물칸 동결 위험).', q:'関西国際空港 第1ターミナル', lat:34.4343, lng:135.2442,
-    leg:{ ic:'🛫', t:'수속 후 탑승', m:0 } },
-  { id:'d3-5', day:3, t:'13:30', kind:'move', tag:'복귀', title:'김해공항 → 대전 복귀',
-    sub:'차로 약 3시간 · 16:30경 도착 예상', jp:'부산광역시 강서구 공항진입로 108',
-    note:'입국장에서 주류·마운자로 신고 여부 확인.', q:'김해국제공항', map:false,
-    leg:{ ic:'✈️', t:'비행 1시간 40분', m:100 } }
-];
-
-var SHOPS = [
-  { id:'sh-biccamera', n:'빅카메라 난바점 2층', jp:'大阪市中央区千日前2-10-1', h:'10:00–22:00', star:'—',
-    tags:['면세','주류 3% 쿠폰'],
-    d:'조니워커 블루·카발란·스카치 고숙성 살 때 가장 유리. 22시까지 열어 저녁 동선에 좋아요.',
-    ph:{ f:'shop-biccamera.jpg', cap:'빅카메라 난바', cr:'Tokumeigakarinoaoshima · CC BY-SA 4.0' },
-    q:'ビックカメラなんば店', lat:34.6658, lng:135.5033 },
-  { n:'리쿼마운틴 스오마치점 (リカーマウンテン 周防町店)', jp:'大阪市中央区東心斎橋1-6-15', h:'12:00–05:00 (일 12:00–03:00)', star:'4.6',
-    tags:['면세 가능','Whisky Kingdom 500종','새벽 영업'],
-    d:'위스키 전문 매장. 야마자키·하쿠슈·히비키·발베니 같은 일본·스카치 위스키를 기본가에 팔고 면세 카운터가 있어요. 道頓堀에서 도보 13분, 새벽 5시까지 열어 2차 뒤에 들르기 좋습니다.',
-    q:'リカーマウンテン 周防町店 大阪', lat:34.6720863, lng:135.5046081 },
-  { n:'에디온 난바 본점 6층', jp:'大阪市中央区難波3-2-18', h:'10:00–21:00', star:'4.2',
-    tags:['면세','사케·미니어처'],
-    d:'6층 일본주점 — 사케 1,200종·미니어처 특화. 닷사이 등 사케 선물용으로 최고.',
-    q:'エディオンなんば本店', lat:34.6656, lng:135.5010 },
-  { n:'Liquor shop K (소우에몬초)', jp:'大阪市中央区宗右衛門町', h:'11:00–20:00', star:'4.9',
-    tags:['면세','한국인 사장님'],
-    d:'야마자키·히비키 재고 빈도가 높은 편. 레어템 노리면 여기부터.',
-    q:'Liquor shop K 宗右衛門町 大阪', lat:34.6714, lng:135.5034 },
-  { n:'캐빈리쿼 오사카 본점 (참고)', jp:'大阪市北区梅田1-1-3 大阪駅前第2ビル B2F', h:'10:00–19:00', star:'4.4',
-    tags:['면세 불가','우메다'],
-    d:'올드보틀·프리미엄 재고는 최고 수준이지만 면세 불가·가격 높음. 이번 난바 동선에선 가지 않는 걸 추천.',
-    q:'キャビンリカー 大阪駅前第2ビル', lat:34.6990, lng:135.4970 }
-];
-
-var WHISKY = [
-  { n:'조니워커 블루', v:'750ml', p:'¥15,000–18,000', t:'선물용 1순위 · 빅카메라' },
-  { n:'발베니 12년 더블우드', v:'700ml', p:'약 ¥6,980', t:'데일리 · 리쿼마운틴' },
-  { n:'시바스리갈 미즈나라 18년', v:'700ml', p:'약 ¥9,455', t:'일본 한정 · 빅카메라' },
-  { n:'카발란 솔리스트 피노', v:'700ml', p:'약 ¥27,255', t:'품절 잦음' },
-  { n:'야마자키 12년', v:'700ml', p:'약 ¥22,000', t:'1인 1병 제한 · 현금' },
-  { n:'히비키 블렌더스 초이스', v:'700ml', p:'약 ¥17,000', t:'현금 · 재고 변동' }
-];
-
-var PREP_STEPS = [
-  { d:'완료', t:'식당 3곳 예약 + 1일차 2차는 워크인', s:'12/8(화) 21:15 스시 토후지 SE9752286(자리만·단품) → 22:45 스미야키 쇼텐 陽 난바(예약 없이 당일 워크인) / 12/9(수) 19:15 와규 야키니쿠 긴 · 21:30 진베에 — 예약 3곳 모두 현장 결제(지금 나간 돈 0원). 기존 주추핫쿠(SE9750375)는 무료 취소 진행 중. 원더크루즈 12/9 18:30편도 시간예약 완료(W_261126_4453485577_1) — 확인증은 아래 🍽️ 식당 예약 카드에.' },
-  { d:'완료', t:'해외여행보험 가입 (4명)', s:'카카오페이손해보험 19,780원 · 12/8 16:00 ~ 12/10 13:00 · 4인 가입 · 신한카드 결제 완료' },
-  { d:'지금', t:'렌터카 인수 위치·보험 확인', s:'Travel CAR RENT(트립닷컴) 예약 1400831131916716 — 12/8 18:30 인수로 변경 완료. 인수 카운터 위치·보험 조건은 강혜랑 님 측 확인 중.', now:true },
-  { d:'완료', t:'UB클리닉 진료 예약 · 12/3 10:30', s:'공식 LINE(@578ierwy) 채팅 진료로 예약 완료(수령일 5~6일 전 규칙). 결제 링크도 LINE으로 받고, 진료 다음 날 발송. 4인 각자 본인 명의 · VISA/Mastercard 신용카드만(체크 불가).' },
-  { d:'12/3', t:'10:30 LINE 채팅 진료 → 카드 결제', s:'진료 후 LINE 결제 링크로 카드 결제 → 영문 처방증명서(PDF)가 등록 메일로 무료 발송. 야마토 이즈미사노 린쿠 영업소(069681)로 12/7 도착 지정.' },
-  { d:'12/6', t:'최종 점검', s:'숙소·렌터카·산토리 무료취소 마감 전날. 여권 유효기간 6개월 이상, 국제운전면허증 발급 완료 확인.' },
-  { d:'12/7', t:'무료취소 마감 · 마운자로 영업소 도착', s:'숙소 ~12/7, 렌터카 12/7 18:30, 산토리 교토 12/7 정오 — 이후 위약금. 마운자로는 이날 야마토 이즈미사노 린쿠 영업소(069681) 도착 예정 — 냉장 쿨택배는 도착일 포함 3일만 보관.' },
-  { d:'12/8', t:'출국 · 마운자로 수령', s:'16:30 BX617 → 18:30 렌터카 → 19:20 야마토 이즈미사노 린쿠 영업소(08:00~21:00 · 여권 지참 · 착불 ¥1,335) → 20:20 체크인.' }
-];
-
-var CHECKLIST = [
-  { g:'서류', id:'passport', l:'여권', s:'유효기간 6개월 이상 · 4인 각자' },
-  { g:'서류', id:'idp', l:'국제운전면허증(1949) + 한국면허 실물', s:'운전자 전원 · 제네바 협약판' },
-  { g:'서류', id:'card', l:'본인 명의 신용카드 (VISA/Master)', s:'렌터카 보증금·UB클리닉 결제용. 체크카드 불가' },
-  { g:'서류', id:'ticket', l:'에어부산 e-티켓 (KAYTPM)', s:'BX617 / BX608 · 가는 편 위탁 없음' },
-  { g:'서류', id:'insurance', l:'해외여행보험 (카카오페이손해보험)', s:'가입 완료 (4명 · 19,780원) · 12/8 16:00 ~ 12/10 13:00', pre:true },
-  { g:'서류', id:'voucher', l:'숙소·렌터카·산토리 바우처 저장', s:'오프라인에서도 열리게 캡처' },
-  { g:'서류', id:'joypass', l:'원더크루즈 승선권 수령 (18:20까지 日本橋船着場)', s:'예약 완료 W_261126_4453485577_1 · 별도 QR 없음 → 카운터에서 예약 확인 메일 + 조이패스 QR 4장 제시 · 18:10부터 접수', pre:true },
-  { g:'입국', id:'vjw', l:'비짓재팬웹(Visit Japan Web) 등록', s:'입국·세관 QR 미리 발급' },
-  { g:'입국', id:'esim', l:'eSIM 설치 (유심스토어 3일)', s:'현지 도착 후 설치 · APN cmlink · QR은 유심스토어 주문내역에서' },
-  { g:'약', id:'ub', l:'UB클리닉 예약 · 문진 · 결제 완료', s:'4인 각자 본인 명의 · 12/3 10:30 LINE 채팅 진료(예약 완료) · 영문 처방 PDF 요청' },
-  { g:'약', id:'cool', l:'보냉 파우치 · 보랭제', s:'액체 아이스팩은 기내 100ml 제한 → 고체 보랭제 권장' },
-  { g:'약', id:'rx', l:'처방전 · 영수증 PDF 저장', s:'세관 제시용 · 최대 3개월(12펜)' },
-  { g:'짐', id:'adapter', l:'충전기 · 110V 어댑터 · 보조배터리', s:'보조배터리는 기내 반입만' },
-  { g:'짐', id:'cash', l:'엔화 현금 · 동전지갑', s:'리쿼마운틴·빅카메라 레어 보틀은 현금이 편해요 · 면세는 여권' },
-  { g:'짐', id:'med', l:'상비약 · 여분 마스크 · 우산', s:'12월 오사카 비 소식 대비' },
-  { g:'귀국', id:'weight', l:'귀국 짐 무게 (위탁 15kg)', s:'BX608만 위탁 15kg 포함' }
-];
-
-/* 식당 예약 — 핫페퍼(Recruit) 즉시예약. 2026-11-26 19:20~19:25 접수, 토후지는 자리만으로 재발급 중 */
-var RESV = [
-  { ic:'🍣', t:'스시 토후지 우라난바', day:'12/8(화) 21:15', plan:'お席のみのご予約（単品注文）', seat:'[개실] 테이블 · 금연 · 4명',
-    no:'SE9752286', tel:'06-6647-6230', dl:'', hp:'strJ003762774',
-    memo:'아카후지 코스 예약(SE9751507)은 취소 완료 → 자리만(단품) SE9752286으로 재예약 완료. 매장 취소 규정은 당일 14시 이후 1인 ¥2,000(핫페퍼 고지)이에요.' },
-  { ic:'🥩', t:'고시츠 와규 야키니쿠 긴 난바', day:'12/9(수) 19:15', plan:'【12月】お席のみのご予約（120分）', seat:'[개실] 테이블 · 금연 · 4명',
-    no:'SE9750168', tel:'06-6214-1131', dl:'12/9(수) 00:00', hp:'strJ000981026',
-    memo:'19:00 → 19:15로 핫페퍼에서 직접 변경 완료(11/26 23:02, 예약번호 동일). 크루즈 18:50 하선 후 도보 7분. 난바 HIPS 10F · 단품 주문(A5 흑모와규·고베규). 다음 날 07:20 출발이라 술은 가볍게.' },
-  { ic:'🍢', t:'오뎅&소바 이자카야 진베에 난바', day:'12/9(수) 21:30', plan:'【평일】お席のみのご予約', seat:'테이블 · 금연 · 4명',
-    no:'SE9751598', tel:'06-6631-8010', dl:'12/9(수) 00:00', hp:'strJ003323817',
-    memo:'하루카스 20:30 입장 → 21:15~21:20 하산 → 지하철·택시 10~15분 → 21:30 도착. 23:00 라스트오더.' }
-];
+/* 식당 예약 카드 렌더러 — 데이터는 data.js 의 RESV */
 function resvCardHTML(r){
   return '<div class="bk">' +
     '<div class="bk1"><span style="font-size:14px">' + r.ic + '</span><b>' + esc(r.t) + '</b>' +
@@ -1469,63 +1181,6 @@ function resvCardHTML(r){
       (r.hp ? '<a class="btn lnk" target="_blank" rel="noopener" href="https://www.hotpepper.jp/' + esc(r.hp) + '/">🔗 핫페퍼</a>' : '') +
     '</div></div>';
 }
-
-var BOOKINGS = [
-  { id:'stay', ic:'🏨', t:'숙소 · Hotel Links Namba', tag:'예약 확정', tagw:false,
-    rows:[['예약번호','1801920651'],['객실','1인 1실 더블 × 4실'],['금액','JPY 47,976 (총)'],['체크인/아웃','15:00 / 11:00'],['무료취소','12/7까지']],
-    jp:'大阪市浪速区稲荷1-9-27', q:'Hotel Links Namba' },
-  { id:'air', ic:'✈️', t:'항공 · 에어부산', tag:'예약 확정', tagw:false,
-    rows:[['예약번호','KAYTPM'],['가는 편','BX617 12/8 16:30 PUS → 17:55 KIX'],['오는 편','BX608 12/10 11:00 KIX → 12:40 PUS'],['수하물','가는 편 위탁 없음 / 오는 편 15kg']],
-    jp:'', q:'' },
-  { id:'car', ic:'🚗', t:'렌터카 · Travel CAR RENT (트립닷컴)', tag:'예약 확정', tagw:false,
-    rows:[['예약번호','1400831131916716'],['차량','도요타 프리우스 또는 동급'],['금액','75,859원 (사전결제 완료 · 4인 분담)'],['인수','12/8(화) 18:30'],['반납','12/10(목) 10:00 (08:30 반납 예정)'],['무료취소','12/7 18:30 이전'],['확인 중','인수 위치·보험 상세 — 강혜랑 님 측']],
-    jp:'大阪府泉佐野市泉州空港北1 関西国際空港', q:'関西国際空港 レンタカー' },
-  { id:'tour', ic:'🍺', t:'산토리 교토 맥주공장', tag:'예약 확정', tagw:false,
-    rows:[['일시','12/9(수) 13:50–15:20 (13:35까지 도착)'],['코스','더 프리미엄 몰츠 맛 발견 투어 (20세 이상)'],['인원·이동','4명 · JR 나가오카쿄역 무료 셔틀 · 렌터카 유지 · 운전자 1명 소프트드링크 / 3명 시음 (현장 접수 시 운전자 1명 안내)'],['금액','¥4,000 (1인 ¥1,000) 카드 사전결제 완료'],['무료취소','12/7 정오 전 · 075-952-2020']],
-    jp:'京都府長岡京市調子3-1-1', q:'サントリー 京都ビール工場' },
-  { id:'joy', ic:'🎟️', t:'간사이 조이 패스 1 Week Free Pass (3개 시설)', tag:'구매 완료', tagw:false,
-    rows:[['주문','KKday #26KK220794270 · #26KK220794580'],['구성','1인 1장 × 4장 (4인 각자 QR)'],['금액','72,580원 (1인 18,145원 · 사전결제 완료)'],['유효기간','2026-11-27 ~ 2027-08-23 (구매 후 270일)'],['사용','시설 입구에서 QR 제시 → 1회 차감 · 첫 스캔 후 7일'],['QR','앱 QR 월렛에 4인 각자 내장'],['이번 사용','하루카스 300 · 원더크루즈 · 오사카성 고자부네 (3회 모두 사용 · 1인 ¥5,600 혜택)']],
-    jp:'', q:'' },
-  { id:'cruise', ic:'🚢', t:'원더크루즈 도톤보리 크루즈 (12/9 18:30)', tag:'예약 확정', tagw:false,
-    rows:[['예약번호','W_261126_4453485577_1'],['일시','12/9(수) 18:30 출항 · 약 20분(18:50 하선)'],['인원','4명 · 예약자 Kwon Hyuksan'],['선착장','日本橋船着場 (道頓堀1-1-6 강변 B1 · 大阪メトロ日本橋 2번출구 도보 3분)'],['결제','Kansai Joy Pass 이용 — 추가 결제 없음 (1인 ¥2,000 → ¥0 · 조이패스 2회차)'],['수령','별도 QR 없음 — 18:20까지 카운터에서 예약 확인 메일 제시 → 승선권 수령 후 줄 서기 (18:10부터 접수)'],['문의','06-6147-7097 (大阪バスワンダークルーズ)']],
-    jp:'大阪市中央区道頓堀1-1-6', q:'ワンダークルーズ 日本橋船着場' },
-  { id:'ins', ic:'🛡️', t:'해외여행보험 · 카카오페이손해보험', tag:'가입 완료', tagw:false,
-    rows:[['보장기간','2026.12.08 16:00 ~ 12.10 13:00'],['가입','4명 (각자 가입)'],['보험료','19,780원 (4인 합계 · 신한카드)'],['1인 부담','4,945원 (4인 공통 ÷ 4)'],['증권 확인','카카오페이 앱 › 보험에서 조회']],
-    jp:'', q:'' }
-];
-
-var CATS = {
-  stay:{ n:'숙소', c:'#2B4C7E', ic:'🏨' },
-  transport:{ n:'교통·렌터카', c:'#D9822B', ic:'🚗' },
-  food:{ n:'식비', c:'#3B7A57', ic:'🍽️' },
-  tour:{ n:'투어·입장', c:'#E85A4F', ic:'🎫' },
-  medical:{ n:'마운자로', c:'#8C6A9B', ic:'💉' },
-  insurance:{ n:'보험·준비', c:'#6BA3F5', ic:'🛡️' },
-  etc:{ n:'기타', c:'#9A9186', ic:'💸' }
-};
-
-var DEFAULT_COSTS = [
-  { id:'c1', name:'숙소 · Hotel Links Namba', amt:47976, cur:'JPY', split:4, cat:'stay', memo:'4실 2박 · 예약 1801920651 · 카드 결제 완료', ic:'🏨', prepaid:true },
-  { id:'c2', name:'렌터카 · 도요타 프리우스 (Travel CAR RENT)', amt:75859, cur:'KRW', split:4, cat:'transport', memo:'강혜랑 님 예약 · 사전결제 완료 · 4인 분담', ic:'🚗', prepaid:true },
-  { id:'c3', name:'주차 (숙소 2일 + 오사카성)', amt:3600, cur:'JPY', split:4, cat:'transport', memo:'숙소 코인파킹 24h 최대 ¥1,400 × 2일 + 大阪城公園駅前駐車場 약 2시간(평일 60분 ¥400) · 현지 결제', ic:'🅿️' },
-  { id:'c4', name:'주유 · 고속도로 (예상)', amt:5000, cur:'JPY', split:4, cat:'transport', memo:'오사카·교토 왕복 · 현지 결제', ic:'⛽' },
-  { id:'c5', name:'산토리 교토 맥주공장 투어 (4명)', amt:4000, cur:'JPY', split:4, cat:'tour', memo:'1인 ¥1,000 × 4명 · 카드 사전결제 완료', ic:'🍺', prepaid:true },
-  { id:'c6', name:'하루카스 300 전망대 (4명)', amt:0, cur:'JPY', split:4, cat:'tour', memo:'조이패스 1회차 차감 (¥0) · 정가 1인 ¥1,800 → 4인 ¥7,200 절약 · 12/9 20:30 입장', ic:'🌃' },
-  { id:'c7', name:'마운자로 UB클리닉 · 5mg 12펜 (3인) 약값', amt:135000, cur:'JPY', split:3, who:['hyeoksan','sangwoo','hyerang'], cat:'medical', memo:'3인 × ¥45,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
-  { id:'c7b', name:'마운자로 UB클리닉 · 2.5mg 12펜 (임지은) 약값', amt:24000, cur:'JPY', split:1, who:['jieun'], cat:'medical', memo:'¥24,000 · 12/3 진료 후 카드결제', ic:'💉', prepaid:true },
-  { id:'c7s', name:'마운자로 착불 배송비 (4명)', amt:5340, cur:'JPY', split:4, cat:'medical', memo:'1인 ¥1,335 × 4박스 · 수령 시 현지 결제(착불)', ic:'📦' },
-  { id:'f1', name:'1일차 저녁 · 스시 토후지 (자리만·단품)', amt:18000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥4,500 × 4 · 단품 주문(5관 모리 ¥1,209·아카미 2관 ¥548 등 실측 시세) · 자리만(단품) 예약 SE9752286', ic:'🍣' },
-  { id:'f2', name:'1일차 2차 · 스미야키 쇼텐 陽 난바', amt:12800, cur:'JPY', split:4, cat:'food', memo:'1인 ¥3,200 × 4 · 야키토리 1꼬치 ¥352~374·본마구로造り ¥1,628·唐揚げ ¥748·오토시 ¥385 별도 · 단품 주문', ic:'🍗' },
-  { id:'f3', name:'2일차 아점 · 이치란 라멘', amt:6400, cur:'JPY', split:4, cat:'food', memo:'1인 ¥1,600 × 4 · 라멘 ¥1,180 + 카에다마 ¥210 + 반숙란 ¥160', ic:'🍜' },
-  { id:'f4', name:'2일차 저녁 · 와규 야키니쿠 긴', amt:22000, cur:'JPY', split:4, cat:'food', memo:'1인 ¥5,500 × 4 · A5 흑모와규 카르비 ¥748~·특상 규탄 ¥1,980·와규 유케 ¥1,078 단품 기준', ic:'🥩' },
-  { id:'f5', name:'2일차 2차 · 진베에 난바', amt:11200, cur:'JPY', split:4, cat:'food', memo:'1인 ¥2,800 × 4 · 오뎅 모둠 ¥1,309·회 5종 ¥1,419·하나마키 소바 ¥539·하이볼 ¥429, 자릿세 ¥330 별도', ic:'🍢' },
-  { id:'f6', name:'3일차 조식·간식 (예상)', amt:3600, cur:'JPY', split:4, cat:'food', memo:'1인 ¥900 × 4 · 편의점 오니기리 ¥170~220·샌드위치·커피 + 공항 커피', ic:'🥐' },
-  { id:'c9', name:'eSIM · 유심스토어 3일 (혁산)', amt:6000, cur:'KRW', split:1, who:['hyeoksan'], cat:'etc', memo:'듀얼망 3일 무제한 · N페이 포인트 결제', ic:'📶', prepaid:true },
-  { id:'c10', name:'해외여행보험 · 카카오페이 (4명)', amt:19780, cur:'KRW', split:4, cat:'insurance', memo:'2026.12.08 16:00 ~ 12.10 13:00 · 4인 가입 완료 (신한카드 19,780원)', ic:'🛡️', prepaid:true },
-  { id:'c11', name:'도톤보리 크루즈 · 원더크루즈 (4명)', amt:0, cur:'JPY', split:4, cat:'tour', memo:'조이패스 2회차 차감 (¥0) · 정가 1인 ¥2,000 → 4인 ¥8,000 절약 · 12/9 18:30편 日本橋船着場 (예약 W_261126_4453485577_1)', ic:'🚤' },
-  { id:'c12', name:'간사이 조이 패스 1 Week Free Pass (4인)', amt:72580, cur:'KRW', split:4, cat:'tour', memo:'1인 18,145원 × 4 · KKday #26KK220794270 · #26KK220794580 결제 완료 · 3개 시설 선택', ic:'🎟️', prepaid:true },
-  { id:'c13', name:'오사카성 고자부네 뱃놀이 (4명)', amt:0, cur:'JPY', split:4, cat:'tour', memo:'조이패스 3회차 차감 (¥0) · 정가 1인 ¥1,800 → 4인 ¥7,200 절약 · 12/9 11:00편 極楽橋', ic:'🛶' },
-];
 
 /* ---------------- state ---------------- */
 var LS_KEY = 'osakaTripApp.v2';
@@ -1673,7 +1328,6 @@ function fxBoot(){
   else fxApply(FX_FALLBACK.rate, FX_FALLBACK.date, 'fallback', { src: FX_FALLBACK.src, usdJpy: FX_FALLBACK.usdJpy });
   fxFetch(false);
 }
-var COST_VER = 17; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v17: 오사카성 고자부네 조이패스 3회차(¥0) 추가 · 오사카성 공원 주차 반영해 주차 항목 3,600엔 · 2일차 2차를 스미야키 쇼텐 陽으로 교체) */
 function defaultMember(){ return { checks:{}, memo:'', duty:{ b:0, l:'', usd:'' }, spotNotes:{} }; }
 /* 일차 탭 기본값 — 여행 중이면 오늘 일차, 그 전이면 DAY 1 */
 function defaultDayTab(){
@@ -1894,32 +1548,6 @@ function qrSetGone(pid, slot, on){
    '삭제'를 누르면 내장 기본도 숨긴다 (osaka_qr_gone_* 플래그)
    → '기본 QR 다시 표시'로 언제든 복구.
    ------------------------------------------------------------ */
-var QR_DEFAULT = {
-  /* 권혁산 님 VJW 입국·세관 통합 QR (1440×1440 · 1비트) */
-  hyeoksan: {
-    vjw: { w: 1440, h: 1440, img: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAWgCAAAAACNy7sUAAAg7klEQVR4nO3cwW7jWJZF0XTD///L1aMGAmwXGc/3UdpUrjWqgiWSohQbnOT5+s8/ABT9z7svAICfCTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRH2/+wJ+6+uF5/rPi899dr7d17LzeNNjrb7/+PozO4/10/Gu3v/O+7py7KPdv/VX/1s6O/cTeIIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoh67B700c6t19KO8dTuc/15vLvv0+r7z65tdff46vUr1zJ97+rfr863cuwrd/6+pl65NX0XT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFEfswd9NN0aXnntdK/3aOe28J1bw3fvGk/+Ptlr3mFlq3rlvTucnf/uHe0Vd/4bfgpP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUR+7B1022Yeebt7eud87PdZ0R3vl/KvHvnr/ZE/86thX17p6vMl7j69/5170v4EnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKHvQv3C1z7u6gbuy97u6z7v7WleOvWqykz01/Y6u7uPKJvPVe6cbzF//5X//zbFXz8WMJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKiP3YN+5y7t6ibz6ut/+9qfzlUyvW9ndm9XX13ryk7yzs/5N872xa+88vdW/q2+iidogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqI/Z4ti9tbDiapdhsrVx97knf9/9uXe+/2rHYfXaV63ct5X33vH3Fbu/06vX/9t5ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiHrsHvR0r3en1U3cyd937xSv/v1Pd28ov/L9d+9Dr5z77vdPNpd3b52X/h0XeYIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoj6euoe6+7d2bPjTTdvV002mXd75Wf/1HNd2b1FvfL+3fvOd5r8G/6b9xd5ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiPp+9wX81p0budNN3NV936vj//n31c+9ewP3z+NNP9fu+3zmeOzVa3/nJvNuK7+nOz/36rGuPHHv+YonaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqMfuQR9d7dCu7P3u3jF+5e7x0eo+7yt3s1ePN9l/nn7u1e/4znNdnXvleK/83FO7f19P4AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqY/agjyY7tqu7sbt3Zs+u/e5rW9lNnh5754b3qqvfx/Rck43nOz/31NW5d25b373h/QSeoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABor7euS07Md16Le31ruzaTs+98/W793h3vn91D/yV28Gr537StV69/2jnv7vVcz+BJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKjH7kEfTTeZdx57+vozu7eB33mfpu9fef27t6vv/Hd255709DuYfKe7/509kSdogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaICo73dfwC6rO7R3bjBPN3HP3r97c3myg7z63qtr37klfDTdCt75+9q94T35fe7+Dq+Ot3PD+d+wF+0JGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6uuJG6n//LO+ybzy/nffk7Md25071z9ZuW/TPd7de713XtvRK/fFr95/NP23cXasu+/T2bW9+vdU4AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6vvdF/AqK3sHq/9N/3RL4er9KxsTr9wnuDr26rmmuw4rmyWr7tx1WP3Odu5fTHc77rwv0/vwCdscnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaI+Zg96det15fWre8/T453t3u7euJ1s7k53jHfvRZ/tZk+3ha+uZednnR5r5fXT72C6lb5ybTt3sJ/CEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QNRj96Dv3Mx99a7xO3dsX3nu3fdxZTf7aPfG8s6d7ru3qVdee/z73b+XybV+Ik/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRj92DPrra313Z+51s+f7Gyq7tnTvEq8ffvZF8dR/uvLYrq59tZdd49e87d7Tvvk9XJpvO/4Z9aE/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRH7MHPd21PdvIPXvt37z+6v1HZ8e7Otfqtezck969x7tzg3n12Lvfv/L72n3uo5Xf13TDe/de+cq5P4EnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqI/Zg151tqk73cBd3bydbOZO93Ynm8u7P+ed+76779PV34/nO7tv09/TzuPdvYt956b31bmeyBM0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx+xBT3aNj3+/eu/de8+v3EU+Wv1sk2NPt4cndm9Trxxv9dzT38PK/vPureqr16/8O/yEfedVnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIeuwe9utm8snu7utd89frpZu6K6X7vyvtX78PqtRztvLbde893mm6dl3aUd34vq/fliTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEfT11M3W6cXv2uae7sqvv371dvGLn9vTOrenp66fXsmplm/jO3+7fHH+ym717w/vM9Fo+YR/aEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUY7c4rty5AXD1+is7NylW9wpW78udmyWrx5t8D3fvX0zcvf3yyk2KV+5lfMLWxhVP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUd/vvoBXuXNndroXvXJtqxvJO/efj8fbvUW983h3X8vq68/u6+7N7p07yauf+877vHsn+wk8QQNECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRH09cSP1n3/WN3OPdu5DT/9+db6J1XPd+XuY7ma/cuf4yis3lt9533b/Pib3vfRbfhVP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUfagf3G8u+/Z2bVMt6avzvXOneyjyf7v7s3lVTuP/0kb3Z+6dX4XT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFHf776A35puu+7cQT6a7h6fXct0g3nqz+Ovfs53bldP78Pq9vBkq/rq2NPf19l3uNvk2u/e7H4CT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFGP3YM+euXm8qqdm7vTjdydm7rTXexXblvv3qI+unO7ePW+rFzr9L5Mv7Od2+efyBM0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx+xBH002clc3bKc7xyvHn17b1euPJnvBd96Hq7/v3ODebfcW9Z27yDt31n9z/LPX3rkfXuEJGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6uupm6mrG7irW8STYx/t3EW+c/v3eK4rq/u70/twp+m28M7d7KPpv9Gz40+/g9X7cqdP3If2BA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPX97gu4y2Rz+crxWKvHvnMjd3Xz9uqznB3v7g3lO7+z1Wtf/c4mW8R37j9fHX/3514599Wx7vx9VHmCBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaI+pg96J37vpMt39/YuRW8e9f47Pir9+XqWqbXvnJtu7eG79x/Xv3OVu7z9DucuvPf2qv/Hd/BEzRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNEDUx2xxrOw0XLl7n+CVewPTTYmz46+e+/j33Tshd24tTLdeVq5t9b07N01Wv4MnfWdP5AkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqsXvQqxu5Vya7tru3gXduMB9Nd43PTO/56n7vdIv4zCfdp6N37mbv/M6mv/0n8AQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD19cSN1N+YbOru3h2ebFlPv6/yZu7uLeuV107PvaK0Y/zu38POret3f5Y7eIIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoj6fvcF/NZ0o3nnxvPqzuzquf88/up+7u7Xf538bVVpB3n1XKvb1F//5X//zbmnW9ZHOzeX37lVfeWJ+89HnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaK+nrqZOt3UPTp7/87t6NVzX1n9XNNt4VduU1+9/2hybavn3nnfzl77N1avbee/+Xdueh+9cqv6VTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEPXYP+mi6izx573R/984t4ele79lnWd3JfuV9unrv9D5Njjf5Lf7m/Wevn97zlXOtunMv/Ck8QQNECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRD12D/rO/d7pbvGVO3drp1vVO3eOj+4895XptvDOz7b7Wnbel92/9aPJ8Xd/J0/gCRogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIOr73Rewy86t16t93Tu3qK+sbv9OtoJX33/3/u7K/u/unePd3/mdx77zO3v1XvTKuaa/9SJP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUY/dg75zt3Z1X3f3tvDkXNNN3JXPPtkh/un10+/0z/9/932Y7CCv7jnfucG8+/e08h1dvf4T951XeYIGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBoh67B700XQz92yHdnWv9+zYP5ns3q5e66qza9997tUt4TOr17L6HU5ev/s7WrWyubxze/pvznd2n/6NPEEDRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEfT31v3ffvX8xuQ+7txTu3L/Y+X3ffa7V72jle3j1xsTO39fOXZBVV8e68/e1eu47r+1VPEEDRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0R9v/sCfmvnNvBvXj+xuku7c+d4urH8zl3jld3jO7ekr849Pd70nq9cy/Q7mH7uyft33vMqT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFFfk33fd5pu5k42cu/cc746/3TXePp9T65l9b5ONp1Xt4Lv3sVe+b2tnntybbu/o6PJ66fHfmrb/uQJGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBog6mP2oK9Md5RXjn33JvPE7v3es/eunnvntawe+2iyRf3T63de+9Hk2u68rp/c+e9weu4iT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFHf776A35ruyq7s/U6PtfP9003b3TvIK+9dPffkvt69/Tu5T3d+B6929Z3svPbVY7166/oOnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIeuwd9tLr9Otl/XjnWT3+f7NSu7u2ubiqvHG/3Pu/VtU32oVfPPbVyLXd/hyv74tMN5elO+4pP2Hu+4gkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDqsXvQqxu5Kxu8083ko7s3dncee2U3efW+TLeCJ9vFq/dw92/gld/hUWk3efIdTr+DJ/IEDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0Q9dg96CuTfejdu7PT959t5u4+9s693qPdG8tnx9/5uX56/9HV8V75Ha4cf3ofdt/nyblX3/8EnqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaI+Zg96ukX85/+fbt5Od493bgdfvf6V+71Xdu5D371bvPM7n+w5/83fJ+7eUD67b3f+O3oKT9AAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRX3f/t/avMt3i2Pne3RsC/zn526rp972ylbB6LTu/w+mxj165UfLKDYk7v4OfXn9057/D1Wsp8gQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD12D3o6cbymeme89TkfFfvvXNrePod7Hz/6n3YvXN8tLJdffXenbvI09/2zq3z49/vvpYn8AQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1r9mDXnn/dDN551bw6rlevXM8sfs7PDtWaf/5yvQ7WLmvu+/LzuNNz331+ifwBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPX97gv4rekO7dk27OS9f2P1eGc7t9Nr27nn++r7cnZtO4+129W5XrlrXNp/5v/zBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPXYPejp/vPK3u/dm7WTa7naEl7dmr5z/3nnd7Lb6rmvPss7P9vOPfPpd7xq5fdW/j3t4gkaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiBKoAGiBBogSqABogQaIEqgAaIEGiDq6+6t47tMNm5ffe5X7tZON3N33sfd5766T2fvX33v5Fw/vf/Oa5tcy+pv750b4E9t1YQnaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAqH/NHvTK5u7OfebjsafHnx5r5/t336ezc+0+33T/efL63dvTE7s/9yu9ctv8XTxBA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANECTRAlEADRAk0QJRAA0QJNECUQANEPXYP+p2m+707N5jL28K778PRyme5+75M9sZfvU29Ynqtk2uZ7jt/wj60J2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKjvd1/Ab023hFccd2Tv3pVd2dydbgdPN3Z3vne6Nfzn61/5uX463/F4K9/h7s3ls+NPN7ynm98rx1u9T0/cfz7yBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINEPXYPeijnduvqxu2R6t7viuvX93AvfvvZ6Y7x9PXr5juGq8eb3Ls1XOd/X3672a6wfwJm8138gQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0Q9fXU/xZ+uvNw9Of7V/cFdm8pTLY4Vs91tPLZpzsMq8eb3uedJtc2/T2t3uedv6e7/y3c6Ymt8wQNECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1/e4L+ERXG7tXu7ST3dqrc19dy8q5Vz/n7p3tnVvVq9e+e7N55dxHpfs03Zf+Ovnb6rV8Ak/QAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABR9qB/4Wrj9mjnFvF0f/fq3EeTvd6rY62+fvWzrbx3eq7J++8+99nva7rZfbR783ty7qMn7kV7ggaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiPrYPegnbr/+n5WN3Lv3e8+uZXruo9Vd5FfuHO/8PV0da7Lv/DfvXzH5Dv7m7+/8vT2BJ2iAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogCiBBogSaIAogQaIEmiAKIEGiBJogKiP2YOebN7utnotK7u2q8de3dCd7EPfeayf3n91vsm5V3eNV4+3YvK5f3r/yn2fnvvq9ZP7Mt2ifgJP0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUV9P3EgF+DfwBA0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRAl0ABRAg0QJdAAUQINECXQAFECDRD1vxfqwphkUKsoAAAAAElFTkSuQmCC' },
-    /* 간사이 조이 패스 (Have Fun in Kansai Pass 1 Week Free Pass) — Ticket F9771286261179863 · 원본 PDF QR 25모듈 격자 재구성 · 1비트 */
-    joypass: { w: 1320, h: 1320, img: 'data:image/png;base64,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' }
-  },
-  /* 강혜랑 님 VJW 입국·세관 통합 QR (1130×1130 · 1비트, 원본 스크린샷에서 추출·재생성) */
-  hyerang: {
-    vjw: { w: 1130, h: 1130, img: 'data:image/png;base64,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' },
-    /* 간사이 조이 패스 (Have Fun in Kansai Pass 1 Week Free Pass) — Ticket F7549255261157623 · 원본 PDF QR 25모듈 격자 재구성 · 1비트 */
-    joypass: { w: 1320, h: 1320, img: 'data:image/png;base64,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' }
-  },
-  /* 임지은 님 VJW 입국·세관 통합 QR (1440×1440 · 1비트, 원본 스크린샷 69모듈 격자 재구성) */
-  jieun: {
-    vjw: { w: 1440, h: 1440, img: 'data:image/png;base64,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' },
-    /* 간사이 조이 패스 (Have Fun in Kansai Pass 1 Week Free Pass) — Ticket F2521426261146577 · 원본 PDF QR 25모듈 격자 재구성 · 1비트 */
-    joypass: { w: 1320, h: 1320, img: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABSgAAAUoAQAAAACH6gYlAAAHIUlEQVR4nO3dwWrkOBRAUdXQ///LmV1CqyWXQu5MIzhnEZIq27lo+5D8+hgX+OdvBxxR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2fm1+vD1/r6Pz+u+fhuLP1d3HDx5csdaquyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOws5z1jjPXcZYzxx8xmGvVMD3jtvjh48pc71lJlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlZz/vGWP8MYHZTnS+Lv74/brt0Of5yZM71lJlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdl582859k0x1ltzzk4wO3AHWupsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsvOjec8Y492re5737Zy6Yy1VdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdt7Me07HNQev5Dl9ic/KHWupsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsrOf95yexLZ6Q8/02fSo75/xdsdaquyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOy8mgPX3vyTMX52stsda6myo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyc/L+nmlcs53eTBt6Vlt7xuKz6brVk+9YS5UdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZWdN/t7VuOa04060whn9efBEGmMcctaquyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOws5z3PO3jG57fbjToHQ6Rp1DN+/2xyx1qq7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7CzPc9vOXVb7cVZbgA48j44md6ylyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOys5y3vOtEc72TLbT89xWv03uWEuVHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2Vnf37e57HMM9v45kuma6bPjtwx1qq7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7Oz39zwPgp5vO3glz/ZoOPt7/lsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7Kjt3VL7Z3zPGeLcL53nKczDMOfhvd6ylyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOys5y3rM9iW01uHme46yeNz35wB1rqbKjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7Kz399zcvMY33x/z+rbg9HRHWupsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsrN/f8+zj88fXxdvBzzTJQfv9JncsZYqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqO8t5zxjj6FU7qzueZzvPp8eZ9/wPVHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR27qjcz3vGGO/OZJu+eC3+3O7+Wd22dcdaquyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOy8mfc8e35/z2qYM1382l03uWMtVXZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZUdlR2VHZ+NO+ZBjzP05vn0962U6Mxxi1rqbKjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7LzZt6zPcDtyzTlWR3qdnps29Yda6myo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOys5/3nM5nnsc623073xr/3LGWKjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7Kjuvgx08f98da6myo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOyo7KjsqOy8y+42Ypj4r14qAAAAABJRU5ErkJggg==' }
-  },
-  /* 이상우 님 VJW 입국·세관 통합 QR (1440×1440 · 1비트, 원본 300px 69모듈 격자 재구성) */
-  sangwoo: {
-    vjw: { w: 1440, h: 1440, img: 'data:image/png;base64,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' },
-    /* 간사이 조이 패스 (Have Fun in Kansai Pass 1 Week Free Pass) — Ticket F5535178261159935 · 원본 PDF QR 25모듈 격자 재구성 · 1비트 */
-    joypass: { w: 1320, h: 1320, img: 'data:image/png;base64,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' }
-  }
-};
 function qrDef(pid, slot){ return (QR_DEFAULT[pid] || {})[slot] || null; }
 /* 내장 기본 QR(삭제 전) — data URL, 없으면 '' */
 function qrDefault(pid, slot){ var d = qrDef(pid, slot); return (d && d.img && !qrIsGone(pid, slot)) ? d.img : ''; }
@@ -2015,7 +1643,6 @@ function yamatoSlotHtml(pid){
     '<p class="ynote">조회 화면에서 <b>복사</b>한 번호를 붙여넣으면 실시간 배송 상태가 떠요. 영업소 08:00–21:00 · 072-460-2955.</p>' +
   '</div>';
 }
-
 
 function qrSlotHtml(pid, slot, ic, title, sub, extra){
   var data = qrData(pid, slot);
@@ -2558,30 +2185,6 @@ function itemHTML(s){
     '</div></div>';
 }
 
-/* ============================================================
-   장소 대표 사진 — 저장소 images/ 에 함께 커밋한 정적 이미지
-   · 외부 URL 핫링크 없이 앱과 같은 위치에서 상대경로로 불러온다
-   · 카드 배너 · 장소 상세 · 전체화면 보기가 모두 같은 파일을 쓴다
-   · 사진 출처: Wikimedia Commons (자유 이용 허락) · 640×400 JPEG
-   ============================================================ */
-var PHOTO_BASE = './images/';
-var SPOT_PHOTO = {
-  'd1-4':{ f:'d1-4.jpg', cap:'김해국제공항 국제선 출국장', cr:'Minseong Kim · CC BY-SA 4.0' },
-  'd1-5':{ f:'d1-5.jpg', cap:'에어부산 A321 · 김해공항 이륙', cr:'Howon P. Seo · CC BY 2.0' },
-  'd1-6':{ f:'d1-6.jpg', cap:'도요타 프리우스(ZVW50) — 예약 차종 또는 동급', cr:'Tokumeigakarinoaoshima · CC BY-SA 4.0' },
-  'd1-7':{ f:'d1-7.jpg', cap:'야마토 운송 ‘검은고양이’ 배송 차량', cr:'Syced · CC0' },
-  'd1-8':{ f:'d1-8.jpg', cap:'난카이 난바역 광장 — 숙소 도보권', cr:'FZHS · CC0' },
-  'd2-1':{ f:'d2-1.jpg', cap:'이치란 도톤보리 매장 간판', cr:'WeiHsiang Wang · CC BY-SA 4.0' },
-  'd2-2':{ f:'d2-2.jpg', cap:'오사카성 천수각과 외해자', cr:'663highland · CC BY 2.5' },
-  'd2-4':{ f:'d2-4.jpg', cap:'산토리 교토 맥주공장', cr:'Wikimedia Commons · CC BY-SA 3.0' },
-  'd2-4b':{ f:'d2-4b.jpg', cap:'후시미 이나리 대사 천 본 도리이', cr:'Luka Peternel · CC BY-SA 4.0' },
-  'd2-5b':{ f:'d2-5.jpg', cap:'도톤보리 에비스바시와 글리코상 (야경)', cr:'Type specimen · CC BY-SA 3.0' },
-  'd2-7':{ f:'d2-7.jpg', cap:'하루카스 300 전망대에서 본 오사카', cr:'Marimonomori · CC BY 4.0' },
-  'd3-2':{ f:'d3-2.jpg', cap:'간사이국제공항 제1터미널 전경', cr:'lasta29 · CC BY 2.0' },
-  'd3-3':{ f:'d3-3.jpg', cap:'간사이국제공항 제1터미널 내부', cr:'Matsuoka.A · CC BY-SA 4.0' },
-  'd3-4':{ f:'d3-4.jpg', cap:'에어부산 A321 — BX608 기재', cr:'Masahiro TAKAGI · CC BY 2.0' },
-  'd3-5':{ f:'d3-5.jpg', cap:'김해국제공항 전경', cr:'螺钉 · CC BY-SA 3.0' }
-};
 function spotPhoto(id){ return SPOT_PHOTO[id] || null; }
 function photoSrc(ph){ return PHOTO_BASE + ph.f; }
 function bannerHTML(id, ph){
