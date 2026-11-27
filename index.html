@@ -1193,6 +1193,47 @@ body[data-p="3"] .mo-btn .lb{color:#D8C9B8}
 .mo-foot{margin:8px 2px 0;font-size:8.5px;color:#9A9186;line-height:1.45;letter-spacing:-.01em}
 @media (max-width:360px){.mo-panel{width:244px}}
 
+/* ==========================================================================
+   ✨ 모션그래픽 v3 — P9 테두리 빛(BorderBeam) · P2 제목 스태거 · D-day 점
+   · 빛은 테두리를 따라 6초에 한 바퀴 (#E85A4F → #F6B25E)
+   · 모바일 야간 가독성·배터리 때문에 3D 틸트(P12)는 쓰지 않는다
+   ========================================================================== */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes beamspin{to{--ang:360deg}}
+/* 바깥 래퍼가 1.5px 두게 테두리 띠가 되고, 카드가 그 안을 덮는다.
+   mask를 쓰지 않아 iOS Safari에서도 그대로 보인다. */
+.beamwrap{
+  position:relative;padding:1.5px;border-radius:16px;
+  background:linear-gradient(100deg,#E85A4F,#F6B25E);   /* @property 미지원 대비 정적 fallback */
+  background:conic-gradient(from var(--ang,0deg),
+    rgba(232,90,79,0) 0deg,rgba(232,90,79,0) 248deg,rgba(232,90,79,.12) 288deg,
+    rgba(232,90,79,.55) 320deg,#E85A4F 338deg,#F6B25E 350deg,rgba(246,178,94,0) 360deg);
+  animation:beamspin 6s linear infinite;
+  box-shadow:0 0 10px -5px rgba(232,90,79,.35);
+}
+/* QR 버튼 — 여행 중 가장 많이 누르는 버튼 */
+.qr-beam{margin-top:7px;padding:2px;border-radius:15px}
+.qr-beam > .qrbtn{margin-top:0;border-radius:13px}
+/* 예약 요약 첫 카드(항공) — 가로 스크롤의 flex 아이템 역할을 래퍼가 맡는다 */
+.ov-scroll > .ov-beam{flex:0 0 208px;scroll-snap-align:start;border-radius:17px;padding:2px;display:flex}
+.ov-beam > .ov{flex:1 1 auto;width:100%;min-width:0;border-radius:14.5px}
+body:not(.bg-off) .ov-beam > .ov{background-color:rgba(255,253,249,.97)}
+/* 제목 글자 스태거 (첫 로드 1회) */
+h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(var(--i,0)*.07s)}
+@keyframes h1rise{from{transform:translateY(22px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* D-day 옆 코랄 점 */
+.dday .drow{display:flex;align-items:center;justify-content:flex-end;gap:5px}
+.dday .dot{
+  display:block;width:6px;height:6px;margin:0;flex:0 0 auto;border-radius:50%;
+  background:var(--coral);animation:dotblink 1.9s ease-in-out infinite;
+}
+@keyframes dotblink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.26;transform:scale(.8)}}
+@media (prefers-reduced-motion:reduce){
+  h1 .ch{animation:none}
+  .dday .dot{animation:none}
+  .beamwrap{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -1495,14 +1536,14 @@ body[data-p="3"] .mo-btn .lb{color:#D8C9B8}
     </div>
     <div class="hero-in">
       <div class="kicker"><span class="jp">大阪</span><span class="bar"></span>OSAKA JOURNAL · 2泊3日</div>
-      <h1>오사카 2박 3일<small>4인</small></h1>
+      <h1><span class="ch" style="--i:0">오</span><span class="ch" style="--i:1">사</span><span class="ch" style="--i:2">카</span><span class="ch" style="--i:3">&nbsp;</span><span class="ch" style="--i:4">2</span><span class="ch" style="--i:5">박</span><span class="ch" style="--i:6">&nbsp;</span><span class="ch" style="--i:7">3</span><span class="ch" style="--i:8">일</span><small>4인</small></h1>
       <p class="dates">2026.12.08(화) — 12.10(목) · 에어부산 BX617 / BX608</p>
     </div>
-    <div class="dday"><b id="dnum">D-12</b><span id="dsub">출국까지</span></div>
+    <div class="dday"><div class="drow"><b id="dnum">D-12</b><span class="dot" aria-hidden="true"></span></div><span id="dsub">출국까지</span></div>
     <div class="hero-bottom">
       <div class="qr-wrap">
         <div class="profiles" id="profiles"></div>
-        <button class="qrbtn" id="qrOpen" aria-label="내 QR 월렛·야마토 택배 열기"><span class="qic">📲</span><span>내 QR · 택배 열기</span></button>
+        <div class="beamwrap qr-beam"><button class="qrbtn" id="qrOpen" aria-label="내 QR 월렛·야마토 택배 열기"><span class="qic">📲</span><span>내 QR · 택배 열기</span></button></div>
       </div>
     </div>
   </header>
@@ -2633,13 +2674,16 @@ var OV = [
   { id:'dine', ic:'🍽️', label:'DINING', title:'식당 예약 3곳 + 1일차 2차는 워크인', meta:'12/8 21:15 스시 토후지 · 22:45 스미야키 陽(예약 없음) / 12/9 19:15 야키니쿠 긴 · 21:30 진베에', pill:'3곳 확정', ok:true, goto:'dine' }
 ];
 function renderOV(){
-  $('#ovcards').innerHTML = OV.map(function(o){
-    return '<button class="ov" data-goto="' + o.goto + '">' +
+  $('#ovcards').innerHTML = OV.map(function(o, i){
+    /* 첫 카드(항공)에 BorderBeam — 여행의 시작점이라 가장 중요 */
+    return (i === 0 ? '<div class="beamwrap ov-beam">' : '') +
+      '<button class="ov" data-goto="' + o.goto + '">' +
       '<div class="ohtop"><span class="oic">' + (o.ic || (BOOKINGS.filter(function(b){return b.id===o.id;})[0]||{ic:'🎫'}).ic) + '</span>' +
       '<span class="olabel">' + o.label + '</span></div>' +
       '<div class="otitle">' + esc(o.title) + '</div>' +
       '<div class="ometa">' + esc(o.meta) + '</div>' +
-      '<span class="opill ' + (o.ok?'ok':'warn') + '">' + (o.ok?'✓ ':'! ') + o.pill + '</span></button>';
+      '<span class="opill ' + (o.ok?'ok':'warn') + '">' + (o.ok?'✓ ':'! ') + o.pill + '</span></button>' +
+      (i === 0 ? '</div>' : '');
   }).join('');
 }
 
@@ -3954,8 +3998,8 @@ if(isWide()){
 /* ============ 🎨 배경 모션 v2 — 시간 맞춤 기본 ============ */
 (function(){
   var body = document.body;
-  var LS = 'osaka.motion.v1';
-  var st = { p: 5, i: 2 };            /* 기본: 시간 맞춤(5) + 화려함 */
+  var LS = 'osaka.motion.v2', LS_OLD = 'osaka.motion.v1';
+  var st = { p: 5, i: 1 };            /* 기본: 시간 맞춤(5) + 보통(1.0) — 모바일 배터리·야간 가독성 */
 
   try{
     var raw = localStorage.getItem(LS);
@@ -3963,6 +4007,14 @@ if(isWide()){
       var o = JSON.parse(raw) || {};
       if(o.p === 'off' || [1,2,3,4,5].indexOf(Number(o.p)) > -1) st.p = (o.p === 'off' ? 'off' : Number(o.p));
       if([0,1,2].indexOf(Number(o.i)) > -1) st.i = Number(o.i);
+    } else {
+      /* v1 → v2 마이그레이션: 장면(p) 선택은 이어받고, 강도는 새 기본값(보통)으로 시작 */
+      var oldRaw = localStorage.getItem(LS_OLD);
+      if(oldRaw){
+        var oo = JSON.parse(oldRaw) || {};
+        if(oo.p === 'off' || [1,2,3,4,5].indexOf(Number(oo.p)) > -1) st.p = (oo.p === 'off' ? 'off' : Number(oo.p));
+      }
+      save();
     }
   }catch(e){}
   function save(){ try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} }
