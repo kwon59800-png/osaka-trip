@@ -554,6 +554,9 @@
   .pcard .pbar{height:5px;background:#F2EBDD;margin:0 11px 9px;border-radius:99px;overflow:hidden}
   .pcard .pbar i{display:block;height:100%;border-radius:99px;background:var(--mc);transition:width .25s}
   .pcard .pbar i.over{background:#B23A31}
+  .pcard .pmj{padding:0 11px 9px}
+  .pcard .pmj .mjblab{font-size:8.5px}
+  .pcard .pmj .mjtrk{height:6px;margin-top:3px}
   .pcard .pdet{display:none;border-top:1px solid var(--line);background:#FCF8F0;padding:6px 11px 9px}
   .pcard.open .pdet{display:block}
   .pdet .pbrow{display:flex;align-items:center;gap:6px;padding:2px 0 7px;border-bottom:1px dashed var(--line2);font-size:10px;color:var(--dim2)}
@@ -2772,6 +2775,18 @@ function renderPpl(){
     var use = pb ? (mine / pb * 100) : 0;
     var left = pb - mine;
     var open = (openPid === m.id);
+    var kr = MJ_KR[m.id] || 0;
+    var mjRow = '';
+    if(kr > 0){
+      var mjRatio = mine / kr * 100, mjGap = kr - mine;
+      mjRow = '<div class="pmj">' +
+        '<div class="mjblab"><span>💉 한국 약값 ' + mjMan(kr) + ' → 원정 ' + mjMan(mine) + '</span>' +
+          '<b class="' + (mjGap >= 0 ? 'sv' : 'over') + '">' + (mjGap >= 0 ? '흑자 ' : '초과 ') + mjMan(Math.abs(mjGap)) + ' · ' + mjPctS(mjRatio) + '</b></div>' +
+        '<div class="mjtrk">' + (mjGap >= 0
+          ? '<i class="mjfill trip" style="width:' + mjW(mjRatio, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(mjRatio, 4)) + '%"></i>'
+          : '<i class="mjfill over" style="width:' + mjW(mjRatio) + '%"></i>') +
+        '</div></div>';
+    }
     return '<div class="pcard' + (open ? ' open' : '') + '" style="--mc:' + m.color + '">' +
       '<div class="phead2" data-pbopen="' + m.id + '" role="button" tabindex="0" aria-expanded="' + (open ? 'true' : 'false') + '">' +
         '<span class="pav" style="background:' + m.color + '">' + m.initial + '</span>' +
@@ -2781,6 +2796,7 @@ function renderPpl(){
         '<span class="pchev">▾</span>' +
       '</div>' +
       '<div class="pbar"><i class="' + (use > 100 ? 'over' : '') + '" style="width:' + Math.min(100, use).toFixed(1) + '%"></i></div>' +
+      mjRow +
       '<div class="pdet">' + personDetailHTML(m) + '</div>' +
     '</div>';
   }).join('');
