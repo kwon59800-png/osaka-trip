@@ -65,7 +65,7 @@ body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animatio
 .btop span{margin-left:auto;font-size:9px;color:#9A9186;font-weight:600}
 .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#F1EAE0;border:1px solid var(--line);border-radius:12px;padding:3px}
 .tabs button{border:0;background:none;border-radius:9px;padding:6px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#6E665C;font-weight:750;font-size:11px;letter-spacing:-.03em;line-height:1.2;transition:.18s;font-family:inherit;cursor:pointer}
-.tabs button em{font-style:normal;font-size:8.5px;font-weight:600;color:#9A9186;letter-spacing:-.01em}
+.tabs button em{font-style:normal;font-size:8.5px;font-weight:600;color:#9A9186;letter-spacing:-.01em;white-space:nowrap}
 .tabs button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(70,55,38,.14),0 6px 14px -10px rgba(70,55,38,.5)}
 .tabs button.on em{color:var(--coral)}
 /* ===== 본문 ===== */
@@ -146,7 +146,7 @@ main{padding:0 14px 60px}
   <div class="btop"><b>오사카 감성 모션</b>12월 원정 · 배경 3종<span>탭해서 즉시 전환</span></div>
   <div class="tabs" role="tablist" aria-label="배경 모션 선택">
     <button class="on" data-p="1" role="tab" aria-selected="true">🏮 도톤보리<em>등불·강물</em></button>
-    <button data-p="2" role="tab" aria-selected="false">🍁 오사카성<em>늦가을 단풍</em></button>
+    <button data-p="2" role="tab" aria-selected="false">🍁 오사카성<em>늦가을</em></button>
     <button data-p="3" role="tab" aria-selected="false">🍢 우라난바<em>골목 온기</em></button>
   </div>
 </header>
