@@ -340,6 +340,7 @@ var CATS = {
 };
 
 var DEFAULT_COSTS = [
+  { id:'c0', name:'항공 · 에어부산 왕복 (4인)', amt:832000, cur:'KRW', split:4, cat:'transport', memo:'1인 208,000원 × 4명 · 예약 KAYTPM · BX617/BX608 · 결제 완료', ic:'✈️', prepaid:true },
   { id:'c1', name:'숙소 · Hotel Links Namba', amt:47976, cur:'JPY', split:4, cat:'stay', memo:'4실 2박 · 예약 1801920651 · 카드 결제 완료', ic:'🏨', prepaid:true },
   { id:'c2', name:'렌터카 · 도요타 프리우스 (Travel CAR RENT)', amt:75859, cur:'KRW', split:4, cat:'transport', memo:'강혜랑 님 예약 · 사전결제 완료 · 4인 분담', ic:'🚗', prepaid:true },
   { id:'c3', name:'주차 (숙소 2일 + 오사카성)', amt:3600, cur:'JPY', split:4, cat:'transport', memo:'숙소 코인파킹 24h 최대 ¥1,400 × 2일 + 大阪城公園駅前駐車場 약 2시간(평일 60분 ¥400) · 현지 결제', ic:'🅿️' },
@@ -362,7 +363,7 @@ var DEFAULT_COSTS = [
   { id:'c13', name:'오사카성 고자부네 뱃놀이 (4명)', amt:0, cur:'JPY', split:4, cat:'tour', memo:'조이패스 3회차 차감 (¥0) · 정가 1인 ¥1,800 → 4인 ¥7,200 절약 · 12/9 11:10편 極楽橋', ic:'🛶' },
 ];
 
-var COST_VER = 17; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v17: 오사카성 고자부네 조이패스 3회차(¥0) 추가 · 오사카성 공원 주차 반영해 주차 항목 3,600엔 · 2일차 2차를 스미야키 쇼텐 陽으로 교체) */
+var COST_VER = 18; /* 기본 경비 항목 버전 — 올리면 저장본의 기본 항목 금액/라벨/분담 대상이 자동 갱신된다 (v18: 항공 · 에어부산 왕복 4인 832,000원(1인 208,000원) 추가) */
 
 /* ============================================================
    장소 대표 사진 — 저장소 images/ 에 함께 커밋한 정적 이미지

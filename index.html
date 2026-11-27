@@ -1394,6 +1394,8 @@ function load(){
           out.costs.push(Object.assign({}, d)); /* v16: 간사이 조이 패스 4인 (사전결제) */
         } else if(d.id === 'c13' && !out.costs.some(function(c){ return c.id === 'c13'; })){
           out.costs.push(Object.assign({}, d)); /* v17: 오사카성 고자부네 (조이패스 3회차) */
+        } else if(d.id === 'c0' && !out.costs.some(function(c){ return c.id === 'c0'; })){
+          out.costs.unshift(Object.assign({}, d)); /* v18: 항공 · 에어부산 왕복 4인 832,000원 — 맨 위에 배치 */
         }
       });
     }
