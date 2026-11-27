@@ -470,6 +470,26 @@
   .mjbig.ok{color:#2F6647}
   .mjbig.no{color:#B23A31}
   .mjtl{font-size:8.5px;color:#6E8F7A;margin-top:3px;line-height:1.5;word-break:keep-all}
+  .mjbar{margin-top:8px;display:flex;flex-direction:column;gap:6px}
+  .mjblab{display:flex;align-items:baseline;justify-content:space-between;gap:6px;font-size:8.5px;line-height:1.25;color:var(--dim2);letter-spacing:-.01em}
+  .mjblab span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mjblab b{flex:none;font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;color:var(--dim);letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .mjblab .jp{color:#B06A1E}
+  .mjblab b.sv{color:#2F6647}
+  .mjblab .over,.mjblab b.over{color:#B23A31}
+  .mjtrk{display:flex;gap:2px;height:8px;margin-top:3px;border-radius:99px;background:rgba(35,31,32,.075);overflow:hidden}
+  .mjtrk i{display:block;height:100%;flex:none;transition:width .28s ease}
+  .mjtrk i:first-child{border-radius:99px 0 0 99px}
+  .mjtrk i:last-child{border-radius:0 99px 99px 0}
+  .mjtrk i:only-child{border-radius:99px}
+  .mjfill.kr{background:linear-gradient(90deg,#E3DAC9,#CEC3AE)}
+  .mjfill.jp{background:linear-gradient(90deg,#E0A24B,#D9822B)}
+  .mjfill.trip{background:linear-gradient(90deg,#D9822B,#E85A4F)}
+  .mjfill.sv{background:linear-gradient(90deg,#93C6AC,#3B7A57)}
+  .mjfill.over{background:linear-gradient(90deg,#E85A4F,#B23A31)}
+  .mjmini{display:flex;align-items:center;gap:6px;margin-top:5px;min-width:0}
+  .mjmini .mjtrk{flex:1;min-width:0;height:5px;margin-top:0}
+  .mjmini em{flex:none;font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:8.5px;font-weight:700;color:var(--dim2);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
   .mjrows{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2)}
   .mjrhead{font-size:8.5px;font-weight:750;letter-spacing:.06em;color:var(--dim2)}
   .mjrow{display:flex;align-items:flex-start;gap:7px;padding-top:7px}
@@ -2792,6 +2812,28 @@ function mjMan(v){
   return n.toLocaleString('ko-KR') + '만';
 }
 function mjSigned(v){ return (v >= 0 ? '+' : '−') + mjMan(Math.abs(v)); }
+function mjPctS(p){
+  var r = Math.round(p * 10) / 10;
+  return (Math.round(r) === r ? String(Math.round(r)) : r.toFixed(1)) + '%';
+}
+function mjW(p, min){
+  var w = Math.max(0, Math.min(100, p));
+  if(min && w > 0 && w < min) w = min;
+  return (Math.round(w * 10) / 10).toFixed(1);
+}
+/* 두 층(한국 100% + 비교 비율) 막대 바 묶음 */
+function mjBarsHTML(krLab, fillCls, topLab, topPct, restLab, restPct, over){
+  return '<div class="mjbar">' +
+    '<div class="mjbline"><div class="mjblab"><span>' + krLab + '</span><b>100%</b></div>' +
+      '<div class="mjtrk"><i class="mjfill kr" style="width:100%"></i></div></div>' +
+    '<div class="mjbline"><div class="mjblab"><span class="' + (over ? 'over' : 'jp') + '">' + topLab + ' ' + mjPctS(topPct) + '</span>' +
+      '<b class="' + (over ? 'over' : 'sv') + '">' + restLab + ' ' + mjPctS(Math.abs(restPct)) + '</b></div>' +
+      '<div class="mjtrk">' + (over
+        ? '<i class="mjfill over" style="width:' + mjW(topPct) + '%"></i>'
+        : '<i class="mjfill ' + fillCls + '" style="width:' + mjW(topPct, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(topPct, 4)) + '%"></i>') +
+      '</div></div>' +
+    '</div>';
+}
 function mjCardInner(){
   var krTot = mjKrTotal(), jpTot = mjJpKrw(), jpYen = mjJpYen();
   if(jpTot <= 0){
@@ -2801,6 +2843,9 @@ function mjCardInner(){
   var save = krTot - jpTot;
   var trip = krTot - t.total;
   var pct = Math.round(Math.abs(save) / krTot * 100);
+  var jpPct = krTot > 0 ? jpTot / krTot * 100 : 0;
+  var savePct = 100 - jpPct;
+  var tripPct = krTot > 0 ? t.total / krTot * 100 : 0;
   var rate = (state.rate >= 50) ? state.rate : FX_FALLBACK.rate;
   var h = '' +
     '<div class="mjstats">' +
@@ -2808,12 +2853,14 @@ function mjCardInner(){
       '<div class="mjlab"><span>약값만 비교</span><span class="mjchip">' + (save >= 0 ? '-' : '+') + pct + '%</span></div>' +
       '<div class="mjflow"><span>한국 정가 · 3개월 12펜</span><b>' + won(krTot) + '</b></div>' +
       '<div class="mjflow"><span>일본 UB클리닉 · ¥' + num(jpYen) + '</span><b>' + won(Math.round(jpTot)) + '</b></div>' +
+      mjBarsHTML('한국 정가', 'jp', '일본 약값', jpPct, save >= 0 ? '절약' : '더 비쌈', save >= 0 ? savePct : -savePct, save < 0) +
       '<div class="mjbig ' + (save >= 0 ? 'ok' : 'no') + '">' + (save >= 0 ? won(Math.round(save)) + ' <small>절약</small>' : won(Math.round(-save)) + ' <small>더 비쌈</small>') + '</div>' +
     '</div>' +
     '<div class="mjstat">' +
       '<div class="mjlab"><span>여행 전액 포함</span><span class="mjchip">4인 총경비</span></div>' +
       '<div class="mjflow"><span>오사카 2박 3일 4인 총경비</span><b>' + won(Math.round(t.total)) + '</b></div>' +
       '<div class="mjflow"><span>한국 약값</span><b>' + won(krTot) + '</b></div>' +
+      mjBarsHTML('한국 약값', 'trip', '오사카 총경비', tripPct, trip >= 0 ? '여유' : '초과', trip >= 0 ? 100 - tripPct : tripPct - 100, trip < 0) +
       '<div class="mjbig ' + (trip >= 0 ? 'ok' : 'no') + '">' + (trip >= 0 ? won(Math.round(trip)) + ' <small>흑자</small>' : won(Math.round(-trip)) + ' <small>초과</small>') + '</div>' +
       '<div class="mjtl">' + (trip >= 0 ? '한국에서 약값만 치를 돈으로 4인 여행 전체를 하고도 이만큼 남아요.' : '여행 경비까지 더하면 한국 약값보다 이만큼 더 들어요.') + '</div>' +
     '</div>' +
@@ -2826,11 +2873,15 @@ function mjCardInner(){
       var drug = 0;
       state.costs.forEach(function(c){ if(mjJpPart(c)) drug += shareOf(c, m.id); });
       var tripDiff = kr - tripv, drugDiff = kr - drug;
+      var tripRatio = kr > 0 ? tripv / kr * 100 : 0;
       return '<div class="mjrow">' +
         '<span class="mjav" style="background:' + m.color + '">' + m.initial + '</span>' +
         '<span class="mjnm"><b>' + esc(m.name) + '<em>' + MJ_DOSE[m.id] + '</em></b>' +
           '<span class="mjdet">한국 ' + mjMan(kr) + ' · 일본 약값 ' + mjMan(drug) + '</span>' +
-          '<span class="mjdet2">원정 ' + mjMan(tripv) + ' · 약값만 ' + mjSigned(drugDiff) + '</span></span>' +
+          '<span class="mjdet2">원정 ' + mjMan(tripv) + ' · 약값만 ' + mjSigned(drugDiff) + '</span>' +
+          '<span class="mjmini"><span class="mjtrk">' + (tripDiff >= 0
+            ? '<i class="mjfill trip" style="width:' + mjW(tripRatio, 4) + '%"></i><i class="mjfill sv" style="width:' + mjW(100 - Math.max(tripRatio, 4)) + '%"></i>'
+            : '<i class="mjfill over" style="width:' + mjW(tripRatio) + '%"></i>') + '</span><em>' + mjPctS(tripRatio) + '</em></span></span>' +
         '<span class="mjdiff ' + (tripDiff >= 0 ? 'ok' : 'no') + '">' + mjSigned(tripDiff) + '<i>여행 포함</i></span>' +
       '</div>';
     }).join('') + '</div></div>' +
