@@ -1276,7 +1276,51 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
 .split-settle{margin-top:10px;padding:12px;border-radius:12px;background:#F3EDE0;font-size:14px;line-height:1.9}
 .split-empty{padding:13px;border:1px solid #EFE7D8;border-radius:12px;background:#fff;color:#8a8178;font-size:14px}
 .srow .btn{flex:none;padding:6px 10px;font-size:13px}
-</style>
+
+  /* ---- v4: 플랜B / 쇼핑 장바구니 / 렌터카 대시보드 ---- */
+  .planb{display:none;margin-top:8px;border-top:1px dashed #E3D9C6;padding:9px 2px 2px}
+  .planb.on{display:block}
+  .planb .pb-why{font-size:11px;color:var(--dim2);margin:0 0 7px;line-height:1.5}
+  .planb-item{border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px 10px;margin-bottom:7px}
+  .planb-item b{font-size:12.5px;display:block;line-height:1.4}
+  .planb-item p{margin:3px 0 7px;font-size:11px;color:var(--dim);line-height:1.5}
+  .planb-item .acts{margin-top:0}
+  .shop-presets{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+  .shop-preset{appearance:none;border:1px solid var(--line2);background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:700;color:var(--ink);font-family:inherit;cursor:pointer;line-height:1.2}
+  .shop-preset:active{transform:scale(.96)}
+  .shop-preset small{display:block;font-size:10px;color:var(--dim2);font-weight:600;margin-top:1px}
+  .gauge{margin:10px 0 2px}
+  .gauge .g-top{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;font-weight:700;line-height:1.4}
+  .gauge .g-top span:last-child{font-weight:800}
+  .gauge .g-sub{font-size:10.5px;color:var(--dim2);margin:2px 0 0;line-height:1.5}
+  .gauge .bar{height:8px;border-radius:99px;background:#EFE7D8;margin-top:5px;overflow:hidden}
+  .gauge .fill{display:block;height:100%;border-radius:99px;background:#3B7A57;transition:width .25s ease}
+  .gauge.warn .fill{background:#D9822B}
+  .gauge.over .fill{background:#D64545}
+  .gauge.over .g-top span:last-child{color:#D64545}
+  .shop-item{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid #EFE7D8;font-size:13px}
+  .shop-item .nm{flex:1;min-width:0;line-height:1.35}
+  .shop-item .nm small{display:block;font-size:10.5px;color:var(--dim2)}
+  .shop-item .pr{text-align:right;white-space:nowrap;font-weight:700}
+  .shop-item .pr small{display:block;font-size:10px;color:var(--dim2);font-weight:600}
+  .shop-item .del{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--dim);font-size:12px;line-height:1}
+  .shop-form{border:1px solid var(--line);border-radius:12px;background:#FCF8F0;padding:11px;margin-top:10px}
+  .shop-form .frow{grid-template-columns:1fr 96px}
+  .shop-form .frow label{font-size:12px}
+  .car-sec{margin:0 0 14px}
+  .car-sec h4{margin:0 0 2px;font-size:13.5px}
+  .car-sec .cs-sub{font-size:11px;color:var(--dim2);margin:0 0 7px;line-height:1.5}
+  .car-park{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 11px;margin-bottom:7px}
+  .car-park .rk{display:inline-block;font-size:10px;font-weight:800;color:#B23A31;background:#FCEDEA;border-radius:6px;padding:2px 6px;margin-right:5px}
+  .car-park b{font-size:12.5px;line-height:1.4}
+  .car-park p{margin:3px 0 7px;font-size:11px;color:var(--dim);line-height:1.55}
+  .car-park .acts{margin-top:0}
+  .drive-check{margin:0;padding:0;list-style:none}
+  .drive-check li{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #EFE7D8;font-size:12px;line-height:1.55}
+  .drive-check li:last-child{border-bottom:0}
+  .drive-check li b{flex:none;width:52px;color:var(--coral)}
+
+  </style>
 </head>
 <body>
 
@@ -1613,6 +1657,8 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <div class="sec" style="margin-top:2px"><h2>예약 요약</h2><span>탭하면 상세로</span></div>
         <div class="ov-scroll" id="ovcards"></div>
 
+        <button class="mm-toggle" data-car><span class="ic">🚗</span><span class="t">렌터카·주차 대시보드 — 주차장 · 주유소 · 운전 체크</span><span>›</span></button>
+
         <button class="mm-toggle" id="mmToggle">
           <span class="ic">🗺️</span><span class="t">지도 함께 보기</span><span class="sw"></span>
         </button>
@@ -1640,7 +1686,7 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <div class="sec"><h2>💰 위스키 시세</h2><span>현지 실측 참고가</span></div>
         <div class="wtable" id="wtable"></div>
         <div class="calc" id="calcbox"></div>
-        <p class="footnote">일본 면세는 5,500엔 이상 구매 시 적용되고, 2026년 11월부터 공항 세관 키오스크에서 환급받는 방식이에요. 한국 입국 주류 면세는 <b>1인 2병 · 총 2L · $400</b> 이하이며, 초과분은 자진신고 대상입니다.</p>
+        <p class="footnote">일본 면세는 5,500엔 이상 구매 시 적용되고, 2026년 11월부터 공항 세관 키오스크에서 환급받는 방식이에요. 한국 입국 주류 면세는 <b>병수 제한 없음 · 총 2L · $400</b> 이하(2025-03-21 개정)이며, 초과분은 자진신고 대상입니다.</p>
       </section>
 
       <section class="tab" id="tab-budget" data-wide>
@@ -1732,6 +1778,17 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <button id="spJpShow" type="button" style="display:none">🇯🇵 직원에게 보여주기</button>
         <button id="spShow">📍 지도에서 보기</button>
       </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="carSheet">
+    <div class="sheetbox">
+      <div class="grab"></div>
+      <div class="shead">
+        <div class="t"><div class="sday">렌터카 · Travel CAR RENT</div><h3>🚗 렌터카·주차 대시보드</h3></div>
+        <button class="x" id="carClose">✕</button>
+      </div>
+      <div id="carBody"></div>
     </div>
   </div>
 
@@ -2841,8 +2898,10 @@ function itemHTML(s){
         (s.link ? '<a class="btn lnk" target="_blank" rel="noopener" href="' + s.link.u + '" title="' + esc(s.link.t) + '에서 후기·예약 보기">🔗 후기·예약</a>' : '') +
         (s.jp ? '<button class="btn" data-copy="' + esc(s.jp) + '">📋 주소</button>' : '') +
         (JP_SHOW[s.id] ? '<button class="btn" data-jp="' + s.id + '">🇯🇵 보여주기</button>' : '') +
+        (PLAN_B[s.id] ? '<button class="btn" data-planb="' + s.id + '">' + (s.id === 'd1-10' ? '⏳' : '☔') + ' 대안 보기</button>' : '') +
         '<button class="btn ghost" data-open="' + s.id + '">상세</button>' +
       '</div>' +
+      (PLAN_B[s.id] ? '<div class="planb" id="planb-' + s.id + '">' + planbHTML(s.id) + '</div>' : '') +
     '</div></div>';
 }
 
@@ -3170,61 +3229,291 @@ function renderFood(){
 
   renderCalc();
 }
-function renderCalc(){
-  var m = me();
-  var d = m.duty || (m.duty = { b:0, l:'', usd:'' });
-  $('#calcbox').innerHTML =
-    '<h3>🍾 면세 주류 계산기 <span style="color:#9A9186;font-weight:500;font-size:10px">' + esc(member(state.profile).name) + ' 기준</span></h3>' +
-    '<p class="hint">한국 입국 면세: 1인 2병 · 총 2L · $400 이하. 3개 모두 넘지 않아야 면세예요.</p>' +
-    '<div class="frow"><label>병 수 (병)</label><input class="inp" id="dB" type="number" min="0" inputmode="numeric" value="' + (d.b||'') + '" placeholder="0"></div>' +
-    '<div class="frow"><label>총 용량 (L)</label><input class="inp" id="dL" type="number" min="0" step="0.1" inputmode="decimal" value="' + esc(d.l) + '" placeholder="0"></div>' +
-    '<div class="frow"><label>총 금액 ($)</label><input class="inp" id="dU" type="number" min="0" inputmode="decimal" value="' + esc(d.usd) + '" placeholder="0"></div>' +
-    '<div class="chk3" id="dchips"></div>' +
-    '<div class="verdict" id="dverdict"></div>' +
-    '<p class="hint" id="dconv" style="margin:9px 0 0"></p>' +
-    '<p class="hint" style="margin:5px 0 0">금액은 달러 기준이에요 — 오늘 기준환율로 원화까지 같이 계산해 드려요. 주류 외 물품은 별도 $800 한도.</p>';
-  ['dB','dL','dU'].forEach(function(id){
-    $('#'+id).addEventListener('input', function(){
-      d.b = $('#dB').value; d.l = $('#dL').value; d.usd = $('#dU').value;
-      save(); paintCalc();
-    });
+
+/* ---- v4: 면세 쇼핑 장바구니 (구 면세 주류 계산기 대체 · 저장 키 osaka.shop.v1) ---- */
+var SHOP_KEY = 'osaka.shop.v1';
+var SHOP_PRESETS = [
+  { name:'조니워커 블루', cat:'liquor', ml:750, amt:19800, cur:'JPY', emoji:'🥃', sub:'750ml · ¥19,800' },
+  { name:'닷사이 23', cat:'liquor', ml:720, amt:7150, cur:'JPY', emoji:'🍶', sub:'720ml · ¥7,150' }
+];
+var shopForm = null; /* { name, cat } — 직접 추가 폼 상태 (휘발성) */
+var shopBound = false;
+function loadShop(){
+  try{
+    var raw = localStorage.getItem(SHOP_KEY);
+    var obj = raw ? JSON.parse(raw) : {};
+    return (obj && typeof obj === 'object') ? obj : {};
+  }catch(e){ return {}; }
+}
+function saveShop(obj){ try{ localStorage.setItem(SHOP_KEY, JSON.stringify(obj)); }catch(e){} }
+function myShop(){
+  var all = loadShop();
+  var list = all[state.profile];
+  return Array.isArray(list) ? list : [];
+}
+function setMyShop(list){
+  var all = loadShop();
+  all[state.profile] = list;
+  saveShop(all);
+}
+function shopUsd(it){
+  var fxUsd = (state.usdJpy >= 50) ? state.usdJpy : FX_FALLBACK.usdJpy;
+  return it.cur === 'USD' ? it.amt : it.amt / fxUsd;
+}
+function shopTotals(list){
+  var liqMl = 0, liqUsd = 0, genUsd = 0;
+  list.forEach(function(it){
+    var u = shopUsd(it);
+    if(it.cat === 'liquor'){ liqMl += (it.ml || 0); liqUsd += u; }
+    else genUsd += u;
   });
+  return { liqMl:liqMl, liqUsd:liqUsd, genUsd:genUsd };
+}
+function shopListHTML(list){
+  if(!list.length) return '<p class="hint" style="margin:10px 0 0">아직 담은 물건이 없어요. 위 프리셋을 누르면 바로 담겨요.</p>';
+  return list.map(function(it, i){
+    var u = shopUsd(it);
+    var meta = it.cat === 'liquor' ? ('주류 · ' + num(it.ml) + 'ml') : '일반';
+    var price = it.cur === 'JPY' ? yen(it.amt) : ('$' + num(it.amt));
+    return '<div class="shop-item"><div class="nm">' + esc(it.name) + '<small>' + meta + '</small></div>' +
+      '<div class="pr">' + price + '<small>≈ $' + num(Math.round(u * 10) / 10) + '</small></div>' +
+      '<button class="del" data-shop-del="' + i + '" aria-label="삭제">✕</button></div>';
+  }).join('');
+}
+function shopFormHTML(f){
+  return '<div class="shop-form">' +
+    '<div class="frow"><label>품목명</label><input class="inp" id="sfName" type="text" value="' + esc(f.name || '') + '" placeholder="예) 마운자로 5mg"></div>' +
+    '<div class="frow"><label>분류</label><select class="inp" id="sfCat"><option value="liquor"' + (f.cat === 'liquor' ? ' selected' : '') + '>주류</option><option value="general"' + (f.cat !== 'liquor' ? ' selected' : '') + '>일반</option></select></div>' +
+    '<div class="frow" id="sfMlRow"><label>용량 (ml)</label><input class="inp" id="sfMl" type="number" min="0" inputmode="numeric" placeholder="750"></div>' +
+    '<div class="frow"><label>가격</label><input class="inp" id="sfAmt" type="number" min="0" inputmode="decimal" placeholder="0"></div>' +
+    '<div class="frow"><label>통화</label><select class="inp" id="sfCur"><option value="JPY">엔 (JPY)</option><option value="USD">달러 (USD)</option></select></div>' +
+    '<div style="display:flex;gap:6px;margin-top:4px"><button class="btn pri" data-shop-submit style="flex:1;justify-content:center">장바구니에 추가</button>' +
+    '<button class="btn" data-shop-cancel>취소</button></div>' +
+    '</div>';
+}
+function bindShopForm(){
+  var cat = document.getElementById('sfCat'); if(!cat) return;
+  var sync = function(){
+    var row = document.getElementById('sfMlRow');
+    if(row) row.style.display = (cat.value === 'liquor') ? '' : 'none';
+  };
+  cat.addEventListener('change', sync);
+  sync();
+}
+function renderCalc(){
+  var box = document.getElementById('calcbox'); if(!box) return;
+  var list = myShop();
+  box.innerHTML =
+    '<h3>🛍️ 면세 쇼핑 장바구니 <span style="color:#9A9186;font-weight:500;font-size:10px">' + esc(member(state.profile).name) + ' 기준</span></h3>' +
+    '<p class="hint">한국 입국 면세: 주류 <b>병수 제한 없음 · 총 2L 이하 · 총 $400 이하</b> (2025-03-21 개정) · 일반 물품 <b>1인 $800 이하</b> (주류와 별도 한도).</p>' +
+    '<div class="shop-presets">' +
+      SHOP_PRESETS.map(function(p, i){
+        return '<button class="shop-preset" data-shop-preset="' + i + '">' + esc(p.emoji + ' ' + p.name) + '<small>' + esc(p.sub) + '</small></button>';
+      }).join('') +
+      '<button class="shop-preset" data-shop-form="mounjaro">💉 마운자로<small>일반 쇼핑 · 가격 직접 입력</small></button>' +
+      '<button class="shop-preset" data-shop-form="custom">＋ 직접 추가<small>품목·분류·용량·가격</small></button>' +
+    '</div>' +
+    '<div id="shopGauges"></div>' +
+    '<div id="shopList">' + shopListHTML(list) + '</div>' +
+    '<div id="shopFormBox">' + (shopForm ? shopFormHTML(shopForm) : '') + '</div>' +
+    '<div class="verdict" id="shopVerdict"></div>' +
+    '<p class="hint" id="shopConv" style="margin:9px 0 0"></p>';
+  bindShopForm();
   paintCalc();
 }
 function paintCalc(){
-  var d = me().duty || {};
-  var b = parseFloat(d.b) || 0, l = parseFloat(d.l) || 0, u = parseFloat(d.usd) || 0;
-  var okB = b <= 2, okL = l <= 2, okU = u <= 400;
-  var chips = [{ k:'병 수', ok:okB, lim:'2병' }, { k:'용량', ok:okL, lim:'2L' }, { k:'금액', ok:okU, lim:'$400' }];
-  var ch = $('#dchips'); if(!ch) return;
-  ch.innerHTML = chips.map(function(c){
-    return '<div class="' + (c.ok?'ok':'no') + '">' + (c.ok?'✓ ':'! ') + c.k + ' ' + c.lim + '</div>';
-  }).join('');
-  var cv = $('#dconv');
+  var g = document.getElementById('shopGauges'); if(!g) return;
+  var list = myShop();
+  var t = shopTotals(list);
+  var overMl = t.liqMl > 2000, overLiqUsd = t.liqUsd > 400, overGen = t.genUsd > 800;
+  var liqMlPct = Math.min(100, Math.round(t.liqMl / 2000 * 100));
+  var liqUsdPct = Math.min(100, Math.round(t.liqUsd / 400 * 100));
+  var genPct = Math.min(100, Math.round(t.genUsd / 800 * 100));
+  var liqCls = (overMl || overLiqUsd) ? 'gauge over' : ((liqMlPct >= 80 || liqUsdPct >= 80) ? 'gauge warn' : 'gauge');
+  var genCls = overGen ? 'gauge over' : (genPct >= 80 ? 'gauge warn' : 'gauge');
+  g.innerHTML =
+    '<div class="' + liqCls + '"><div class="g-top"><span>🥃 주류 면세 한도</span><span>' + num(t.liqMl) + ' / 2,000ml · $' + num(Math.round(t.liqUsd)) + ' / $400</span></div>' +
+    '<div class="bar"><i class="fill" style="width:' + Math.max(liqMlPct, liqUsdPct) + '%"></i></div>' +
+    '<p class="g-sub">용량과 금액 둘 다 안 넘겨야 면세예요 (병수 제한 없음).</p></div>' +
+    '<div class="' + genCls + '"><div class="g-top"><span>🛍️ 일반 면세 한도</span><span>$' + num(Math.round(t.genUsd)) + ' / $800</span></div>' +
+    '<div class="bar"><i class="fill" style="width:' + genPct + '%"></i></div>' +
+    '<p class="g-sub">마운자로·선물 등 일반 물품 합산 (주류는 별도 한도라 여기에 안 더해요).</p></div>';
+  var v = document.getElementById('shopVerdict');
+  if(v){
+    if(!list.length){
+      v.className = 'verdict ok';
+      v.innerHTML = '🛍️ 살 물건을 담으면 면세 한도를 바로 계산해 드려요';
+    } else if(!overMl && !overLiqUsd && !overGen){
+      v.className = 'verdict ok';
+      v.innerHTML = '✓ 면세 범위 안이에요 — 세관 신고 없이 통과 가능';
+    } else {
+      var over = [];
+      if(overMl) over.push('주류 용량');
+      if(overLiqUsd) over.push('주류 금액');
+      if(overGen) over.push('일반 금액');
+      v.className = 'verdict no';
+      v.innerHTML = '⚠️ ' + over.join(' · ') + ' 초과 — 입국장에서 종이·모바일 신고서로 자진신고하면 관세 30% 경감돼요. 미신고 적발 시 40%(2년 내 2회 이상 60%) 가산세.';
+    }
+  }
+  var cv = document.getElementById('shopConv');
   if(cv){
     var fxRate = (state.rate >= 50) ? state.rate : FX_FALLBACK.rate;
     var fxUsd = (state.usdJpy >= 50) ? state.usdJpy : FX_FALLBACK.usdJpy;
-    var limY = 400 * fxUsd;
-    var s = '<b>100엔 = ' + fxNum(fxRate) + '원 · 1$ ≈ ¥' + fxNum(fxUsd) + '</b> 적용 — $400 한도 ≈ ' + yen(Math.round(limY)) + ' ≈ ' + won(Math.round(limY * fxRate / 100));
-    if(u > 0) s += '<br>입력한 $' + num(u) + ' ≈ ' + yen(Math.round(u * fxUsd)) + ' ≈ ' + won(Math.round(u * fxUsd * fxRate / 100));
-    cv.innerHTML = s;
-  }
-  var v = $('#dverdict'); if(!v) return;
-  var over = [];
-  if(!okB) over.push('병 수');
-  if(!okL) over.push('용량');
-  if(!okU) over.push('금액');
-  if(!b && !l && !u){
-    v.className = 'verdict ok';
-    v.innerHTML = '🍾 살 위스키를 입력하면 면세 여부를 바로 계산해 드려요';
-  } else if(over.length === 0){
-    v.className = 'verdict ok';
-    v.innerHTML = '✓ 면세 범위 안이에요 — 세관 신고 없이 통과 가능';
-  } else {
-    v.className = 'verdict no';
-    v.innerHTML = '⚠️ ' + over.join(' · ') + ' 초과 — 초과분은 자진신고 대상이에요';
+    cv.innerHTML = '<b>100엔 = ' + fxNum(fxRate) + '원 · 1$ ≈ ¥' + fxNum(fxUsd) + '</b> 적용 — 엔화 가격은 달러로 자동 환산해요. 만 19세 미만은 주류·담배 면세 없음.';
   }
 }
+/* 장바구니 클릭 위임 (calcbox가 다시 그려져도 유지 · 한 번만 등록) */
+if(!shopBound){
+  shopBound = true;
+  document.addEventListener('click', function(e){
+    var box = document.getElementById('calcbox');
+    if(!box || !box.contains(e.target)) return;
+    var pre = e.target.closest ? e.target.closest('[data-shop-preset]') : null;
+    if(pre){
+      var p = SHOP_PRESETS[parseInt(pre.getAttribute('data-shop-preset'), 10)];
+      if(p){
+        var list = myShop();
+        list.push({ name:p.name, cat:p.cat, ml:p.ml, amt:p.amt, cur:p.cur });
+        setMyShop(list);
+        renderCalc();
+        toast(p.name + ' 담았어요');
+      }
+      return;
+    }
+    var fm = e.target.closest ? e.target.closest('[data-shop-form]') : null;
+    if(fm){
+      var kind = fm.getAttribute('data-shop-form');
+      shopForm = (kind === 'mounjaro') ? { name:'마운자로', cat:'general' } : { name:'', cat:'liquor' };
+      renderCalc();
+      var nm = document.getElementById('sfName'); if(nm) nm.focus();
+      return;
+    }
+    var del = e.target.closest ? e.target.closest('[data-shop-del]') : null;
+    if(del){
+      var idx = parseInt(del.getAttribute('data-shop-del'), 10);
+      var list2 = myShop();
+      if(idx >= 0 && idx < list2.length){ list2.splice(idx, 1); setMyShop(list2); renderCalc(); }
+      return;
+    }
+    var sub = e.target.closest ? e.target.closest('[data-shop-submit]') : null;
+    if(sub){
+      var name = ((document.getElementById('sfName') || {}).value || '').trim();
+      var cat = (document.getElementById('sfCat') || {}).value || 'general';
+      var ml = parseFloat((document.getElementById('sfMl') || {}).value) || 0;
+      var amt = parseFloat((document.getElementById('sfAmt') || {}).value) || 0;
+      var cur = (document.getElementById('sfCur') || {}).value || 'JPY';
+      if(!name){ toast('품목명을 입력해 주세요'); return; }
+      if(!(amt > 0)){ toast('가격을 입력해 주세요'); return; }
+      if(cat === 'liquor' && !(ml > 0)){ toast('주류는 용량(ml)을 입력해 주세요'); return; }
+      var list3 = myShop();
+      list3.push({ name:name, cat:cat, ml:(cat === 'liquor' ? ml : 0), amt:amt, cur:cur });
+      setMyShop(list3);
+      shopForm = null;
+      renderCalc();
+      toast(name + ' 담았어요');
+      return;
+    }
+    var cx = e.target.closest ? e.target.closest('[data-shop-cancel]') : null;
+    if(cx){ shopForm = null; renderCalc(); return; }
+  });
+}
+
+
+/* ---- v4: 플랜B 대안 (도보 5분 내 실내/대체 · 2026-11-27 확인 기준) ---- */
+var PLAN_B = {
+  'd1-10': { why:'워크인 대기 길면 바로 이동 — 난바 도보권 2곳', places:[
+    { n:'토리키조쿠 난바점 (鳥貴族 ナンバ店)', d:'야키토리 체인 · 전 메뉴 균일 ¥390 · 월–금 17:00–25:00, 토·일 16:00–25:00 · 난바역 도보 3분', q:'鳥貴族 ナンバ店 大阪市中央区難波千日前13-10' },
+    { n:'이소마루수산 난바 난카이도리점 (磯丸水産 なんば南海通り店)', d:'24시간 해산물 이자카야 · 테이블 하마야키(조개·새우 구이) 명물 · 난바역 도보 5분', q:'磯丸水産 なんば南海通り店 大阪市中央区難波千日前11-22' }
+  ]},
+  'd2-2b': { why:'비 오면 실내로 — 오사카성 바로 옆 2곳', places:[
+    { n:'오사카 역사박물관 (大阪歴史博物館)', d:'실내 · 9:30–17:00(입장 16:30까지) · 어른 ¥600 · 12/9(수) 개관 (화요일 휴관) · 오사카성 도보 5분', q:'大阪歴史博物館 大阪市中央区大手前4-1-32' },
+    { n:'난바 워크 지하상가 (なんばウォーク)', d:'지하 715m · 230여 개 점포 · 물판 10:00–21:00, 음식점 10:00–22:00 · 난바역 직결', q:'なんばウォーク 大阪市中央区千日前2-1-15' }
+  ]},
+  'd2-4b': { why:'비 오면 실내로 — 후시미 사케 거리 2곳', places:[
+    { n:'겟케이칸 오쿠라 기념관 (月桂冠大倉記念館)', d:'사케 박물관 실내 · 9:30–16:30(접수 16:00까지) · 20세↑ ¥600(시음 3종+기념품) · 캐시리스만 · 중서지마역 도보 5분', q:'月桂冠大倉記念館 京都市伏見区南浜町247' },
+    { n:'교토역 포르타 지하상가 (京都駅前地下街ポルタ)', d:'교토역 직결 지하상가 · 음식점 11:00–22:00 · 물판 10:00~ (점포별 상이) · 비 안 맞고 식사·쇼핑', q:'京都駅前地下街ポルタ 京都市下京区東塩小路町902' }
+  ]},
+  'd2-5b': { why:'우천·결항 시 실내로 — 도톤보리 2곳', places:[
+    { n:'돈키호테 도톤보리점 (ドン・キホーテ 道頓堀店)', d:'24시간 대형 할인점 · 면세 쇼핑 · 난바역 14번 출구 도보 5분 · 관람차 있는 소에몬초점', q:'ドン・キホーテ 道頓堀店 大阪市中央区宗右衛門町7-13' },
+    { n:'신사이바시 스지 상점가 (心斎橋筋商店街)', d:'전 구간 지붕 아케이드(약 580m) · 비 안 맞고 쇼핑 · 점포 10:00–22:00 (점포별 상이) · 도톤보리 직결', q:'心斎橋筋商店街 大阪市中央区心斎橋筋2-2-22' }
+  ]}
+};
+function planbHTML(id){
+  var pb = PLAN_B[id]; if(!pb) return '';
+  var h = '<p class="pb-why">☔ ' + esc(pb.why) + '</p>';
+  pb.places.forEach(function(p){
+    h += '<div class="planb-item"><b>' + esc(p.n) + '</b><p>' + esc(p.d) + '</p>' +
+      '<div class="acts" style="display:flex;gap:5px"><a class="btn" target="_blank" rel="noopener" href="' + gmap(p.q) + '">🗺️ 구글맵</a></div></div>';
+  });
+  return h;
+}
+function togglePlanB(id, btn){
+  var box = document.getElementById('planb-' + id); if(!box) return;
+  var on = box.classList.toggle('on');
+  if(btn) btn.textContent = (on ? '☔ 대안 닫기' : ((id === 'd1-10' ? '⏳' : '☔') + ' 대안 보기'));
+}
+
+/* ---- v4: 렌터카 대시보드 (2026-11-27 확인 기준 · 요금은 현지 표지판 우선) ---- */
+var CAR_PARK = [
+  { area:'호텔 링크스 난바 (12/8 밤 · 12/9 아침)', note:'호텔: 大阪市浪速区稲荷1-9-27', opts:[
+    { rank:'1순위', n:'미쓰이 리파크 이나리 1초메 제5 (三井のリパーク 稲荷1丁目第5)', d:'호텔과 같은 동네 · 24시간 · 20분 ¥220 · 입고 후 24시간 최대 ¥1,400(반복) · 39대 · 높이 2m', q:'三井のリパーク 稲荷1丁目第5 大阪市浪速区稲荷1-6-22' },
+    { rank:'2순위', n:'타임즈 이나리 1초메 제2 (タイムズ稲荷1丁目第2)', d:'호텔 바로 옆 동네 · 24시간 · 30분 ¥220(8:00–24:00) · 24시간 최대 ¥1,200 · 6대 · 높이 2.1m', q:'タイムズ稲荷1丁目第2 大阪市浪速区稲荷1-11' }
+  ]},
+  { area:'빅카메라 난바점 (12/9 10:00)', note:'千日前2-10-1 · 쇼핑 겸용', opts:[
+    { rank:'1순위', n:'에스칼 난바 주차장 (エスカール難波駐車場)', d:'빅카메라 제휴 · 8:00–24:00 · 30분 ¥400 · ¥3,000↑ 1시간 무료, ¥6,000↑ 2시간 무료(당일 레시트+주차권 제시) · 72대', q:'エスカールなんば駐車場 大阪市中央区千日前2-10-1' },
+    { rank:'2순위', n:'타임즈 호텔 로열 클래식 오사카 (タイムズホテルロイヤルクラシック大阪)', d:'7:00–24:00 · 30분 ¥400 · 평일 최대 ¥1,500 / 토·일·축 ¥2,300 · 79대 · 높이 2m · 빅카메라 도보권', q:'タイムズホテルロイヤルクラシック大阪 大阪市中央区難波4-3' }
+  ]},
+  { area:'오사카성 공원 (12/9 10:48)', note:'고자부네 승선 전 주차', opts:[
+    { rank:'1순위', n:'오사카성 모리노미야 주차장 (大阪城森ノ宮駐車場)', d:'24시간 · 평일 60분 ¥400 / 토·일·축 ¥500 · 22:00–8:00 60분 ¥200 · 최대 요금 없음(12/9 수요일 2시간 ≈ ¥800) · 143대 · 옆에 오사카성공원역 앞 주차장(171대, 같은 요금)도 있음', q:'大阪城森ノ宮駐車場 大阪市中央区大阪城' },
+    { rank:'2순위', n:'타임즈 모리노미야역 앞 (タイムズ森ノ宮駅前)', d:'24시간 · 20분 ¥200 · 24시간 최대 ¥1,500 · 18:00–9:00 ¥500 · 15대 · 높이 2.1m · 장시간 주차에 유리', q:'タイムズ森ノ宮駅前 大阪市中央区森ノ宮中央1-2' }
+  ]},
+  { area:'교토 산토리 공장 (12/9 13:50)', note:'운전자는 시음 불가 — 셔틀이 정답', opts:[
+    { rank:'1순위', n:'산토리 교토공장 방문자 주차장', d:'공장 내 주차장 있음 · 대수 제한 · 공식은 대중교통 권장 · 요금은 공식 미명시(무료라는 2차 정보만 있음) · 시설 9:30–17:00', q:'サントリー 天然水のビール工場 京都 長岡京市調子3-1-1' },
+    { rank:'2순위', n:'JR 나가오카쿄역 무료 셔틀버스', d:'역–공장 무료 셔틀 운행 · 운전자는 시음 불가라 시음이 목적이면 셔틀 이용 · 렌터카는 역 주변 코인파킹에 두고 이동', q:'JR長岡京駅 京都府長岡京市' }
+  ]},
+  { area:'후시미 이나리 대사 (12/9 15:45)', note:'경내 무료 주차장 있음', opts:[
+    { rank:'1순위', n:'후시미 이나리 대사 경내 주차장 (伏見稲荷大社 境内駐車場)', d:'무료 · 24시간 · 참배자 전용 · 약 200대 · 주말·연휴엔 바로 만차, 혼잡 시 폐쇄될 수 있음', q:'伏見稲荷大社 境内駐車場 京都市伏見区深草藪之内町61' },
+    { rank:'2순위', n:'타임즈 후시미 이나리 대사 앞 (タイムズ伏見稲荷大社前)', d:'신사에서 265m · 24시간 · 평일 20분 ¥330(8:00–18:00) · 평일 주간 최대 ¥1,300 · 25대 · 높이 2.1m', q:'タイムズ伏見稲荷大社前 京都市伏見区深草稲荷御前町80' }
+  ]}
+];
+var CAR_GAS = [
+  { n:'ENEOS 린쿠타운 SS (ENEOS りんくうタウンSS · EneJet 셀프)', d:'셀프 · 24시간 연중무휴 · 레귤러 휘발유 · 공항 섬에서 6.6km · 072-462-6888', q:'ENEOS りんくうタウンSS 大阪府泉佐野市りんくう往来南5-50' },
+  { n:'ENEOS 셀프 린쿠타운 SS (ENEOS セルフりんくうタウンSS)', d:'셀프 · 24시간 · 레귤러 휘발유 · 린쿠타운역 679m, 린쿠 IC 781m · 072-458-7770', q:'ENEOS セルフりんくうタウンSS 大阪府泉佐野市りんくう往来北1-19' }
+];
+function carSheetHTML(){
+  var h = '<div class="car-sec"><h4>🚗 Travel CAR RENT · 도요타 프리우스(또는 동급)</h4>' +
+    '<p class="cs-sub">예약 <b class="mono">1400831131916716</b> · 12/8 18:30 인수 → 12/10 반납(08:30 반납 예정) · 75,859원 사전결제 · 인수 위치·보험은 강혜랑 님 측 확인 중</p></div>';
+  h += '<div class="car-sec"><h4>🅿️ 일정별 주차장 1·2순위</h4>' +
+    '<p class="cs-sub">2026-11-27 확인 기준 — 요금은 예고 없이 바뀌니 현지 표지판 우선으로 봐줘.</p>';
+  CAR_PARK.forEach(function(sec){
+    h += '<h4 style="margin:12px 0 2px;font-size:12.5px">📍 ' + esc(sec.area) + '</h4>' +
+      '<p class="cs-sub">' + esc(sec.note) + '</p>';
+    sec.opts.forEach(function(o){
+      h += '<div class="car-park"><span class="rk">' + esc(o.rank) + '</span><b>' + esc(o.n) + '</b><p>' + esc(o.d) + '</p>' +
+        '<div class="acts" style="display:flex;gap:5px"><a class="btn" target="_blank" rel="noopener" href="' + gmap(o.q) + '">🗺️ 구글맵</a></div></div>';
+    });
+  });
+  h += '</div>';
+  h += '<div class="car-sec"><h4>⛽ 반납 전 주유 — 12/10 아침</h4>' +
+    '<p class="cs-sub">간사이공항 섬 안에는 일반인이 쓸 수 있는 주유소가 없어. 연락교를 건너기 전 <b>린쿠타운에서 만땅 주유</b>하고 돌아가야 해. 레귤러 휘발유 · Full 주유 · <b>영수증 보관</b> 필수.</p>';
+  CAR_GAS.forEach(function(g){
+    h += '<div class="car-park"><b>' + esc(g.n) + '</b><p>' + esc(g.d) + '</p>' +
+      '<div class="acts" style="display:flex;gap:5px"><a class="btn" target="_blank" rel="noopener" href="' + gmap(g.q) + '">🗺️ 구글맵</a></div></div>';
+  });
+  h += '</div>';
+  h += '<div class="car-sec"><h4>🚦 일본 운전 핵심 4줄 체크</h4><ul class="drive-check">' +
+    '<li><b>좌측통행</b><span>우회전은 크게, 좌회전은 작게 — 교차로에서 반대 차선으로 들어가지 않게 주의</span></li>' +
+    '<li><b>일시정지</b><span>止まれ 표지판에서는 3초 완전정지 후 출발 — 서행으로 지나가면 단속 대상</span></li>' +
+    '<li><b>ETC/현금</b><span>고속도로 진입 전 ETC 차선과 일반(현금) 차선 구분 — ETC 카드 없으면 일반 차선으로</span></li>' +
+    '<li><b>사고 시</b><span>110 신고 + 렌터카 비상연락(트립닷컴/Travel CAR RENT) — 현장 사진 찍고 경찰 도착까지 대기</span></li>' +
+    '</ul></div>';
+  return h;
+}
+function openCar(){
+  var b = document.getElementById('carBody'); if(b && !b.innerHTML) b.innerHTML = carSheetHTML();
+  document.getElementById('carSheet').classList.add('on');
+}
+function closeCar(){ document.getElementById('carSheet').classList.remove('on'); }
 
 /* ---------------- budget ---------------- */
 var editingId = null;
@@ -3694,7 +3983,8 @@ function renderPrep(){
       '<div class="ut">⚠️ 출발 전 꼭 처리</div>' +
       '<p><b>렌터카 인수 위치·보험 확인</b> — Travel CAR RENT(트립닷컴) 예약 <b class="mono">1400831131916716</b> · 도요타 프리우스 또는 동급. 12/8 <b class="mono">18:30</b> 인수 → 12/10 <b class="mono">10:00</b> 반납으로 변경 완료(75,859원 사전결제 · 4인 분담 · 12/7 18:30까지 무료취소). 인수 카운터 위치와 보험 조건은 강혜랑 님 측에서 확인 중입니다.</p>' +
       '<div class="acts" style="display:flex;gap:6px;margin-top:9px"><button class="btn" data-copy="1400831131916716">📋 예약번호 복사</button>' +
-      '<a class="btn" target="_blank" rel="noopener" href="https://www.trip.com/">트립닷컴 열기</a></div>' +
+      '<a class="btn" target="_blank" rel="noopener" href="https://www.trip.com/">트립닷컴 열기</a>' +
+      '<button class="btn" data-car>🚗 주차·주유 대시보드</button></div>' +
     '</div>' +
 
     '<div class="fcard" style="margin-top:2px;border-left:3px solid #8C6A9B">' +
@@ -4131,6 +4421,15 @@ document.addEventListener('click', function(e){
   var jp = e.target && e.target.closest ? e.target.closest('[data-jp]') : null;
   if(jp){ e.stopPropagation(); e.preventDefault(); openJp(jp.getAttribute('data-jp')); }
 }, true);
+/* v4: 플랜B 토글 + 렌터카 대시보드 열기 (카드 상세 열림 방지용 캡처 단계) */
+document.addEventListener('click', function(e){
+  var pb = e.target && e.target.closest ? e.target.closest('[data-planb]') : null;
+  if(pb){ e.stopPropagation(); e.preventDefault(); togglePlanB(pb.getAttribute('data-planb'), pb); return; }
+  var car = e.target && e.target.closest ? e.target.closest('[data-car]') : null;
+  if(car){ e.stopPropagation(); e.preventDefault(); openCar(); }
+}, true);
+document.getElementById('carClose').addEventListener('click', function(){ closeCar(); });
+document.getElementById('carSheet').addEventListener('click', function(e){ if(e.target === this) closeCar(); });
 var SPLIT_KEY = 'osaka.split.v1';
 var splitDraft = null, splitClear = false;
 function loadSplit(){
