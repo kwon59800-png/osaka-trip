@@ -2134,6 +2134,21 @@ function me(){ return state.members[state.profile] || (state.members[state.profi
 function member(id){ return MEMBERS.filter(function(m){ return m.id===id; })[0]; }
 function spotById(id){ return SPOTS.filter(function(s){ return s.id===id; })[0]; }
 
+/* 스팟 순번(_n) — DAY별 1,2,3… 을 앱이 뜰 때 한 번에 전부 부여합니다.
+   renderDays()는 지금 열린 DAY만 그리므로(기본 DAY 1), 지도를 먼저 열거나
+   '전체'·다른 DAY 필터로 넘어오면 그 DAY 스팟의 _n이 비어 핀·스팟 목록에
+   'undefined'가 찍혔습니다. 어느 탭·어느 필터에서도 항상 채워져 있게 합니다. */
+function assignSpotNums(){
+  var seq = {};
+  SPOTS.forEach(function(s){
+    var d = s.day;
+    seq[d] = (seq[d] || 0) + 1;
+    s._n = seq[d];
+  });
+  return SPOTS;
+}
+assignSpotNums();
+
 /* ---------------- helpers ---------------- */
 function $(s,r){ return (r||document).querySelector(s); }
 function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
@@ -2811,6 +2826,7 @@ function dayPhotoCount(d){
   return SPOTS.filter(function(s){ return s.day === d && spotPhoto(s.id); }).length;
 }
 function renderDays(){
+  assignSpotNums();
   renderDaySeg();
   var cur = curDayTab();
   var solo = cur !== 'all';
@@ -2818,7 +2834,6 @@ function renderDays(){
   var html = '', total = 0;
   days.forEach(function(d){
     var list = SPOTS.filter(function(s){ return s.day === d; });
-    list.forEach(function(s,i){ s._n = i+1; });
     total += list.length;
     var mins = list.reduce(function(a,s){ return a + ((s.leg && s.leg.m) || 0); }, 0);
     var open = solo || !!state.open[d];
@@ -3014,6 +3029,7 @@ function spreadMarkers(M){
 }
 
 function mapSpots(){
+  assignSpotNums();           /* 지도도 _n 누락 없이 — 방어 */
   var f = state.mapFilter;
   if(f === 'liquor') return SHOPS.map(function(s,i){
     return { id:'shop-'+i, title:s.n, t:'리쿼샵', lat:s.lat, lng:s.lng, q:s.q, day:0, kind:'shop', tag:'리쿼', _n:i+1 };
@@ -3032,11 +3048,11 @@ function drawMap(key){
   M.markers = {};
   M.list = list;
   var pts = [];
-  list.forEach(function(s){
+  list.forEach(function(s, idx){
     var c = dayColor(s);
     var icon = L.divIcon({
       className:'', iconSize:[26,26], iconAnchor:[13,13],
-      html:'<div class="pinmark" style="--dc:' + c + '">' + s._n + '</div>'
+      html:'<div class="pinmark" style="--dc:' + c + '">' + (s._n || (idx + 1)) + '</div>'
     });
     var mk = L.marker([s.lat, s.lng], { icon:icon }).addTo(M.group);
     mk.bindPopup('<b>' + esc(s.title) + '</b><br><span class="pm">' + esc(s.t || '') + (s.day ? ' · DAY ' + s.day : '') + '</span><br>' +
@@ -3077,10 +3093,10 @@ function renderMapFilters(){
 function renderMapList(){
   var list = mapSpots();
   $('#mapcount').textContent = list.length + '곳';
-  $('#maplist').innerHTML = list.map(function(s){
+  $('#maplist').innerHTML = list.map(function(s, idx){
     var c = dayColor(s);
     var sub = s.day === 0 ? '리쿼샵' : ('DAY ' + s.day + ' · ' + s.t);
-    return '<div class="spotrow" data-focus="' + s.id + '"><span class="num" style="--c:' + c + '">' + s._n + '</span>' +
+    return '<div class="spotrow" data-focus="' + s.id + '"><span class="num" style="--c:' + c + '">' + (s._n || (idx + 1)) + '</span>' +
       '<div><div class="nm">' + esc(s.title) + '</div><div class="tm">' + esc(sub) + '</div></div>' +
       (s.q ? '<a class="go" target="_blank" rel="noopener" href="' + gmap(s.q) + '">길찾기</a>' : '') + '</div>';
   }).join('');
@@ -3117,7 +3133,7 @@ function openSpot(id){
   if(!s) return;
   curSpot = s;
   var m = me();
-  $('#spPin').textContent = s._n;
+  $('#spPin').textContent = s._n || '·';
   $('#spPin').style.setProperty('--dc', DAY[s.day].color);
   $('#spDay').textContent = 'DAY ' + s.day + ' · ' + DAY[s.day].date + ' · ' + s.t + ' · ' + s.tag;
   $('#spTitle').textContent = s.title;
