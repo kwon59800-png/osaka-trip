@@ -900,13 +900,12 @@
 /* ===== 배경 (3장면) ===== */
 .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg);
   -webkit-transform:translateZ(0);transform:translateZ(0);isolation:isolate}
-.sc{position:absolute;inset:0;opacity:0;transition:opacity .75s ease;will-change:opacity}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity .75s ease}
 body[data-p="1"] #sc1,body[data-p="2"] #sc2,body[data-p="3"] #sc3{opacity:1}
 .sc *{animation-play-state:paused}
 body[data-p="1"] #sc1 *,body[data-p="2"] #sc2 *,body[data-p="3"] #sc3 *{animation-play-state:running}
 .sil{position:absolute;color:#8C6A46;opacity:.075}
-.grain{position:absolute;inset:0;opacity:.08;mix-blend-mode:soft-light;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+
 .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,243,235,.5),transparent 18%,transparent 82%,rgba(247,243,235,.45))}
 body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),transparent 20%,transparent 80%,rgba(26,21,24,.5))}
 /* ① 도톤보리 — 강물 반사 + 제등 입자 */
@@ -920,7 +919,7 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 .water-near{position:absolute;left:-10%;right:-10%;bottom:0;height:12%;background:linear-gradient(0deg,rgba(150,70,40,.3),rgba(150,70,40,0));overflow:hidden}
 .water-near i{position:absolute;left:0;right:0;height:1px;background:rgba(176,94,52,.28)}
 .water-near i:nth-child(1){bottom:22%}.water-near i:nth-child(2){bottom:52%;opacity:.7}.water-near i:nth-child(3){bottom:80%;opacity:.45}
-.water i{position:absolute;left:-25%;width:150%;height:12px;border-radius:50%;background:linear-gradient(90deg,rgba(232,120,79,0),rgba(255,168,86,.95),rgba(214,74,68,.62),rgba(232,120,79,0));filter:blur(4px);animation:ripple 9s ease-in-out infinite alternate}
+.water i{position:absolute;left:-25%;width:150%;height:12px;border-radius:50%;background:linear-gradient(90deg,rgba(232,120,79,0),rgba(255,168,86,.95),rgba(214,74,68,.62),rgba(232,120,79,0));animation:ripple 9s ease-in-out infinite alternate}
 .water i:nth-child(1){bottom:6%;height:13px;animation-duration:11s}
 .water i:nth-child(2){bottom:16%;animation-duration:8s;animation-delay:-3s;opacity:.8}
 .water i:nth-child(3){bottom:27%;height:7px;animation-duration:13s;animation-delay:-6s}
@@ -930,48 +929,48 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 .refl{position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none}
 .refl i{position:absolute;bottom:0;width:8px;height:100%;border-radius:99px;
   background:linear-gradient(180deg,rgba(255,168,86,.55),rgba(255,168,86,0));
-  filter:blur(3px);transform-origin:bottom;animation:sway 7s ease-in-out infinite alternate}
+  transform-origin:bottom;animation:sway 7s ease-in-out infinite alternate}
 .refl i:nth-child(1){left:18%;width:6px}
 .refl i:nth-child(2){left:42%;width:10px;animation-duration:8.5s;animation-delay:-2s}
 .refl i:nth-child(3){left:63%;width:7px;animation-duration:6.2s;animation-delay:-4s}
 .refl i:nth-child(4){left:84%;width:12px;animation-duration:9s;animation-delay:-1s}
 @keyframes sway{from{transform:translateX(-3px) scaleY(.85);opacity:.3}to{transform:translateX(3px) scaleY(1.08);opacity:.6}}
-.boatwrap{position:absolute;left:0;bottom:17%;width:120px;height:44px;will-change:transform}
+.boatwrap{position:absolute;left:0;bottom:17%;width:120px;height:44px}
 .boat{animation:sail 48s linear infinite}
-.boat svg{display:block;width:120px;height:44px;filter:drop-shadow(0 0 10px rgba(255,170,90,.5))}
+.boat svg{display:block;width:120px;height:44px}
 @keyframes sail{0%{transform:translate(-140px,0)}25%{transform:translate(25vw,-3px)}50%{transform:translate(50vw,2px)}75%{transform:translate(75vw,-3px)}100%{transform:translate(112vw,0)}}
 .lans{position:absolute;left:0;right:0;bottom:0;height:94%;opacity:calc(.9*var(--int))}
-.lans b{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,rgba(255,198,124,1),rgba(234,104,62,.94) 38%,rgba(226,86,76,0) 72%);filter:blur(.3px);animation:float 12s ease-in-out infinite alternate}
+.lans b{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,rgba(255,198,124,1),rgba(234,104,62,.94) 38%,rgba(226,86,76,0) 72%);animation:float 12s ease-in-out infinite alternate}
 .lans b.far{background:radial-gradient(circle,rgba(255,198,124,.7),rgba(234,104,62,.6) 38%,rgba(226,86,76,0) 72%)}
 @keyframes float{0%{transform:translate3d(-9px,8px,0) scale(.8);opacity:.3}50%{opacity:.92}100%{transform:translate3d(11px,-26px,0) scale(1.2);opacity:.45}}
-.cho{position:absolute;filter:drop-shadow(0 0 12px rgba(255,170,90,.75));animation:choF var(--d) ease-in-out infinite alternate;animation-delay:var(--dl)}
+.cho{position:absolute;animation:choF var(--d) ease-in-out infinite alternate;animation-delay:var(--dl)}
 @keyframes choF{from{transform:translate(0,6px) rotate(-3deg)}to{transform:translate(8px,-18px) rotate(4deg)}}
 /* ① 입체감 — 하늘 구름·새 · 먼 건물 · 앞 배 · 앞 제등 · 앞 난간 */
 .clouds{position:absolute;inset:0;overflow:hidden}
-.cloud{position:absolute;left:0;border-radius:50%;background:#fff;filter:blur(18px);opacity:.35;animation:cloudDrift var(--d) linear infinite}
+.cloud{position:absolute;left:0;border-radius:50%;background:radial-gradient(ellipse at center, rgba(255,255,255,.45), rgba(255,255,255,0) 70%);opacity:.35;animation:cloudDrift var(--d) linear infinite}
 @keyframes cloudDrift{from{transform:translateX(-32vw)}to{transform:translateX(115vw)}}
 .bird{position:absolute;left:0;width:34px;height:12px;opacity:.5;animation:fly var(--d) linear infinite;animation-delay:var(--dl)}
 @keyframes fly{from{transform:translate(-60px,0)}to{transform:translate(112vw,-14px)}}
 .buildings{position:absolute;left:0;bottom:45%;width:200px;height:180px;color:#8C6A46;opacity:.12}
-.boatwrap2{position:absolute;left:0;bottom:9%;width:160px;height:58px;will-change:transform}
+.boatwrap2{position:absolute;left:0;bottom:9%;width:160px;height:58px}
 .boat2{animation:sail2 32s linear infinite}
-.boat2 svg{display:block;width:160px;height:58px;filter:drop-shadow(0 0 10px rgba(255,170,90,.5))}
+.boat2 svg{display:block;width:160px;height:58px}
 @keyframes sail2{0%{transform:translate(-180px,0)}25%{transform:translate(25vw,-4px)}50%{transform:translate(50vw,3px)}75%{transform:translate(75vw,-4px)}100%{transform:translate(112vw,0)}}
 .lanbig{position:absolute;inset:0}
-.lanbig i{position:absolute;border-radius:50%;filter:blur(10px);
+.lanbig i{position:absolute;border-radius:50%;
   background:radial-gradient(circle,rgba(255,190,110,.85),rgba(234,104,62,.5) 45%,rgba(234,104,62,0) 72%);
   animation:lanDrift var(--d) ease-in-out infinite alternate}
 @keyframes lanDrift{from{transform:translate(-14px,6px) scale(.95)}to{transform:translate(18px,-10px) scale(1.06)}}
-.railing{position:absolute;left:0;right:0;bottom:0;height:46px;opacity:.92;filter:blur(1px);
+.railing{position:absolute;left:0;right:0;bottom:0;height:46px;opacity:.92;
   background:
     linear-gradient(#3A2A22,#3A2A22) top/100% 6px no-repeat,
     linear-gradient(#3A2A22,#3A2A22) bottom/100% 6px no-repeat,
     repeating-linear-gradient(90deg,#3A2A22 0 4px,transparent 4px 30px)}
-.refl i:nth-child(5){left:30%;width:16px;filter:blur(6px);animation-duration:5.5s}
-.refl i:nth-child(6){left:72%;width:20px;filter:blur(6px);animation-duration:8s;animation-delay:-3s}
+.refl i:nth-child(5){left:30%;width:16px;animation-duration:5.5s}
+.refl i:nth-child(6){left:72%;width:20px;animation-duration:8s;animation-delay:-3s}
 /* ② 오사카성 — 단풍 + 금빛 햇살 */
 #sc2{background:linear-gradient(180deg,#FBF6EA,#F7F3EB 40%,#F6EEDF)}
-#sc2 .sun{position:absolute;left:-18%;top:-16%;width:86%;height:66%;background:radial-gradient(circle at 34% 34%,rgba(255,206,128,.62),rgba(255,206,128,0) 66%);filter:blur(6px);animation:breathe 17s ease-in-out infinite alternate}
+#sc2 .sun{position:absolute;left:-18%;top:-16%;width:86%;height:66%;background:radial-gradient(circle at 34% 34%,rgba(255,206,128,.62),rgba(255,206,128,0) 66%);animation:breathe 17s ease-in-out infinite alternate}
 @keyframes breathe{to{transform:translate3d(4%,3%,0) scale(1.1);opacity:.7}}
 .rays{position:absolute;left:-25%;top:-30%;width:110%;height:90%;transform-origin:34% 30%;
   background:repeating-conic-gradient(from 0deg at 34% 30%,rgba(255,206,128,.13) 0deg 5deg,transparent 5deg 16deg);
@@ -982,8 +981,7 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 #sc2 .castle{bottom:-2%;right:-6%;width:290px;height:200px;opacity:.06}
 #sc2 .wall{bottom:0;left:-4%;width:340px;height:70px;opacity:.09}
 .leaves{position:absolute;inset:0;overflow:hidden;opacity:calc(.9*var(--int))}
-.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl);filter:drop-shadow(0 3px 3px rgba(120,70,40,.18))}
-.leaf.front{filter:blur(1px) drop-shadow(0 4px 4px rgba(120,70,40,.22))}
+.leaf{position:absolute;top:0;left:var(--x);width:var(--w);height:var(--w);background-size:100% 100%;background-repeat:no-repeat;opacity:0;animation:fall var(--t) linear infinite;animation-delay:var(--dl)}
 @keyframes fall{0%{transform:translate3d(0,-14vh,0) rotate(-12deg);opacity:0}8%{opacity:var(--o)}22%{transform:translate3d(-9vw,12vh,0) rotate(78deg)}42%{transform:translate3d(-4vw,36vh,0) rotate(150deg)}62%{transform:translate3d(-15vw,62vh,0) rotate(238deg)}82%{transform:translate3d(-9vw,86vh,0) rotate(302deg)}100%{transform:translate3d(-22vw,114vh,0) rotate(388deg);opacity:0}}
 .motes{position:absolute;inset:0;opacity:calc(.9*var(--int))}
 .motes i{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFE9A8;box-shadow:0 0 8px 2px rgba(255,220,140,.8);animation:mote 9s ease-in-out infinite alternate}
@@ -992,13 +990,13 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='30'%3E%3Cpath fill='%23B8452C' d='M14 3l2 5.4 5.4-2.2-1.6 5.4 5.4.4-4 3.8 4 3.8-5.4.4 1.6 5.4-5.4-2.2-2 5.6-2-5.6-5.4 2.2 1.6-5.4-5.4-.4 4-3.8-4-3.8 5.4-.4-1.6-5.4 5.4 2.2z'/%3E%3C/svg%3E");
   background-size:64px 30px;background-repeat:repeat-x}
 .moat{position:absolute;left:0;right:0;bottom:0;height:9%;background:linear-gradient(0deg,rgba(217,163,43,.22),rgba(217,163,43,0));overflow:hidden}
-.moat i{position:absolute;left:-20%;width:140%;height:6px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,214,130,.7),transparent);filter:blur(3px);animation:moatRip 8s ease-in-out infinite alternate}
+.moat i{position:absolute;left:-20%;width:140%;height:6px;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(255,214,130,.7),transparent);animation:moatRip 8s ease-in-out infinite alternate}
 .moat i:nth-child(2){bottom:34%;animation-duration:11s;animation-delay:-4s;opacity:.7}
 @keyframes moatRip{from{transform:translateX(-4%) scaleX(.9);opacity:.4}to{transform:translateX(4%) scaleX(1.05);opacity:.8}}
 /* ② 입체감 — 먼 산·소나무·앞 단풍 가지·앞 큰 잎·햇살 플레어 */
 .hills{position:absolute;left:0;right:0;bottom:8%;width:100%;height:80px;color:#8C6A46;opacity:.05}
 .pines{position:absolute;left:0;bottom:6%;width:300px;height:120px;color:#5A4A3A;opacity:.1}
-.branch{position:absolute;filter:blur(2px);opacity:.92}
+.branch{position:absolute;opacity:.92}
 .branch.tl{top:-8px;left:-16px;width:200px;height:160px}
 .branch.br{top:-6px;right:-14px;width:170px;height:140px}
 .branch.br .mirror{transform:scaleX(-1)}
@@ -1006,10 +1004,9 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 .branch.br svg{transform-origin:100% 0;animation-delay:-3.5s}
 @keyframes branchSway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.4deg)}}
 .leaves-fg{position:absolute;inset:0;overflow:hidden}
-.leaf.big{filter:blur(3px) drop-shadow(0 4px 4px rgba(120,70,40,.2))}
 .flare{position:absolute;left:8%;top:6%;width:220px;height:26px;border-radius:50%;
   background:linear-gradient(90deg,transparent,rgba(255,220,150,.5),transparent);
-  filter:blur(6px);transform:rotate(-24deg);animation:flareP 9s ease-in-out infinite alternate}
+  transform:rotate(-24deg);animation:flareP 9s ease-in-out infinite alternate}
 @keyframes flareP{from{opacity:.12}to{opacity:.3}}
 .ground{position:absolute;left:0;right:0;bottom:0;height:44px;background:linear-gradient(180deg,transparent,rgba(90,60,30,.16))}
 .fleaf{position:absolute;background-size:100% 100%;background-repeat:no-repeat;opacity:.5;
@@ -1018,17 +1015,17 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 /* ③ 우라난바 — 골목 김 + 네온 */
 #sc3{background:linear-gradient(180deg,#160f13,#2a1d20 42%,#33211d 72%,#1d1417)}
 .steam{position:absolute;left:0;right:0;bottom:0;height:100%;opacity:calc(.9*var(--int))}
-.steam i{position:absolute;bottom:-14%;width:var(--w);height:52%;border-radius:50% 50% 40% 40%;background:linear-gradient(0deg,rgba(255,206,166,.28),rgba(255,178,140,.1) 52%,rgba(255,178,140,0));filter:blur(20px);animation:rise var(--d) ease-in-out infinite;animation-delay:var(--dl);opacity:0}
-.steam i.front{filter:blur(24px);background:linear-gradient(0deg,rgba(255,206,166,.38),rgba(255,178,140,.14) 52%,rgba(255,178,140,0))}
+.steam i{position:absolute;bottom:-14%;width:var(--w);height:52%;border-radius:50% 50% 40% 40%;background:radial-gradient(ellipse 58% 66% at 50% 100%,rgba(255,206,166,.3),rgba(255,178,140,.12) 54%,rgba(255,178,140,0) 80%);animation:rise var(--d) ease-in-out infinite;animation-delay:var(--dl);opacity:0}
+.steam i.front{background:radial-gradient(ellipse 58% 66% at 50% 100%,rgba(255,206,166,.4),rgba(255,178,140,.16) 54%,rgba(255,178,140,0) 80%)}
 @keyframes rise{0%{transform:translate3d(0,12vh,0) scale(.8,.7);opacity:0}22%{opacity:.62}58%{transform:translate3d(16px,-16vh,0) scale(1.06,1.15);opacity:.4}100%{transform:translate3d(-14px,-42vh,0) scale(1.24,1.5);opacity:0}}
 .neon{position:absolute;inset:0;opacity:calc(.9*var(--int))}
-.neon i{position:absolute;display:block;border-radius:50%;filter:blur(46px);animation:glow var(--d) ease-in-out infinite alternate;opacity:.4}
+.neon i{position:absolute;display:block;border-radius:50%;animation:glow var(--d) ease-in-out infinite alternate;opacity:.4}
 .neon i:nth-child(1){width:300px;height:300px;left:-70px;top:8%;background:radial-gradient(circle,rgba(232,90,79,.75),rgba(232,90,79,0) 68%);--d:24s}
 .neon i:nth-child(2){width:250px;height:250px;right:-60px;top:26%;background:radial-gradient(circle,rgba(217,130,43,.8),rgba(217,130,43,0) 68%);--d:31s;animation-delay:-8s}
 .neon i:nth-child(3){width:260px;height:260px;left:26%;bottom:4%;background:radial-gradient(circle,rgba(79,209,197,.6),rgba(79,209,197,0) 68%);--d:28s;animation-delay:-15s}
 .neon i:nth-child(4){width:200px;height:200px;right:6%;bottom:16%;background:radial-gradient(circle,rgba(255,196,120,.7),rgba(255,196,120,0) 68%);--d:22s;animation-delay:-4s}
 .neon i:nth-child(5){width:180px;height:180px;left:40%;top:10%;background:radial-gradient(circle,rgba(255,122,184,.55),rgba(255,122,184,0) 68%);--d:26s;animation-delay:-11s}
-.neon i:nth-child(6){width:120px;height:120px;left:8%;bottom:30%;background:radial-gradient(circle,rgba(255,182,72,.75),rgba(255,182,72,0) 62%);filter:blur(24px);--d:19s;animation-delay:-6s}
+.neon i:nth-child(6){width:120px;height:120px;left:8%;bottom:30%;background:radial-gradient(circle,rgba(255,182,72,.75),rgba(255,182,72,0) 62%);--d:19s;animation-delay:-6s}
 .neon i:nth-child(7){width:150px;height:150px;left:55%;bottom:38%;background:radial-gradient(circle,rgba(179,136,255,.55),rgba(179,136,255,0) 68%);--d:25s;animation-delay:-13s}
 @keyframes glow{to{transform:translate3d(26px,-22px,0) scale(1.16);opacity:.7}}
 .embers{position:absolute;inset:0;opacity:calc(.9*var(--int))}
@@ -1043,7 +1040,7 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 @keyframes winF{from{opacity:.6}to{opacity:.95}}
 /* 우라난바 강화 — 앞쪽 빛망울 · 간판 추가 · 가로등 · 젖은 길 · 제등 줄 */
 .orbs{position:absolute;inset:0}
-.orbs i{position:absolute;display:block;border-radius:50%;filter:blur(30px);opacity:.3;animation:orbDrift var(--d) ease-in-out infinite alternate}
+.orbs i{position:absolute;display:block;border-radius:50%;opacity:.3;animation:orbDrift var(--d) ease-in-out infinite alternate}
 .orbs i:nth-child(1){width:90px;height:90px;left:12%;top:24%;background:radial-gradient(circle,rgba(255,170,90,.8),rgba(255,170,90,0) 70%);--d:44s}
 .orbs i:nth-child(2){width:70px;height:70px;left:62%;top:58%;background:radial-gradient(circle,rgba(255,122,184,.7),rgba(255,122,184,0) 70%);--d:52s;animation-delay:-14s}
 .orbs i:nth-child(3){width:100px;height:100px;left:38%;top:68%;background:radial-gradient(circle,rgba(255,196,120,.7),rgba(255,196,120,0) 70%);--d:58s;animation-delay:-26s}
@@ -1056,7 +1053,7 @@ body[data-p="3"] .scrim{background:linear-gradient(180deg,rgba(26,21,24,.55),tra
 .lamp .halo{animation:haloB 4s ease-in-out infinite alternate}
 @keyframes haloB{from{opacity:.75}to{opacity:1}}
 .street{position:absolute;left:0;right:0;bottom:0;height:13%;overflow:hidden}
-.street i{position:absolute;left:-10%;width:120%;height:5px;border-radius:50%;filter:blur(4px);animation:streetRip var(--d) ease-in-out infinite alternate}
+.street i{position:absolute;left:-10%;width:120%;height:5px;border-radius:50%;animation:streetRip var(--d) ease-in-out infinite alternate}
 .street i:nth-child(1){bottom:18%;background:linear-gradient(90deg,transparent,rgba(255,107,94,.8),rgba(255,107,94,.4),transparent);--d:7s}
 .street i:nth-child(2){bottom:38%;background:linear-gradient(90deg,transparent,rgba(255,182,72,.75),transparent);--d:9s;animation-delay:-3s}
 .street i:nth-child(3){bottom:56%;background:linear-gradient(90deg,transparent,rgba(79,209,197,.6),transparent);--d:8s;animation-delay:-5s}
@@ -1085,7 +1082,7 @@ body.bg-off .bg{opacity:0;visibility:hidden}
 /* ---- 층: 배경(0) → 종이 패턴(0) → 콘텐츠(1) ---- */
 #app{position:relative;z-index:1;isolation:isolate}
 .paper{opacity:.05}
-body[data-p="3"] .paper{opacity:.02;mix-blend-mode:soft-light}
+body[data-p="3"] .paper{opacity:.02;mix-blend-mode:normal}
 body.bg-off .paper{opacity:.062;mix-blend-mode:normal}
 
 /* ---- 히어로: 정적 일러스트 대신 모션 배경이 그 자리를 맡는다 ---- */
@@ -1153,8 +1150,7 @@ body[data-p="3"] nav button.on .ic{filter:none}
   position:fixed;right:12px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:60;
   display:flex;align-items:center;gap:5px;height:36px;padding:0 12px 0 10px;
   border-radius:999px;border:1px solid rgba(255,255,255,.6);
-  background:rgba(255,253,249,.86);color:#4A423A;
-  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  background:rgba(255,253,249,.96);color:#4A423A;
   box-shadow:0 8px 22px -10px rgba(50,35,20,.5),0 1px 0 rgba(255,255,255,.7) inset;
   font-size:14px;line-height:1;letter-spacing:-.02em;transition:transform .14s;
 }
@@ -1201,17 +1197,12 @@ body[data-p="3"] .mo-btn .lb{color:#D8C9B8}
    · 빛은 테두리를 따라 6초에 한 바퀴 (#E85A4F → #F6B25E)
    · 모바일 야간 가독성·배터리 때문에 3D 틸트(P12)는 쓰지 않는다
    ========================================================================== */
-@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
-@keyframes beamspin{to{--ang:360deg}}
 /* 바깥 래퍼가 1.5px 두게 테두리 띠가 되고, 카드가 그 안을 덮는다.
-   mask를 쓰지 않아 iOS Safari에서도 그대로 보인다. */
+   iOS Safari: @property --ang + conic-gradient 회전은 매 프레임 스타일 재계산을
+   유발해 스크롤이 버벅인다. → 정적 그라데이션 테두리로 대체(시각 차이 거의 없음). */
 .beamwrap{
   position:relative;padding:1.5px;border-radius:16px;
-  background:linear-gradient(100deg,#E85A4F,#F6B25E);   /* @property 미지원 대비 정적 fallback */
-  background:conic-gradient(from var(--ang,0deg),
-    rgba(232,90,79,0) 0deg,rgba(232,90,79,0) 248deg,rgba(232,90,79,.12) 288deg,
-    rgba(232,90,79,.55) 320deg,#E85A4F 336deg,#F6B25E 349deg,#FFE0AE 356deg,rgba(255,224,174,0) 360deg);
-  animation:beamspin 6s linear infinite;
+  background:linear-gradient(110deg, rgba(232,90,79,.45), rgba(246,178,94,.45));
   box-shadow:0 0 10px -5px rgba(232,90,79,.35);
 }
 /* QR 버튼 — 여행 중 가장 많이 누르는 버튼 */
@@ -1234,7 +1225,6 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
 @media (prefers-reduced-motion:reduce){
   h1 .ch{animation:none}
   .dday .dot{animation:none}
-  .beamwrap{animation:none}
 }
 
 
@@ -1345,13 +1335,11 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
 <div class="bg" aria-hidden="true">
   <div class="sc" id="sc1">
     <div class="clouds" id="clouds">
-      <span class="cloud" style="width:140px;height:36px;top:6%;--d:80s;animation-delay:-20s"></span>
-      <span class="cloud" style="width:200px;height:44px;top:12%;--d:110s;animation-delay:-55s"></span>
-      <span class="cloud" style="width:170px;height:40px;top:18%;--d:95s;animation-delay:-80s"></span>
+      <span class="cloud" style="width:170px;height:40px;top:6%;--d:80s;animation-delay:-20s"></span>
+      <span class="cloud" style="width:210px;height:46px;top:14%;--d:110s;animation-delay:-55s"></span>
     </div>
-    <svg class="bird" style="top:8%;--d:32s;--dl:-8s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
-    <svg class="bird" style="top:13%;--d:40s;--dl:-20s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
-    <svg class="bird" style="top:19%;--d:36s;--dl:-30s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:9%;--d:32s;--dl:-8s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:17%;--d:40s;--dl:-20s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
     <svg class="sil sign" viewBox="0 0 64 180" aria-hidden="true">
       <rect x="2" y="2" width="60" height="176" rx="9" fill="currentColor"/>
       <g fill="#F7F3EB" font-family="Hiragino Mincho ProN,Yu Mincho,serif" font-size="30" text-anchor="middle"><text x="32" y="50">道</text><text x="32" y="88">頓</text><text x="32" y="126">堀</text></g>
@@ -1385,10 +1373,10 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
         <rect x="152" y="108" width="5" height="7"/><rect x="164" y="126" width="5" height="7"/>
       </g>
     </svg>
-    <div class="water" id="water"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="water" id="water"><i></i><i></i><i></i></div>
     <div class="wl"></div>
     <div class="water-near" id="waterNear"><i></i><i></i><i></i></div>
-    <div class="refl"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="refl"><i></i><i></i><i></i><i></i></div>
     <div class="boatwrap" id="boatwrap"><div class="boat">
       <svg viewBox="0 0 120 44" aria-hidden="true">
         <path d="M6 26 L114 26 L104 38 L16 38 Z" fill="#6B4A2F"/>
@@ -1420,8 +1408,7 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
     <div class="sun"></div>
     <div class="rays"></div>
     <div class="flare" id="flare"></div>
-    <svg class="bird" style="top:10%;--d:38s;--dl:-12s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
-    <svg class="bird" style="top:16%;--d:44s;--dl:-28s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
+    <svg class="bird" style="top:12%;--d:38s;--dl:-12s" viewBox="0 0 40 12"><path d="M2 8 Q10 2 20 8 Q30 2 38 8" fill="none" stroke="#6B4A2F" stroke-width="2" stroke-linecap="round"/></svg>
     <svg class="hills" id="hills" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0 80 V50 Q60 20 120 42 Q180 14 240 40 Q300 18 360 44 Q390 52 400 48 V80 Z" fill="currentColor"/>
     </svg>
@@ -1488,9 +1475,7 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
     <div class="nsign pink" style="right:4%;top:42%;animation-delay:-5s"><span>たこ焼き</span></div>
     <div class="win" style="left:18%;top:34%;animation-delay:-1s"></div>
     <div class="win" style="left:72%;top:26%;animation-delay:-3s"></div>
-    <div class="win" style="left:55%;top:44%;animation-delay:-2s"></div>
-    <div class="win" style="left:38%;top:20%;animation-delay:-4s"></div>
-    <div class="win" style="left:62%;top:52%;animation-delay:-2.5s"></div>
+    <div class="win" style="left:48%;top:44%;animation-delay:-2s"></div>
     <svg class="lamp" viewBox="0 0 74 190" aria-hidden="true">
       <path d="M37 190 V30" stroke="#0D090B" stroke-width="5"/>
       <path d="M37 30 Q37 14 52 14" fill="none" stroke="#0D090B" stroke-width="4"/>
@@ -1501,12 +1486,11 @@ h1 .ch{display:inline-block;animation:h1rise .58s cubic-bezier(.34,1.56,.64,1) b
     <svg class="alley" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0 90 V55 L40 45 L70 55 L110 38 L150 52 L200 30 L250 50 L300 40 L340 58 L400 48 V90 Z" fill="#0D090B"/>
     </svg>
-    <div class="street"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="street"><i></i><i></i><i></i></div>
     <div class="steam" id="steam"></div>
     <div class="embers" id="embers"></div>
     <div class="stringlights" id="stringlights"><svg class="wire" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 Q200 32 400 8" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/></svg></div>
   </div>
-  <div class="grain"></div>
   <div class="scrim"></div>
 </div>
 
@@ -4600,12 +4584,12 @@ if(isWide()){
   }catch(e){}
   function save(){ try{ localStorage.setItem(LS, JSON.stringify(st)); }catch(e){} }
 
-  /* ---------- ① 제등 불빛 30개 (먼 14 + 가까운 16) ---------- */
+  /* ---------- ① 제등 불빛 14개 (먼 7 + 가까운 7) ---------- */
   var lanEls = [];
   var lans = document.getElementById('lans');
   if(lans){
-    for(var i=0;i<30;i++){
-      var far = i<14, s = far ? (8+Math.random()*6) : (14+Math.random()*12);
+    for(var i=0;i<14;i++){
+      var far = i<7, s = far ? (10+Math.random()*6) : (18+Math.random()*12);
       var b = document.createElement('b');
       if(far) b.className = 'far';
       b.style.cssText = 'left:'+(3+Math.random()*94).toFixed(1)+'%;bottom:'+(3+Math.random()*67).toFixed(1)+
@@ -4615,7 +4599,7 @@ if(isWide()){
     }
   }
 
-  /* ---------- ② 단풍잎 30장 (뒤 18 + 앞 12) ---------- */
+  /* ---------- ② 단풍잎 12장 (뒤 7 + 앞 5) ---------- */
   var MA = '%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 1.4l1.7 4.7 4-1.9-1.4 4.2 4.7.4-3.5 3 3.5 3.1-4.7.4 1.4 4.2-4-2-1.7 4.9-1.7-4.9-4 2 1.4-4.2-4.7-.4 3.5-3.1-3.5-3 4.7-.4-1.4-4.2 4 1.9z%27/%3E%3Cpath stroke=%27%238B3A21%27 stroke-width=%27.8%27 d=%27M12 8.5V23%27/%3E%3C/svg%3E';
   var GI = '%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27COL%27 d=%27M12 22.4V13C10.8 13 4 11 2 5.2c4.2-1.2 8.2 1 10 4.9 1.8-3.9 5.8-6.1 10-4.9C20 11 13.2 13 12 13v9.4z%27/%3E%3C/svg%3E';
   function uri(tpl,c){ return "url('data:image/svg+xml,"+tpl.replace('COL','%23'+c)+"')"; }
@@ -4623,8 +4607,8 @@ if(isWide()){
   var leafEls = [];
   var lv = document.getElementById('leaves');
   if(lv){
-    for(var j=0;j<30;j++){
-      var front = j>=18;
+    for(var j=0;j<12;j++){
+      var front = j>=7;
       var el = document.createElement('i');
       el.className = 'leaf'+(front ? ' front' : '');
       var w = front ? (26+Math.random()*14) : (15+Math.random()*11);
@@ -4635,10 +4619,10 @@ if(isWide()){
     }
   }
 
-  /* ---------- ② 금빛 먼지 10개 ---------- */
+  /* ---------- ② 금빛 먼지 4개 ---------- */
   var mo = document.getElementById('motes');
   if(mo){
-    for(var k=0;k<10;k++){
+    for(var k=0;k<4;k++){
       var d = document.createElement('i');
       d.style.cssText = 'left:'+(5+Math.random()*70).toFixed(1)+'%;top:'+(5+Math.random()*55).toFixed(1)+
         '%;animation-duration:'+(7+Math.random()*4).toFixed(1)+'s;animation-delay:-'+(Math.random()*8).toFixed(1)+'s';
@@ -4646,25 +4630,25 @@ if(isWide()){
     }
   }
 
-  /* ---------- ③ 김 8줄기 (뒤 5 + 앞 3) ---------- */
+  /* ---------- ③ 김 4줄기 (뒤 2 + 앞 2) ---------- */
   var steamEls = [];
   var sd = document.getElementById('steam');
   if(sd){
-    for(var m=0;m<8;m++){
-      var fr = m>=5, col = document.createElement('i');
+    for(var m=0;m<4;m++){
+      var fr = m>=2, col = document.createElement('i');
       if(fr) col.className = 'front';
-      col.style.cssText = 'left:'+(4+m*11+Math.random()*6).toFixed(1)+'%;--w:'+
-        (fr ? 90+Math.random()*50 : 40+Math.random()*30).toFixed(0)+'px;--d:'+
+      col.style.cssText = 'left:'+(6+m*24+Math.random()*8).toFixed(1)+'%;--w:'+
+        (fr ? 100+Math.random()*60 : 46+Math.random()*30).toFixed(0)+'px;--d:'+
         (fr ? 14+Math.random()*6 : 9+Math.random()*5).toFixed(1)+'s;--dl:-'+((m*2.2)+Math.random()*3).toFixed(1)+'s';
       sd.appendChild(col); steamEls.push(col);
     }
   }
 
-  /* ---------- ③ 불씨 10개 ---------- */
+  /* ---------- ③ 불씨 4개 ---------- */
   var embEls = [];
   var em = document.getElementById('embers');
   if(em){
-    for(var n=0;n<10;n++){
+    for(var n=0;n<4;n++){
       var e = document.createElement('i');
       e.className = 'ember';
       e.style.cssText = 'left:'+(8+Math.random()*84).toFixed(1)+'%;--d:'+(6+Math.random()*4).toFixed(1)+
@@ -4673,13 +4657,13 @@ if(isWide()){
     }
   }
 
-  /* ---------- ③ 제등 줄 전구 14개 (전선 곡선 y = 8 + 48·t·(1-t)) ---------- */
+  /* ---------- ③ 제등 줄 전구 8개 (전선 곡선 y = 8 + 48·t·(1-t)) ---------- */
   var bulbEls = [];
   var sl = document.getElementById('stringlights');
   var BC = [['#FFC46B','rgba(255,196,107,.55)'],['#FF7A5C','rgba(255,122,92,.5)'],['#FFB3C7','rgba(255,179,199,.5)']];
   if(sl){
-    for(var p2=0;p2<14;p2++){
-      var t = p2/13, x = 4+t*92, yy = 8+48*t*(1-t), colr = BC[p2%3];
+    for(var p2=0;p2<8;p2++){
+      var t = p2/7, x = 4+t*92, yy = 8+48*t*(1-t), colr = BC[p2%3];
       var bl = document.createElement('i');
       bl.className = 'bulb';
       bl.style.cssText = 'left:'+x.toFixed(1)+'%;top:'+yy.toFixed(1)+'px;--d:'+(3+Math.random()*2).toFixed(1)+
@@ -4693,11 +4677,11 @@ if(isWide()){
   /* ---------- 강도 3단 ---------- */
   var INT = [.55, 1, 1.6];
   var GROUPS = [
-    { els: lanEls,  counts: [14,24,30] },
-    { els: leafEls, counts: [14,24,30] },
-    { els: steamEls, counts: [4,6,8] },
-    { els: embEls,  counts: [4,8,10] },
-    { els: bulbEls, counts: [7,11,14] }
+    { els: lanEls,  counts: [8,11,14] },
+    { els: leafEls, counts: [6,9,12] },
+    { els: steamEls, counts: [2,3,4] },
+    { els: embEls,  counts: [2,3,4] },
+    { els: bulbEls, counts: [5,6,8] }
   ];
   function applyIntensity(){
     document.body.style.setProperty('--int', INT[st.i]);
@@ -4737,17 +4721,24 @@ if(isWide()){
     { el: document.getElementById('ground'), f: .18 }
   ];
   if(!reduce){
-    var scrollY = 0, pcur = 0;
-    addEventListener('scroll', function(){ scrollY = window.pageYOffset || document.documentElement.scrollTop || 0; }, { passive: true });
-    (function pframe(){
+    /* 스크롤 중에만 프레임을 돌리고, 값이 바뀐 층만 transform 을 쓴다.
+       (예전엔 정지 상태에서도 매 프레임 23개 층에 스타일을 다시 썼다) */
+    var scrollY = 0, pcur = 0, raf = null;
+    addEventListener('scroll', function(){
+      scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+      if(raf === null) raf = requestAnimationFrame(pframe);
+    }, { passive: true });
+    function pframe(){
       pcur += (scrollY - pcur) * .1;
       for(var q=0;q<PX.length;q++){
         var L = PX[q];
         if(!L.el) continue;
-        L.el.style.transform = 'translate3d(0,'+(-pcur*L.f).toFixed(1)+'px,0)';
+        var v = (-pcur*L.f).toFixed(1);
+        if(L.v !== v){ L.el.style.transform = 'translate3d(0,'+v+'px,0)'; L.v = v; }
       }
-      requestAnimationFrame(pframe);
-    })();
+      if(Math.abs(scrollY - pcur) > 0.15){ raf = requestAnimationFrame(pframe); }
+      else { pcur = scrollY; raf = null; }
+    }
   }
 
   /* ---------- 하루 흐름 자동 순환 (모드 4) ---------- */

@@ -2,7 +2,7 @@
    전략: Network-First — 네트워크를 먼저 시도하고, 실패하면 캐시.
    앱 업데이트가 바로 반영되고, 비행기 모드·지하철에서도 열립니다.
    캐시 버전을 올리면(v1 → v2) 예전 캐시는 자동 정리됩니다. */
-var CACHE = 'osaka-trip-v3';
+var CACHE = 'osaka-trip-v4';
 
 var CORE = [
   './',
