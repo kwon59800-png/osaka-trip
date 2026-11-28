@@ -29,19 +29,21 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  /* iOS Safari: overflow-x:hidden 이 sticky·fixed 배경과 겹치면 스크롤 컴포지팅이 깨져
+     본문 글자가 사라진다. clip 은 스크롤 컨테이너를 만들지 않아 sticky 를 유지한 채 가로 넘침만 자른다. */
+  html,body{overflow-x:clip}
   body{
     margin:0;background:var(--bg);color:var(--ink);
     font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;
     padding-bottom:calc(72px + env(safe-area-inset-bottom));
-    overflow-x:hidden;
   }
   .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
   .serif{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif KR","Apple SD Gothic Neo",serif}
   button{font-family:inherit;color:inherit;cursor:pointer}
   a{color:inherit}
   .paper{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.062}
-  #app{position:relative;z-index:1}
+  #app{position:relative;z-index:1;isolation:isolate}
 
   /* ================= HERO ================= */
   .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:#FBF3E4}
@@ -60,8 +62,8 @@
   .dates{margin:5px 0 0;font-size:11.5px;color:var(--dim);letter-spacing:-.01em}
   .dday{
     position:absolute;right:18px;top:calc(env(safe-area-inset-top) + 20px);
-    text-align:right;background:rgba(255,253,249,.82);border:1px solid var(--line);
-    border-radius:14px;padding:7px 11px;backdrop-filter:blur(8px);box-shadow:var(--sh);
+    text-align:right;background:rgba(255,253,249,.92);border:1px solid var(--line);
+    border-radius:14px;padding:7px 11px;box-shadow:var(--sh);
   }
   .dday b{display:block;font-size:19px;font-weight:800;letter-spacing:-.03em;color:var(--coral);line-height:1.1}
   .dday span{display:block;font-size:9px;color:var(--dim2);margin-top:2px;letter-spacing:-.01em}
@@ -716,8 +718,7 @@
   /* ================= DAY SEGMENT ================= */
   .dseg{
     position:sticky;top:0;z-index:24;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
-    margin:0 0 10px;padding:6px 0 7px;background:rgba(250,246,239,.95);
-    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    margin:0 0 10px;padding:6px 0 7px;background:rgba(250,246,239,.97);
   }
   .dseg::-webkit-scrollbar{display:none}
   .dseg button{
@@ -897,7 +898,8 @@
   .yacts .btn{flex:1;justify-content:center;text-align:center;font-size:11px;padding:8px 6px;border-radius:10px}
   .ynote{margin:6px 0 0;font-size:9px;line-height:1.5;color:var(--dim2)}
 /* ===== 배경 (3장면) ===== */
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg)}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:var(--bg);
+  -webkit-transform:translateZ(0);transform:translateZ(0);isolation:isolate}
 .sc{position:absolute;inset:0;opacity:0;transition:opacity .75s ease;will-change:opacity}
 body[data-p="1"] #sc1,body[data-p="2"] #sc2,body[data-p="3"] #sc3{opacity:1}
 .sc *{animation-play-state:paused}
@@ -1081,7 +1083,7 @@ body.bg-off{background:var(--bg)}
 body.bg-off .bg{opacity:0;visibility:hidden}
 
 /* ---- 층: 배경(0) → 종이 패턴(0) → 콘텐츠(1) ---- */
-#app{position:relative;z-index:1}
+#app{position:relative;z-index:1;isolation:isolate}
 .paper{opacity:.05}
 body[data-p="3"] .paper{opacity:.02;mix-blend-mode:soft-light}
 body.bg-off .paper{opacity:.062;mix-blend-mode:normal}
@@ -1099,10 +1101,11 @@ h1{color:var(--tx)}
 /* ---- 카드·패널: 은은한 반투명 (모션이 비친다) ---- */
 body:not(.bg-off) .ov,body:not(.bg-off) .day,body:not(.bg-off) .wx,body:not(.bg-off) .fcard,body:not(.bg-off) .wtable,body:not(.bg-off) .calc,body:not(.bg-off) .btable,body:not(.bg-off) .mjcard,body:not(.bg-off) .ctable,body:not(.bg-off) .pcard,body:not(.bg-off) .bk,body:not(.bg-off) .bhero,body:not(.bg-off) .urgent,
 body:not(.bg-off) .mm-toggle{
-  background-color:rgba(255,253,249,.86);
+  /* iOS Safari: 움직이는 fixed 배경 위에 backdrop-filter 카드가 여러 장 겹치면
+     스크롤할 때 카드 안 글자가 사라지고 빈 블러 박스만 남는다.
+     → blur 를 빼고 불투명도를 올린 단색 배경으로 대체 */
+  background-color:rgba(255,253,249,.93);
   background-image:none;
-  backdrop-filter:blur(8px) saturate(112%);
-  -webkit-backdrop-filter:blur(8px) saturate(112%);
   border-color:rgba(234,227,214,.85);
 }
 body:not(.bg-off) .wx,body:not(.bg-off) .bhero,body:not(.bg-off) .urgent{background-color:transparent}
