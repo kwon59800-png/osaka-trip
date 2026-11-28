@@ -775,15 +775,9 @@
   @media (max-width:959px){
     body:not(.plan-mode) .hero-art{display:none}
     body:not(.plan-mode) .hero{background:#FBF3E4}
-    body:not(.plan-mode) .hero-in{padding:calc(env(safe-area-inset-top) + 12px) 16px 2px}
-    body:not(.plan-mode) .kicker,body:not(.plan-mode) .hero-in .dates{display:none}
-    body:not(.plan-mode) h1{font-size:19px;margin:0;letter-spacing:-.03em}
-    body:not(.plan-mode) h1 small{font-size:9.5px;transform:translateY(-3px)}
-    body:not(.plan-mode) .dday{top:calc(env(safe-area-inset-top) + 10px);right:14px;padding:4px 9px;border-radius:11px}
-    body:not(.plan-mode) .dday b{font-size:15px}
-    body:not(.plan-mode) .dday span{font-size:8px;margin-top:0}
-    body:not(.plan-mode) .hero-bottom{padding:4px 14px 9px}
-    body:not(.plan-mode) main{padding-top:12px}
+    /* 일정 탭 이외 탭에서도 헤더는 일정 탭과 같은 여백·높이를 쓴다.
+       (예전엔 여기서 .hero-in 패딩을 12px로 줄이고 kicker/dates를 숨겨
+         아이폰 상태바·다이나믹 아일랜드 뒤로 제목과 D-day 배지가 잘려 보였다) */
   }
   @media (min-width:760px){
     .hero-in{padding-left:28px;padding-right:28px;max-width:720px}
@@ -4068,7 +4062,20 @@ function go(tab){
   $$('.tab').forEach(function(t){ t.classList.toggle('on', t.id === 'tab-' + tab); });
   $$('#nav button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-tab') === tab); });
   document.body.classList.toggle('plan-mode', tab === 'plan');
-  window.scrollTo(0, 0);
+  /* 탭 전환 시 최상단으로 — html{scroll-behavior:smooth} 때문에 window.scrollTo(0,0) 이
+     스무스 애니메이션으로 바뀌고, 탭 내용 교체·지도 렌더로 레이아웃이 바뀌면 애니메이션이
+     취소되어 스크롤이 덜 올라간 채 멈췄다(상단 헤더가 잘려 보이던 원인).
+     scroll-behavior 를 잠시 auto 로 두고 즉시 0으로 올린다. */
+  (function(){
+    var de = document.documentElement;
+    var sb = de.style.scrollBehavior;
+    de.style.scrollBehavior = 'auto';
+    try { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); } catch(e) {}
+    window.scrollTo(0, 0);
+    de.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
+    de.style.scrollBehavior = sb;
+  })();
   if(tab === 'plan'){
     renderDays();
     if(state.mini && !isWide()){ $('#mmWrap').classList.add('on'); drawMap('mini'); }
